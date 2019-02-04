@@ -80,19 +80,19 @@ class DefaultHeader extends Component {
             </DropdownToggle>
             <DropdownMenu right style={{ right: "auto" }}>
               <DropdownItem header tag="div" className="text-center">
-                <strong>Settings</strong>
+                <strong>Herramientas</strong>
               </DropdownItem>
               <DropdownItem>
-                <i className="fa fa-user" /> Profile
+                <i className="fa fa-user" /> Perfil
               </DropdownItem>
+              {/* <DropdownItem>
+                <i className="fa fa-wrench" /> Herramientas
+              </DropdownItem> */}
               <DropdownItem>
-                <i className="fa fa-wrench" /> Settings
-              </DropdownItem>
-              <DropdownItem>
-                <i className="fa fa-shield" /> Lock Account
+                <i className="fa fa-refresh" /> cambiar de aplicacion
               </DropdownItem>
               <DropdownItem onClick={e => this.props.onLogout(e)}>
-                <i className="fa fa-lock" /> Logout
+                <i className="fa fa-lock" /> cerrar sesion
               </DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
