@@ -32,7 +32,7 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault();
     // this.props.history.push(`${url.defaultLocal}3000/#/middleware`);
-    window.location = `${url.defaultLocal}3000/#/middleware`;
+    window.location = `${url.defaultServer}3000/#/middleware`;
   }
 
   render() {
