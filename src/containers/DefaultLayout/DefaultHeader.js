@@ -90,7 +90,7 @@ class DefaultHeader extends Component {
               </DropdownItem> */}
               <DropdownItem
                 onClick={e => {
-                  window.location = `${url.defaultLocal}3000/#/middleware`;
+                  window.location = `${url.defaultServer}3000/#/middleware`;
                   return null;
                 }}
               >
