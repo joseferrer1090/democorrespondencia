@@ -90,7 +90,7 @@ class DefaultHeader extends Component {
               </DropdownItem> */}
               <DropdownItem
                 onClick={e => {
-                  window.location = `${url.defaultServer}3000/#/middleware`;
+                  window.location = `${url.defaultLocal}3000/#/middleware`;
                   return null;
                 }}
               >
@@ -102,8 +102,8 @@ class DefaultHeader extends Component {
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
-        {/* <AppAsideToggler className="d-md-down-none" /> */}
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
+        {/* <AppAsideToggler className="d-md-down-none" />
+        <AppAsideToggler className="d-lg-none" mobile /> */}
       </React.Fragment>
     );
   }

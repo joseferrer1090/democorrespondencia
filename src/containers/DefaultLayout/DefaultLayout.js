@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
+import url from "./../../services/deploymentdata";
 
 import {
   AppAside,
@@ -30,7 +31,8 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault();
-    this.props.history.push("/login");
+    // this.props.history.push(`${url.defaultLocal}3000/#/middleware`);
+    window.location = `${url.defaultLocal}3000/#/middleware`;
   }
 
   render() {
