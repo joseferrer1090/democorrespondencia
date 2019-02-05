@@ -10,7 +10,7 @@ import {
   NavLink
 } from "reactstrap";
 import PropTypes from "prop-types";
-
+import url from "./../../services/deploymentdata";
 import {
   AppAsideToggler,
   AppHeaderDropdown,
@@ -88,7 +88,12 @@ class DefaultHeader extends Component {
               {/* <DropdownItem>
                 <i className="fa fa-wrench" /> Herramientas
               </DropdownItem> */}
-              <DropdownItem>
+              <DropdownItem
+                onClick={e => {
+                  window.location = `${url.defaultLocal}3000/#/middleware`;
+                  return null;
+                }}
+              >
                 <i className="fa fa-refresh" /> cambiar de aplicacion
               </DropdownItem>
               <DropdownItem onClick={e => this.props.onLogout(e)}>
