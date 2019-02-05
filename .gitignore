@@ -1,5 +1,9 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# services
+services/dataservices
+services/deploymentdata
+
 # dependencies
 /node_modules
 package-lock.json
