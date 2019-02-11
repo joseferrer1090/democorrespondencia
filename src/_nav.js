@@ -2,7 +2,8 @@ export default {
   items: [
     {
       name: "Inicio",
-      url: "/dashboard",
+
+      url: "/correspondencia",
       icon: "icon-home"
     },
     // {
@@ -18,7 +19,7 @@ export default {
 
     {
       name: "Bandeja de entrada",
-      url: "/base",
+      url: "/correspondencia/base",
       icon: "icon-drawer"
       // children: [
       //   {
@@ -36,7 +37,9 @@ export default {
     {
       name: "Bandeja interna",
       url: "/icons",
-      icon: "icon-star"
+      icon: "cui-inbox",
+      class: ""
+
       // children: [
       //   {
       //     name: "Entrada",
