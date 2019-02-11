@@ -19,19 +19,36 @@ export default {
     {
       name: "Bandeja de entrada",
       url: "/base",
-      icon: "icon-drawer",
-      children: [
-        {
-          name: "Interna",
-          url: "/base/breadcrumbs",
-          icon: "icon-envelope"
-        },
-        {
-          name: "Externa",
-          url: "/base/cards",
-          icon: "icon-envelope"
-        }
-      ]
+      icon: "icon-drawer"
+      // children: [
+      //   {
+      //     name: "Interna",
+      //     url: "/base/breadcrumbs",
+      //     icon: "icon-envelope"
+      //   },
+      //   {
+      //     name: "Externa",
+      //     url: "/base/cards",
+      //     icon: "icon-envelope"
+      //   }
+      // ]
+    },
+    {
+      name: "Bandeja interna",
+      url: "/icons",
+      icon: "icon-star"
+      // children: [
+      //   {
+      //     name: "Entrada",
+      //     url: "/icons/coreui-icons",
+      //     icon: "icon-star"
+      //   },
+      //   {
+      //     name: "Salida",
+      //     url: "/icons/flags",
+      //     icon: "icon-star"
+      //   }
+      // ]
     },
     {
       name: "Radicación",
@@ -55,63 +72,32 @@ export default {
       url: "/charts",
       icon: "icon-layers"
     },
+    // {
+    //   name: "Notifications",
+    //   url: "/notifications",
+    //   icon: "icon-bell",
+    //   children: [
+    //     {
+    //       name: "Alerts",
+    //       url: "/notifications/alerts",
+    //       icon: "icon-bell"
+    //     },
+    //     {
+    //       name: "Badges",
+    //       url: "/notifications/badges",
+    //       icon: "icon-bell"
+    //     },
+    //     {
+    //       name: "Modals",
+    //       url: "/notifications/modals",
+    //       icon: "icon-bell"
+    //     }
+    //   ]
+    // }
     {
-      name: "Icons",
-      url: "/icons",
-      icon: "icon-star",
-      children: [
-        {
-          name: "CoreUI Icons",
-          url: "/icons/coreui-icons",
-          icon: "icon-star",
-          badge: {
-            variant: "info",
-            text: "NEW"
-          }
-        },
-        {
-          name: "Flags",
-          url: "/icons/flags",
-          icon: "icon-star"
-        },
-        {
-          name: "Font Awesome",
-          url: "/icons/font-awesome",
-          icon: "icon-star",
-          badge: {
-            variant: "secondary",
-            text: "4.7"
-          }
-        },
-        {
-          name: "Simple Line Icons",
-          url: "/icons/simple-line-icons",
-          icon: "icon-star"
-        }
-      ]
-    },
-
-    {
-      name: "Notifications",
-      url: "/notifications",
-      icon: "icon-bell",
-      children: [
-        {
-          name: "Alerts",
-          url: "/notifications/alerts",
-          icon: "icon-bell"
-        },
-        {
-          name: "Badges",
-          url: "/notifications/badges",
-          icon: "icon-bell"
-        },
-        {
-          name: "Modals",
-          url: "/notifications/modals",
-          icon: "icon-bell"
-        }
-      ]
+      name: "Remitente",
+      url: "/remitente",
+      icon: "icon-user"
     }
   ]
 };
