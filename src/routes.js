@@ -7,6 +7,12 @@ const GenerateEdok = React.lazy(() => import("./views/GenerateEdok/index"));
 const Remitente = React.lazy(() => import("./views/Sender"));
 const RadicacionSimple = React.lazy(() => import("./views/Radication/index"));
 const RadicacionTramite = React.lazy(() => import("./views/Radication/index"));
+const CorrespondenceExternalInbox = React.lazy(() =>
+  import("./views/ExternalCorrespondence/index")
+);
+const CorrespondenceExternalOutbox = React.lazy(() =>
+  import("./views/ExternalCorrespondence/index")
+);
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -14,6 +20,14 @@ const routes = [
   { path: "/home", name: "", component: Dashboard },
   { path: "/edok", name: "Generate Edok", component: GenerateEdok },
   { path: "/senders", name: "Remitentes", component: Remitente },
+
+  // URL for Radication
+  {
+    path: "/radication",
+    exact: true,
+    component: RadicacionSimple,
+    name: "Radicacion"
+  },
   {
     path: "/radication/simple",
     name: "Radicacion simple",

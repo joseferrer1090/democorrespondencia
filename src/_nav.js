@@ -7,17 +7,17 @@ export default {
     },
     {
       name: "Bandeja Externa",
-      url: "/correxternam",
+      url: "",
       icon: "icon-envelope",
       children: [
         {
           name: "Bandeja de entrada",
-          url: "/correxterna/entrada",
+          url: "/correspondence/externa/inbox",
           icon: "cui-arrow-left"
         },
         {
           name: "Bandeja de salida",
-          url: "/correxterna/salida",
+          url: "/correspondence/externa/outbox",
           icon: "cui-arrow-right"
         }
       ]
