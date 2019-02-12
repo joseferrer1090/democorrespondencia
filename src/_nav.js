@@ -2,59 +2,30 @@ export default {
   items: [
     {
       name: "Inicio",
-      url: "/correspondencia",
+      url: "/inicio",
       icon: "icon-home"
     },
-    // {
-    //   title: true,
-    //   name: "Theme",
-    //   wrapper: {
-    //     // optional wrapper object
-    //     element: "", // required valid HTML5 element tag
-    //     attributes: {} // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-    //   },
-    //   class: "" // optional class names space delimited list for title item ex: "text-center"
-    // },
     {
-      name: "Bandeja de entrada",
-      url: "/correspondencia/base",
-      icon: "icon-drawer"
-      // children: [
-      //   {
-      //     name: "Interna",
-      //     url: "/base/breadcrumbs",
-      //     icon: "icon-envelope"
-      //   },
-      //   {
-      //     name: "Externa",
-      //     url: "/base/cards",
-      //     icon: "icon-envelope"
-      //   }
-      // ]
-    },
-    {
-      name: "Bandeja interna",
-      url: "/icons",
-      icon: "cui-inbox",
-      class: ""
-
-      // children: [
-      //   {
-      //     name: "Entrada",
-      //     url: "/icons/coreui-icons",
-      //     icon: "icon-star"
-      //   },
-      //   {
-      //     name: "Salida",
-      //     url: "/icons/flags",
-      //     icon: "icon-star"
-      //   }
-      // ]
+      name: "Bandeja Externa",
+      url: "/correxternam",
+      icon: "icon-envelope",
+      children: [
+        {
+          name: "Bandeja de entrada",
+          url: "/correxterna/entrada",
+          icon: "cui-arrow-left"
+        },
+        {
+          name: "Bandeja de salida",
+          url: "/correxterna/salida",
+          icon: "cui-arrow-right"
+        }
+      ]
     },
     {
       name: "Radicación",
       url: "/buttons",
-      icon: "cui-envelope-open",
+      icon: "cui-envelope-letter",
       children: [
         {
           name: "radicación simple",
@@ -69,36 +40,31 @@ export default {
       ]
     },
     {
-      name: "Edok",
-      url: "/charts",
-      icon: "icon-layers"
+      name: "Generar Edok",
+      url: "/correspondencia",
+      icon: "cui-file"
     },
-    // {
-    //   name: "Notifications",
-    //   url: "/notifications",
-    //   icon: "icon-bell",
-    //   children: [
-    //     {
-    //       name: "Alerts",
-    //       url: "/notifications/alerts",
-    //       icon: "icon-bell"
-    //     },
-    //     {
-    //       name: "Badges",
-    //       url: "/notifications/badges",
-    //       icon: "icon-bell"
-    //     },
-    //     {
-    //       name: "Modals",
-    //       url: "/notifications/modals",
-    //       icon: "icon-bell"
-    //     }
-    //   ]
-    // }
+    {
+      name: "Bandeja Interna",
+      url: "/corrinterna",
+      icon: "icon-envelope",
+      children: [
+        {
+          name: "Bandeja de entrada",
+          url: "/corrinterna/entrada",
+          icon: "cui-arrow-right"
+        },
+        {
+          name: "Bandeja de salida",
+          url: "/corrinterna/salida",
+          icon: "cui-arrow-left"
+        }
+      ]
+    },
     {
       name: "Remitente",
-      url: "/remitente",
-      icon: "icon-user"
+      url: "correspondencia",
+      icon: "cui-people"
     }
   ]
 };
