@@ -2,7 +2,6 @@ export default {
   items: [
     {
       name: "Inicio",
-
       url: "/correspondencia",
       icon: "icon-home"
     },
@@ -16,7 +15,6 @@ export default {
     //   },
     //   class: "" // optional class names space delimited list for title item ex: "text-center"
     // },
-
     {
       name: "Bandeja de entrada",
       url: "/correspondencia/base",
