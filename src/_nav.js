@@ -6,19 +6,19 @@ export default {
       icon: "icon-home"
     },
     {
-      name: "Bandeja Externa",
-      url: "",
-      icon: "icon-envelope",
+      name: "Correspondencia",
+      url: "/correspondence",
+      icon: "cui-envelope-closed",
       children: [
         {
-          name: "Bandeja de entrada",
-          url: "/correspondence/externa/inbox",
-          icon: "cui-arrow-left"
+          name: " Externa",
+          url: "/correspondence/external",
+          icon: "icon-cloud-upload"
         },
         {
-          name: "Bandeja de salida",
-          url: "/correspondence/externa/outbox",
-          icon: "cui-arrow-right"
+          name: "Interna",
+          url: "/correspondence/internal",
+          icon: "icon-cloud-download"
         }
       ]
     },
@@ -43,23 +43,6 @@ export default {
       name: "Generar Edok",
       url: "/edok",
       icon: "cui-file"
-    },
-    {
-      name: "Bandeja Interna",
-      url: "/corrinterna",
-      icon: "icon-envelope",
-      children: [
-        {
-          name: "Bandeja de entrada",
-          url: "/corrinterna/entrada",
-          icon: "cui-arrow-right"
-        },
-        {
-          name: "Bandeja de salida",
-          url: "/corrinterna/salida",
-          icon: "cui-arrow-left"
-        }
-      ]
     },
     {
       name: "Remitente",
