@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: "Inicio",
-      url: "/inicio",
+      url: "/home",
       icon: "icon-home"
     },
     {
@@ -24,24 +24,24 @@ export default {
     },
     {
       name: "Radicación",
-      url: "/buttons",
+      url: "/radication",
       icon: "cui-envelope-letter",
       children: [
         {
           name: "radicación simple",
-          url: "/buttons/buttons",
+          url: "/radication/simple",
           icon: "cui-info"
         },
         {
           name: "radicación de tramite",
-          url: "/buttons/button-dropdowns",
+          url: "/radication/procedure",
           icon: "icon-list"
         }
       ]
     },
     {
       name: "Generar Edok",
-      url: "/correspondencia",
+      url: "/edok",
       icon: "cui-file"
     },
     {
@@ -63,7 +63,7 @@ export default {
     },
     {
       name: "Remitente",
-      url: "correspondencia",
+      url: "/senders",
       icon: "cui-people"
     }
   ]

@@ -9,7 +9,7 @@ class index extends Component {
   render() {
     return (
       <div>
-        <p>Estoy probando las rutas del proyecto</p>
+        <p>Esta es la bandeja de la correspondencia Externa</p>
       </div>
     );
   }
