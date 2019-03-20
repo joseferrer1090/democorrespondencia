@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import FormUpdateData from "./FormUpdateData";
+import ChangePassword from "./ChangePasswordUser";
 
 class TabInformationUser extends Component {
   constructor(props) {
@@ -67,6 +68,16 @@ class TabInformationUser extends Component {
               <i className="fa fa-pe fa-pencil-square-o" /> Editar tema
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "4" })}
+              onClick={() => {
+                this.toggle("4");
+              }}
+            >
+              <i className="fa fa-lock" /> Cambiar contraseña
+            </NavLink>
+          </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
@@ -78,6 +89,14 @@ class TabInformationUser extends Component {
           </TabPane>
           <TabPane tabId="2">
             <p>Probando apenas</p>
+          </TabPane>
+          <TabPane tabId="3">
+            <p>Probando apenas</p>
+          </TabPane>
+          <TabPane tabId="4">
+            <div className="col-md-12">
+              <ChangePassword />
+            </div>
           </TabPane>
         </TabContent>
       </div>

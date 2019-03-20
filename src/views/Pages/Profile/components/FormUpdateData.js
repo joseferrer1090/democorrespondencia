@@ -48,27 +48,32 @@ class FormUpdateData extends Component {
           </Col>
           <Col sm="6">
             <div className="form-group">
-              <label> Usuario </label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                disabled
-              />
-            </div>
-          </Col>
-          <Col sm="6">
-            <div className="form-group">
               <label> Email </label>
               <input
                 type="text"
                 className="form-control form-control-sm"
                 disabled
+                placeholder="email"
+              />
+            </div>
+          </Col>
+          <Col sm="6">
+            <div className="form-group">
+              <label> Usuario </label>
+              <input
+                type="text"
+                className="form-control form-control-sm"
+                disabled
+                placeholder="usuario"
               />
             </div>
           </Col>
           <Col sm="12">
             <div className="float-right">
-              <button type="button" className="btn btn-outline-secondary">
+              <button
+                type="button"
+                className="btn btn-outline-secondary btn-sm"
+              >
                 {" "}
                 <i className="fa fa-pencil" /> Actializar perfil{" "}
               </button>
