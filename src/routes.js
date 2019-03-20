@@ -18,7 +18,7 @@ const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
 
 const routes = [
   { path: "/", exact: true, name: "Inicio", component: DefaultLayout },
-  { path: "/home", name: "", component: Dashboard },
+  { path: "/inicio", name: "", component: Dashboard },
   { path: "/edok", name: "Generate Edok", component: GenerateEdok },
   { path: "/senders", name: "Remitentes", component: Remitente },
   {
