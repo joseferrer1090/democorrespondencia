@@ -14,7 +14,8 @@ const CorrespondenceExternal = React.lazy(() =>
 const CorrespondenceInternal = React.lazy(() =>
   import("./views/Correspondence/InternalCorrespondence/index")
 );
-// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
+
 const routes = [
   { path: "/", exact: true, name: "Inicio", component: DefaultLayout },
   { path: "/home", name: "", component: Dashboard },
@@ -51,7 +52,14 @@ const routes = [
     path: "/correspondence/internal",
     name: " Interna ",
     component: CorrespondenceInternal
+  },
+  {
+    path: "/perfil",
+    name: "Perfil",
+    component: Perfil
   }
 ];
 
 export default routes;
+
+// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config

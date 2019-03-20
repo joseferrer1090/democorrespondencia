@@ -83,7 +83,17 @@ class DefaultHeader extends Component {
                 <strong>Herramientas</strong>
               </DropdownItem>
               <DropdownItem>
-                <i className="fa fa-user" /> Perfil
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer !important",
+                    color: "black"
+                  }}
+                  to="/perfil"
+                >
+                  {" "}
+                  <i className="fa fa-user" /> Perfil{" "}
+                </Link>
               </DropdownItem>
               {/* <DropdownItem>
                 <i className="fa fa-wrench" /> Herramientas
