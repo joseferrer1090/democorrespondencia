@@ -15,6 +15,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+import TabInformation from "./components/TabInformationUser";
 import imgProfile from "./../../../assets/img/user_profile.svg";
 
 class Profile extends Component {
@@ -74,8 +75,8 @@ class Profile extends Component {
           </Col>
           <Col sm="9">
             <div>
-              <Card body style={{ height: "420px" }}>
-                <p>Probando apenas</p>
+              <Card body style={{ height: "auto" }}>
+                <TabInformation />
               </Card>
             </div>
             <div>
