@@ -63,7 +63,7 @@ class Profile extends Component {
                 </address>
               </CardTitle>
             </div>
-            <div>
+            {/* <div>
               <Card>
                 <CardHeader>
                   <i className="fa fa-lock" /> Permisos asignados
@@ -72,7 +72,7 @@ class Profile extends Component {
                   <p>Probando</p>
                 </CardBody>
               </Card>
-            </div>
+            </div> */}
           </Col>
           <Col sm="9">
             <div>

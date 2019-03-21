@@ -16,6 +16,9 @@ import {
 import classnames from "classnames";
 import FormUpdateData from "./FormUpdateData";
 import ChangePassword from "./ChangePasswordUser";
+import ThemeSelector from "./ThemeSelector";
+import ChangeTheme from "./ChangeThemeUser";
+import FormAdvance from "./FormChangeAdvanceData";
 
 class TabInformationUser extends Component {
   constructor(props) {
@@ -78,6 +81,16 @@ class TabInformationUser extends Component {
               <i className="fa fa-lock" /> Cambiar contraseña
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "5" })}
+              onClick={() => {
+                this.toggle("5");
+              }}
+            >
+              <i className="fa fa-user" /> otro datos
+            </NavLink>
+          </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
@@ -88,15 +101,18 @@ class TabInformationUser extends Component {
             </Row>
           </TabPane>
           <TabPane tabId="2">
-            <p>Probando apenas</p>
+            <ThemeSelector />
           </TabPane>
           <TabPane tabId="3">
-            <p>Probando apenas</p>
+            <ChangeTheme />
           </TabPane>
           <TabPane tabId="4">
             <div className="col-md-12">
               <ChangePassword />
             </div>
+          </TabPane>
+          <TabPane tabId="5">
+            <FormAdvance />
           </TabPane>
         </TabContent>
       </div>
