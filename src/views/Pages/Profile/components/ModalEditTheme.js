@@ -50,7 +50,7 @@ class ModalEditTheme extends Component {
   render() {
     return (
       <Modal className="modal-lg" isOpen={this.state.modal}>
-        <ModalHeader>Editar tema</ModalHeader>
+        <ModalHeader>Editar tema seleccionado</ModalHeader>
         <ModalBody>
           <Row>
             <Col sm="12">

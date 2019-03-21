@@ -53,6 +53,26 @@ class TabInformationUser extends Component {
           </NavItem>
           <NavItem>
             <NavLink
+              className={classnames({ active: this.state.activeTab === "5" })}
+              onClick={() => {
+                this.toggle("5");
+              }}
+            >
+              <i className="fa fa-gear" /> Datos adicionales
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "4" })}
+              onClick={() => {
+                this.toggle("4");
+              }}
+            >
+              <i className="fa fa-lock" /> Cambiar contraseña
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
               className={classnames({ active: this.state.activeTab === "2" })}
               onClick={() => {
                 this.toggle("2");
@@ -68,27 +88,7 @@ class TabInformationUser extends Component {
                 this.toggle("3");
               }}
             >
-              <i className="fa fa-pe fa-pencil-square-o" /> Editar tema
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === "4" })}
-              onClick={() => {
-                this.toggle("4");
-              }}
-            >
-              <i className="fa fa-lock" /> Cambiar contraseña
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === "5" })}
-              onClick={() => {
-                this.toggle("5");
-              }}
-            >
-              <i className="fa fa-user" /> otro datos
+              <i className="fa fa-wrench" /> Personalizar tema
             </NavLink>
           </NavItem>
         </Nav>

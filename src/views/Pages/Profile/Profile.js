@@ -47,7 +47,7 @@ class Profile extends Component {
                 <p className="text-center">
                   {" "}
                   Nombre del usuario{" "}
-                  <small className="form-text"> Administrador </small>{" "}
+                  <small className="form-text"> Usuario </small>{" "}
                 </p>
                 <address>
                   <div style={{ margin: "10px ", fontSize: "13px" }}>
@@ -57,7 +57,7 @@ class Profile extends Component {
                       {"   "}+(1234) - 5678910
                     </p>
                     <p className="text-center">
-                      <i className="fa fa-envelope" /> {"   "} admin@admin.com
+                      <i className="fa fa-envelope" /> {"   "} usuario@app.com
                     </p>
                   </div>
                 </address>
