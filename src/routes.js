@@ -8,12 +8,13 @@ const Remitente = React.lazy(() => import("./views/Sender"));
 const RadicacionSimple = React.lazy(() => import("./views/Radication/index"));
 const RadicacionTramite = React.lazy(() => import("./views/Radication/index"));
 const Correspondence = React.lazy(() => import("./views/Correspondence/index"));
-const CorrespondenceExternal = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/index")
+const InboxExternal = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Inbox/InboxCorrespondenceExternal")
 );
-const CorrespondenceInternal = React.lazy(() =>
-  import("./views/Correspondence/InternalCorrespondence/index")
+const OutboxExternal = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Outbox/OutboxCorrespondenceExternal")
 );
+
 const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
 
 const routes = [
@@ -44,14 +45,18 @@ const routes = [
     component: Correspondence
   },
   {
-    path: "/correspondence/external",
-    name: " Externa ",
-    component: CorrespondenceExternal
+    path: "/correspondence/external/recibida",
+    name: "Externa recibida",
+    component: InboxExternal
+  },
+  {
+    path: "/correspondence/external/despachada",
+    name: "Externa despachada",
+    component: OutboxExternal
   },
   {
     path: "/correspondence/internal",
-    name: " Interna ",
-    component: CorrespondenceInternal
+    name: " Interna "
   },
   {
     path: "/perfil",

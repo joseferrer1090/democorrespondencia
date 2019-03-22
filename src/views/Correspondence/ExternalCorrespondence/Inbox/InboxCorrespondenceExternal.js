@@ -1,21 +1,21 @@
 import React, { Component } from "react";
-
 import PropTypes from "prop-types";
 
-class index extends Component {
+class InboxCorrespondenceExternal extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
       <div className="animated fadeIn">
-        <p>Probando apenas</p>
+        <p>La vista de bandeja de correspondencia externa</p>
       </div>
     );
   }
 }
 
-index.propTypes = {};
+InboxCorrespondenceExternal.propTypes = {};
 
-export default index;
+export default InboxCorrespondenceExternal;

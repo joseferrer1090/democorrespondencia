@@ -7,17 +7,17 @@ export default {
     },
     {
       name: "Correspondencia",
-      url: "/correspondence",
+      url: "/inicio",
       icon: "cui-envelope-closed",
       children: [
         {
           name: "Recibida",
-          url: "/correspondence/external",
+          url: "/correspondence/external/recibida",
           icon: "cui-inbox"
         },
         {
           name: "Despachada",
-          url: "/correspondencia/externa/despachada",
+          url: "/correspondence/external/despachada",
           icon: "cui-share"
         },
         {
