@@ -27,17 +27,17 @@ export default {
           children: [
             {
               name: "Entrantes",
-              url: "/correspondencia/interna/entrada",
+              url: "/correspondence/internal/entrantes",
               icon: "cui-inbox"
             },
             {
               name: "Salientes",
-              url: "/correspondencia/interna/salida",
+              url: "/correspondence/internal/salientes",
               icon: "cui-share"
             },
             {
               name: "Crear nueva",
-              url: "/correspondencia/interna/nueva",
+              url: "/correspondence/internal/nueva",
               icon: "icon-pencil"
             }
           ]
