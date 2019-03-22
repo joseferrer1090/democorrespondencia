@@ -115,7 +115,7 @@ class ChangeThemeUser extends Component {
             <div className="float-right">
               <button className="btn btn-secondary btn-sm">
                 {" "}
-                <i className="fa fa-times" /> Cerrar{" "}
+                <i className="fa fa-times" /> Borrar{" "}
               </button>
               &nbsp;
               <button className="btn btn-secondary btn-sm">
