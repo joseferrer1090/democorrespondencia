@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+//import "./../../../../assets/css/interndashboard.css";
 
 class InboxCorrespondenceExternal extends Component {
   constructor(props) {
