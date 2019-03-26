@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CommandBar } from "office-ui-fabric-react";
 import PropTypes from "prop-types";
 
 class Headerinbox extends Component {

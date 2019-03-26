@@ -10,7 +10,7 @@ class ContentComponent extends Component {
     return (
       <main
         role="main"
-        class="col-md-9 ml-sm-auto col-lg-10 px-4"
+        className="col-md-10 ml-sm-auto col-lg-10 px-4"
         style={{ border: "1px solid green" }}
       >
         <p>Content component</p>
