@@ -1,5 +1,11 @@
 import React, { Component, lazy, Suspense } from "react";
-import { Jumbotron, Button, Row, Col, Card, CardBody } from "reactstrap";
+import { Row, Col } from "reactstrap";
+import GraphCorrespondenceExterna from "./components/graphCorrespondenceExternal";
+import GraphCorrespondenceExternaDesapachada from "./components/graphCorrespondenceExternalDesapachada";
+import GraphTramiteExternal from "./components/graphTramiteExternal";
+import GraphTramiteExternalDespachado from "./components/graphTramiteExternalDespachados";
+import MyPerformance from "./components/MyPerformance";
+import CustomGraph from "./components/CustomGraph";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -15,10 +21,23 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col sm={{ size: 8, offset: 2 }}>
-            <Card body>
-              <p>Probando apenas</p>
-            </Card>
+          <Col sm="3">
+            <GraphCorrespondenceExterna />
+          </Col>
+          <Col sm="3">
+            <GraphCorrespondenceExternaDesapachada />
+          </Col>
+          <Col sm="3">
+            <GraphTramiteExternal />
+          </Col>
+          <Col sm="3">
+            <GraphTramiteExternalDespachado />
+          </Col>
+          <Col sm="6">
+            <MyPerformance />
+          </Col>
+          <Col sm="6">
+            <CustomGraph />
           </Col>
         </Row>
       </div>
