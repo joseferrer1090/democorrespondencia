@@ -58,6 +58,29 @@ class SidebarInboxComponent extends Component {
                     url: "http://cnn.com",
                     icon: "News",
                     key: "key7"
+                  },
+                  {
+                    name: "Other",
+                    url: "http://example.com",
+                    links: [
+                      {
+                        name: "Activity",
+                        url: "http://msn.com",
+                        key: "key1"
+                      },
+                      {
+                        name: "MSN",
+                        url: "http://msn.com",
+                        key: "key2"
+                      },
+                      {
+                        name: "News",
+                        url: "http://cnn.com",
+                        icon: "News",
+                        key: "key7"
+                      }
+                    ],
+                    isExpanded: true
                   }
                 ]
               }
