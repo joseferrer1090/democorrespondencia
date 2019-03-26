@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import PropTypes from "prop-types";
 import "./../../../../assets/css/custom.css";
+import HeaderInbox from "./Components/Client/Header/HeaderInbox";
+import SidebarInbox from "./Components/Client/Sidebar/SidebarInboxComponent";
+import ContentInbox from "./Components/Client/Content/ContentComponent";
 
 class InboxCorrespondenceExternal extends Component {
   constructor(props) {
@@ -13,24 +16,11 @@ class InboxCorrespondenceExternal extends Component {
     return (
       <div>
         <div className="row" style={{ marginTop: "-25px" }}>
-          <div className="col-md-12" style={{ border: "1px solid black" }}>
-            <p>Header Component</p>
-          </div>
+          <HeaderInbox />
         </div>
         <div className="row">
-          <div
-            className="col-md-2"
-            style={{ border: "2px solid red", height: "540px " }}
-          >
-            <p>Sidebar component</p>
-          </div>
-          <main
-            role="main"
-            class="col-md-9 ml-sm-auto col-lg-10 px-4"
-            style={{ border: "1px solid green" }}
-          >
-            <p>Content component</p>
-          </main>
+          <SidebarInbox />
+          <ContentInbox />
         </div>
       </div>
     );
