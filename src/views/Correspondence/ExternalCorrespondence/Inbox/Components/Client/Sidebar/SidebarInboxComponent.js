@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import { Nav, INavLink } from "office-ui-fabric-react";
 import PropTypes from "prop-types";
+import Data from "./../../../../../../../services/correspondencia_externa_recibida_new";
 
 class SidebarInboxComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
-      <div className="col-md-2" style={{ height: "540px " }}>
+      <div
+        className="col-md-2"
+        style={{ height: "540px ", border: "1px solid black" }}
+      >
         <div className="" style={{ width: "108%" }}>
           <Nav
             groups={[
@@ -22,23 +27,19 @@ class SidebarInboxComponent extends Component {
                       {
                         name: "Recibida",
                         url:
-                          "http://localhost:3001/#/correspondence/external/recibida",
-                        key: "key1"
+                          "http://localhost:3001/#/correspondence/external/recibida"
                       },
                       {
                         name: "Despachada",
                         url:
-                          "http://localhost:3001/#/correspondence/external/recibida",
-                        key: "key2"
+                          "http://localhost:3001/#/correspondence/external/recibida"
                       }
                     ],
                     isExpanded: true
                   },
                   {
                     name: "Consultar",
-                    url: "http://example.com",
-                    key: "key3",
-                    isExpanded: true
+                    url: "http://example.com"
                   }
                 ]
               }

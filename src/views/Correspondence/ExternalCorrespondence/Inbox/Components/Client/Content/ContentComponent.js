@@ -1,20 +1,25 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { DetailsList } from "office-ui-fabric-react";
+import Data from "./../../../../../../../services/correspondencia_externa_recibida_new";
 
 class ContentComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: Data
+    };
   }
   render() {
     return (
-      <main
-        role="main"
-        className="col-md-10 ml-sm-auto col-lg-10 px-4"
-        style={{ border: "1px solid green" }}
+      <div
+        className="col-md-10 col-lg-10"
+        style={{ border: "1px solid green", padding: "0px" }}
       >
-        <p>Content component</p>
-      </main>
+        <div style={{ width: "auto" }}>
+          <DetailsList items={this.state.data} />
+        </div>
+      </div>
     );
   }
 }

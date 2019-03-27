@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import PropTypes from "prop-types";
-import "./../../../../assets/css/custom.css";
+// import "./../../../../assets/css/custom.css";
 import HeaderInbox from "./Components/Client/Header/HeaderInbox";
 import SidebarInbox from "./Components/Client/Sidebar/SidebarInboxComponent";
 import ContentInbox from "./Components/Client/Content/ContentComponent";
