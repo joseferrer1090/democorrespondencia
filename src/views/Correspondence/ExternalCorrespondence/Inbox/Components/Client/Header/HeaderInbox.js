@@ -17,7 +17,7 @@ class Headerinbox extends Component {
         iconProps: {
           iconName: "Add"
         },
-        ariaLabel: "New",
+        ariaLabel: "Nuevo",
         subMenuProps: {
           items: [
             {
@@ -47,20 +47,58 @@ class Headerinbox extends Component {
         onClick: () => console.log("Usabilidad")
       },
       {
-        key: "download",
+        key: "exportar",
         name: "Exportar",
         iconProps: {
           iconName: "Download"
         },
-        onClick: () => console.log("Exportar")
+        ariaLabel: "exportar",
+        subMenuProps: {
+          items: [
+            {
+              key: "exportFile",
+              name: "Archivo de consulta",
+              iconProps: {
+                iconName: "ExcelDocument"
+              },
+              "data-automation-id": "newEmailButton"
+            },
+            {
+              key: "",
+              name: "Recibido / Despachado",
+              iconProps: {
+                iconName: "ExcelDocument"
+              }
+            }
+          ]
+        }
       },
       {
-        key: "share",
+        key: "reportes",
         name: "Reportes",
         iconProps: {
           iconName: "CRMReport"
         },
-        onClick: () => console.log("Reportes")
+        ariaLabel: "reportes",
+        subMenuProps: {
+          items: [
+            {
+              key: "",
+              name: "Generar reporte",
+              iconProps: {
+                iconName: "pdf"
+              },
+              "data-automation-id": "newEmailButton"
+            },
+            {
+              key: "calendarEvent",
+              name: "Radicar trámite",
+              iconProps: {
+                iconName: "pdf"
+              }
+            }
+          ]
+        }
       }
     ];
   };
@@ -68,13 +106,24 @@ class Headerinbox extends Component {
   getFarItems = () => {
     return [
       {
-        key: "sort",
+        key: "opciones",
         name: "Más opciones",
         ariaLabel: "Sort",
         iconProps: {
           iconName: "SortLines"
         },
-        onClick: () => console.log("Sort")
+        ariaLabel: "más opciones",
+        subMenuProps: {
+          items: [
+            {
+              key: "impresión masiva",
+              name: "Copiar correspondencia",
+              iconProps: {
+                iconName: "FabricPublicFolder"
+              }
+            }
+          ]
+        }
       },
       {
         key: "sort",
@@ -83,7 +132,18 @@ class Headerinbox extends Component {
         iconProps: {
           iconName: "print"
         },
-        onClick: () => console.log("Print")
+        ariaLabel: "impresión",
+        subMenuProps: {
+          items: [
+            {
+              key: "impresión masiva",
+              name: "Impresión masiva",
+              iconProps: {
+                iconName: "PrintfaxPrinterFile"
+              }
+            }
+          ]
+        }
       }
     ];
   };
