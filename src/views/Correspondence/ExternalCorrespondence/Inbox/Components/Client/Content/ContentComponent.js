@@ -10,7 +10,15 @@ class ContentComponent extends Component {
       data: Data
     };
   }
+
   render() {
+    /*
+    En esta seccion declaro cada una de las columnas que van a salir
+    en el Detailist, junto con cada una de las respectivas propiedades.
+    */
+
+    const columns: IColumn[] = [{}];
+
     return (
       <main
         role="main"
