@@ -19,7 +19,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="animated fadeIn">
+      <div className="container-fluid animated fadeIn">
         <Row>
           <Col sm="3">
             <GraphCorrespondenceExterna />
