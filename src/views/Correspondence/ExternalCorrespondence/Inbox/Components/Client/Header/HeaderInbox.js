@@ -12,7 +12,7 @@ class Headerinbox extends Component {
     return [
       {
         key: "newItem",
-        name: "New",
+        name: "Nuevo",
         cacheKey: "myCacheKey", // changing this key will invalidate this items cache
         iconProps: {
           iconName: "Add"
@@ -22,17 +22,17 @@ class Headerinbox extends Component {
           items: [
             {
               key: "emailMessage",
-              name: "Email message",
+              name: "Radicar documento",
               iconProps: {
-                iconName: "Mail"
+                iconName: "document"
               },
               "data-automation-id": "newEmailButton"
             },
             {
               key: "calendarEvent",
-              name: "Calendar event",
+              name: "Radicar trámite",
               iconProps: {
-                iconName: "Calendar"
+                iconName: "documentation"
               }
             }
           ]
@@ -40,28 +40,50 @@ class Headerinbox extends Component {
       },
       {
         key: "upload",
-        name: "Upload",
+        name: "Usabilidad",
         iconProps: {
-          iconName: "Upload"
+          iconName: "DocumentManagement"
         },
-        href: "https://dev.office.com/fabric",
-        "data-automation-id": "uploadButton"
-      },
-      {
-        key: "share",
-        name: "Share",
-        iconProps: {
-          iconName: "Share"
-        },
-        onClick: () => console.log("Share")
+        onClick: () => console.log("Usabilidad")
       },
       {
         key: "download",
-        name: "Download",
+        name: "Exportar",
         iconProps: {
           iconName: "Download"
         },
-        onClick: () => console.log("Download")
+        onClick: () => console.log("Exportar")
+      },
+      {
+        key: "share",
+        name: "Reportes",
+        iconProps: {
+          iconName: "CRMReport"
+        },
+        onClick: () => console.log("Reportes")
+      }
+    ];
+  };
+
+  getFarItems = () => {
+    return [
+      {
+        key: "sort",
+        name: "Más opciones",
+        ariaLabel: "Sort",
+        iconProps: {
+          iconName: "SortLines"
+        },
+        onClick: () => console.log("Sort")
+      },
+      {
+        key: "sort",
+        name: "Impresión",
+        ariaLabel: "Sort",
+        iconProps: {
+          iconName: "print"
+        },
+        onClick: () => console.log("Print")
       }
     ];
   };
@@ -73,7 +95,7 @@ class Headerinbox extends Component {
           items={this.getItems()}
           //   overflowItems={this.getOverlflowItems()}
           //   overflowButtonProps={{ ariaLabel: "More commands" }}
-          //   farItems={this.getFarItems()}
+          farItems={this.getFarItems()}
           //   ariaLabel={
           //     "Use left and right arrow keys to navigate between commands"
           //   }
