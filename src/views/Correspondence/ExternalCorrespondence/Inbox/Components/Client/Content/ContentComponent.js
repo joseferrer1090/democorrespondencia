@@ -12,14 +12,15 @@ class ContentComponent extends Component {
   }
   render() {
     return (
-      <div
+      <main
+        role="main"
         className="col-md-10 col-lg-10"
         style={{ border: "1px solid green", padding: "0px" }}
       >
         <div style={{ width: "auto" }}>
           <DetailsList items={this.state.data} />
         </div>
-      </div>
+      </main>
     );
   }
 }
