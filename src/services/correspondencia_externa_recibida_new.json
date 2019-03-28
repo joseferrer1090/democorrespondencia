@@ -1,106 +1,104 @@
-{
-  "data": [
-    {
-      "consecutivo": "58",
-      "nro_documento": "7164_SEBOSANDER SAS FV-0261",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "SEBOSANDER S.A.S (900597693-0)"
-    },
-    {
-      "consecutivo": "57",
-      "nro_documento": "104518_MANUFACTURAS FE311",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
-    },
-    {
-      "consecutivo": "56",
-      "nro_documento": "104512_MANUFACTURAS FE310 -COPIA",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
-    },
-    {
-      "consecutivo": "55",
-      "nro_documento": "104528-MANUFACTURAS SILICEAS-FE249",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
-    },
-    {
-      "consecutivo": "54",
-      "nro_documento": "104527_MANUFACTURAS SILICEAS-FE254",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
-    },
-    {
-      "consecutivo": "53",
-      "nro_documento": "1042809_BRINSA A1103989",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "BRINSA S.A. (800221789-2)"
-    },
-    {
-      "consecutivo": "52",
-      "nro_documento": "1044597_BRINSA A1104168",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "BRINSA S.A. (800221789-2)"
-    },
-    {
-      "consecutivo": "51",
-      "nro_documento": "1045994_BRINSA A1104300",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "BRINSA S.A. (800221789-2)"
-    },
-    {
-      "consecutivo": "50",
-      "nro_documento": "104521_MANUFACTURAS SILICEAS-FE227",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
-    },
-    {
-      "consecutivo": "49",
-      "nro_documento": "1038356_BRINSA A1103543",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "BRINSA S.A. (800221789-2)"
-    },
-    {
-      "consecutivo": "48",
-      "nro_documento": "FA 150328",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "PLASMAR S.A. (890937619-1)"
-    },
-    {
-      "consecutivo": "47",
-      "nro_documento": "FA 150327",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "PLASMAR S.A. (890937619-1)"
-    },
-    {
-      "consecutivo": "46",
-      "nro_documento": "95394_CODITEQ-136696",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "CODITEQ S.A. (830116638-9)"
-    },
-    {
-      "consecutivo": "45",
-      "nro_documento": "1038383_BRINSA A1103546",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "BRINSA S.A. (800221789-2)"
-    },
-    {
-      "consecutivo": "44",
-      "nro_documento": "0771_ERNESTO PEREZ 1055",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "PEREZ G. JOSE ERNESTO (132006-0)"
-    },
-    {
-      "consecutivo": "43",
-      "nro_documento": "6344_CONACEITES - 528855",
-      "sede": "BOGOTA PRINCIPAL",
-      "remitente": "CONACEITES ()"
-    },
-    {
-      "consecutivo": "3",
-      "nro_documento": "FE01 664",
-      "sede": "REGIONAL EJE CAFETERO",
-      "remitente": "COLTANQUES SAS ()"
-    }
-  ]
-}
+[
+  {
+    "consecutivo": "58",
+    "nro_documento": "7164_SEBOSANDER SAS FV-0261",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "SEBOSANDER S.A.S (900597693-0)"
+  },
+  {
+    "consecutivo": "57",
+    "nro_documento": "104518_MANUFACTURAS FE311",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
+  },
+  {
+    "consecutivo": "56",
+    "nro_documento": "104512_MANUFACTURAS FE310 -COPIA",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
+  },
+  {
+    "consecutivo": "55",
+    "nro_documento": "104528-MANUFACTURAS SILICEAS-FE249",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
+  },
+  {
+    "consecutivo": "54",
+    "nro_documento": "104527_MANUFACTURAS SILICEAS-FE254",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
+  },
+  {
+    "consecutivo": "53",
+    "nro_documento": "1042809_BRINSA A1103989",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "BRINSA S.A. (800221789-2)"
+  },
+  {
+    "consecutivo": "52",
+    "nro_documento": "1044597_BRINSA A1104168",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "BRINSA S.A. (800221789-2)"
+  },
+  {
+    "consecutivo": "51",
+    "nro_documento": "1045994_BRINSA A1104300",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "BRINSA S.A. (800221789-2)"
+  },
+  {
+    "consecutivo": "50",
+    "nro_documento": "104521_MANUFACTURAS SILICEAS-FE227",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "MANUFACTURAS  SILICEAS S.A.S (860033740-4)"
+  },
+  {
+    "consecutivo": "49",
+    "nro_documento": "1038356_BRINSA A1103543",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "BRINSA S.A. (800221789-2)"
+  },
+  {
+    "consecutivo": "48",
+    "nro_documento": "FA 150328",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "PLASMAR S.A. (890937619-1)"
+  },
+  {
+    "consecutivo": "47",
+    "nro_documento": "FA 150327",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "PLASMAR S.A. (890937619-1)"
+  },
+  {
+    "consecutivo": "46",
+    "nro_documento": "95394_CODITEQ-136696",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "CODITEQ S.A. (830116638-9)"
+  },
+  {
+    "consecutivo": "45",
+    "nro_documento": "1038383_BRINSA A1103546",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "BRINSA S.A. (800221789-2)"
+  },
+  {
+    "consecutivo": "44",
+    "nro_documento": "0771_ERNESTO PEREZ 1055",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "PEREZ G. JOSE ERNESTO (132006-0)"
+  },
+  {
+    "consecutivo": "43",
+    "nro_documento": "6344_CONACEITES - 528855",
+    "sede": "BOGOTA PRINCIPAL",
+    "remitente": "CONACEITES ()"
+  },
+  {
+    "consecutivo": "3",
+    "nro_documento": "FE01 664",
+    "sede": "REGIONAL EJE CAFETERO",
+    "remitente": "COLTANQUES SAS ()"
+  }
+]

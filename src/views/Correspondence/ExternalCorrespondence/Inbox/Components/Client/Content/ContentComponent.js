@@ -1,22 +1,31 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { DetailsList } from "office-ui-fabric-react";
+import { Spinner, MessageBar, MessageBarType } from "office-ui-fabric-react";
 import Data from "./../../../../../../../services/correspondencia_externa_recibida_new";
 
 class ContentComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: Data
+      data: []
     };
   }
+
+  componentDidMount() {
+    this.setState({
+      data: Data
+    });
+  }
+
+  ProcessData = () => {
+    const auxData = this.state.data;
+    console.log(auxData);
+  };
+
   render() {
-    /*
-    En esta seccion declaro cada una de las columnas que van a salir
-    en el Detailist, junto con cada una de las respectivas propiedades.
-    */
-    // const columns: IColumn[] = [{}];
-    console.log(this.state.data);
+    // console.log(this.state.data);
+    this.ProcessData();
     return (
       <main
         role="main"
