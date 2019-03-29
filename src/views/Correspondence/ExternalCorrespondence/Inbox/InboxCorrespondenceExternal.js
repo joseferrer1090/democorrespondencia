@@ -15,11 +15,11 @@ class InboxCorrespondenceExternal extends Component {
   render() {
     return (
       <div>
-        <div className="row" style={{ marginTop: "-25px" }}>
+        <div className="" style={{ marginTop: "-25px" }}>
           <HeaderInbox />
         </div>
         <div className="row">
-          {/* <SidebarInbox /> */}
+          {/*<SidebarInbox />*/}
           <ContentInbox />
         </div>
       </div>
