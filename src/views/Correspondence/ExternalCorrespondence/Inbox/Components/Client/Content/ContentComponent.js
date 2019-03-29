@@ -32,8 +32,9 @@ class ContentComponent extends Component {
         className="col-md-12 col-lg-12"
         style={{ border: "1px solid green", padding: "0px" }}
       >
-        <div style={{ width: "auto" }}>
-          <DetailsList items={this.state.data} />
+        <div className="col-md-12" style={{ width: "auto" }}>
+          {/* <DetailsList items={this.state.data} /> */}
+          <p>Remodelando esta interfaz</p>
         </div>
       </main>
     );

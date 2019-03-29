@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { CommandBar } from "office-ui-fabric-react";
+import { SearchBox } from "office-ui-fabric-react";
 import PropTypes from "prop-types";
 
 class Headerinbox extends Component {
@@ -150,16 +151,8 @@ class Headerinbox extends Component {
 
   render() {
     return (
-      <div className="col-md-12" style={{ border: "1px solid black" }}>
-        <CommandBar
-          items={this.getItems()}
-          //   overflowItems={this.getOverlflowItems()}
-          //   overflowButtonProps={{ ariaLabel: "More commands" }}
-          farItems={this.getFarItems()}
-          //   ariaLabel={
-          //     "Use left and right arrow keys to navigate between commands"
-          //   }
-        />
+      <div className="">
+        <CommandBar items={this.getItems()} farItems={this.getFarItems()} />
       </div>
     );
   }
