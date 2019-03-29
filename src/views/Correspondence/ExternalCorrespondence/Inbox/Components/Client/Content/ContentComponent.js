@@ -29,7 +29,7 @@ class ContentComponent extends Component {
     return (
       <main
         role="main"
-        className="col-md-10 col-lg-10"
+        className="col-md-12 col-lg-12"
         style={{ border: "1px solid green", padding: "0px" }}
       >
         <div style={{ width: "auto" }}>
