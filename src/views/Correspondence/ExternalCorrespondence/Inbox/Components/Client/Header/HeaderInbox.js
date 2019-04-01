@@ -32,30 +32,42 @@ class Headerinbox extends Component {
   render() {
     return (
       <div className="">
-        <Navbar color="light" light expand="md">
-          <NavbarBrand>reactstrap</NavbarBrand>
+        <Navbar color="light" light expand="md" style={{ height: "40px " }}>
+          <NavbarBrand>{"  "}</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto">
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Nueva radicacion
+                  <i className="fa fa-plus" /> Nueva radicacion
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
+                  <DropdownItem>
+                    <i className="fa fa-file-text" /> Radicar documento{" "}
+                  </DropdownItem>
+                  <DropdownItem>
+                    {" "}
+                    <i className="fa fa-clone" /> Radicar trámite
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <NavLink>Configuracion de usabilidad </NavLink>
+                <NavLink>
+                  <i className="fa fa-wrench" /> Configuracion de usabilidad{" "}
+                </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Exportar
+                  <i className="fa fa-file-pdf-o" /> Exportar
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
+                  <DropdownItem>
+                    {" "}
+                    <i className="fa fa-file-pdf-o" /> Archivo de consulta{" "}
+                  </DropdownItem>
+                  <DropdownItem>
+                    <i className="fa fa-file-pdf-o" /> Recibido / despachado{" "}
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
@@ -65,11 +77,16 @@ class Headerinbox extends Component {
                 <NavLink>
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
-                      Reportes
+                      <i className="fa fa-pie-chart" /> Reportes
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>Option 1</DropdownItem>
-                      <DropdownItem>Option 2</DropdownItem>
+                      <DropdownItem>
+                        <i className="fa fa-file-pdf-o" /> Generar reporte{" "}
+                      </DropdownItem>
+                      <DropdownItem>
+                        <i className="fa fa-file-pdf-o" /> Planilla de
+                        correspondencia{" "}
+                      </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 </NavLink>
@@ -78,11 +95,12 @@ class Headerinbox extends Component {
                 <NavLink>
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
-                      Impresión
+                      <i className="fa fa-print" /> Impresión
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>Option 1</DropdownItem>
-                      <DropdownItem>Option 2</DropdownItem>
+                      <DropdownItem>
+                        <i className="fa fa-print" /> Impresión masiva
+                      </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 </NavLink>
@@ -91,11 +109,12 @@ class Headerinbox extends Component {
                 <NavLink>
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
-                      Más opciones
+                      <i className="fa fa-list" /> Más opciones
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>Option 1</DropdownItem>
-                      <DropdownItem>Option 2</DropdownItem>
+                      <DropdownItem>
+                        <i className="fa fa-copy" /> Copiar correspondencia{" "}
+                      </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 </NavLink>
