@@ -19,7 +19,7 @@ class InboxCorrespondenceExternal extends Component {
           <HeaderInbox />
         </div>
         <div className="row">
-          {/*<SidebarInbox />*/}
+          <SidebarInbox />
           <ContentInbox />
         </div>
       </div>
