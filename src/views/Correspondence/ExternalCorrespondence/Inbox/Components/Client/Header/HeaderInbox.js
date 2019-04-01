@@ -37,27 +37,29 @@ class Headerinbox extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto">
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  <i className="fa fa-plus" /> Nueva radicacion
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    <i className="fa fa-file-text" /> Radicar documento{" "}
-                  </DropdownItem>
-                  <DropdownItem>
-                    {" "}
-                    <i className="fa fa-clone" /> Radicar trámite
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret style={{ color: "black" }}>
+                    <i className="fa fa-plus" /> Nueva radicacion
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <i className="fa fa-file-text" /> Radicar documento{" "}
+                    </DropdownItem>
+                    <DropdownItem>
+                      {" "}
+                      <i className="fa fa-clone" /> Radicar trámite
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </NavItem>
               <NavItem>
                 <NavLink>
                   <i className="fa fa-wrench" /> Configuracion de usabilidad{" "}
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
+                <DropdownToggle nav caret style={{ color: "black" }}>
                   <i className="fa fa-file-pdf-o" /> Exportar
                 </DropdownToggle>
                 <DropdownMenu right>
@@ -76,7 +78,7 @@ class Headerinbox extends Component {
               <NavItem>
                 <NavLink>
                   <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
+                    <DropdownToggle nav caret style={{ color: "black" }}>
                       <i className="fa fa-pie-chart" /> Reportes
                     </DropdownToggle>
                     <DropdownMenu right>
@@ -94,7 +96,7 @@ class Headerinbox extends Component {
               <NavItem>
                 <NavLink>
                   <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
+                    <DropdownToggle nav caret style={{ color: "black" }}>
                       <i className="fa fa-print" /> Impresión
                     </DropdownToggle>
                     <DropdownMenu right>
@@ -108,7 +110,7 @@ class Headerinbox extends Component {
               <NavItem>
                 <NavLink>
                   <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
+                    <DropdownToggle nav caret style={{ color: "black" }}>
                       <i className="fa fa-list" /> Más opciones
                     </DropdownToggle>
                     <DropdownMenu right>
