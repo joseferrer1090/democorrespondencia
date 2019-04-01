@@ -33,33 +33,72 @@ class Headerinbox extends Component {
     return (
       <div className="">
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand>reactstrap</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto">
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Nueva radicacion
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>Option 1</DropdownItem>
+                  <DropdownItem>Option 2</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink>Configuracion de usabilidad </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Exportar
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>Option 1</DropdownItem>
+                  <DropdownItem>Option 2</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
 
             <Nav className="ml-auto">
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                      Reportes
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem>Option 1</DropdownItem>
+                      <DropdownItem>Option 2</DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                      Impresión
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem>Option 1</DropdownItem>
+                      <DropdownItem>Option 2</DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                      Más opciones
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem>Option 1</DropdownItem>
+                      <DropdownItem>Option 2</DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
