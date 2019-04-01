@@ -18,9 +18,8 @@ class InboxCorrespondenceExternal extends Component {
         <div className="" style={{ marginTop: "-25px" }}>
           <HeaderInbox />
         </div>
-        <div className="row">
-          {/* <SidebarInbox /> */}
-          {/* <ContentInbox /> */}
+        <div className="wrapper">
+          <SidebarInbox />
         </div>
       </div>
     );

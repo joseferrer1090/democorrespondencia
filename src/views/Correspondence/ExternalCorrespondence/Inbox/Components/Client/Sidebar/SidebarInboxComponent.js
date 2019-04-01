@@ -10,11 +10,16 @@ class SidebarInboxComponent extends Component {
     return (
       <div
         className="col-md-2"
-        style={{ height: "540px ", border: "1px solid black" }}
+        style={{ height: "auto ", border: "1px solid black" }}
       >
-        <div className="" style={{ width: "108%" }}>
+        {/* <div className="" style={{ width: "108%" }}>
           <p>Probando apenas para el cambio</p>
-        </div>
+        </div> */}
+        <nav id="sidebar">
+          <div className="sidebar-header">
+            <h3>Bootstrap sidebar</h3>
+          </div>
+        </nav>
       </div>
     );
   }
