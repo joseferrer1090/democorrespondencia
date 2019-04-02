@@ -26,9 +26,7 @@ class InboxCorrespondenceExternal extends Component {
               }}
             >
               <div className="row" style={{}}>
-                <div className="col-md-2" style={{ border: "1px solid blue" }}>
-                  <p>Probando apenas</p>
-                </div>
+                <SidebarInbox />
                 <div
                   className="col-md-10"
                   style={{ border: "1px solid black" }}

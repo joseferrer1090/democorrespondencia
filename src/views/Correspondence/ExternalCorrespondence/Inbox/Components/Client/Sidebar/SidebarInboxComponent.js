@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import ListComponent from "./component/ListInboxCorrespondence";
 class SidebarInboxComponent extends Component {
   constructor(props) {
     super(props);
@@ -10,14 +10,14 @@ class SidebarInboxComponent extends Component {
     return (
       <div
         className="col-md-2"
-        style={{ height: "auto ", border: "1px solid black" }}
+        style={{ height: "auto ", border: "1px solid black", padding: "0px" }}
       >
         {/* <div className="" style={{ width: "108%" }}>
           <p>Probando apenas para el cambio</p>
         </div> */}
         <nav id="sidebar">
           <div className="sidebar-header">
-            <h3>Bootstrap sidebar</h3>
+            <ListComponent />
           </div>
         </nav>
       </div>
