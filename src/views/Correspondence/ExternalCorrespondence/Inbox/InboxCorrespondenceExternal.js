@@ -22,7 +22,7 @@ class InboxCorrespondenceExternal extends Component {
               className=""
               style={{
                 minHeight: "600px",
-                marginTop: "25px"
+                marginTop: "0px"
               }}
             >
               <div className="row" style={{}}>
