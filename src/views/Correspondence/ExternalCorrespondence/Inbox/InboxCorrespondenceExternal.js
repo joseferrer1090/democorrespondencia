@@ -14,17 +14,55 @@ class InboxCorrespondenceExternal extends Component {
 
   render() {
     return (
-      <div>
-        <div className="" style={{ marginTop: "-25px" }}>
-          <HeaderInbox />
-        </div>
-        <div className="wrapper">
-          <SidebarInbox />
+      <div className="animated fadeIn">
+        <HeaderInbox />
+        <div className="">
+          <div className="col-md-12" style={{ border: "1px solid green" }}>
+            <div
+              className="container"
+              style={{
+                minHeight: "600px",
+                marginTop: "25px"
+              }}
+            >
+              <div className="row" style={{}}>
+                <div
+                  className="col-md-12"
+                  style={{ border: "1px solid black" }}
+                >
+                  <div className="jumbotron">
+                    <h1>Navbar example</h1>
+                    <p>
+                      This example is a quick exercise to illustrate how the
+                      default, static and fixed to top navbar work. It includes
+                      the responsive CSS and HTML, so it also adapts to your
+                      viewport and device.
+                    </p>
+                    <p>
+                      To see the difference between static and fixed top
+                      navbars, just scroll.
+                    </p>
+                    <p>
+                      <a
+                        className="btn btn-lg btn-primary"
+                        href="../../components/#navbar"
+                        role="button"
+                      >
+                        View navbar docs »
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+// style={{ marginTop: "-25px" }}
 
 InboxCorrespondenceExternal.propTypes = {};
 

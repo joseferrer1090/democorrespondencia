@@ -31,100 +31,106 @@ class Headerinbox extends Component {
 
   render() {
     return (
-      <div className="">
-        <Navbar color="light" light expand="md" style={{ height: "40px " }}>
-          <NavbarBrand>{"  "}</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="mr-auto">
-              <NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret style={{ color: "black" }}>
-                    <i className="fa fa-plus" /> Nueva radicacion
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>
-                      <i className="fa fa-file-text" /> Radicar documento{" "}
-                    </DropdownItem>
-                    <DropdownItem>
-                      {" "}
-                      <i className="fa fa-clone" /> Radicar trámite
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </NavItem>
-              <NavItem>
-                <NavLink>
-                  <i className="fa fa-wrench" /> Configuracion de usabilidad{" "}
-                </NavLink>
-              </NavItem>
+      <Navbar
+        color="light"
+        light
+        expand="md"
+        style={{
+          height: "40px ",
+          marginTop: "-25px"
+        }}
+      >
+        <NavbarBrand>{"  "}</NavbarBrand>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav className="mr-auto">
+            <NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret style={{ color: "black" }}>
-                  <i className="fa fa-file-pdf-o" /> Exportar
+                  <i className="fa fa-plus" /> Nueva radicacion
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    {" "}
-                    <i className="fa fa-file-pdf-o" /> Archivo de consulta{" "}
+                    <i className="fa fa-file-text" /> Radicar documento{" "}
                   </DropdownItem>
                   <DropdownItem>
-                    <i className="fa fa-file-pdf-o" /> Recibido / despachado{" "}
+                    {" "}
+                    <i className="fa fa-clone" /> Radicar trámite
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-            </Nav>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <i className="fa fa-wrench" /> Configuracion de usabilidad{" "}
+              </NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret style={{ color: "black" }}>
+                <i className="fa fa-file-pdf-o" /> Exportar
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  {" "}
+                  <i className="fa fa-file-pdf-o" /> Archivo de consulta{" "}
+                </DropdownItem>
+                <DropdownItem>
+                  <i className="fa fa-file-pdf-o" /> Recibido / despachado{" "}
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
 
-            <Nav className="ml-auto">
-              <NavItem>
-                <NavLink>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret style={{ color: "black" }}>
-                      <i className="fa fa-pie-chart" /> Reportes
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        <i className="fa fa-file-pdf-o" /> Generar reporte{" "}
-                      </DropdownItem>
-                      <DropdownItem>
-                        <i className="fa fa-file-pdf-o" /> Planilla de
-                        correspondencia{" "}
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret style={{ color: "black" }}>
-                      <i className="fa fa-print" /> Impresión
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        <i className="fa fa-print" /> Impresión masiva
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret style={{ color: "black" }}>
-                      <i className="fa fa-list" /> Más opciones
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        <i className="fa fa-copy" /> Copiar correspondencia{" "}
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+          <Nav className="ml-auto">
+            <NavItem>
+              <NavLink>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret style={{ color: "black" }}>
+                    <i className="fa fa-pie-chart" /> Reportes
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <i className="fa fa-file-pdf-o" /> Generar reporte{" "}
+                    </DropdownItem>
+                    <DropdownItem>
+                      <i className="fa fa-file-pdf-o" /> Planilla de
+                      correspondencia{" "}
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret style={{ color: "black" }}>
+                    <i className="fa fa-print" /> Impresión
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <i className="fa fa-print" /> Impresión masiva
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret style={{ color: "black" }}>
+                    <i className="fa fa-list" /> Más opciones
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <i className="fa fa-copy" /> Copiar correspondencia{" "}
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
     );
   }
 }
