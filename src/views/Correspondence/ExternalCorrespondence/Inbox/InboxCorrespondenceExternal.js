@@ -19,13 +19,13 @@ class InboxCorrespondenceExternal extends Component {
         <div className="">
           <div className="col-md-12" style={{ border: "1px solid green" }}>
             <div
-              className="container"
+              className=""
               style={{
                 minHeight: "600px",
                 marginTop: "25px"
               }}
             >
-              <div className="row" style={{}}>
+              <div className="" style={{}}>
                 <div
                   className="col-md-12"
                   style={{ border: "1px solid black" }}
