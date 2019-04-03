@@ -12,6 +12,15 @@ class ListInboxCorrespondence extends Component {
     return (
       <div>
         <ListGroup>
+          <ListGroupItem>
+            <form>
+              <input
+                type="text"
+                className="form-control form-control-sm"
+                placeholder="Buscar correspondencia"
+              />
+            </form>
+          </ListGroupItem>
           <ListGroupItem
             className=""
             tag="button"
