@@ -18,7 +18,10 @@ class ContentComponent extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <div>Probando => en esta seccion otra parte de operatividad ... </div>
+        <div className="">
+          <p className="float-left">Probando</p>
+          <div className="float-right">paginacion</div>
+        </div>
         <table className="table table-inbox table-hover">
           <tbody>
             <tr className="table-info">

@@ -6,3 +6,11 @@
     background: none repeat scroll 0 0 #f7f7f7;
     font-weight: 600;
 }
+.mail-option{
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 100%; 
+}
+.mail-option .chk-all input[type="checkbox"] {
+    margin-top: 10px;
+}
