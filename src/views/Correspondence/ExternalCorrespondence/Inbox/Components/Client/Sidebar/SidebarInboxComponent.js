@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ListComponent from "./component/ListInboxCorrespondence";
+import Tags from "./component/TagViewer";
 class SidebarInboxComponent extends Component {
   constructor(props) {
     super(props);

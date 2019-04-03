@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem, Badge } from "reactstrap";
+import Tags from "./TagViewer";
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
@@ -47,6 +48,9 @@ class ListInboxCorrespondence extends Component {
               {" "}
               <i className="fa fa-search" />{" "}
             </Badge>{" "}
+          </ListGroupItem>
+          <ListGroupItem>
+            <Tags />
           </ListGroupItem>
         </ListGroup>
       </div>
