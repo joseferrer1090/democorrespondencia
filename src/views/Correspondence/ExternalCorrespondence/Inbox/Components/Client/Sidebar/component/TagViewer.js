@@ -23,6 +23,14 @@ const dataTree = [
       {
         id: 2,
         name: "Child 2"
+      },
+      {
+        id: 3,
+        name: "Child 3"
+      },
+      {
+        id: 4,
+        name: "Child 4"
       }
     ]
   }
