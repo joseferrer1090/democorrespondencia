@@ -17,7 +17,7 @@ class InboxCorrespondenceExternal extends Component {
       <div className="animated fadeIn">
         <HeaderInbox />
         <div className="">
-          <div className="col-md-12" style={{ border: "1px solid green" }}>
+          <div className="col-md-12">
             <div
               className=""
               style={{
@@ -27,10 +27,7 @@ class InboxCorrespondenceExternal extends Component {
             >
               <div className="row" style={{}}>
                 <SidebarInbox />
-                <div
-                  className="col-md-10"
-                  style={{ border: "1px solid black", padding: "0px" }}
-                >
+                <div className="col-md-10" style={{ padding: "0px" }}>
                   <ContentInbox />
                 </div>
               </div>

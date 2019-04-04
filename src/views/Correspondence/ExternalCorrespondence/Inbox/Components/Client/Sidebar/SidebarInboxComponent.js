@@ -9,10 +9,7 @@ class SidebarInboxComponent extends Component {
 
   render() {
     return (
-      <div
-        className="col-md-2"
-        style={{ height: "auto ", border: "1px solid black", padding: "0px" }}
-      >
+      <div className="col-md-2" style={{ height: "auto ", padding: "0px" }}>
         {/* <div className="" style={{ width: "108%" }}>
           <p>Probando apenas para el cambio</p>
         </div> */}
