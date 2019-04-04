@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import ModalExport from "./../Content/components/ModalExport/ModalExport";
 
 import PropTypes from "prop-types";
 
@@ -19,7 +20,8 @@ class Headerinbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      modalexport: false
     };
   }
 
@@ -27,6 +29,10 @@ class Headerinbox extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  };
+
+  OpenModalExport = () => {
+    this.refs.child.toggle();
   };
 
   render() {
@@ -71,7 +77,11 @@ class Headerinbox extends Component {
                   <i className="fa fa-file-pdf-o" /> Exportar
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      this.OpenModalExport();
+                    }}
+                  >
                     {" "}
                     <i className="fa fa-file-pdf-o" /> Archivo de consulta{" "}
                   </DropdownItem>
@@ -132,6 +142,7 @@ class Headerinbox extends Component {
             </Nav>
           </Collapse>
         </Navbar>
+        <ModalExport ModalExport={this.state.modalexport} ref="child" />
       </div>
     );
   }
