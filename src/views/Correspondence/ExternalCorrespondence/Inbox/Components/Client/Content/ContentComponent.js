@@ -18,9 +18,107 @@ class ContentComponent extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <div className="">
-          <p className="float-left">Probando</p>
-          <div className="float-right">paginacion</div>
+        <div className="inbox-body">
+          <div className="mail-option">
+            <div className="chk-all" style={{ marginLeft: "-9px" }}>
+              <input
+                type="checkbox"
+                className="mail-checkbox mail-group-checkbox"
+              />
+              <div className="btn-group">
+                <a
+                  data-toggle="dropdown"
+                  href="#"
+                  className="btn mini all"
+                  aria-expanded="false"
+                >
+                  Seleccionar todo
+                  <i className="fa fa-angle-down " />
+                </a>
+              </div>
+            </div>
+            <div className="btn-group">
+              <a
+                data-original-title="Refresh"
+                data-placement="top"
+                data-toggle="dropdown"
+                href="#"
+                className="
+                
+                3
+                btn mini tooltips"
+              >
+                <i className=" fa fa-refresh" />
+              </a>
+            </div>
+
+            <div className="btn-group hidden-phone">
+              <a
+                data-toggle="dropdown"
+                href="#"
+                className="btn mini blue"
+                aria-expanded="false"
+              >
+                More
+                <i className="fa fa-angle-down " />
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <a href="#">
+                    <i className="fa fa-pencil" /> Mark as Read
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i className="fa fa-ban" /> Spam
+                  </a>
+                </li>
+                <li className="divider" />
+                <li>
+                  <a href="#">
+                    <i className="fa fa-trash-o" /> Delete
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="btn-group">
+              <a data-toggle="dropdown" href="#" className="btn mini blue">
+                Move to
+                <i className="fa fa-angle-down " />
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <a href="#">
+                    <i className="fa fa-pencil" /> Mark as Read
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i className="fa fa-ban" /> Spam
+                  </a>
+                </li>
+                <li className="divider" />
+                <li>
+                  <a href="#">
+                    <i className="fa fa-trash-o" /> Delete
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* <div className="custom-control custom-checkbox custom-control-inline">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="customRadio"
+                name="example"
+                defaultValue="customEx"
+              />
+              <label className="custom-control-label" htmlFor="customRadio">
+                Seleccionar todo
+              </label>
+            </div> */}
+          </div>
         </div>
         <table className="table table-inbox table-hover">
           <tbody>
