@@ -3,32 +3,25 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import PropTypes from "prop-types";
 import fileCSV from "./../../../../../../../../../assets/img/file_csv.svg";
 
-class ModalExport extends Component {
+class ModalExportRecibidoDespachado extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.modalExport
+      modal: this.props.modalrecibido
     };
   }
 
   toggle = () => {
     this.setState(prevState => ({
-      modal: !prevState.modal,
-      backdrop: false
+      modal: !prevState.modal
     }));
   };
 
   render() {
     return (
-      <Modal
-        className=""
-        isOpen={this.state.modal}
-        backdrop={this.state.backdrop}
-        fade={false}
-      >
+      <Modal isOpen={this.state.modal} fade={false}>
         <ModalHeader>
-          Archivo de consulta - Exportar archivo plano{" "}
-          <img src={fileCSV} width="5%" />{" "}
+          Recibido / Despachado <img src={fileCSV} width="5%" />{" "}
         </ModalHeader>
         <ModalBody>
           <p className="text-justify">
@@ -67,8 +60,8 @@ class ModalExport extends Component {
   }
 }
 
-ModalExport.propTypes = {
-  modalExport: PropTypes.bool.isRequired
+ModalExportRecibidoDespachado.propTypes = {
+  modalrecibido: PropTypes.bool.isRequired
 };
 
-export default ModalExport;
+export default ModalExportRecibidoDespachado;
