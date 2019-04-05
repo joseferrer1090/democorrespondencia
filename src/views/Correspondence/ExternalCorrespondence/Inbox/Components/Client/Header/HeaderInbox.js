@@ -14,6 +14,8 @@ import {
 } from "reactstrap";
 import ModalExport from "./../Content/components/ModalExport/ModalExport";
 import ModalExport2 from "./../Content/components/ModalExport/ModalExportRecibidoDespachado";
+import ModalReport from "./../Content/components/ModalReport/ModalReport";
+import ModalGeneralReport from "./../Content/components/ModalReport/ModalGenerateReport";
 
 import PropTypes from "prop-types";
 
@@ -23,7 +25,9 @@ class Headerinbox extends Component {
     this.state = {
       isOpen: false,
       modalexport: false,
-      modalexport2: false
+      modalexport2: false,
+      modalreport: false,
+      modalreportgeneral: false
     };
   }
 
@@ -39,6 +43,14 @@ class Headerinbox extends Component {
 
   OpenModalExport2 = () => {
     this.refs.child2.toggle();
+  };
+
+  OpenModalReport = () => {
+    this.refs.child3.toggle();
+  };
+
+  OpenModalGeneralReport = () => {
+    this.refs.child4.toggle();
   };
 
   render() {
@@ -110,10 +122,18 @@ class Headerinbox extends Component {
                       <i className="fa fa-pie-chart" /> Reportes
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>
+                      <DropdownItem
+                        onClick={() => {
+                          this.OpenModalGeneralReport();
+                        }}
+                      >
                         <i className="fa fa-file-pdf-o" /> Generar reporte{" "}
                       </DropdownItem>
-                      <DropdownItem>
+                      <DropdownItem
+                        onClick={() => {
+                          this.OpenModalReport();
+                        }}
+                      >
                         <i className="fa fa-file-pdf-o" /> Planilla de
                         correspondencia{" "}
                       </DropdownItem>
@@ -154,6 +174,11 @@ class Headerinbox extends Component {
         </Navbar>
         <ModalExport ModalExport={this.state.modalexport} ref="child" />
         <ModalExport2 modalrecibido={this.state.modalexport2} ref="child2" />
+        <ModalReport modalreport={this.state.modalreport} ref="child3" />
+        <ModalGeneralReport
+          modalgeneralreport={this.state.modalreportgeneral}
+          ref="child4"
+        />
       </div>
     );
   }
