@@ -1,12 +1,23 @@
 import React, { Component } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Card,
+  CardHeader,
+  CardBody,
+  Collapse
+} from "reactstrap";
 import PropTypes from "prop-types";
 
 class CopyCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.modalcopy
+      modal: this.props.modalcopy,
+      collapse: false,
+      collapse2: false
     };
   }
 
@@ -16,18 +27,177 @@ class CopyCorrespondence extends Component {
     }));
   };
 
+  toggleCollapse = () => {
+    this.setState({
+      collapse: !this.state.collapse
+    });
+  };
+
+  toggleCollapse2 = () => {
+    this.setState({
+      collapse2: !this.state.collapse2
+    });
+  };
+
   render() {
     return (
       <Modal className={"modal-xl"} isOpen={this.state.modal} fade={false}>
         <ModalHeader>Copiar correspondencia</ModalHeader>
         <ModalBody>
-          <div className="container">
+          <div className="">
             <div className="row">
-              <div className="col-md-6" style={{ border: "1px solid red" }}>
-                <p>Probando apenas</p>
+              <div className="col-md-6">
+                <Card body>
+                  <h5 className="card-title">
+                    {" "}
+                    Usuario origen{" "}
+                    <sub>
+                      {" "}
+                      <a
+                        href=""
+                        onClick={e => {
+                          e.preventDefault();
+                          this.toggleCollapse();
+                        }}
+                      >
+                        busqueda avanzada{" "}
+                      </a>{" "}
+                    </sub>{" "}
+                  </h5>
+                  <hr style={{ marginTop: "0px" }} />
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Fecha de radicación desde</label>
+                        <input
+                          type="date"
+                          className="form-control form-control-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Fecha de radicación hasta</label>
+                        <input
+                          type="date"
+                          className="form-control form-control-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <Collapse isOpen={this.state.collapse}>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label> Conglomerado </label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label> Empresa </label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label> Sede </label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label> Dependencia </label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </Collapse>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label>Usuario</label>
+                        <select className="form-control form-control-sm">
+                          <option>Seleccione...</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </div>
-              <div className="col-md-6" style={{ border: "1px solid black" }}>
-                <p>Probando apenas</p>
+              <div className="col-md-6">
+                <Card body>
+                  <h5 className="card-title">
+                    Usuario destino{" "}
+                    <sub>
+                      {" "}
+                      <a
+                        href=""
+                        onClick={e => {
+                          e.preventDefault();
+                          this.toggleCollapse2();
+                        }}
+                      >
+                        busqueda avanzada{" "}
+                      </a>{" "}
+                    </sub>{" "}
+                  </h5>
+                  <hr style={{ marginTop: "0px" }} />
+                  <Collapse isOpen={this.state.collapse2}>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Conglomerado</label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Empresa</label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Sede</label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Dependencia</label>
+                          <select className="form-control form-control-sm">
+                            <option>Seleccione...</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </Collapse>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label>Usuario</label>
+                        <select className="form-control form-control-sm">
+                          <option>Seleccione...</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </div>
               <div className="col-md-12" style={{ border: "1px solid blue" }}>
                 <p>Probando apenas</p>
