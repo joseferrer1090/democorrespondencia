@@ -196,11 +196,45 @@ class CopyCorrespondence extends Component {
                         </select>
                       </div>
                     </div>
+                    <div className="col-md-12">
+                      <div className="float-right">
+                        <button className="btn btn-secondary btn-sm">
+                          {" "}
+                          <i className="fa fa-plus" /> Agregar{" "}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </Card>
               </div>
-              <div className="col-md-12" style={{ border: "1px solid blue" }}>
-                <p>Probando apenas</p>
+              <div className="col-md-12">
+                <Card body>
+                  <div className="table-responsive">
+                    <table className="table table-condensed table-hover">
+                      <thead>
+                        <tr className="text-center">
+                          <td>Sede</td>
+                          <td>Dependencia</td>
+                          <td>Usuario</td>
+                          <td>Eliminar</td>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        <tr>
+                          <td>BOGOTA - PRINCIPAL </td>
+                          <td> ALMACEN</td>
+                          <td> SANDRA MILENA DIAZ ARDILA</td>
+                          <td>
+                            <button className="btn btn-danger btn-sm">
+                              {" "}
+                              <i className="fa fa-trash" />{" "}
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
               </div>
             </div>
           </div>
