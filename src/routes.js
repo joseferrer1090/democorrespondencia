@@ -16,6 +16,10 @@ const OutboxExternal = React.lazy(() =>
   import("./views/Correspondence/ExternalCorrespondence/Outbox/OutboxCorrespondenceExternal")
 );
 
+const ViewCorrespondence = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/ViewCorrespondence/ViewCorrespondence")
+);
+
 const InboxInternal = React.lazy(() =>
   import("./views/Correspondence/InternalCorrespondence/Inbox/InboxCorrespondeceInternal")
 );
@@ -66,6 +70,10 @@ const routes = [
     path: "/correspondence/external/despachada",
     name: "Externa despachada",
     component: OutboxExternal
+  },
+  {
+    path: "/correspondence/external/view/:id",
+    component: ViewCorrespondence
   },
   {
     path: "/correspondence/internal/entrantes",

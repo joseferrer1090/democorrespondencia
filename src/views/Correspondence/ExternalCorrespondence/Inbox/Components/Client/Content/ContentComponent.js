@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import Data2 from "./../../../../../../../services/data";
 import "./components/css/table_inbox.css";
 
@@ -14,7 +15,9 @@ class ContentComponent extends Component {
     super(props);
     this.state = {
       data: Data2.data,
-      dropdownOpen: false
+      dropdownOpen: false,
+      id:
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 "
     };
   }
 
@@ -29,6 +32,7 @@ class ContentComponent extends Component {
   }
 
   render() {
+    const id = this.state.id;
     return (
       <div className="animated fadeIn">
         <div className="inbox-body">
@@ -100,8 +104,10 @@ class ContentComponent extends Component {
                   <i class="fa fa-star" />
                 </td>
                 <td className="view-message  dont-show">PHPClass</td>
-                <td className="view-message ">
-                  Added a new class: Login Class Fast Site
+                <td className="view-message">
+                  <Link to={`/correspondence/external/view/${id}`}>
+                    Added a new class: Login Class Fast Site
+                  </Link>
                 </td>
                 <td className="view-message  inbox-small-cells">
                   <i className="fa fa-paperclip" />
