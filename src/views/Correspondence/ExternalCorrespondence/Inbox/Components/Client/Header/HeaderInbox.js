@@ -16,6 +16,7 @@ import ModalExport from "./../Content/components/ModalExport/ModalExport";
 import ModalExport2 from "./../Content/components/ModalExport/ModalExportRecibidoDespachado";
 import ModalReport from "./../Content/components/ModalReport/ModalReport";
 import ModalGeneralReport from "./../Content/components/ModalReport/ModalGenerateReport";
+import ModalCopy from "./../Content/components/OtherOption/CopyCorrespondence";
 
 import PropTypes from "prop-types";
 
@@ -27,7 +28,8 @@ class Headerinbox extends Component {
       modalexport: false,
       modalexport2: false,
       modalreport: false,
-      modalreportgeneral: false
+      modalreportgeneral: false,
+      modalcopy: false
     };
   }
 
@@ -51,6 +53,10 @@ class Headerinbox extends Component {
 
   OpenModalGeneralReport = () => {
     this.refs.child4.toggle();
+  };
+
+  OpenModalCopyCorrespondence = () => {
+    this.refs.child5.toggle();
   };
 
   render() {
@@ -162,7 +168,9 @@ class Headerinbox extends Component {
                       <i className="fa fa-list" /> Más opciones
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>
+                      <DropdownItem
+                        onClick={() => this.OpenModalCopyCorrespondence()}
+                      >
                         <i className="fa fa-copy" /> Copiar correspondencia{" "}
                       </DropdownItem>
                     </DropdownMenu>
@@ -179,6 +187,7 @@ class Headerinbox extends Component {
           modalgeneralreport={this.state.modalreportgeneral}
           ref="child4"
         />
+        <ModalCopy modalcopy={this.state.modalcopy} ref="child5" />
       </div>
     );
   }
