@@ -11,12 +11,16 @@ import {
 import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
+import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
+import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/pdfjs";
+
 class ViewCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalanotation: false
     };
+    this.myViewer = React.createRef();
   }
 
   OpenModalAnotation = () => {
@@ -117,11 +121,16 @@ class ViewCorrespondence extends Component {
                       className="card card-body"
                       style={{ minHeight: "600px" }}
                     >
-                      <embed
+                      {/* <embed
                         src="http://www.africau.edu/images/default/sample.pdf"
                         width={"100%"}
                         height={600}
                         type="application/pdf"
+                      /> */}
+                      <PDFViewer
+                        ref={this.myViewer}
+                        backend={PDFJSBackend}
+                        src={"/assets/edok_word_excel.pdf"}
                       />
                     </div>
                     {/* Fin Cuarta seccion */}

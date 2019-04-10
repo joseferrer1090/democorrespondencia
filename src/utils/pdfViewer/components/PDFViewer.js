@@ -23,3 +23,5 @@ class PDFViewer extends Component {
     );
   }
 }
+
+export default PDFViewer;
