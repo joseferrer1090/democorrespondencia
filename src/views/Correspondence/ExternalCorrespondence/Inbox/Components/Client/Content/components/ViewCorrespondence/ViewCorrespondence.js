@@ -119,7 +119,7 @@ class ViewCorrespondence extends Component {
                     {/* Cuarta seccion */}
                     <div
                       className="card card-body"
-                      style={{ minHeight: "600px" }}
+                      style={{ height: "600px", padding: "0px" }}
                     >
                       {/* <embed
                         src="http://www.africau.edu/images/default/sample.pdf"
