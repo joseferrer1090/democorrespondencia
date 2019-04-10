@@ -9,7 +9,7 @@ import {
   DropdownToggle
 } from "reactstrap";
 import PropTypes from "prop-types";
-
+import { browserHistory } from "react-router";
 class ViewCorrespondence extends Component {
   constructor(props) {
     super(props);
@@ -33,8 +33,21 @@ class ViewCorrespondence extends Component {
                   <Card body>
                     <div>
                       <h3 className="card-title">
-                        Asunto: Descripcion del asunto{" "}
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => {
+                            this.props.history.goBack();
+                          }}
+                        >
+                          {" "}
+                          <i className="fa fa-arrow-left" />{" "}
+                        </button>
+                        &nbsp; Asunto: Descripcion del asunto{" "}
                         <div className="float-right">
+                          <button className="btn btn-secondary btn-sm">
+                            <i className="fa fa-envelope-o" />
+                          </button>
+                          &nbsp;
                           <button className="btn btn-secondary btn-sm">
                             {" "}
                             <i className="fa fa-print" />
