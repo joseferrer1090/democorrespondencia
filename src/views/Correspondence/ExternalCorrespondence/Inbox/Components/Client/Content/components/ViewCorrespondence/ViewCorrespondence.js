@@ -10,11 +10,19 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
+import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
 class ViewCorrespondence extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalanotation: false
+    };
   }
+
+  OpenModalAnotation = () => {
+    this.refs.child.toggle();
+  };
+
   render() {
     return (
       <div className="">
@@ -63,7 +71,10 @@ class ViewCorrespondence extends Component {
                             <i className="fa fa-expand" />
                           </button>
                           &nbsp;
-                          <button className="btn btn-secondary btn-sm">
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => this.OpenModalAnotation()}
+                          >
                             {" "}
                             <i
                               className="fa fa-file-text-o"
@@ -126,6 +137,10 @@ class ViewCorrespondence extends Component {
             </div>
           </div>
         </div>
+        <ModalAnotations
+          annotationmodal={this.state.modalanotation}
+          ref="child"
+        />
       </div>
     );
   }
