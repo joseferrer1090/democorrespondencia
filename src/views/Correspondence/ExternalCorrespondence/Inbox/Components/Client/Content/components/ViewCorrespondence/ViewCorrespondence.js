@@ -50,22 +50,37 @@ class ViewCorrespondence extends Component {
                           onClick={() => {
                             this.props.history.goBack();
                           }}
+                          title="atras"
                         >
                           {" "}
                           <i className="fa fa-arrow-left" />{" "}
                         </button>
                         &nbsp; Asunto: Descripcion del asunto{" "}
                         <div className="float-right">
-                          <button className="btn btn-secondary btn-sm">
+                          <button
+                            title="Marca como no leida"
+                            className="btn btn-secondary btn-sm"
+                          >
                             <i className="fa fa-envelope-o" />
                           </button>
                           &nbsp;
-                          <button className="btn btn-secondary btn-sm">
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            title="Archivar"
+                          >
+                            <i className="fa fa-floppy-o" />
+                          </button>
+                          &nbsp;
+                          <button
+                            title="Imprimir"
+                            className="btn btn-secondary btn-sm"
+                          >
                             {" "}
                             <i className="fa fa-print" />
                           </button>
                           &nbsp;
-                          <button
+                          {/* <button
+                            title="Expandir"
                             className="btn btn-secondary btn-sm"
                             onClick={() => {
                               window.open("", "", "width=1000,height=600");
@@ -74,8 +89,16 @@ class ViewCorrespondence extends Component {
                             {" "}
                             <i className="fa fa-expand" />
                           </button>
+                          &nbsp; */}
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            title="Agregar anotación"
+                          >
+                            <i className="fa fa-pencil" />
+                          </button>
                           &nbsp;
                           <button
+                            title="Anotaciones"
                             className="btn btn-secondary btn-sm"
                             onClick={() => this.OpenModalAnotation()}
                           >
