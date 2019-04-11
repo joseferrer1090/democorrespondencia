@@ -11,6 +11,7 @@ import {
 import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
+import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
 import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
 import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/pdfjs";
 
@@ -18,13 +19,18 @@ class ViewCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalanotation: false
+      modalanotation: false,
+      modaladdanotation: false
     };
     this.myViewer = React.createRef();
   }
 
   OpenModalAnotation = () => {
     this.refs.child.toggle();
+  };
+
+  OpenModalAddanotation = () => {
+    this.refs.child2.toggle();
   };
 
   render() {
@@ -46,6 +52,7 @@ class ViewCorrespondence extends Component {
                     <div>
                       <h3 className="card-title">
                         <button
+                          type="button"
                           className="btn btn-secondary btn-sm"
                           onClick={() => {
                             this.props.history.goBack();
@@ -58,6 +65,7 @@ class ViewCorrespondence extends Component {
                         &nbsp; Asunto: Descripcion del asunto{" "}
                         <div className="float-right">
                           <button
+                            type="button"
                             title="Marca como no leida"
                             className="btn btn-secondary btn-sm"
                           >
@@ -65,6 +73,7 @@ class ViewCorrespondence extends Component {
                           </button>
                           &nbsp;
                           <button
+                            type="button"
                             className="btn btn-secondary btn-sm"
                             title="Archivar"
                           >
@@ -72,6 +81,7 @@ class ViewCorrespondence extends Component {
                           </button>
                           &nbsp;
                           <button
+                            type="button"
                             title="Imprimir"
                             className="btn btn-secondary btn-sm"
                           >
@@ -91,13 +101,18 @@ class ViewCorrespondence extends Component {
                           </button>
                           &nbsp; */}
                           <button
+                            type="button"
                             className="btn btn-secondary btn-sm"
                             title="Agregar anotación"
+                            onClick={() => {
+                              this.OpenModalAddanotation();
+                            }}
                           >
                             <i className="fa fa-pencil" />
                           </button>
                           &nbsp;
                           <button
+                            type="button"
                             title="Anotaciones"
                             className="btn btn-secondary btn-sm"
                             onClick={() => this.OpenModalAnotation()}
@@ -172,6 +187,10 @@ class ViewCorrespondence extends Component {
         <ModalAnotations
           annotationmodal={this.state.modalanotation}
           ref="child"
+        />
+        <ModalAddanotation
+          modaladdanotation={this.state.modaladdanotation}
+          ref="child2"
         />
       </div>
     );

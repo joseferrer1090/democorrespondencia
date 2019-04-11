@@ -6,7 +6,7 @@ class AddanotationsCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.modaladdanotation
+      modal: this.props.addanotation
     };
   }
 
@@ -19,17 +19,35 @@ class AddanotationsCorrespondence extends Component {
   render() {
     return (
       <div>
-        <Modal>
+        <Modal className="modal-lg" isOpen={this.state.modal}>
           <ModalHeader> Agregar anotación </ModalHeader>
           <ModalBody>
             <p>Probando apenas</p>
           </ModalBody>
+          <ModalFooter>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              onClick={() => {
+                this.setState({ modal: false });
+              }}
+            >
+              {" "}
+              <i className="fa fa-times" /> Cerrar{" "}
+            </button>
+            <button type="button" className="btn btn-secondary btn-sm">
+              {" "}
+              <i className="fa fa-pencil" /> Agregar anotación{" "}
+            </button>
+          </ModalFooter>
         </Modal>
       </div>
     );
   }
 }
 
-AddanotationsCorrespondence.propTypes = {};
+AddanotationsCorrespondence.propTypes = {
+  addanotation: PropTypes.bool.isRequired
+};
 
 export default AddanotationsCorrespondence;
