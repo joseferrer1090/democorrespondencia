@@ -65,6 +65,17 @@ class ViewCorrespondence extends Component {
                         &nbsp; Asunto: Descripcion del asunto{" "}
                         <div className="float-right">
                           <button
+                            title="Editar correspndencia"
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => {
+                              alert("proximamente");
+                            }}
+                          >
+                            <i className="fa fa-edit" />
+                          </button>
+                          &nbsp;
+                          <button
                             type="button"
                             title="Marca como no leida"
                             className="btn btn-secondary btn-sm"
@@ -108,7 +119,7 @@ class ViewCorrespondence extends Component {
                               this.OpenModalAddanotation();
                             }}
                           >
-                            <i className="fa fa-pencil" />
+                            <i className="fa fa-comment" />
                           </button>
                           &nbsp;
                           <button
@@ -118,10 +129,7 @@ class ViewCorrespondence extends Component {
                             onClick={() => this.OpenModalAnotation()}
                           >
                             {" "}
-                            <i
-                              className="fa fa-file-text-o"
-                              aria-hidden="true"
-                            />
+                            <i className="fa fa-comments" aria-hidden="true" />
                           </button>
                         </div>
                       </h3>

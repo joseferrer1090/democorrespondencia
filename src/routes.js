@@ -20,6 +20,10 @@ const ViewCorrespondence = React.lazy(() =>
   import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/ViewCorrespondence/ViewCorrespondence")
 );
 
+const EditCorrespondence = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/EditCorrespondence")
+);
+
 const InboxInternal = React.lazy(() =>
   import("./views/Correspondence/InternalCorrespondence/Inbox/InboxCorrespondeceInternal")
 );
