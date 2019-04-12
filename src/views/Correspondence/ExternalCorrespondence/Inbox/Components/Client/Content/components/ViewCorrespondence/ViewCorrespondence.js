@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
+import { withRouter } from "react-router-dom";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
 import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
 import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
@@ -20,7 +21,8 @@ class ViewCorrespondence extends Component {
     super(props);
     this.state = {
       modalanotation: false,
-      modaladdanotation: false
+      modaladdanotation: false,
+      id: ""
     };
     this.myViewer = React.createRef();
   }
@@ -33,7 +35,21 @@ class ViewCorrespondence extends Component {
     this.refs.child2.toggle();
   };
 
+  componentDidMount() {
+    this.setState({
+      id: this.props.match.params
+    });
+  }
+
+  OpenOnClickEdit = () => {
+    let id = this.props.match.params.id;
+    let path = `/correspondence/external/edit/${id}`;
+    this.props.history.push(path);
+    console.log(id);
+  };
+
   render() {
+    console.log(this.state.id);
     return (
       <div className="">
         <HeaderBox />
@@ -69,7 +85,7 @@ class ViewCorrespondence extends Component {
                             type="button"
                             className="btn btn-secondary btn-sm"
                             onClick={() => {
-                              alert("proximamente");
+                              this.OpenOnClickEdit();
                             }}
                           >
                             <i className="fa fa-edit" />

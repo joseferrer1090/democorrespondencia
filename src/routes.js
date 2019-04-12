@@ -80,6 +80,10 @@ const routes = [
     component: ViewCorrespondence
   },
   {
+    path: "/correspondence/external/edit/:id",
+    component: EditCorrespondence
+  },
+  {
     path: "/correspondence/internal/entrantes",
     name: "Interna entrantes",
     component: InboxInternal
