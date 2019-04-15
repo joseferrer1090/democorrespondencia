@@ -8,13 +8,20 @@ class EditCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapse: false
+      collapse: false,
+      collapse2: false
     };
   }
 
   OpenCollapse = () => {
     this.setState({
       collapse: !this.state.collapse
+    });
+  };
+
+  OpenCollapse2 = () => {
+    this.setState({
+      collapse2: !this.state.collapse2
     });
   };
 
@@ -253,11 +260,97 @@ class EditCorrespondence extends Component {
                       <div className="col-md-6">
                         <Card body>
                           <p>Remitente</p>
+                          <form>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="form-group">
+                                  <dt>
+                                    Buscar remitente{" "}
+                                    <span className="text-danger">*</span>
+                                  </dt>
+                                  <select className="form-control form-control-sm">
+                                    <option>Seleccione</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                         </Card>
                       </div>
                       <div className="col-md-6">
                         <Card body>
                           <p>Busqueda de destinatario</p>
+                          <form>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="form-group">
+                                  <dt>
+                                    Buscar remitente{" "}
+                                    <span className="text-danger">*</span>{" "}
+                                    <sub>
+                                      <a
+                                        href="#"
+                                        onClick={e => {
+                                          e.preventDefault();
+                                          this.OpenCollapse2();
+                                        }}
+                                      >
+                                        filtrar
+                                      </a>
+                                    </sub>
+                                  </dt>
+                                  <input
+                                    type="text"
+                                    className="form-control form-control-sm"
+                                  />
+                                </div>
+                                <Collapse isOpen={this.state.collapse2}>
+                                  <div className="row">
+                                    <div className="col-md-6">
+                                      <div className="form-group">
+                                        <label>Conglomerado</label>
+                                        <select className="form-control form-control-sm">
+                                          <option>Seleccione</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <div className="form-group">
+                                        <label>Empresa</label>
+                                        <select className="form-control form-control-sm">
+                                          <option>Seleccione</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <div className="form-group">
+                                        <label>Sede</label>
+                                        <select className="form-control form-control-sm">
+                                          <option>Seleccione</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <div className="form-group">
+                                        <label>Dependencia</label>
+                                        <select className="form-control form-control-sm">
+                                          <option>Seleccione</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                      <div className="form-group">
+                                        <label>Grupo</label>
+                                        <select className="form-control form-control-sm">
+                                          <option>Seleccione</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Collapse>
+                              </div>
+                            </div>
+                          </form>
                         </Card>
                       </div>
                     </div>
