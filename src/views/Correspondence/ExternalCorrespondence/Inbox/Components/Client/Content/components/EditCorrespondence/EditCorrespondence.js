@@ -9,7 +9,9 @@ class EditCorrespondence extends Component {
     super(props);
     this.state = {
       collapse: false,
-      collapse2: false
+      collapse2: false,
+      getdata: [],
+      selectRemitente: "0"
     };
   }
 
@@ -25,7 +27,36 @@ class EditCorrespondence extends Component {
     });
   };
 
+  onChangeRemitente = e => {
+    this.setState({
+      selectRemitente: e.target.value
+    });
+  };
+
+  getDataApi = () => {
+    fetch(`https://jsonplaceholder.typicode.com/users/`)
+      .then(resp => resp.json())
+      .then(data =>
+        this.setState({
+          getdata: data
+        })
+      );
+  };
+
+  componentDidMount() {
+    this.getDataApi();
+  }
+
   render() {
+    // console.log(this.state.getdata);
+    console.log(this.state.selectRemitente);
+    const aux = this.state.getdata.map((aux, i) => {
+      return (
+        <option key={i} value={aux.id}>
+          {aux.name}
+        </option>
+      );
+    });
     return (
       <div>
         <HeaderInbox />
@@ -268,8 +299,20 @@ class EditCorrespondence extends Component {
                                     Buscar remitente{" "}
                                     <span className="text-danger">*</span>
                                   </dt>
-                                  <select className="form-control form-control-sm">
-                                    <option>Seleccione</option>
+                                  <select
+                                    className="form-control form-control-sm"
+                                    name="selectRemitente"
+                                    onChange={e => {
+                                      this.setState({
+                                        selectRemitente: e.target.value
+                                      });
+                                    }}
+                                    value={this.state.selectRemitente}
+                                  >
+                                    <option value="0" defaultValue="0">
+                                      --Seleccione remitente--
+                                    </option>
+                                    {aux}
                                   </select>
                                 </div>
                               </div>
@@ -285,7 +328,7 @@ class EditCorrespondence extends Component {
                               <div className="col-md-12">
                                 <div className="form-group">
                                   <dt>
-                                    Buscar remitente{" "}
+                                    Buscar destinatario{" "}
                                     <span className="text-danger">*</span>{" "}
                                     <sub>
                                       <a
