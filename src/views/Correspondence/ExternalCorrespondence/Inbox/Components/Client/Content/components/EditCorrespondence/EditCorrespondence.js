@@ -262,10 +262,66 @@ class EditCorrespondence extends Component {
                       </div>
                     </div>
                     <Card body>
-                      <p>Asignación de destinatario</p>
+                      <p>Asignacion de destinatarios</p>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <dt>Destinatarios disponible</dt>
+                            <textarea
+                              className="form-control form-control-sm"
+                              disabled
+                              style={{ height: "100px" }}
+                            />
+                          </div>
+                          <input type="checkbox" checked /> Original
+                          <div className="float-right">
+                            <button
+                              type="button"
+                              className="btn btn-secondary btn-sm"
+                            >
+                              Todos <i className="fa fa-angle-double-right" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <dt>
+                              Destinatarios asignados{" "}
+                              <span className="text-danger">*</span>
+                            </dt>
+                            <textarea
+                              className="form-control form-control-sm"
+                              disabled
+                              style={{ height: "100px" }}
+                            />
+                          </div>
+                          <div className="float-right">
+                            <button
+                              type="button"
+                              className="btn btn-secondary btn-sm"
+                            >
+                              <i className="fa fa-angle-double-left" /> Todos
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </Card>
                     <Card body>
                       <p>Campos adiconales</p>
+                      <form>
+                        <div className="row">
+                          <div className="col-md-5">
+                            <div className="form-group">
+                              <dt>
+                                Plantilla <span className="text-danger">*</span>
+                              </dt>
+                              <select className="form-control form-control-sm">
+                                <option>Seleccione</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
                     </Card>
                     <hr />
                     <div className="">
