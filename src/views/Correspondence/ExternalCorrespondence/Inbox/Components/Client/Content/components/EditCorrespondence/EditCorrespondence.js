@@ -13,7 +13,7 @@ class EditCorrespondence extends Component {
       collapse2: false,
       collapse3: true,
       getdata: [],
-      selectRemitente: "0"
+      selectRemitente: null
     };
   }
 
@@ -61,6 +61,8 @@ class EditCorrespondence extends Component {
         </option>
       );
     });
+    const selectAux = this.state.selectRemitente;
+
     return (
       <div>
         <HeaderInbox />
@@ -320,10 +322,12 @@ class EditCorrespondence extends Component {
                                   </select>
                                 </div>
                                 {/* Aqui va el resultado de pasar el props al otro component */}
-                                <CardRemitente
-                                  collapse={this.state.collapse3}
-                                  selectedItem={this.state.selectRemitente}
-                                />
+                                {selectAux ? (
+                                  <CardRemitente
+                                    selectedItem={this.state.selectRemitente}
+                                    collapse={this.state.collapse3}
+                                  />
+                                ) : null}
                                 {/* Fin */}
                               </div>
                             </div>

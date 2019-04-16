@@ -70,10 +70,21 @@ class CardUserRemitente extends Component {
                     <dt>{aux.name}</dt>
                   </div>
                 </div>
-
                 <div className="form-group">
                   <dd>username</dd>
                   <dt>{aux.username}</dt>
+                </div>
+                <div className="from-group">
+                  <dd>email</dd>
+                  <dt> {aux.email} </dt>
+                </div>
+                <div className="form-group">
+                  <dd>Telefono</dd>
+                  <dt> {aux.phone} </dt>
+                </div>
+                <div className="form-group">
+                  <dd>Pagina </dd>
+                  <dt> {aux.website} </dt>
                 </div>
               </form>
             </div>
