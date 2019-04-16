@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import HeaderInbox from "./../../../Header/HeaderInbox";
 import SideBarInbox from "./../../../Sidebar/SidebarInboxComponent";
 import { Card, Collapse } from "reactstrap";
+import CardRemitente from "./components/CardUserRemitente";
 
 class EditCorrespondence extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class EditCorrespondence extends Component {
     this.state = {
       collapse: false,
       collapse2: false,
+      collapse3: true,
       getdata: [],
       selectRemitente: "0"
     };
@@ -315,6 +317,12 @@ class EditCorrespondence extends Component {
                                     {aux}
                                   </select>
                                 </div>
+                                {/* Aqui va el resultado de pasar el props al otro component */}
+                                <CardRemitente
+                                  collapse={this.state.collapse3}
+                                  selectedItem={this.state.selectRemitente}
+                                />
+                                {/* Fin */}
                               </div>
                             </div>
                           </form>
