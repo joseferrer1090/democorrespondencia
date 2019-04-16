@@ -19,7 +19,6 @@ class CardUserRemitente extends Component {
   };
 
   GetDataById = () => {
-    // metodo handle para cambiar el state del collapse
     fetch(`https://jsonplaceholder.typicode.com/users/${this.state.id}`)
       .then(response => {
         return response.json();
@@ -33,7 +32,6 @@ class CardUserRemitente extends Component {
       .catch(err => {
         console.log("Error", err);
       });
-    // Fin
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -50,7 +48,6 @@ class CardUserRemitente extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.warn(prevProps, this.props, this.state, prevState);
     if (this.state.id !== prevProps.selectedItem) {
       this.GetDataById(this.state.id.value);
     }
@@ -59,12 +56,27 @@ class CardUserRemitente extends Component {
   render() {
     //console.log(this.state.data);
     // console.log(this.state.id);
+    const aux = this.state.data;
     return (
       <div>
         <Card>
           <CardHeader>Datos del remitente</CardHeader>
           <CardBody>
-            <p>Probando apenas</p>
+            <div className="row">
+              <form>
+                <div className="">
+                  <div className="form-group">
+                    <dd>Nombre</dd>
+                    <dt>{aux.name}</dt>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <dd>username</dd>
+                  <dt>{aux.username}</dt>
+                </div>
+              </form>
+            </div>
           </CardBody>
         </Card>
       </div>
