@@ -8,6 +8,7 @@ class PlantillaEditCorrespondence extends Component {
       id: this.props.idPlantilla
     };
   }
+
   render() {
     return (
       <div>
