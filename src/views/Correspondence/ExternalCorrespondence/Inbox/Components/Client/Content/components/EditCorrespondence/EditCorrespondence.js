@@ -13,7 +13,8 @@ class EditCorrespondence extends Component {
       collapse2: false,
       collapse3: true,
       getdata: [],
-      selectRemitente: null
+      selectRemitente: null,
+      selectPlantilla: null
     };
   }
 
@@ -26,12 +27,6 @@ class EditCorrespondence extends Component {
   OpenCollapse2 = () => {
     this.setState({
       collapse2: !this.state.collapse2
-    });
-  };
-
-  onChangeRemitente = e => {
-    this.setState({
-      selectRemitente: e.target.value
     });
   };
 
@@ -52,8 +47,6 @@ class EditCorrespondence extends Component {
   }
 
   render() {
-    console.log(this.state.getdata);
-    console.log(this.state.selectRemitente);
     const aux = this.state.getdata.map((aux, i) => {
       return (
         <option key={i} value={aux.id}>
@@ -465,9 +458,23 @@ class EditCorrespondence extends Component {
                               <dt>
                                 Plantilla <span className="text-danger">*</span>
                               </dt>
-                              <select className="form-control form-control-sm">
-                                <option>Seleccione</option>
+                              <select
+                                name="selectPlantilla"
+                                className="form-control form-control-sm"
+                                onChange={e => {
+                                  this.setState({
+                                    selectPlantilla: e.target.value
+                                  });
+                                }}
+                                value={this.state.selectPlantilla}
+                              >
+                                <option value="0"> --Seleccione-- </option>
+                                <option value="1"> Factura </option>
+                                <option value="2"> Factura eletronica </option>
+                                <option value="3"> Validacion </option>
+                                <option value="4"> Prueba </option>
                               </select>
+                              {<p>{this.state.selectPlantilla}</p>}
                             </div>
                           </div>
                         </div>
