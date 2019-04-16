@@ -4,6 +4,9 @@ import HeaderInbox from "./../../../Header/HeaderInbox";
 import SideBarInbox from "./../../../Sidebar/SidebarInboxComponent";
 import { Card, Collapse } from "reactstrap";
 import CardRemitente from "./components/CardUserRemitente";
+import dataform from "./../../../../../../../../../services/plantilla_data.json";
+
+const dataExample = dataform;
 
 class EditCorrespondence extends Component {
   constructor(props) {
@@ -14,7 +17,8 @@ class EditCorrespondence extends Component {
       collapse3: true,
       getdata: [],
       selectRemitente: null,
-      selectPlantilla: null
+      selectPlantilla: null,
+      dataForm: dataExample
     };
   }
 
@@ -55,6 +59,8 @@ class EditCorrespondence extends Component {
       );
     });
     const selectAux = this.state.selectRemitente;
+    console.log(this.state.dataForm.form.button);
+    const auxForm = this.state.form;
 
     return (
       <div>

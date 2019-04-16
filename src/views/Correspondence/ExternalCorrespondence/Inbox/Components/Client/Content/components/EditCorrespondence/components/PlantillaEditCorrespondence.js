@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 class PlantillaEditCorrespondence extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      id: this.props.idPlantilla
+    };
   }
   render() {
     return (
@@ -15,6 +17,8 @@ class PlantillaEditCorrespondence extends Component {
   }
 }
 
-PlantillaEditCorrespondence.propTypes = {};
+PlantillaEditCorrespondence.propTypes = {
+  idPlantilla: PropTypes.number.isRequired
+};
 
 export default PlantillaEditCorrespondence;
