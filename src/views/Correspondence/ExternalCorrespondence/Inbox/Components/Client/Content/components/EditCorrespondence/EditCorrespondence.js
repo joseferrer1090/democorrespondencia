@@ -348,9 +348,20 @@ class EditCorrespondence extends Component {
                           <div>Hay datos adjuntos</div>
                         ) : null}
                         <table className="table table-bordered  table-hover table-sm">
-                          <td>hola</td>
-                          <td>Hola</td>
-                          <td>Hola</td>
+                          <tbody>
+                            <tr>
+                              <td width="5%" className="text-center">
+                                item
+                              </td>
+                              <td className="text-center">item</td>
+                              <td width="10%" className="text-center">
+                                <button className="btn btn-outline-danger  btn-sm float-center">
+                                  {" "}
+                                  Quitar
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
                         </table>
                       </Card>
                     </Collapse>
