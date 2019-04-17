@@ -319,6 +319,7 @@ class EditCorrespondence extends Component {
                           onChange={this.onFilesChange}
                           multiple
                           clickable
+                          style={{ width: "1000px" }}
                         >
                           Drop files here or click to upload
                         </Files>
