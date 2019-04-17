@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Files from "react-files";
 import HeaderInbox from "./../../../Header/HeaderInbox";
 import SideBarInbox from "./../../../Sidebar/SidebarInboxComponent";
 import { Card, Collapse } from "reactstrap";
 import CardRemitente from "./components/CardUserRemitente";
 import dataform from "./../../../../../../../../../services/plantilla_data.json";
+
+import "./../../../Content/components/css/reactfile.css";
 
 const dataExample = dataform;
 
@@ -18,7 +21,8 @@ class EditCorrespondence extends Component {
       getdata: [],
       selectRemitente: null,
       selectPlantilla: null,
-      dataForm: dataExample
+      dataForm: dataExample,
+      files: []
     };
   }
 
@@ -32,6 +36,25 @@ class EditCorrespondence extends Component {
     this.setState({
       collapse2: !this.state.collapse2
     });
+  };
+
+  onFilesChange = files => {
+    this.setState(
+      {
+        files
+      },
+      () => {
+        console.log(this.state.files);
+      }
+    );
+  };
+
+  filesRemoveOne = file => {
+    this.refs.files.removeFile(file);
+  };
+
+  filesRemoveAll = () => {
+    this.refs.files.removeFiles();
   };
 
   getDataApi = () => {
@@ -288,8 +311,46 @@ class EditCorrespondence extends Component {
                       </form>
                     </Card>
                     <Collapse isOpen={this.state.collapse}>
+                      <p>Adjuntar Documentos</p>
                       <Card body>
-                        <p>Probando apenas</p>
+                        <Files
+                          ref="files"
+                          className="files-dropzone-list"
+                          onChange={this.onFilesChange}
+                          multiple
+                          clickable
+                        >
+                          Drop files here or click to upload
+                        </Files>
+                        <br />
+                        <div className="row">
+                          <div className="col-md-6">
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={this.filesRemoveAll}
+                            >
+                              Remove All Files <i className="fa fa-trash" />
+                            </button>
+                            &nbsp;
+                            {/* <button
+                              className="btn btn-secondary btn-sm"
+                              onClick={() => {
+                                alert("Se Cargaron los datos");
+                              }}
+                            >
+                              Upload <i className="fa fa-upload" />
+                            </button> */}
+                          </div>
+                        </div>
+                        <br />
+                        {this.state.files.length > 0 ? (
+                          <div>Hay datos adjuntos</div>
+                        ) : null}
+                        <table className="table table-bordered  table-hover table-sm">
+                          <td>hola</td>
+                          <td>Hola</td>
+                          <td>Hola</td>
+                        </table>
                       </Card>
                     </Collapse>
                     <div className="row">
