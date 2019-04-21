@@ -85,6 +85,28 @@ class EditCorrespondence extends Component {
     console.log(this.state.dataForm.form.button);
     const auxForm = this.state.form;
 
+    const auxTableFiles = this.state.files;
+
+    auxTableFiles.map((file) => {
+      return(
+        <div key={file.id}>
+          <tr>
+            <td width="5%" className="text-center">
+              item
+            </td>
+            <td className="text-center">item</td>
+            <td width="10%" className="text-center">
+              <button className="btn btn-outline-danger  btn-sm float-center">
+                {" "}
+                Quitar
+              </button>
+            </td>
+          </tr>
+        </div>
+
+      )
+    })
+
     return (
       <div>
         <HeaderInbox />
@@ -330,7 +352,7 @@ class EditCorrespondence extends Component {
                               className="btn btn-danger btn-sm"
                               onClick={this.filesRemoveAll}
                             >
-                              Remove All Files <i className="fa fa-trash" />
+                              Quitar todos los archivos <i className="fa fa-trash" />
                             </button>
                             &nbsp;
                             {/* <button
@@ -345,24 +367,27 @@ class EditCorrespondence extends Component {
                         </div>
                         <br />
                         {this.state.files.length > 0 ? (
-                          <div>Hay datos adjuntos</div>
-                        ) : null}
-                        <table className="table table-bordered  table-hover table-sm">
-                          <tbody>
-                            <tr>
-                              <td width="5%" className="text-center">
-                                item
-                              </td>
-                              <td className="text-center">item</td>
-                              <td width="10%" className="text-center">
-                                <button className="btn btn-outline-danger  btn-sm float-center">
-                                  {" "}
-                                  Quitar
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                            <div>
+                              <p>Hay datos </p>
+                              <br/>
+                              <table className="table table-bordered  table-hover table-sm">
+                                <tbody>
+                                <tr>
+                                  <td width="5%" className="text-center">
+                                    item
+                                  </td>
+                                  <td className="text-center">item</td>
+                                  <td width="10%" className="text-center">
+                                    <button className="btn btn-outline-danger  btn-sm float-center">
+                                      {" "}
+                                      Quitar
+                                    </button>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          ) : null}
                       </Card>
                     </Collapse>
                     <div className="row">
