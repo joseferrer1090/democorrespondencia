@@ -87,8 +87,8 @@ class EditCorrespondence extends Component {
 
     const auxTableFiles = this.state.files;
 
-    auxTableFiles.map((file) => {
-      return(
+    auxTableFiles.map(file => {
+      return (
         <div key={file.id}>
           <tr>
             <td width="5%" className="text-center">
@@ -103,9 +103,8 @@ class EditCorrespondence extends Component {
             </td>
           </tr>
         </div>
-
-      )
-    })
+      );
+    });
 
     return (
       <div>
@@ -352,7 +351,8 @@ class EditCorrespondence extends Component {
                               className="btn btn-danger btn-sm"
                               onClick={this.filesRemoveAll}
                             >
-                              Quitar todos los archivos <i className="fa fa-trash" />
+                              Quitar todos los archivos{" "}
+                              <i className="fa fa-trash" />
                             </button>
                             &nbsp;
                             {/* <button
@@ -367,33 +367,55 @@ class EditCorrespondence extends Component {
                         </div>
                         <br />
                         {this.state.files.length > 0 ? (
-                            <div>
-                              <table className="table table-bordered table-hover table-sm">
-                                <tbody>
-                                {this.state.files.map((file) => <tr key={file.id}>
-                                  <td width="5%" height="5%" className="text-center">
-                                    <div className='files-list-item-preview'>
-                                      {file.preview.type === 'image'
-                                        ? <img className='files-list-item-preview-image' src={file.preview.url} />
-                                        : <div className='files-list-item-preview-extension'>{file.extension}</div>}
-                                    </div>
-                                  </td>
-                                  <td className="text-center">
-                                    <div style={{marginTop: "3%"}}>{file.name} - {file.sizeReadable}</div>
-                                  </td>
-                                  <td width="10%" className="text-center">
-                                    <div style={{marginTop: "16px"}}>
-                                      <button id={file.id} className="btn btn-outline-danger  btn-sm float-center" onClick={this.filesRemoveOne.bind(this, file)} >
-                                        {" "}
-                                        Quitar
-                                      </button>
-                                    </div>
-                                  </td>
-                                </tr>)}
-                                </tbody>
-                              </table>
-                            </div>
-                          ) : null}
+                          <div>
+                            <table className="table table-bordered table-hover table-sm">
+                              <tbody>
+                                {this.state.files.map(file => (
+                                  <tr key={file.id}>
+                                    <td
+                                      width="5%"
+                                      height="5%"
+                                      className="text-center"
+                                    >
+                                      <div className="files-list-item-preview">
+                                        {file.preview.type === "image" ? (
+                                          <img
+                                            className="files-list-item-preview-image"
+                                            src={file.preview.url}
+                                          />
+                                        ) : (
+                                          <div className="files-list-item-preview-extension">
+                                            {file.extension}
+                                          </div>
+                                        )}
+                                      </div>
+                                    </td>
+                                    <td className="text-center">
+                                      <div style={{ marginTop: "3%" }}>
+                                        {file.name} - {file.sizeReadable}
+                                      </div>
+                                    </td>
+                                    <td width="10%" className="text-center">
+                                      <div style={{ marginTop: "16px" }}>
+                                        <button
+                                          id={file.id}
+                                          className="btn btn-outline-danger  btn-sm float-center"
+                                          onClick={this.filesRemoveOne.bind(
+                                            this,
+                                            file
+                                          )}
+                                        >
+                                          {" "}
+                                          Quitar
+                                        </button>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        ) : null}
                       </Card>
                     </Collapse>
                     <div className="row">
@@ -596,6 +618,9 @@ class EditCorrespondence extends Component {
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"
+                          onClick={() => {
+                            this.props.history.goBack();
+                          }}
                         >
                           {" "}
                           <i className="fa fa-times" /> Cerrar{" "}
