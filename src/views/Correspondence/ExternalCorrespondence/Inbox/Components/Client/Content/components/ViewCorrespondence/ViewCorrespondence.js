@@ -48,6 +48,13 @@ class ViewCorrespondence extends Component {
     console.log(id);
   };
 
+  OpenOnClickViewRelatedUsers = () => {
+    let id = this.props.match.params.id;
+    let path = `/correspondence/external/relatedusers/${id}`;
+    this.props.history.push(path);
+    console.log(id);
+  };
+
   render() {
     console.log(this.state.id);
     return (
@@ -153,7 +160,7 @@ class ViewCorrespondence extends Component {
                             className="btn btn-secondary btn-sm"
                             title="Usuarios relacionados"
                             onClick={() => {
-                              alert("Probando apenas la ruta");
+                              this.OpenOnClickViewRelatedUsers();
                             }}
                           >
                             {" "}
