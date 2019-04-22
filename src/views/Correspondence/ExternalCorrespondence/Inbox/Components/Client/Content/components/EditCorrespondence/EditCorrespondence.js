@@ -368,22 +368,28 @@ class EditCorrespondence extends Component {
                         <br />
                         {this.state.files.length > 0 ? (
                             <div>
-                              <p>Hay datos </p>
-                              <br/>
-                              <table className="table table-bordered  table-hover table-sm">
+                              <table className="table table-bordered table-hover table-sm">
                                 <tbody>
-                                <tr>
-                                  <td width="5%" className="text-center">
-                                    item
+                                {this.state.files.map((file) => <tr key={file.id}>
+                                  <td width="5%" height="5%" className="text-center">
+                                    <div className='files-list-item-preview'>
+                                      {file.preview.type === 'image'
+                                        ? <img className='files-list-item-preview-image' src={file.preview.url} />
+                                        : <div className='files-list-item-preview-extension'>{file.extension}</div>}
+                                    </div>
                                   </td>
-                                  <td className="text-center">item</td>
+                                  <td className="text-center">
+                                    <div style={{marginTop: "3%"}}>{file.name} - {file.sizeReadable}</div>
+                                  </td>
                                   <td width="10%" className="text-center">
-                                    <button className="btn btn-outline-danger  btn-sm float-center">
-                                      {" "}
-                                      Quitar
-                                    </button>
+                                    <div style={{marginTop: "16px"}}>
+                                      <button id={file.id} className="btn btn-outline-danger  btn-sm float-center" onClick={this.filesRemoveOne.bind(this, file)} >
+                                        {" "}
+                                        Quitar
+                                      </button>
+                                    </div>
                                   </td>
-                                </tr>
+                                </tr>)}
                                 </tbody>
                               </table>
                             </div>
