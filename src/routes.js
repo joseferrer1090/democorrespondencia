@@ -36,6 +36,10 @@ const NewRadicationInternal = React.lazy(() =>
   import("./views/Correspondence/InternalCorrespondence/NewInternalRadication/NewRadication")
 );
 
+const RelatedUsersCorrespondence = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/RelatedUsersCorrespondence")
+);
+
 const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
 
 const routes = [
@@ -97,6 +101,10 @@ const routes = [
     path: "/correspondence/internal/nueva",
     name: "Nueva correspondencia interna",
     component: NewRadicationInternal
+  },
+  {
+    path: "/correspondence/external/relatedusers/:id",
+    component: RelatedUsersCorrespondence
   },
   {
     path: "/perfil",

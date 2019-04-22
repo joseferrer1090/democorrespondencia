@@ -147,6 +147,18 @@ class ViewCorrespondence extends Component {
                             {" "}
                             <i className="fa fa-comments" aria-hidden="true" />
                           </button>
+                          &nbsp;
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            title="Usuarios relacionados"
+                            onClick={() => {
+                              alert("Probando apenas la ruta");
+                            }}
+                          >
+                            {" "}
+                            <i className="fa fa-users" />{" "}
+                          </button>
                         </div>
                       </h3>
                       <hr style={{ marginTop: "0px" }} />
