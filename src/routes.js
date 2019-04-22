@@ -40,6 +40,10 @@ const RelatedUsersCorrespondence = React.lazy(() =>
   import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/RelatedUsersCorrespondence")
 );
 
+const HistorialCorrespondence = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/HistorialCorrespondence")
+);
+
 const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
 
 const routes = [
@@ -105,6 +109,10 @@ const routes = [
   {
     path: "/correspondence/external/relatedusers/:id",
     component: RelatedUsersCorrespondence
+  },
+  {
+    path: "/correspondence/external/historial/:id",
+    component: HistorialCorrespondence
   },
   {
     path: "/perfil",

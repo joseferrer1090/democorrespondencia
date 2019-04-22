@@ -55,6 +55,13 @@ class ViewCorrespondence extends Component {
     console.log(id);
   };
 
+  OpenClickHistorialCorrespondence = () => {
+    let id = this.props.match.params.id;
+    let path = `/correspondence/external/historial/${id}`;
+    this.props.history.push(path);
+    console.log(id);
+  };
+
   render() {
     console.log(this.state.id);
     return (
@@ -165,6 +172,17 @@ class ViewCorrespondence extends Component {
                           >
                             {" "}
                             <i className="fa fa-users" />{" "}
+                          </button>
+                          &nbsp;
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            title="Historial"
+                            onClick={() => {
+                              this.OpenClickHistorialCorrespondence();
+                            }}
+                          >
+                            <i className="fa fa-history" />
                           </button>
                         </div>
                       </h3>
