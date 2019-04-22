@@ -193,7 +193,6 @@ class RelatedUsersCorrespondence extends Component {
                           <tr className="text-center">
                             <th scope="row">Pedro</th>
                             <td>Dependencia 1</td>
-
                             <td>Original</td>
                             <td>
                               <code>
@@ -205,7 +204,6 @@ class RelatedUsersCorrespondence extends Component {
                           <tr className="text-center">
                             <th scope="row">Pedro</th>
                             <td>Dependencia 1</td>
-
                             <td>Original</td>
                             <td>
                               <code>
@@ -217,7 +215,6 @@ class RelatedUsersCorrespondence extends Component {
                           <tr className="text-center">
                             <th scope="row">Pedro</th>
                             <td>Dependencia 1</td>
-
                             <td>Original</td>
                             <td>
                               <code>
