@@ -343,7 +343,7 @@ class EditCorrespondence extends Component {
                           clickable
                           style={{ width: "1000px" }}
                         >
-                          Drop files here or click to upload
+                          Coloque los archivos aquí o haga click para subir
                         </Files>
                         <br />
                         <div className="row">
