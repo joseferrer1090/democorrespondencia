@@ -38,7 +38,7 @@ class TimelineHorizontal extends Component {
       <div>
         <div
           style={{
-            width: "60%",
+            width: "100%",
             height: "100px",
             margin: "0 auto",
             marginTop: "20px",
