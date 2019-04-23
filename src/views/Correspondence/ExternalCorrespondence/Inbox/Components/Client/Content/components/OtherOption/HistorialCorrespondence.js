@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import HeaderInbox from "./../../../Header/HeaderInbox";
 import SideBarInbox from "./../../../Sidebar/SidebarInboxComponent";
+import TimeLine from "./components/TimelineHorizontal";
 
 class HistorialCorrespondence extends Component {
   constructor(props) {
@@ -34,8 +35,8 @@ class HistorialCorrespondence extends Component {
             </table>
           </div>
           <div className="col-md-12">
-            <div className="p-3 mb-0 bg-secondary text-dark">
-              Aqui va el Timeline horizontal con la unfirmacion
+            <div className="card card-body m-0">
+              <TimeLine />
             </div>
           </div>
           <div className="col-md-6" style={{ padding: "0px" }}>
