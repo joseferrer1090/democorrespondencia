@@ -24,7 +24,7 @@ class HistorialCorrespondence extends Component {
             <Card body>
               <TimeLine />
               <div className="row">
-                <div className="col-md-6" style={{ border: "1px solid red" }}>
+                <div className="col-md-6">
                   <table
                     className="table table-hover"
                     style={{ marginLeft: "16px" }}
