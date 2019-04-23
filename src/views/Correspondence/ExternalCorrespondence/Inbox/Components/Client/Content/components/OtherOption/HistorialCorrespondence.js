@@ -15,12 +15,23 @@ class HistorialCorrespondence extends Component {
       <div>
         <HeaderInbox />
         <div className="">
-          <div className="row">
-            <div className="col-md-12">
-              <Card body>
-                <TimeLine />
-              </Card>
-            </div>
+          <div className="col-md-12">
+            <p>Probnado </p>
+          </div>
+        </div>
+        <div className="">
+          <div className="col-md-12">
+            <Card body>
+              <TimeLine />
+              <div className="row">
+                <div className="col-md-6" style={{ border: "1px solid red" }}>
+                  <p>Probando</p>
+                </div>
+                <div className="col-md-6" style={{ border: "1px solid blue" }}>
+                  <p>Probnado </p>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ class TimelineHorizontal extends Component {
     super(props);
     this.state = {
       curIdx: 0, //
-      prevIdx: 0 //
+      prevIdx: -1 //
     };
   }
   render() {
