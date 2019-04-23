@@ -225,6 +225,19 @@ class RelatedUsersCorrespondence extends Component {
                           </tr>
                         </tbody>
                       </table>
+                      <div className="container">
+                        <div className="row">
+                          <div
+                            className="col-md-12"
+                            style={{ border: "1px solid #e3e3e3" }}
+                          >
+                            <p>
+                              <code>Probando apenas</code>
+                              <code>probnado</code>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Card>
