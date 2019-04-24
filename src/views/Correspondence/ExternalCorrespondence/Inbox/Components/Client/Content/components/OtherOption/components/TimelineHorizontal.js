@@ -33,7 +33,6 @@ class TimelineHorizontal extends Component {
     const { curIdx, prevIdx } = this.state;
     const curStatus = EXAMPLE[curIdx].statusB;
     const prevStatus = prevIdx >= 0 ? EXAMPLE[prevIdx].statusB : "";
-
     return (
       <div>
         <div

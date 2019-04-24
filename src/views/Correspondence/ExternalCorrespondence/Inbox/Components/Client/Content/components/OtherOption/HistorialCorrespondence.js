@@ -157,7 +157,149 @@ class HistorialCorrespondence extends Component {
                   </table>
                 </div>
                 <div className="col-md-6" style={{ border: "1px solid blue" }}>
-                  <p>Probnado </p>
+                  <table className="table table-hover">
+                    <thead className="table-secondary">
+                      <tr>
+                        <th scope="col" width="50%" className="text-center">
+                          MODIFICACION
+                          <br />
+                          21/01/2019 - 03:53 PM
+                          <br />
+                          Usuario: EDGAR ANDRES CUERVO ORTEGA
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <strong>Fecha del documento</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Tipo del documento</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Ciudad</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Folios</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Tipo de llegada</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Guia</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Nro. del documento</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Remitente</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Destinatarios</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Anexos</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Workflow</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Plantilla</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Seria Documental</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Dependencia Serie</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Imágnes</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Tamaño imágenes</strong>
+                          <div className="float-right">
+                            <p>Probando apenas</p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </Card>
