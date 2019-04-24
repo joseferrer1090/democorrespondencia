@@ -15,13 +15,28 @@ class HistorialCorrespondence extends Component {
       <div>
         <HeaderInbox />
         <div className="">
-          <div className="col-md-12">
-            <p>Probnado </p>
-          </div>
+          <div className="col-md-12" />
         </div>
-        <div className="">
+        <div className="row">
           <div className="col-md-12">
             <Card body>
+              <div>
+                <h3 className="card-title">
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => {
+                      this.props.history.goBack();
+                    }}
+                    title="atras"
+                  >
+                    {" "}
+                    <i className="fa fa-arrow-left" />{" "}
+                  </button>{" "}
+                  Historial de correspondencia - Titulo de correspondencia
+                </h3>
+              </div>
+              <hr style={{ marginTop: "0px" }} />
               <TimeLine />
               <div className="row">
                 <div className="col-md-6">
@@ -160,6 +175,7 @@ class HistorialCorrespondence extends Component {
                   <table className="table table-hover">
                     <thead className="table-secondary">
                       <tr>
+                        <th>Campos</th>
                         <th scope="col" width="50%" className="text-center">
                           MODIFICACION
                           <br />
@@ -173,130 +189,111 @@ class HistorialCorrespondence extends Component {
                       <tr>
                         <td>
                           <strong>Fecha del documento</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td className="text-center">21/01/2019</td>
                       </tr>
                       <tr>
                         <td>
-                          <strong>Tipo del documento</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                          <strong>Tipo de documento</strong>
                         </td>
+                        <td className="text-center">FACTURA MPYE</td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Ciudad</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td className="text-center">BOGOTA</td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Folios</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td className="text-center">10</td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Tipo de llegada</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td className="text-center">A LA MANO</td>
                       </tr>
                       <tr>
                         <td>
-                          <strong>Guia</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                          <strong>Guía</strong>
                         </td>
+                        <td />
+                        <td />
                       </tr>
                       <tr>
                         <td>
                           <strong>Nro. del documento</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td className="text-center">FEBT5612</td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Remitente</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                        </td>
+                        <td className="text-center">
+                          EMPAQUES IND DE COLOMBIA SAS
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Destinatarios</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                        </td>
+                        <td className="text-center">
+                          ALMACEN - EDGAR ANDRES CUERVO ORTEGA
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Anexos</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td />
+                        <td />
                       </tr>
                       <tr>
                         <td>
                           <strong>Workflow</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                        </td>
+                        <td className="text-center">
+                          365EMPAQUES IND DE COLOMBIA SAS 900406158-3 FEBT5612
+                          EDGCUE - Circuito: MATERIA PRIMA Y EMPAQUE
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Plantilla</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td />
+                        <td />
                       </tr>
                       <tr>
                         <td>
-                          <strong>Seria Documental</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                          <strong>Serie Documental</strong>
                         </td>
+                        <td />
+                        <td />
                       </tr>
                       <tr>
                         <td>
                           <strong>Dependencia Serie</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                        </td>
+                        <td className="text-center">
+                          LOGISTICA DE APROVISIONAMIENTO
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <strong>Imágnes</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
+                          <strong>Imágenes</strong>
                         </td>
+                        <td className="text-center bg-danger">0</td>
                       </tr>
                       <tr>
                         <td>
                           <strong>Tamaño imágenes</strong>
-                          <div className="float-right">
-                            <p>Probando apenas</p>
-                          </div>
                         </td>
+                        <td className="text-center bg-danger" />
                       </tr>
                     </tbody>
                   </table>
