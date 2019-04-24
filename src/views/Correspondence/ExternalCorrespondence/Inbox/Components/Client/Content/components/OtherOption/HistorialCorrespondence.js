@@ -39,6 +39,21 @@ class HistorialCorrespondence extends Component {
                     </div>
                     <hr style={{ marginTop: "0px" }} />
                     <TimeLine />
+                    <div className="col-md-4">
+                      <p>
+                        Sede: <strong>SEDE 1</strong>
+                      </p>
+                      <p>
+                        Vigencia: <strong>2018</strong>{" "}
+                      </p>
+                      <p>
+                        Consecutivo: <strong>1</strong>{" "}
+                      </p>
+                      <p>
+                        Fecha de radicación:{" "}
+                        <strong>04/10/2018 - 09:05 AM</strong>{" "}
+                      </p>
+                    </div>
                     <div className="row">
                       <div className="col-md-6">
                         <table
