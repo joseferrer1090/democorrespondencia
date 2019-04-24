@@ -13,6 +13,7 @@ import { browserHistory } from "react-router";
 import { withRouter } from "react-router-dom";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
 import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
+import ModalSticker from "./../ModalStciker/ModalSticker";
 import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
 import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/pdfjs";
 
@@ -22,6 +23,7 @@ class ViewCorrespondence extends Component {
     this.state = {
       modalanotation: false,
       modaladdanotation: false,
+      modalstikcer: false,
       id: ""
     };
     this.myViewer = React.createRef();
@@ -33,6 +35,10 @@ class ViewCorrespondence extends Component {
 
   OpenModalAddanotation = () => {
     this.refs.child2.toggle();
+  };
+
+  OpenModalSticker = () => {
+    this.refs.child3.toggle();
   };
 
   componentDidMount() {
@@ -184,6 +190,15 @@ class ViewCorrespondence extends Component {
                           >
                             <i className="fa fa-history" />
                           </button>
+                          &nbsp;
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            title="Ver radicado"
+                            onClick={() => this.OpenModalSticker()}
+                          >
+                            <i className="fa fa-file-text-o" />
+                          </button>
                         </div>
                       </h3>
                       <hr style={{ marginTop: "0px" }} />
@@ -253,6 +268,7 @@ class ViewCorrespondence extends Component {
           modaladdanotation={this.state.modaladdanotation}
           ref="child2"
         />
+        <ModalSticker modalsticker={this.state.modalstikcer} ref="child3" />
       </div>
     );
   }
