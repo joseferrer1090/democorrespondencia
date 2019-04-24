@@ -46,9 +46,7 @@ class HistorialCorrespondence extends Component {
                   >
                     <thead className="table-secondary">
                       <tr>
-                        <th scope="col" width="50%">
-                          Campos
-                        </th>
+                        <th>Campos</th>
                         <th scope="col" width="50%" className="text-center">
                           ORIGINAL
                           <br />
@@ -171,7 +169,7 @@ class HistorialCorrespondence extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="col-md-6" style={{ border: "1px solid blue" }}>
+                <div className="col-md-6">
                   <table className="table table-hover">
                     <thead className="table-secondary">
                       <tr>
