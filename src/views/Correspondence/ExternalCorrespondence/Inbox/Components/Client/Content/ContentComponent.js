@@ -92,43 +92,105 @@ class ContentComponent extends Component {
           </div>
         </div>
         <div className="scrollable">
-          <table className="table table-hover">
+          <table className="table table-sm">
+            <thead>
+              <tr className="text-center">
+                <th>
+                  <input type="checkbox" />
+                </th>
+                <th>Tipo</th>
+                <th>Sede</th>
+                <th>Consecutivo</th>
+                <th>Asunto</th>
+                <th>Fecha del documento</th>
+                <th>Destinatarios</th>
+              </tr>
+            </thead>
             <tbody
+              className="text-center"
               style={{ height: "200px", overflowY: "auto", width: "100%" }}
             >
-              <tr className="table-info">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i class="fa fa-star" />
-                </td>
-                <td className="view-message  dont-show">PHPClass</td>
-                <td className="view-message">
-                  <Link to={`/correspondence/external/view/${id}`}>
-                    Added a new class: Login Class Fast Site
-                  </Link>
-                </td>
-                <td className="view-message  inbox-small-cells">
-                  <i className="fa fa-paperclip" />
-                </td>
-                <td className="view-message  text-right">9:27 AM</td>
-              </tr>
               <tr className="table-danger">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
+
                 <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
+                  <i className="fa fa-folder-open" title="tramite" />
                 </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
+
+                <td className="view-message dont-show">SEDE I </td>
+
+                <td className="view-message">1</td>
+
+                <td>
+                  Improve the search presence of WebSite{" "}
+                  <i className="fa fa-paperclip" />
                 </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
+
+                <td className="view-message inbox-small-cells">04/10/2018</td>
+
+                <td className="view-message text-center">Pedro</td>
+              </tr>
+              <tr className="table-success">
+                <td className="inbox-small-cells">
+                  <input type="checkbox" className="mail-checkbox" />
+                </td>
+
+                <td className="inbox-small-cells">
+                  <i className="fa fa-file-o" title="documento" />
+                </td>
+
+                <td className="view-message dont-show">SEDE I </td>
+
+                <td className="view-message">1</td>
+
+                <td>Improve the search presence of WebSite</td>
+
+                <td className="view-message inbox-small-cells">04/10/2018</td>
+
+                <td className="view-message text-center">Pedro</td>
+              </tr>
+              <tr className="table-default">
+                <td className="inbox-small-cells">
+                  <input type="checkbox" className="mail-checkbox" />
+                </td>
+
+                <td className="inbox-small-cells">
+                  <i className="fa fa-file-o" title="documento" />
+                </td>
+
+                <td className="view-message dont-show">SEDE I </td>
+
+                <td className="view-message">1</td>
+
+                <td>Improve the search presence of WebSite</td>
+
+                <td className="view-message inbox-small-cells">04/10/2018</td>
+
+                <td className="view-message text-center">Pedro</td>
+              </tr>
+              <tr className="table-primary">
+                <td className="inbox-small-cells">
+                  <input type="checkbox" className="mail-checkbox" />
+                </td>
+
+                <td className="inbox-small-cells">
+                  <i className="fa fa-file-o" title="documento" />
+                </td>
+
+                <td className="view-message dont-show">SEDE I </td>
+
+                <td className="view-message">1</td>
+
+                <td>Improve the search presence of WebSite</td>
+
+                <td className="view-message inbox-small-cells">04/10/2018</td>
+
+                <td className="view-message text-center">Pedro</td>
               </tr>
 
+              {/*
               <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
@@ -157,66 +219,7 @@ class ContentComponent extends Component {
                 <td className="view-message inbox-small-cells" />
                 <td className="view-message text-right">March 15</td>
               </tr>
-              <tr className="table-info">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i class="fa fa-star" />
-                </td>
-                <td className="view-message  dont-show">PHPClass</td>
-                <td className="view-message ">
-                  Added a new class: Login Class Fast Site
-                </td>
-                <td className="view-message  inbox-small-cells">
-                  <i className="fa fa-paperclip" />
-                </td>
-                <td className="view-message  text-right">9:27 AM</td>
-              </tr>
-              <tr className="table-danger">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-
-              <tr className="table-success">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-light">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-info">
+              <tr className="table-default">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -231,78 +234,7 @@ class ContentComponent extends Component {
                   <i className="fa fa-paperclip" />
                 </td>
                 <td className="view-message  text-right">9:27 AM</td>
-              </tr>
-              <tr className="table-danger">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-
-              <tr className="table-success">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-light">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-light">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-light">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

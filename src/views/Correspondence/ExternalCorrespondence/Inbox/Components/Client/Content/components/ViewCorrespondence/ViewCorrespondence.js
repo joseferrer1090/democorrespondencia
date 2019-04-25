@@ -204,21 +204,55 @@ class ViewCorrespondence extends Component {
                       <hr style={{ marginTop: "0px" }} />
                     </div>
                     {/* Primera seccion */}
-                    <div className=" card card-body">
-                      <p>Informacion importante de la radicación</p>
+                    <div className="">
+                      <div className="card card-body">
+                        Detalle de la comunicación recibida
+                      </div>
+                      {/* <p>Informacion importante de la radicación</p>
+                       */}
+                      <div className="">
+                        <form>
+                          <div className="row">
+                            <p>Probando apenas</p>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                     {/* Fin primera seccion */}
 
                     {/* Segunda seccion */}
                     <div className="row">
-                      <div className="col-md-6">
-                        <div className="card card-body">
-                          <p>Remitente</p>
+                      <div className="col-md-12">
+                        <div className="card">
+                          <div className="card-header">Remitente</div>
+                          <div className="card-body">
+                            <table className="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Identificación</th>
+                                  <th>Nombre </th>
+                                  <th>Email</th>
+                                  <th>Teléfono</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>123456</td>
+                                  <td>Avianca</td>
+                                  <td>info@avianca.com.co</td>
+                                  <td>52369852</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
-                      <div className="col-md-6">
-                        <div className="card card-body">
-                          <p>Destinatario</p>
+                      <div className="col-md-12">
+                        <div className="card">
+                          <div className="card-header">Destinatario</div>
+                          <div className="card-body">
+                            <p>Destinatario</p>
+                          </div>
                         </div>
                       </div>
                     </div>
