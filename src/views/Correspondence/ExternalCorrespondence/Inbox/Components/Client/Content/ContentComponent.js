@@ -92,7 +92,7 @@ class ContentComponent extends Component {
           </div>
         </div>
         <div className="scrollable">
-          <table className="table table-sm">
+          <table className="table table-sm table-hover">
             <thead>
               <tr className="text-center">
                 <th>
@@ -114,24 +114,21 @@ class ContentComponent extends Component {
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
-
                 <td className="inbox-small-cells">
-                  <i className="fa fa-folder-open" title="tramite" />
+                  <i className="fa fa-folder" title="tramite" />
                 </td>
-
                 <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
+                <td className="view-message">012345678910</td>
                 <td>
-                  Improve the search presence of WebSite{" "}
-                  <i className="fa fa-paperclip" />
+                  <Link to={`/correspondence/external/view/${id}`}>
+                    Added a new class: Login Class Fast Site asdasda asdasd
+                    asdasd asasd <i className="fa fa-paperclip" />
+                  </Link>
                 </td>
-
                 <td className="view-message inbox-small-cells">04/10/2018</td>
-
                 <td className="view-message text-center">Pedro</td>
               </tr>
+
               <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
@@ -157,7 +154,7 @@ class ContentComponent extends Component {
                 </td>
 
                 <td className="inbox-small-cells">
-                  <i className="fa fa-file-o" title="documento" />
+                  <i className="fa fa-folder" title="documento" />
                 </td>
 
                 <td className="view-message dont-show">SEDE I </td>
