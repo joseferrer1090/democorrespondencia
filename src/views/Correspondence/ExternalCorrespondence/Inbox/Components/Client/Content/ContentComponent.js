@@ -7,14 +7,14 @@ import {
   DropdownItem
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import Data2 from "./../../../../../../../services/data";
+import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 
 class ContentComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: Data2.data,
+      data: Data2,
       dropdownOpen: false,
       id:
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 "
@@ -33,6 +33,32 @@ class ContentComponent extends Component {
 
   render() {
     const id = this.state.id;
+    const datainbox = this.state.data.map((aux, i) => {
+      return (
+        <tr className="table-default">
+          <td className="inbox-small-cells">
+            <input type="checkbox" className="mail-checkbox" />
+          </td>
+          <td className="inbox-small-cells">
+            <i className="fa fa-folder" title="tramite" />
+          </td>
+          <td className="view-message dont-show">{aux.sede} </td>
+          <td className="view-message">{aux.consecutivo}</td>
+          <td>
+            <Link to={`/correspondence/external/view/${aux.id}`}>
+              {aux.asunto}
+              <i className="fa fa-paperclip" />
+            </Link>
+          </td>
+          <td className="view-message inbox-small-cells">
+            {aux.fecha_documento}
+          </td>
+          <td className="view-message text-center">
+            {aux.destinatarios[0].name_destinatario}
+          </td>
+        </tr>
+      );
+    });
     return (
       <div className="animated fadeIn">
         <div className="inbox-body">
@@ -91,6 +117,7 @@ class ContentComponent extends Component {
             </div>
           </div>
         </div>
+        {/* --------------------------------------------------------------------------------------------------- */}
         <div className="scrollable">
           <table className="table table-sm table-hover">
             <thead>
@@ -110,7 +137,9 @@ class ContentComponent extends Component {
               className="text-center"
               style={{ height: "200px", overflowY: "auto", width: "100%" }}
             >
-              <tr className="table-danger">
+              {datainbox}
+
+              {/* <tr className="table-danger">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -127,9 +156,9 @@ class ContentComponent extends Component {
                 </td>
                 <td className="view-message inbox-small-cells">04/10/2018</td>
                 <td className="view-message text-center">Pedro</td>
-              </tr>
+              </tr> */}
 
-              <tr className="table-success">
+              {/* <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -185,8 +214,8 @@ class ContentComponent extends Component {
                 <td className="view-message inbox-small-cells">04/10/2018</td>
 
                 <td className="view-message text-center">Pedro</td>
-              </tr>
-
+              </tr> */}
+              {/* ---------------------------------------------------------------------------------------------- */}
               {/*
               <tr className="table-success">
                 <td className="inbox-small-cells">

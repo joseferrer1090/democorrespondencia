@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "tipo": "documento",
+    "sede": "SEDE 1",
+    "consecutivo": "372",
+    "asunto": "Added a new class: Login Class Fast Site asdasda asdasd asdasd asasd ",
+    "fecha_documento": "03/10/2018",
+    "destinatarios": [
+      {
+        "id": 1,
+        "name_destinatario": "DESTINATARIO"
+      }
+    ],
+    "estado": "read"
+  },
+  {
+    "id": 2,
+    "tipo": "tramite",
+    "sede": "SEDE 3",
+    "consecutivo": "375",
+    "asunto": "Added a new class: Login Class Fast Site asdasda asdasd asdasd asasd ",
+    "fecha_documento": "03/10/2018",
+    "destinatarios": [
+      {
+        "id": 1,
+        "name_destinatario": "DESTINATARIO"
+      }
+    ],
+    "estado": "new"
+  },
+  {
+    "id": 3,
+    "tipo": "documento",
+    "sede": "SEDE 1",
+    "consecutivo": "376",
+    "asunto": "Added a new class: Login Class Fast Site asdasda asdasd asdasd asasd ",
+    "fecha_documento": "03/10/2018",
+    "destinatarios": [
+      {
+        "id": 1,
+        "name_destinatario": "DESTINATARIO"
+      }
+    ],
+    "estado": "out of time"
+  },
+  {
+    "id": 4,
+    "tipo": "tramite",
+    "sede": "SEDE 1",
+    "consecutivo": "376",
+    "asunto": "Added a new class: Login Class Fast Site asdasda asdasd asdasd asasd ",
+    "fecha_documento": "03/10/2018",
+    "destinatarios": [
+      {
+        "id": 1,
+        "name_destinatario": "DESTINATARIO"
+      }
+    ],
+    "estado": "out of time"
+  }
+]
