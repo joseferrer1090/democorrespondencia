@@ -10,38 +10,62 @@ const RadicacionTramite = React.lazy(() => import("./views/Radication/index"));
 const Correspondence = React.lazy(() => import("./views/Correspondence/index"));
 
 const InboxExternal = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/Inbox/InboxCorrespondenceExternal")
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/InboxCorrespondenceExternal"
+  )
 );
 const OutboxExternal = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/Outbox/OutboxCorrespondenceExternal")
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Outbox/OutboxCorrespondenceExternal"
+  )
 );
 
 const ViewCorrespondence = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/ViewCorrespondence/ViewCorrespondence")
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/ViewCorrespondence/ViewCorrespondence"
+  )
 );
 
 const EditCorrespondence = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/EditCorrespondence")
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/EditCorrespondence"
+  )
 );
 
 const InboxInternal = React.lazy(() =>
-  import("./views/Correspondence/InternalCorrespondence/Inbox/InboxCorrespondeceInternal")
+  import(
+    "./views/Correspondence/InternalCorrespondence/Inbox/InboxCorrespondeceInternal"
+  )
 );
 
 const OutboxIntenal = React.lazy(() =>
-  import("./views/Correspondence/InternalCorrespondence/OutBox/OutboxCorrespondenceInternal")
+  import(
+    "./views/Correspondence/InternalCorrespondence/OutBox/OutboxCorrespondenceInternal"
+  )
 );
 
 const NewRadicationInternal = React.lazy(() =>
-  import("./views/Correspondence/InternalCorrespondence/NewInternalRadication/NewRadication")
+  import(
+    "./views/Correspondence/InternalCorrespondence/NewInternalRadication/NewRadication"
+  )
 );
 
 const RelatedUsersCorrespondence = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/RelatedUsersCorrespondence")
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/RelatedUsersCorrespondence"
+  )
 );
 
 const HistorialCorrespondence = React.lazy(() =>
-  import("./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/HistorialCorrespondence")
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/OtherOption/HistorialCorrespondence"
+  )
+);
+
+const FilterCorrespondence = React.lazy(() =>
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/FilterCorrespondence/FilterCorrespondence"
+  )
 );
 
 const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
@@ -113,6 +137,10 @@ const routes = [
   {
     path: "/correspondence/external/historial/:id",
     component: HistorialCorrespondence
+  },
+  {
+    path: "/correspondence/external/consult",
+    component: FilterCorrespondence
   },
   {
     path: "/perfil",

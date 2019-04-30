@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem, Badge } from "reactstrap";
 import Tags from "./TagViewer";
+import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
       <div>
@@ -25,7 +28,9 @@ class ListInboxCorrespondence extends Component {
             className=""
             tag="button"
             action
-            onClick={() => alert("Probando")}
+            onClick={() => {
+              alert("probando");
+            }}
           >
             {" "}
             Actualizar{" "}
@@ -51,12 +56,14 @@ class ListInboxCorrespondence extends Component {
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem className="" tag="button" action>
-            {" "}
-            Consultar{" "}
-            <Badge pill className="float-right">
+            <Link to="/correspondence/external/consult">
               {" "}
-              <i className="fa fa-search" />{" "}
-            </Badge>{" "}
+              Consultar{" "}
+              <Badge pill className="float-right">
+                {" "}
+                <i className="fa fa-search" />{" "}
+              </Badge>{" "}
+            </Link>
           </ListGroupItem>
           <ListGroupItem>
             <Tags />
