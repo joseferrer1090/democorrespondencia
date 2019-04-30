@@ -31,17 +31,39 @@ class ContentComponent extends Component {
     console.log("Probando el component did mount");
   }
 
+  tipoDocumento = data => {
+    let tipo = null;
+    if (data === "documento") {
+      return (tipo = <i className="fa fa-file" />);
+    } else if (data === "tramite") {
+      return (tipo = <i className="fa fa-folder" />);
+    }
+    return null;
+  };
+
+  stateDocumento = data => {
+    let estado = null;
+
+    if (data === "new") {
+      return (estado = "table-success");
+    } else if (data === "out of time") {
+      return (estado = "table-danger");
+    } else if (data === "read") {
+      return (estado = "table-default");
+    }
+    return null;
+  };
+
   render() {
     const id = this.state.id;
+
     const datainbox = this.state.data.map((aux, i) => {
       return (
-        <tr className="table-default">
+        <tr className={this.stateDocumento(aux.estado)}>
           <td className="inbox-small-cells">
             <input type="checkbox" className="mail-checkbox" />
           </td>
-          <td className="inbox-small-cells">
-            <i className="fa fa-folder" title="tramite" />
-          </td>
+          <td className="inbox-small-cells">{this.tipoDocumento(aux.tipo)}</td>
           <td className="view-message dont-show">{aux.sede} </td>
           <td className="view-message">{aux.consecutivo}</td>
           <td>
