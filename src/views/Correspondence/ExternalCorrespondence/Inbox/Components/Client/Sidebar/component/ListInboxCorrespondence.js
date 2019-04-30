@@ -12,7 +12,7 @@ class ListInboxCorrespondence extends Component {
     return (
       <div>
         <ListGroup>
-          <ListGroupItem>
+          {/* <ListGroupItem>
             <form>
               <input
                 type="text"
@@ -20,7 +20,7 @@ class ListInboxCorrespondence extends Component {
                 placeholder="Buscar correspondencia"
               />
             </form>
-          </ListGroupItem>
+          </ListGroupItem> */}
           <ListGroupItem
             className=""
             tag="button"

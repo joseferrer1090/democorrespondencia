@@ -104,10 +104,14 @@ class ContentComponent extends Component {
               </button>
             </div> */}
 
-            {/* <div className="btn-group hidden-phone">
-              <button className="btn btn-secondary btn-sm">more</button>
-            </div> */}
-
+            <div className="btn-group hidden-phone">
+              <input
+                type="text"
+                className="form-control"
+                style={{ width: "750px" }}
+                placeholder={`Bsucar correspondencia`}
+              />
+            </div>
             <div className="float-right">
               <ul className="pagination">
                 <li className="page-item">
