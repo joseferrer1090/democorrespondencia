@@ -19,8 +19,7 @@ class ContentComponent extends Component {
       dropdownOpen: false,
       id:
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 ",
-      checkedListAll: [],
-      ItemsChecked: false
+      term: ""
     };
   }
 
@@ -57,45 +56,53 @@ class ContentComponent extends Component {
     return null;
   };
 
-  selectItem(e) {
-    const { checked } = e.target;
-    let collection = [];
+  handleSearchInput = event => {
+    this.setState({ querySearch: event.target.value });
+  };
 
-    this.setState({
-      checkedListAll: collection,
-      ItemsChecked: checked
-    });
-  }
+  searchingFor = term => {
+    return function(x) {
+      return x.asunto.toLowerCase().include(term.toLowerCase()) || !term;
+    };
+  };
 
   render() {
     const id = this.state.id;
-    const datainbox = this.state.data.map((aux, i) => {
-      return (
-        <tr className={this.stateDocumento(aux.estado)}>
-          {/* <td className="inbox-small-cells">
+    const term = this.state.querySearch;
+    const datainbox = this.state.data
+      .filter(this.searchingFor(term))
+      .map((aux, i) => {
+        return (
+          <tr className={this.stateDocumento(aux.estado)}>
+            {/* <td className="inbox-small-cells">
             <input type="checkbox" className="mail-checkbox" />
           </td> */}
-          <td className="inbox-small-cells">{this.tipoDocumento(aux.tipo)}</td>
-          <td className="view-message dont-show">{aux.sede} </td>
-          <td className="view-message">{aux.consecutivo}</td>
-          <td>
-            <Link to={`/correspondence/external/view/${aux.id}`}>
-              {aux.asunto}
-              <i className="fa fa-paperclip" />
-            </Link>
-          </td>
-          <td className="view-message inbox-small-cells">
-            {aux.fecha_documento}
-          </td>
-          <td className="view-message text-center">
-            {aux.destinatarios[0].name_destinatario}
-          </td>
-        </tr>
-      );
-    });
+            <td className="inbox-small-cells">
+              {this.tipoDocumento(aux.tipo)}
+            </td>
+            <td className="view-message dont-show">{aux.sede} </td>
+            <td className="view-message">{aux.consecutivo}</td>
+            <td>
+              <Link to={`/correspondence/external/view/${aux.id}`}>
+                {aux.asunto}
+                <i className="fa fa-paperclip" />
+              </Link>
+            </td>
+            <td className="view-message inbox-small-cells">
+              {aux.fecha_documento}
+            </td>
+            <td className="view-message text-center">
+              {aux.destinatarios[0].name_destinatario}
+            </td>
+          </tr>
+        );
+      });
     return (
       <div className="animated fadeIn">
         <div className="inbox-body">
+          <h5 className="text-center">
+            Bandeja de correspondencia recibida vigencia 2019{" "}
+          </h5>
           <div className="mail-option">
             <div className="chk-all" style={{ marginLeft: "-9px" }}>
               <ButtonDropdown
@@ -122,6 +129,7 @@ class ContentComponent extends Component {
                 className="form-control"
                 style={{ width: "750px" }}
                 placeholder={`Bsucar correspondencia`}
+                onChange={e => this.handleSearchInput(e)}
               />
             </div>
             <div className="float-right">
