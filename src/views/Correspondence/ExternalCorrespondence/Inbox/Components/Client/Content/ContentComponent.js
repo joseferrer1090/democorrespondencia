@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
+import "./components/css/TableInboxFixed.css";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -144,8 +145,8 @@ class ContentComponent extends Component {
           </div>
         </div>
         {/* --------------------------------------------------------------------------------------------------- */}
-        <div className="scrollable">
-          <table className="table table-sm table-hover">
+        <div className="table-responsive">
+          <table id="tablefixed" className="table table-sm table-hover">
             <thead>
               <tr className="text-center">
                 <th>
