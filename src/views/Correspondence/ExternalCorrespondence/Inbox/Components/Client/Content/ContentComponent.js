@@ -34,9 +34,9 @@ class ContentComponent extends Component {
   tipoDocumento = data => {
     let tipo = null;
     if (data === "documento") {
-      return (tipo = <i className="fa fa-file" />);
+      return (tipo = <i className="fa fa-file-text-o" title={`documento`} />);
     } else if (data === "tramite") {
-      return (tipo = <i className="fa fa-folder" />);
+      return (tipo = <i className="fa fa-folder-open-o" title={`tramite`} />);
     }
     return null;
   };
