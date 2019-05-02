@@ -56,7 +56,6 @@ class FilterCorrespondence extends Component {
                             >
                               <i className="fa fa-search" />
                             </button>
-
                             <button
                               type="button"
                               className="btn btn-secondary btn-sm"

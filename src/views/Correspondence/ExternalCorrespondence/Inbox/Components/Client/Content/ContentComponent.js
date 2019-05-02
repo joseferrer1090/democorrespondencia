@@ -18,7 +18,9 @@ class ContentComponent extends Component {
       data: Data2,
       dropdownOpen: false,
       id:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 "
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 ",
+      checkedListAll: [],
+      ItemsChecked: false
     };
   }
 
@@ -55,15 +57,24 @@ class ContentComponent extends Component {
     return null;
   };
 
+  selectItem(e) {
+    const { checked } = e.target;
+    let collection = [];
+
+    this.setState({
+      checkedListAll: collection,
+      ItemsChecked: checked
+    });
+  }
+
   render() {
     const id = this.state.id;
-
     const datainbox = this.state.data.map((aux, i) => {
       return (
         <tr className={this.stateDocumento(aux.estado)}>
-          <td className="inbox-small-cells">
+          {/* <td className="inbox-small-cells">
             <input type="checkbox" className="mail-checkbox" />
-          </td>
+          </td> */}
           <td className="inbox-small-cells">{this.tipoDocumento(aux.tipo)}</td>
           <td className="view-message dont-show">{aux.sede} </td>
           <td className="view-message">{aux.consecutivo}</td>
@@ -149,9 +160,9 @@ class ContentComponent extends Component {
           <table id="tablefixed" className="table table-sm table-hover">
             <thead>
               <tr className="text-center">
-                <th>
+                {/* <th>
                   <input type="checkbox" />
-                </th>
+                </th> */}
                 <th>Tipo</th>
                 <th>Sede</th>
                 <th>Consecutivo</th>
