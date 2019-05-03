@@ -40,6 +40,10 @@
       {
         "id": 1,
         "name_destinatario": "DESTINATARIO"
+      },
+      {
+        "id": 2,
+        "name_destinatario": "DESTINATARIO 2"
       }
     ],
     "estado": "out of time"

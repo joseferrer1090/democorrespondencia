@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import HeaderBox from "./../../../Header/HeaderInbox";
 import SideBar from "./../../../Sidebar/SidebarInboxComponent";
-import { Card } from "reactstrap";
+import { Card, CardHeader, CardBody, CardFooter, Collapse } from "reactstrap";
 
 class FilterCorrespondence extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      collapse: false
+    };
   }
 
   render() {
@@ -68,6 +70,53 @@ class FilterCorrespondence extends Component {
                       </h3>
                     </div>
                     <hr style={{ marginTop: "0px" }} />
+                    <Card>
+                      <CardHeader>
+                        Consulta de correspondencia recibida
+                      </CardHeader>
+                      <CardBody>
+                        <form>
+                          <div className="row">
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Fecha de radicacion</label>
+                                <input
+                                  type="date"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Fecha de radicacion hasta</label>
+                                <input
+                                  type="date"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardHeader> Remitente </CardHeader>
+                      <CardBody>
+                        <p>Probando</p>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardHeader>Destinatarios</CardHeader>
+                      <CardBody>
+                        <p>Probando </p>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardHeader>Campos adicionales</CardHeader>
+                      <CardBody>
+                        <p>Probando</p>
+                      </CardBody>
+                    </Card>
                   </Card>
                 </div>
               </div>
