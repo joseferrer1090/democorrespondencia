@@ -57,18 +57,18 @@ class ContentComponent extends Component {
   };
 
   handleSearchInput = event => {
-    this.setState({ querySearch: event.target.value });
+    this.setState({ term: event.target.value });
   };
 
   searchingFor = term => {
     return function(x) {
-      return x.asunto.toLowerCase().include(term.toLowerCase()) || !term;
+      return x.asunto.includes(term);
     };
   };
 
   render() {
     const id = this.state.id;
-    const term = this.state.querySearch;
+    const term = this.state.term;
     const datainbox = this.state.data
       .filter(this.searchingFor(term))
       .map((aux, i) => {
