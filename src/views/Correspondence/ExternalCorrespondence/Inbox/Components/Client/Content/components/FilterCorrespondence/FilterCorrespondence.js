@@ -95,6 +95,63 @@ class FilterCorrespondence extends Component {
                                 />
                               </div>
                             </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Fecha del documento desde</label>
+                                <input
+                                  type="date"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Fecha del documento hasta</label>
+                                <input
+                                  type="date"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <hr />
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Consecutivo desde</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Consecutivo hasta</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Cantidad de imagenes desde</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Cantidad de imagenes hasta </label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
                           </div>
                         </form>
                       </CardBody>
