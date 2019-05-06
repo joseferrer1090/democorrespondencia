@@ -5,8 +5,12 @@ const Dashboard = React.lazy(() => import("./views/Dashboard"));
 // Views
 const GenerateEdok = React.lazy(() => import("./views/GenerateEdok/index"));
 const Remitente = React.lazy(() => import("./views/Sender"));
-const RadicacionSimple = React.lazy(() => import("./views/Radication/index"));
-const RadicacionTramite = React.lazy(() => import("./views/Radication/index"));
+const RadicacionSimple = React.lazy(() =>
+  import("./views/Radication/RadicationDocuments/RadicationDocument")
+);
+const RadicacionTramite = React.lazy(() =>
+  import("./views/Radication/RadicationProcedure/RadicationProcedure")
+);
 const Correspondence = React.lazy(() => import("./views/Correspondence/index"));
 
 const InboxExternal = React.lazy(() =>
