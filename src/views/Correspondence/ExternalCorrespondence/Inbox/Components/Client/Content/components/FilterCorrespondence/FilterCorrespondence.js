@@ -497,7 +497,7 @@ class FilterCorrespondence extends Component {
 
                     <div className="row">
                       <div className="col-md-12">
-                        <div className="table-responsive">
+                        <div className="">
                           <BootstrapTable
                             data={data}
                             className="table table-sm table-hover"
