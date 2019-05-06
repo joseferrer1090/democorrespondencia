@@ -18,8 +18,11 @@ import ModalReport from "./../Content/components/ModalReport/ModalReport";
 import ModalGeneralReport from "./../Content/components/ModalReport/ModalGenerateReport";
 import ModalCopy from "./../Content/components/OtherOption/CopyCorrespondence";
 import ModalPrintMassive from "./../Content/components/ModalMassiveImpression/ModalMassiveImpression";
+import Radication from "./../../../../../../Radication/RadicationDocuments/RadicationDocument";
 
 import PropTypes from "prop-types";
+
+import { Link } from "react-router-dom";
 
 class Headerinbox extends Component {
   constructor(props) {
@@ -65,6 +68,11 @@ class Headerinbox extends Component {
     this.refs.child6.toggle();
   };
 
+  routeChange() {
+    let path = `/radication/simple`;
+    this.props.history.push(path);
+  }
+
   render() {
     return (
       <div className="d-none d-sm-block">
@@ -88,11 +96,16 @@ class Headerinbox extends Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
-                      <i className="fa fa-file-text" /> Radicar documento{" "}
+                      <Link to="/radication/simple">
+                        {" "}
+                        <i className="fa fa-file-text" /> Radicar documento{" "}
+                      </Link>
                     </DropdownItem>
                     <DropdownItem>
                       {" "}
-                      <i className="fa fa-clone" /> Radicar trámite
+                      <Link to="/radication/procedure">
+                        <i className="fa fa-clone" /> Radicar trámite
+                      </Link>
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
