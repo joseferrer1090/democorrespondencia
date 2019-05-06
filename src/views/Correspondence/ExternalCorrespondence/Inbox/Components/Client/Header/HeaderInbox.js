@@ -17,6 +17,7 @@ import ModalExport2 from "./../Content/components/ModalExport/ModalExportRecibid
 import ModalReport from "./../Content/components/ModalReport/ModalReport";
 import ModalGeneralReport from "./../Content/components/ModalReport/ModalGenerateReport";
 import ModalCopy from "./../Content/components/OtherOption/CopyCorrespondence";
+import ModalPrintMassive from "./../Content/components/ModalMassiveImpression/ModalMassiveImpression";
 
 import PropTypes from "prop-types";
 
@@ -29,7 +30,8 @@ class Headerinbox extends Component {
       modalexport2: false,
       modalreport: false,
       modalreportgeneral: false,
-      modalcopy: false
+      modalcopy: false,
+      modalmassive: false
     };
   }
 
@@ -57,6 +59,10 @@ class Headerinbox extends Component {
 
   OpenModalCopyCorrespondence = () => {
     this.refs.child5.toggle();
+  };
+
+  OpenModalImpressionMassive = () => {
+    this.refs.child6.toggle();
   };
 
   render() {
@@ -154,7 +160,11 @@ class Headerinbox extends Component {
                       <i className="fa fa-print" /> Impresión
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>
+                      <DropdownItem
+                        onClick={() => {
+                          this.OpenModalImpressionMassive();
+                        }}
+                      >
                         <i className="fa fa-print" /> Impresión masiva
                       </DropdownItem>
                     </DropdownMenu>
@@ -188,6 +198,10 @@ class Headerinbox extends Component {
           ref="child4"
         />
         <ModalCopy modalcopy={this.state.modalcopy} ref="child5" />
+        <ModalPrintMassive
+          modalimpression={this.state.modalmassive}
+          ref="child6"
+        />
       </div>
     );
   }
