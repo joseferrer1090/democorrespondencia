@@ -152,6 +152,109 @@ class FilterCorrespondence extends Component {
                                 />
                               </div>
                             </div>
+                            <div className="col-md-12">
+                              <hr />
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Tipo de documento </label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todos</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Sede </label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todas</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Ciudad </label>
+                                <select className="form-control form-control-sm">
+                                  <option>Seleccione</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Vigencia </label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todas</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <hr />
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Tipo de llegada </label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todos</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Guía </label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Folios </label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-group">
+                                <label>Usuario radicador </label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todos</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <hr />
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Estado de la correspondencia</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todos</option>
+                                  <option>Respondida</option>
+                                  <option>No respondida</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Asunto</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Nro. del documento</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
                           </div>
                         </form>
                       </CardBody>
@@ -159,19 +262,113 @@ class FilterCorrespondence extends Component {
                     <Card>
                       <CardHeader> Remitente </CardHeader>
                       <CardBody>
-                        <p>Probando</p>
+                        <form>
+                          <div className="row">
+                            <div className="col-md-6">
+                              <div className="form-group">
+                                <label>Identificación</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-6">
+                              <div className="form-group">
+                                <label> Nombre </label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </form>
                       </CardBody>
                     </Card>
                     <Card>
                       <CardHeader>Destinatarios</CardHeader>
                       <CardBody>
-                        <p>Probando </p>
+                        <form>
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Conglomerado</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Seleccione...</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Empresa</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Seleccione...</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Sede</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Seleccione...</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Dependencia</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Seleccione...</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Buscar destinantario</label>
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>Originalidad</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Copia</option>
+                                  <option>Original</option>
+                                  <option>Todos</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <div className="form-group">
+                                <label>Destinatarios disponibles</label>
+                                <textarea className="form-control" disabled />
+                              </div>
+                            </div>
+                          </div>
+                        </form>
                       </CardBody>
                     </Card>
                     <Card>
                       <CardHeader>Campos adicionales</CardHeader>
                       <CardBody>
-                        <p>Probando</p>
+                        <form>
+                          <row>
+                            <div className="col-md-12">
+                              <div className="form-group">
+                                <label>Plantilla</label>
+                                <select className="form-control form-control-sm">
+                                  <option>Todos</option>
+                                  <option>Ninguna</option>
+                                  <option>Plantilla</option>
+                                </select>
+                              </div>
+                            </div>
+                          </row>
+                        </form>
                       </CardBody>
                     </Card>
                   </Card>
