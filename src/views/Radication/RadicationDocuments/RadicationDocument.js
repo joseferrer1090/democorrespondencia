@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import HeaderComponent from "./Components/Header/HeaderInbox";
 
 class RadicationDocument extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class RadicationDocument extends Component {
   render() {
     return (
       <div>
-        <p>Probando apenas</p>
+        <HeaderComponent />
       </div>
     );
   }
