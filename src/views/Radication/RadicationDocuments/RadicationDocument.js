@@ -12,10 +12,7 @@ class RadicationDocument extends Component {
   }
 
   componentDidMount() {
-    this.stepper = new Stepper(document.querySelector("#strepper"), {
-      linear: false,
-      animation: true
-    });
+    this.stepper = new Stepper(document.querySelector("#strepper"));
   }
 
   render() {
