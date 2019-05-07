@@ -12,7 +12,7 @@ class RadicationDocument extends Component {
   }
 
   componentDidMount() {
-    this.stepper = new Stepper(document.querySelector("#stepper1"), {
+    this.stepper = new Stepper(document.querySelector("#strepper"), {
       linear: false,
       animation: true
     });
@@ -27,7 +27,7 @@ class RadicationDocument extends Component {
             <Title />
           </div>
           <div className="col-md-12" style={{ border: "1px solid red" }}>
-            <div id="strepper1" className="bs-stepper">
+            <div id="strepper" className="bs-stepper">
               {/* En esta seccion va el contenido de los pasos */}
               <div className="bs-strepper-header">
                 <div className="step" data-target="#test-1-1">
