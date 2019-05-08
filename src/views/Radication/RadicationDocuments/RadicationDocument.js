@@ -12,8 +12,17 @@ class RadicationDocument extends Component {
   }
 
   componentDidMount() {
-    this.stepper = new Stepper(document.querySelector("#strepper"));
+    this.stepper = new Stepper(document.querySelector('#stepper1'), {
+      linear: false,
+      animation: true
+    })
   }
+
+  onSubmit(e){
+    e.preventDefault();
+    alert("Probando apenas");
+  }
+
 
   render() {
     return (
@@ -23,39 +32,53 @@ class RadicationDocument extends Component {
           <div className="col-md-12" style={{ border: "1px solid green" }}>
             <Title />
           </div>
-          <div className="col-md-12" style={{ border: "1px solid red" }}>
-            <div id="strepper" className="bs-stepper">
-              {/* En esta seccion va el contenido de los pasos */}
-              <div className="bs-strepper-header">
-                <div className="step" data-target="#test-1-1">
+          <div className="col-md-12">
+
+            <div id="stepper1" className="bs-stepper">
+              <div className="bs-stepper-header">
+                <div className="step" data-target="#test-l-1">
                   <button className="step-trigger">
                     <span className="bs-stepper-circle">1</span>
-                    <span className="bs-stepper-label">Radicar documento</span>
+                    <span className="bs-stepper-label">Email</span>
                   </button>
                 </div>
-                <div className="line" />
-                <div className="step" data-target="#test-1-2">
+                <div className="line"/>
+                <div className="step" data-target="#test-l-2">
                   <button className="step-trigger">
                     <span className="bs-stepper-circle">2</span>
-                    <span className="bs-stepper-label">Sticker</span>
+                    <span className="bs-stepper-label">Password</span>
                   </button>
                 </div>
-                <div className="line" />
-                <div className="step" data-target="#test-1-3">
+                <div className="line"/>
+                <div className="step" data-target="#test-l-3">
                   <button className="step-trigger">
                     <span className="bs-stepper-circle">3</span>
-                    <span className="bs-stepper-label">Adjuntar documento</span>
-                  </button>
-                </div>
-                <div className="line" />
-                <div className="step" data-target="#test-1-4">
-                  <button className="step-trigger">
-                    <span className="bs-stepper-circle">4</span>
-                    <span className="bs-stepper-label">Visulizar</span>
+                    <span className="bs-stepper-label">Validate</span>
                   </button>
                 </div>
               </div>
-              {/* Fin de la cabecera */}
+              <div className="bs-stepper-content">
+                <form onSubmit={this.onSubmit}>
+                  <div id="test-l-1" className="content">
+                    <div className="form-group">
+                      <label htmlFor="exampleInputEmail1">Email address</label>
+                      <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
+                    </div>
+                    <button className="btn btn-primary" onClick={() => this.stepper.next()}>&gt;Next</button>
+                  </div>
+                  <div id="test-l-2" className="content">
+                    <div className="form-group">
+                      <label htmlFor="exampleInputPassword1">Password</label>
+                      <input type="password" className="form-control" id="exampleInputPassword1"
+                             placeholder="Password"/>
+                    </div>
+                    <button className="btn btn-primary" onClick={() => this.stepper.next()}>&gt;Next</button>
+                  </div>
+                  <div id="test-l-3" className="content text-center">
+                    <button type="submit" className="btn btn-primary mt-5">Submit</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
