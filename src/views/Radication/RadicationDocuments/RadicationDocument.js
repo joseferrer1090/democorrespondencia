@@ -12,7 +12,7 @@ class RadicationDocument extends Component {
   }
 
   componentDidMount() {
-    this.stepper = new Stepper(document.querySelector('#stepper1'), {
+    this.stepper = new Stepper(document.querySelector('#stepper'), {
       linear: false,
       animation: true
     })
@@ -29,12 +29,12 @@ class RadicationDocument extends Component {
       <div>
         <HeaderComponent />
         <div className="row">
-          <div className="col-md-12" style={{ border: "1px solid green" }}>
+          <div className="col-md-12">
             <Title />
           </div>
           <div className="col-md-12">
 
-            <div id="stepper1" className="bs-stepper">
+            <div id="stepper" className="bs-stepper">
               <div className="bs-stepper-header">
                 <div className="step" data-target="#test-l-1">
                   <button className="step-trigger">
@@ -64,7 +64,7 @@ class RadicationDocument extends Component {
                       <label htmlFor="exampleInputEmail1">Email address</label>
                       <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
                     </div>
-                    <button className="btn btn-primary" onClick={() => this.stepper.next()}>&gt;Next</button>
+                    <button type={"button"} className="btn btn-primary" onClick={() => this.stepper.next()}>&gt;Next</button>
                   </div>
                   <div id="test-l-2" className="content">
                     <div className="form-group">
@@ -72,7 +72,7 @@ class RadicationDocument extends Component {
                       <input type="password" className="form-control" id="exampleInputPassword1"
                              placeholder="Password"/>
                     </div>
-                    <button className="btn btn-primary" onClick={() => this.stepper.next()}>&gt;Next</button>
+                    <button type={"button"} className="btn btn-primary" onClick={() => this.stepper.next()}>&gt;Next</button>
                   </div>
                   <div id="test-l-3" className="content text-center">
                     <button type="submit" className="btn btn-primary mt-5">Submit</button>
