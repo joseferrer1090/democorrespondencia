@@ -7,8 +7,7 @@ class Step1 extends Component {
     super(props);
     this.state = {
       users: [],
-      selectedDestinatario: 0,
-      visible: false
+      selectedDestinatario: 0
     };
   }
 
