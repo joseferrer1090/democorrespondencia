@@ -19,10 +19,10 @@ class RadicationDocument extends Component {
     });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    alert("Probando apenas");
-  }
+  // onSubmit(e) {
+  //   e.preventDefault();
+  //   alert("Probando apenas");
+  // }
 
   render() {
     return (
