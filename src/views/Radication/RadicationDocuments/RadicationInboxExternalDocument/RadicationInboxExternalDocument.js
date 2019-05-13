@@ -4,6 +4,7 @@ import HeaderComponent from "./../../../Correspondence/ExternalCorrespondence/In
 import "bs-stepper/dist/css/bs-stepper.css";
 import Stepper from "bs-stepper";
 import Title from "../Components/Steps/Title";
+import Step1 from "./Components/Step1";
 
 class RadicationInboxExternalDocument extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class RadicationInboxExternalDocument extends Component {
                 <div className="bs-stepper-content">
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
-                      <p>Paso 1</p>
+                      <Step1 />
                       <button
                         type={"button"}
                         className="btn btn-primary"
