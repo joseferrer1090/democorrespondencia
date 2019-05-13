@@ -5,8 +5,10 @@ const Dashboard = React.lazy(() => import("./views/Dashboard"));
 // Views
 const GenerateEdok = React.lazy(() => import("./views/GenerateEdok/index"));
 const Remitente = React.lazy(() => import("./views/Sender"));
-const RadicacionSimple = React.lazy(() =>
-  import("./views/Radication/RadicationDocuments/RadicationDocument")
+const RadicationDocumentCorrespondenceExternal = React.lazy(() =>
+  import(
+    "./views/Radication/RadicationDocuments/RadicationInboxExternalDocument/RadicationInboxExternalDocument"
+  )
 );
 const RadicacionTramite = React.lazy(() =>
   import("./views/Radication/RadicationProcedure/RadicationProcedure")
@@ -79,16 +81,11 @@ const routes = [
   { path: "/inicio", name: "", component: Dashboard },
   { path: "/edok", name: "Generate Edok", component: GenerateEdok },
   { path: "/senders", name: "Remitentes", component: Remitente },
+
   {
-    path: "/radication",
-    exact: true,
-    component: RadicacionSimple,
-    name: "Radicacion"
-  },
-  {
-    path: "/radication/simple",
-    name: "Radicacion simple",
-    component: RadicacionSimple
+    path: "/radication/correspondenceinboxexternal/document",
+    name: "Radicacion documento correspondencia externa",
+    component: RadicationDocumentCorrespondenceExternal
   },
   {
     path: "/radication/procedure",

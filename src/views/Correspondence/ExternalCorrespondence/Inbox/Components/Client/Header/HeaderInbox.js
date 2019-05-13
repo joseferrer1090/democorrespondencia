@@ -96,7 +96,7 @@ class Headerinbox extends Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
-                      <Link to="/radication/simple">
+                      <Link to="/radication/correspondenceinboxexternal/document">
                         {" "}
                         <i className="fa fa-file-text" /> Radicar documento{" "}
                       </Link>
