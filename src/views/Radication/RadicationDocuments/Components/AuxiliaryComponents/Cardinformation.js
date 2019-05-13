@@ -6,7 +6,8 @@ class Cardinformation extends Component {
     super(props);
     this.state = {
       data: "",
-      id: this.props.selectedItem
+      id: this.props.selectedItem,
+      dataList: null
     };
   }
 
@@ -39,9 +40,23 @@ class Cardinformation extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({
+      dataList: []
+    });
+  }
+
+  addUser = () => {
+    let tempArr = [...this.state.dataList];
+    tempArr.push(this.state.data);
+    this.setState({
+      dataList: tempArr
+    });
+    console.log(this.state.dataList);
+  };
+
   render() {
     const data = this.state.data;
-
     return (
       <div>
         <div className="card">
@@ -50,7 +65,13 @@ class Cardinformation extends Component {
             <p>Probando apenas {this.state.id}</p>
             <p>Nombre {data.name}</p>
             <div className="float-right">
-              <button type="button" className="btn btn-secondary btn-sm">
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={() => {
+                  this.addUser();
+                }}
+              >
                 {" "}
                 <i className="fa fa-plus" /> Agregar{" "}
               </button>

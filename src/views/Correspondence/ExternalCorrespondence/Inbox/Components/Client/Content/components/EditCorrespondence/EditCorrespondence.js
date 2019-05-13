@@ -60,9 +60,7 @@ class EditCorrespondence extends Component {
   getDataApi = () => {
     fetch(`https://jsonplaceholder.typicode.com/users/`) // peticion + url
       .then(resp => resp.json()) // Promisse => de lo que viene del server => retorna un json
-      .then((
-        data //
-      ) =>
+      .then(data =>
         this.setState({
           getdata: data
         })
