@@ -65,13 +65,15 @@ class RadicationInboxExternalDocument extends Component {
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
                       <Step1 />
-                      <button
-                        type={"button"}
-                        className="btn btn-primary"
-                        onClick={() => this.stepper.next()}
-                      >
-                        &gt;Next
-                      </button>
+                      <div className="col-md-6 offset-1">
+                        <button
+                          type={"button"}
+                          className="btn btn-secondary "
+                          onClick={() => this.stepper.next()}
+                        >
+                          Siguiente <i className="fa fa-angle-right" />
+                        </button>
+                      </div>
                     </div>
                     <div id="test-l-2" className="content">
                       <div className="form-group">
