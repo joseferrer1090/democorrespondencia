@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Collapse } from "reactstrap";
+import CardRemitente from "./AuxiliaryComponents/Cardinformation";
 
 class Step1 extends Component {
   constructor(props) {
@@ -40,7 +41,14 @@ class Step1 extends Component {
   }
 
   render() {
-    console.log(this.state.selectRemitente);
+    const aux = this.state.data.map((obj, idx) => {
+      return (
+        <option value={obj.id}>
+          {obj.name} - {obj.username} - {obj.id}
+        </option>
+      );
+    });
+    const id = this.state.selectRemitente;
     return (
       <div className="animated fadeIn">
         <div className="">
@@ -452,18 +460,17 @@ class Step1 extends Component {
                             this.setState({ selectRemitente: e.target.value });
                           }}
                         >
-                          {this.state.data.map((aux, id) => {
-                            return (
-                              <option value={aux.id}>
-                                {aux.name} - {aux.username}
-                              </option>
-                            );
-                          })}
+                          <option value="0" defaultValue="0">
+                            --Seleccione--
+                          </option>
+                          {aux}
                         </select>
                       </div>
                     </div>
                     <div className="col-md-12">
-                      <p>Informacion del remitente</p>
+                      <CardRemitente
+                        selectedItem={this.state.selectRemitente}
+                      />
                     </div>
                   </div>
                 </div>
