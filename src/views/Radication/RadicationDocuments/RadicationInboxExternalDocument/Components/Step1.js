@@ -10,7 +10,7 @@ class Step1 extends Component {
       collapse: false,
       collapse2: false,
       data: [],
-      selectRemitente: 0
+      selectRemitente: null
     };
   }
 
@@ -40,15 +40,22 @@ class Step1 extends Component {
     this.getDatauser();
   }
 
+  handleChangeSelectRemitente = e => {
+    this.setState({
+      selectRemitente: e.target.value
+    });
+    console.log(this.state.selectRemitente);
+  };
+
   render() {
     const aux = this.state.data.map((obj, idx) => {
       return (
-        <option value={obj.id}>
+        <option key={idx} value={obj.id}>
           {obj.name} - {obj.username} - {obj.id}
         </option>
       );
     });
-    const id = this.state.selectRemitente;
+
     return (
       <div className="animated fadeIn">
         <div className="">
@@ -454,17 +461,22 @@ class Step1 extends Component {
                           <span className="text-danger">*</span>
                         </label>
                         <select
+                          name="selectPlantilla"
                           className="form-control form-control-sm"
-                          value={this.state.selectRemitente}
                           onChange={e => {
-                            this.setState({ selectRemitente: e.target.value });
+                            this.setState({
+                              selectRemitente: e.target.value
+                            });
                           }}
+                          value={this.state.selectRemitente}
                         >
-                          <option value="0" defaultValue="0">
-                            --Seleccione--
-                          </option>
-                          {aux}
+                          <option value="0"> --Seleccione-- </option>
+                          <option value="1"> Factura </option>
+                          <option value="2"> Factura eletronica </option>
+                          <option value="3"> Validacion </option>
+                          <option value="4"> Prueba </option>
                         </select>
+                        {<p>{this.state.selectRemitente}</p>}
                       </div>
                     </div>
                     <div className="col-md-12">

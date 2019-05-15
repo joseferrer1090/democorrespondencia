@@ -23,14 +23,27 @@ class Cardinformation extends Component {
     console.log(this.state.data);
   };
 
-  static getDerivedStateFormProps(state, props) {
-    console.log(this.props.selectedItem);
+  static getDerivedStateFromProps(props, state) {
+    if (props.selectedItem !== state.id) {
+      return {
+        id: props.selectedItem
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.id !== prevProps.selectedItem) {
+      this.getUserById(this.state.id);
+    }
   }
 
   render() {
+    const aux = this.state.data;
+
     return (
       <div className="animated fadeIn">
-        <Card>
+        {/* <Card>
           <div className="p-2 mb-1 bg-secondary text-dark">
             Datos del remitente
           </div>
@@ -92,14 +105,11 @@ class Cardinformation extends Component {
               </div>
             </div>
           </CardBody>
-        </Card>
+        </Card> */}
+        <div>{aux.name}</div>
       </div>
     );
   }
 }
-
-Cardinformation.propTypes = {
-  selectedItem: PropTypes.string.isRequired
-};
 
 export default Cardinformation;
