@@ -5,6 +5,7 @@ import "bs-stepper/dist/css/bs-stepper.css";
 import Stepper from "bs-stepper";
 import Title from "../Components/Steps/Title";
 import Step1 from "./Components/Step1";
+import Step2 from "./Components/Step2";
 
 class RadicationInboxExternalDocument extends Component {
   constructor(props) {
@@ -76,23 +77,23 @@ class RadicationInboxExternalDocument extends Component {
                       </div>
                     </div>
                     <div id="test-l-2" className="content">
-                      <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
+                      <Step2 />
                       <button
                         type={"button"}
-                        className="btn btn-primary"
+                        className="btn btn-secondary "
                         onClick={() => this.stepper.next()}
                       >
-                        &gt;Next
+                        Siguiente <i className="fa fa-angle-right" />
                       </button>
                     </div>
+                    <button
+                      type={"button"}
+                      className="btn btn-primary"
+                      onClick={() => this.stepper.previous()}
+                    >
+                      &gt;Next
+                    </button>
+
                     <div id="test-l-3" className="content text-center">
                       <p>Probando apenas que pasa</p>
                     </div>
