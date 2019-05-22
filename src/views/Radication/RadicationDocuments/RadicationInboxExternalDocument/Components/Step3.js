@@ -36,7 +36,7 @@ class Step3 extends Component {
                 </h4>
                 <div className="row">
                   <div className="col-md-12">
-                    <DropzoneComponent />
+                    <p>Probando</p>
                   </div>
                 </div>
               </div>

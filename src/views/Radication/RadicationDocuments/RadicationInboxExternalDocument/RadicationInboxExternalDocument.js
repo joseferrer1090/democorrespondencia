@@ -7,6 +7,7 @@ import Title from "../Components/Steps/Title";
 import Step1 from "./Components/Step1";
 import Step2 from "./Components/Step2";
 import Step3 from "./Components/Step3";
+import Step4 from "./Components/Step4";
 
 class RadicationInboxExternalDocument extends Component {
   constructor(props) {
@@ -98,10 +99,8 @@ class RadicationInboxExternalDocument extends Component {
                     <div id="test-l-3" className="content ">
                       <Step3 />
                     </div>
-                    <div id="test-l-4" className="content text-center">
-                      <button type="submit" className="btn btn-primary mt-5">
-                        Submit
-                      </button>
+                    <div id="test-l-4" className="content">
+                      <Step4 />
                     </div>
                   </form>
                 </div>
