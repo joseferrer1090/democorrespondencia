@@ -21,8 +21,8 @@ class Step4 extends Component {
               <div className="card-header"> Información basica </div>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-md-4">
-                    <div className="form-group">
+                  <div className="col-md-4 ">
+                    <div className="form-group ">
                       <label className="">
                         <strong> Fecha de radicación</strong>{" "}
                       </label>
@@ -46,6 +46,7 @@ class Step4 extends Component {
                     </div>
                   </div>
                 </div>
+                <hr />
                 <div className="row">
                   <div className="col-md-4">
                     <div className="form-group">
@@ -72,6 +73,7 @@ class Step4 extends Component {
                     </div>
                   </div>
                 </div>
+                <hr />
                 <div className="row">
                   <div className="col-md-4">
                     <div className="form-group">
@@ -98,6 +100,7 @@ class Step4 extends Component {
                     </div>
                   </div>
                 </div>
+                <hr />
                 <div className="row">
                   <div className="col-md-12">
                     <div className="form-group">
@@ -119,6 +122,8 @@ class Step4 extends Component {
                     </div>
                   </div>
                 </div>
+                <hr />
+                <hr />
                 <div className="row">
                   <div className="col-md-4">
                     <div className="form-group">
@@ -143,6 +148,7 @@ class Step4 extends Component {
                     <dd>2</dd>
                   </div>
                 </div>
+                <hr />
                 <div className="row">
                   <div className="col-md-4">
                     <div className="form-group">
@@ -184,6 +190,7 @@ class Step4 extends Component {
                     </div>
                   </div>
                 </div>
+                <hr />
                 <div className="row">
                   <div className="col-md-4">
                     <div className="form-group">
@@ -210,6 +217,7 @@ class Step4 extends Component {
                     </div>
                   </div>
                 </div>
+                <hr />
                 <div className="row">
                   <div className="col-md-4">
                     <div className="form-group">
