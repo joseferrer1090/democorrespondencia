@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "react";
-import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
+import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
 import Files from "react-files";
 import "./react-list.css";
 
@@ -8,9 +8,15 @@ class Step3 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: []
+      files: [],
+      visible: false,
+      error: ""
     };
   }
+
+  toggle = () => {
+    this.setState({ visible: !this.state.visible });
+  };
 
   onFilesChange = files => {
     this.setState(
@@ -99,6 +105,7 @@ class Step3 extends Component {
             </div>
           </div>
         </div>
+        <div style={{ height: "80px" }} />
       </div>
     );
   }
