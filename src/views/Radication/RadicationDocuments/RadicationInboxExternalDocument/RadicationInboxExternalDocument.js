@@ -29,6 +29,17 @@ class RadicationInboxExternalDocument extends Component {
         <div className="card card-body">
           <div className="row">
             <div className="col-md-12">
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={() => {
+                  this.props.history.goBack();
+                }}
+                title="atras"
+              >
+                {" "}
+                <i className="fa fa-arrow-left" />{" "}
+              </button>{" "}
               <Title title="Radicacion de correspondencia externa entrante" />
             </div>
             <div className="col-md-12">
