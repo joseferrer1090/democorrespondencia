@@ -15,9 +15,11 @@ class RadicationInboxExternalDocument extends Component {
     this.state = {};
   }
   componentDidMount() {
-    this.stepper = new Stepper(document.querySelector("#stepper"), {
+    this.stepper = new Stepper(document.querySelector("#stepper1"), {
       linear: false,
-      animation: true
+      animation: true,
+      displayNext: false,
+      displayPrevious: false
     });
   }
   render() {
@@ -30,7 +32,7 @@ class RadicationInboxExternalDocument extends Component {
               <Title title="Radicacion de correspondencia externa entrante" />
             </div>
             <div className="col-md-12">
-              <div id="stepper" className="bs-stepper">
+              <div id="stepper1" className="bs-stepper">
                 <div className="bs-stepper-header">
                   <div className="step" data-target="#test-l-1">
                     <button className="step-trigger">
@@ -68,7 +70,7 @@ class RadicationInboxExternalDocument extends Component {
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
                       <Step1 />
-                      <div className="col-md-6 offset-1">
+                      {/* <div className="col-md-6 offset-1">
                         <button
                           type={"button"}
                           className="btn btn-secondary "
@@ -76,25 +78,25 @@ class RadicationInboxExternalDocument extends Component {
                         >
                           Siguiente <i className="fa fa-angle-right" />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                     <div id="test-l-2" className="content">
                       <Step2 />
-                      <button
+                      {/* <button
                         type={"button"}
                         className="btn btn-secondary "
                         onClick={() => this.stepper.next()}
                       >
                         Siguiente <i className="fa fa-angle-right" />
-                      </button>
+                      </button> */}
                     </div>
-                    <button
+                    {/* <button
                       type={"button"}
                       className="btn btn-primary"
                       onClick={() => this.stepper.previous()}
                     >
                       &gt;Next
-                    </button>
+                    </button> */}
 
                     <div id="test-l-3" className="content ">
                       <Step3 />
