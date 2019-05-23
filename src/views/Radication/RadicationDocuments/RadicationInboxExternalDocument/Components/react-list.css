@@ -39,7 +39,7 @@
   }
   .files-list {
     /* width: 300px; */
-    width: 650px;
+    width: 100%;
   }
   .files-list ul {
     list-style: none;

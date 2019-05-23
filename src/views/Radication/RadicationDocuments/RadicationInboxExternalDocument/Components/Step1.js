@@ -59,6 +59,7 @@ class Step1 extends Component {
     return (
       <div className="animated fadeIn">
         <div className="">
+          <p />
           <div className="col-md-10 offset-1">
             <form className="form">
               <div className="card">

@@ -44,9 +44,8 @@ class Step3 extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <div className="col-md-7 offset-2">
+        <div className="col-md-9 offset-1">
           <div className="card">
-            <div className="card-header"> Adjuntar documento </div>
             <div className="card-body">
               <Files
                 ref="files"
