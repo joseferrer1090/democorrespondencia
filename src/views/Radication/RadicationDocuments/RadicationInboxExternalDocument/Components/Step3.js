@@ -45,6 +45,7 @@ class Step3 extends Component {
     return (
       <div className="animated fadeIn">
         <div className="col-md-9 offset-1">
+          <br />
           <div className="card">
             <div className="card-body">
               <Files
@@ -95,7 +96,7 @@ class Step3 extends Component {
                   <div className="row">
                     <div className="col-md-12 mt-4 text-center">
                       <h4 className="text-muted">
-                        Por favor, adjunte el documento escaneado.
+                        Click para adjuntar el documento escaneado.
                       </h4>
                     </div>
                   </div>

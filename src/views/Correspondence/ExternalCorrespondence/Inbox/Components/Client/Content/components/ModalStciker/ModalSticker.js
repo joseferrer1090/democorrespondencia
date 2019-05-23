@@ -69,7 +69,7 @@ class ModalSticker extends Component {
                       </tbody>
                     </table>
                   </div>
-                  <div className="col-md-10">
+                  <div>
                     <Barcode value={this.state.valuebarcode} />
                   </div>
                 </div>
