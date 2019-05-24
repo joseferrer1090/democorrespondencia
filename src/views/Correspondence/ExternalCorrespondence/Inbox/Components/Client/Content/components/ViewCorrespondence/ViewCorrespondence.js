@@ -387,7 +387,7 @@ class ViewCorrespondence extends Component {
                           <div className="card-body">
                             <div className="row">
                               <div className="col-md-12">
-                                <table className="table table-striped table-sm">
+                                <table className="table  table-sm">
                                   <thead className="thead-light">
                                     <tr>
                                       <th>Identificación</th>
@@ -419,7 +419,7 @@ class ViewCorrespondence extends Component {
                           <div className="card-body">
                             <div className="row">
                               <div className="col-md-12">
-                                <table className="table table-striped table-sm">
+                                <table className="table  table-sm">
                                   <thead className="thead-light">
                                     <tr>
                                       <th>Nombre </th>
