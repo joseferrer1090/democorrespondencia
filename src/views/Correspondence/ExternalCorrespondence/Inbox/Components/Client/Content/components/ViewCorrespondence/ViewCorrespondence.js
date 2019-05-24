@@ -17,6 +17,10 @@ import ModalSticker from "./../ModalStciker/ModalSticker";
 import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
 import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/pdfjs";
 
+const styleHR = {
+  marginTop: "0px"
+};
+
 class ViewCorrespondence extends Component {
   constructor(props) {
     super(props);
@@ -70,6 +74,7 @@ class ViewCorrespondence extends Component {
 
   render() {
     console.log(this.state.id);
+
     return (
       <div className="">
         <HeaderBox />
@@ -201,57 +206,235 @@ class ViewCorrespondence extends Component {
                           </button>
                         </div>
                       </h3>
-                      <hr style={{ marginTop: "0px" }} />
+                      <hr style={styleHR} />
                     </div>
                     {/* Primera seccion */}
                     <div className="">
-                      <div className="card card-body">
-                        Detalle de la comunicación recibida
-                      </div>
-                      {/* <p>Informacion importante de la radicación</p>
-                       */}
-                      <div className="">
-                        <form>
+                      <div className="card">
+                        <div className="p-2 mb-1 bg-secondary text-black">
+                          Detalle de la comunicación recibida
+                        </div>
+                        <div className="card-body">
                           <div className="row">
-                            <p>Probando apenas</p>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Fecha de radicación</strong>
+                                </label>
+                                <dd> 04/10/2018</dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Hora de radicación</strong>
+                                </label>
+                                <dd> 09:57 AM</dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Sede</strong>
+                                </label>
+                                <dd> Sede I</dd>
+                              </div>
+                            </div>
                           </div>
-                        </form>
+                          <hr style={styleHR} />
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Vigencia</strong>
+                                </label>
+                                <dd> 2018</dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Usuario radicador</strong>
+                                </label>
+                                <dd>Maria Perez</dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Tipo de documento</strong>
+                                </label>
+                                <dd>Factura</dd>
+                              </div>
+                            </div>
+                          </div>
+                          <hr style={styleHR} />
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Fecha del documento </strong>
+                                  <dd> 04/10/2018 </dd>
+                                </label>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Nro. del documento</strong>
+                                </label>
+                                <dd> 111222 </dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong>Consecutivo</strong>
+                                </label>
+                                <dd> 3</dd>
+                              </div>
+                            </div>
+                          </div>
+                          <hr style={styleHR} />
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Nro. de radicación </strong>
+                                </label>
+                                <dd> R-3-2019-1 </dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Ciudad </strong>
+                                </label>
+                                <dd> Bogota - Distrito capital </dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Asunto </strong>
+                                </label>
+                                <dd> Asunto del documento </dd>
+                              </div>
+                            </div>
+                          </div>
+                          <hr style={styleHR} />
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Folios </strong>
+                                </label>
+                                <dd> 3 </dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Imágenes </strong>
+                                </label>
+                                <dd> 0 </dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Tipo de llegada </strong>
+                                </label>
+                                <dd> A la mano </dd>
+                              </div>
+                            </div>
+                          </div>
+                          <hr style={styleHR} />
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Gia </strong>
+                                </label>
+                                <dd>0123456987 </dd>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  <strong> Mensajero </strong>
+                                </label>
+                                <dd> Ninguno </dd>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    {/* <p>Informacion importante de la radicación</p>
+                     */}
+
                     {/* Fin primera seccion */}
 
                     {/* Segunda seccion */}
                     <div className="row">
                       <div className="col-md-12">
                         <div className="card">
-                          <div className="card-header">Remitente</div>
+                          <div className="p-2 mb-1 bg-secondary text-black">
+                            {" "}
+                            Remitente
+                          </div>
                           <div className="card-body">
-                            <table className="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Identificación</th>
-                                  <th>Nombre </th>
-                                  <th>Email</th>
-                                  <th>Teléfono</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>123456</td>
-                                  <td>Avianca</td>
-                                  <td>info@avianca.com.co</td>
-                                  <td>52369852</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <table className="table table-striped table-sm">
+                                  <thead className="thead-light">
+                                    <tr>
+                                      <th>Identificación</th>
+                                      <th>Nombre </th>
+                                      <th>Email</th>
+                                      <th>Teléfono</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>123456</td>
+                                      <td>Avianca</td>
+                                      <td>info@avianca.com.co</td>
+                                      <td>52369852</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                       <div className="col-md-12">
                         <div className="card">
-                          <div className="card-header">Destinatario</div>
+                          <div className="p-2 mb-1 bg-secondary text-black">
+                            {" "}
+                            Destinatario
+                          </div>
                           <div className="card-body">
-                            <p>Destinatario</p>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <table className="table table-striped table-sm">
+                                  <thead className="thead-light">
+                                    <tr>
+                                      <th>Nombre </th>
+                                      <th>dependencia</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Carlos Perez</td>
+                                      <td>Avianca</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -259,8 +442,35 @@ class ViewCorrespondence extends Component {
                     {/* Fin segunda seccion */}
 
                     {/* Tercera seccion */}
-                    <div className="card card-body">
-                      <p>Informacion del documento</p>
+                    <div className="card">
+                      <div className="p-2 mb-1 bg-secondary text-black">
+                        {" "}
+                        Campos adiciones{" "}
+                      </div>
+                      <div className="card-body">
+                        <table className="table table-sm">
+                          <thead className="thead-light">
+                            <tr>
+                              <th scope="col">Campo</th>
+                              <th scope="col">Valor</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Campo 0</td>
+                              <td>Valor 0</td>
+                            </tr>
+                            <tr>
+                              <td>Campo 1</td>
+                              <td>Valor 1</td>
+                            </tr>
+                            <tr>
+                              <td>Campo 2</td>
+                              <td>Valor 2</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                     {/* Fin tercera seccion */}
 
@@ -269,12 +479,6 @@ class ViewCorrespondence extends Component {
                       className="card card-body"
                       style={{ height: "600px", padding: "0px" }}
                     >
-                      {/* <embed
-                        src="http://www.africau.edu/images/default/sample.pdf"
-                        width={"100%"}
-                        height={600}
-                        type="application/pdf"
-                      /> */}
                       <PDFViewer
                         ref={this.myViewer}
                         backend={PDFJSBackend}
@@ -284,8 +488,51 @@ class ViewCorrespondence extends Component {
                     {/* Fin Cuarta seccion */}
 
                     {/* Quinta seccion */}
-                    <div className="card card-body">
-                      <p>Detalles de la radicación</p>
+                    <div className="card">
+                      <div className="p-2 mb-1 bg-secondary text-black">
+                        {" "}
+                        Anotaciones realizadas sobre la correspondencia{" "}
+                      </div>
+                      <div className="card-body">
+                        <table className="table table-bordered table-sm">
+                          <thead className="table-secondary">
+                            <tr>
+                              <th scope="col" className="text-center">
+                                Fecha
+                              </th>
+                              <th scope="col" className="text-center">
+                                Origen
+                              </th>
+                              <th scope="col" className="text-center">
+                                Destinatario
+                              </th>
+                              <th scope="col" className="text-center">
+                                Página
+                              </th>
+                              <th scope="col" className="text-center">
+                                Anotación
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className="text-center" nowrap>
+                                04/10/2018 - 09:10:16
+                              </td>
+                              <td className="text-center">
+                                Dependencia I Pedro
+                              </td>
+                              <td className="text-center">
+                                (Dependencia I - Carlos Borré)
+                              </td>
+                              <td className="text-center">2</td>
+                              <td className="text-center" width="40%" nowrap>
+                                Esto es una prueba
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                     {/* Fin quinta seccion */}
                   </Card>

@@ -108,7 +108,6 @@ class RadicationInboxExternalDocument extends Component {
                     >
                       &gt;Next
                     </button> */}
-
                     <div id="test-l-3" className="content ">
                       <Step3 />
                     </div>
