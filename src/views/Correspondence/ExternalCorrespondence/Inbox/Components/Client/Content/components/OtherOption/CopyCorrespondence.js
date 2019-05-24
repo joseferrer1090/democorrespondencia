@@ -208,33 +208,29 @@ class CopyCorrespondence extends Component {
                 </Card>
               </div>
               <div className="col-md-12">
-                <Card body>
-                  <div className="table-responsive">
-                    <table className="table table-condensed table-hover">
-                      <thead>
-                        <tr className="text-center">
-                          <td>Sede</td>
-                          <td>Dependencia</td>
-                          <td>Usuario</td>
-                          <td>Eliminar</td>
-                        </tr>
-                      </thead>
-                      <tbody className="text-center">
-                        <tr>
-                          <td>BOGOTA - PRINCIPAL </td>
-                          <td> ALMACEN</td>
-                          <td> SANDRA MILENA DIAZ ARDILA</td>
-                          <td>
-                            <button className="btn btn-danger btn-sm">
-                              {" "}
-                              <i className="fa fa-trash" />{" "}
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </Card>
+                <table className="table">
+                  <thead className="thead-light text-center">
+                    <tr>
+                      <th scope="col">Sede</th>
+                      <th scope="col">Dependencia</th>
+                      <th scope="col">Usuario</th>
+                      <th scope="col">Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-center">
+                    <tr>
+                      <td>BOGOTA - PRINCIPAL </td>
+                      <td> ALMACEN</td>
+                      <td> SANDRA MILENA DIAZ ARDILA</td>
+                      <td>
+                        <button className="btn btn-danger btn-sm">
+                          {" "}
+                          <i className="fa fa-trash" />{" "}
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
