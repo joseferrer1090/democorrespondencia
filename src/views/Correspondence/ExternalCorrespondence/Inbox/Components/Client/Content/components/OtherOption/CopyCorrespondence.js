@@ -208,7 +208,7 @@ class CopyCorrespondence extends Component {
                 </Card>
               </div>
               <div className="col-md-12">
-                <table className="table">
+                <table className="table table-sm">
                   <thead className="thead-light text-center">
                     <tr>
                       <th scope="col">Sede</th>
