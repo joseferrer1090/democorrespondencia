@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import {
   ButtonDropdown,
@@ -19,7 +20,9 @@ class ContentComponent extends Component {
       dropdownOpen: false,
       id:
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 ",
-      term: ""
+      term: "",
+      tblData: "",
+      chkrow: false
     };
   }
 
@@ -31,6 +34,10 @@ class ContentComponent extends Component {
 
   componentDidMount() {
     console.log("Probando el component did mount");
+    const data = document.querySelector("#tablefixed");
+    this.setState({
+      tblData: data
+    });
   }
 
   tipoDocumento = data => {
@@ -66,6 +73,22 @@ class ContentComponent extends Component {
     };
   };
 
+  getSelect = () => {
+    const message = "";
+    const gird = this.state.tblData;
+
+    const checkbox = gird.getElementsByTagName("INPUT");
+    console.log(checkbox);
+
+    for (let i = 0; i < checkbox.length; i++) {
+      if (checkbox[i].checked) {
+        const row = checkbox[i];
+        console.log(row);
+      }
+    }
+    console.log("", message);
+  };
+
   render() {
     const id = this.state.id;
     const term = this.state.term;
@@ -74,9 +97,16 @@ class ContentComponent extends Component {
       .map((aux, i) => {
         return (
           <tr className={this.stateDocumento(aux.estado)}>
-            {/* <td className="inbox-small-cells">
-            <input type="checkbox" className="mail-checkbox" />
-          </td> */}
+            <td className="inbox-small-cells">
+              <input
+                type="checkbox"
+                className="mail-checkbox"
+                defaultChecked={this.state.chkrow}
+                onChange={e => {
+                  this.setState({ chkrow: e.target.value });
+                }}
+              />
+            </td>
             <td className="inbox-small-cells">
               {this.tipoDocumento(aux.tipo)}
             </td>
@@ -113,7 +143,9 @@ class ContentComponent extends Component {
                   Acciones
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem>Seleccionar todo</DropdownItem>
+                  <DropdownItem onClick={() => this.getSelect()}>
+                    Seleccionar todo
+                  </DropdownItem>
                 </DropdownMenu>
               </ButtonDropdown>
             </div>
@@ -168,9 +200,9 @@ class ContentComponent extends Component {
           <table id="tablefixed" className="table table-sm table-hover">
             <thead>
               <tr className="text-center">
-                {/* <th>
+                <th>
                   <input type="checkbox" />
-                </th> */}
+                </th>
                 <th>Tipo</th>
                 <th>Sede</th>
                 <th>Consecutivo</th>
