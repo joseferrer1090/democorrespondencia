@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import {
@@ -22,7 +22,8 @@ class ContentComponent extends Component {
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 ",
       term: "",
       tblData: "",
-      chkrow: false
+      chkrow: false,
+      idCorrespondenceSelected: null
     };
   }
 
@@ -33,10 +34,10 @@ class ContentComponent extends Component {
   };
 
   componentDidMount() {
-    console.log("Probando el component did mount");
     const data = document.querySelector("#tablefixed");
     this.setState({
-      tblData: data
+      tblData: data,
+      idCorrespondenceSelected: []
     });
   }
 
@@ -82,11 +83,17 @@ class ContentComponent extends Component {
 
     for (let i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked) {
-        const row = checkbox[i];
-        console.log(row);
+        // const row = checkbox[i].parentNode.parentNode.firstChild.innerHTML;
+        // console.log(row);
+        this.setState({
+          idCorrespondenceSelected: this.state.idCorrespondenceSelected.push(
+            checkbox[i].parentNode.parentNode.firstChild.innerHTML
+          )
+        });
+        console.log(this.state.idCorrespondenceSelected);
       }
     }
-    console.log("", message);
+    // console.log("", message);
   };
 
   render() {
@@ -97,6 +104,9 @@ class ContentComponent extends Component {
       .map((aux, i) => {
         return (
           <tr className={this.stateDocumento(aux.estado)}>
+            <td className="hidden" style={{ display: "none" }}>
+              {aux.id}
+            </td>
             <td className="inbox-small-cells">
               <input
                 type="checkbox"

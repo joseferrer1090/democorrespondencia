@@ -33,8 +33,8 @@ class Headerinbox extends Component {
       modalexport2: false,
       modalreport: false,
       modalreportgeneral: false,
-      modalcopy: false,
-      modalmassive: false
+      modalcopy: false
+      // modalmassive: false
     };
   }
 
@@ -64,9 +64,9 @@ class Headerinbox extends Component {
     this.refs.child5.toggle();
   };
 
-  OpenModalImpressionMassive = () => {
-    this.refs.child6.toggle();
-  };
+  // OpenModalImpressionMassive = () => {
+  //   this.refs.child6.toggle();
+  // };
 
   routeChange() {
     let path = `/radication/simple`;
@@ -175,7 +175,7 @@ class Headerinbox extends Component {
                     <DropdownMenu right>
                       <DropdownItem
                         onClick={() => {
-                          this.OpenModalImpressionMassive();
+                          alert("Probando apenas");
                         }}
                       >
                         <i className="fa fa-print" /> Impresión masiva
@@ -211,10 +211,10 @@ class Headerinbox extends Component {
           ref="child4"
         />
         <ModalCopy modalcopy={this.state.modalcopy} ref="child5" />
-        <ModalPrintMassive
+        {/* <ModalPrintMassive
           modalimpression={this.state.modalmassive}
           ref="child6"
-        />
+        /> */}
       </div>
     );
   }
