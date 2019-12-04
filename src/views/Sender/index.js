@@ -7,9 +7,11 @@ class index extends Component {
     this.state = {};
   }
   render() {
+    console.log("Render");
     return (
       <div>
         <p>Estoy organizando el proyecto</p>
+
       </div>
     );
   }
