@@ -84,7 +84,7 @@ class FormUpdateData extends Component {
                   <div className="float-right">
                     <button type="button" className="btn btn-secondary btn-sm">
                       {" "}
-                      <i className="fa fa-pencil" /> Actializar perfil{" "}
+                      <i className="fa fa-pencil" /> Actualizar perfil{" "}
                     </button>
                   </div>
                 </Col>
