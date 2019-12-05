@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Card, CardBody } from "reactstrap";
 
 class FormChangeAdvanceData extends Component {
   constructor(props) {
@@ -11,63 +11,69 @@ class FormChangeAdvanceData extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <form>
-          <Row>
-            <Col sm="6">
-              <div className="form-group">
-                <label> Sede </label>
-                <input
-                  type="text"
-                  className="form-control form-control-sm"
-                  disabled
-                  placeholder="sede "
-                />
-              </div>
-            </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label>Dependencia</label>
-                <input
-                  type="text"
-                  className="form-control form-control-sm"
-                  disabled
-                  placeholder="dependencia asignada"
-                />
-              </div>
-            </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label>Cargo</label>
-                <input
-                  type="text"
-                  className="form-control form-control-sm"
-                  disabled
-                  placeholder="Cargo asignado"
-                />
-              </div>
-            </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label>Rol</label>
-                <textarea
-                  className="form-control form-control-sm"
-                  disabled
-                  placeholder="Rol o roles asignados"
-                />
-              </div>
-            </Col>
-            <Col sm="12">
-              <div className="form-group">
-                <label>Permisos</label>
-                <textarea
-                  className="form-control form-control-sm"
-                  readOnly
-                  placeholder="Permisos asignados por el administrador"
-                />
-              </div>
-            </Col>
-          </Row>
-        </form>
+        <Card>
+          <CardBody>
+            <div className="container">
+              <form>
+                <Row>
+                  <Col sm="6">
+                    <div className="form-group">
+                      <label> Sede </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-sm"
+                        disabled
+                        placeholder="sede "
+                      />
+                    </div>
+                  </Col>
+                  <Col sm="6">
+                    <div className="form-group">
+                      <label>Dependencia</label>
+                      <input
+                        type="text"
+                        className="form-control form-control-sm"
+                        disabled
+                        placeholder="dependencia asignada"
+                      />
+                    </div>
+                  </Col>
+                  <Col sm="6">
+                    <div className="form-group">
+                      <label>Cargo</label>
+                      <input
+                        type="text"
+                        className="form-control form-control-sm"
+                        disabled
+                        placeholder="Cargo asignado"
+                      />
+                    </div>
+                  </Col>
+                  <Col sm="6">
+                    <div className="form-group">
+                      <label>Rol</label>
+                      <textarea
+                        className="form-control form-control-sm"
+                        disabled
+                        placeholder="Rol o roles asignados"
+                      />
+                    </div>
+                  </Col>
+                  <Col sm="12">
+                    <div className="form-group">
+                      <label>Permisos</label>
+                      <textarea
+                        className="form-control form-control-sm"
+                        readOnly
+                        placeholder="Permisos asignados por el administrador"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </form>
+            </div>
+          </CardBody>
+        </Card>
       </div>
     );
   }

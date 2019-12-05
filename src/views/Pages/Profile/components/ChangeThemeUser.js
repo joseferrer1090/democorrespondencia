@@ -38,93 +38,99 @@ class ChangeThemeUser extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col sm="12">
-            <Card>
-              <CardHeader
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  this.toggle();
-                }}
-              >
-                {" "}
-                Header{" "}
-              </CardHeader>
-              <Collapse isOpen={this.state.collapse}>
-                <CardBody>
-                  <p>Datos del formulario para editar tema</p>
-                </CardBody>
-              </Collapse>
-            </Card>
-          </Col>
-          <Col sm="12">
-            <Card>
-              <CardHeader
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  this.toggle2();
-                }}
-              >
-                {" "}
-                Body{" "}
-              </CardHeader>
-              <Collapse isOpen={this.state.collapse2}>
-                <CardBody>
-                  <p>Datos del formulario para editar tema</p>
-                </CardBody>
-              </Collapse>
-            </Card>
-          </Col>
-          <Col sm="12">
-            <Card>
-              <CardHeader
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  this.toggle3();
-                }}
-              >
-                {" "}
-                Content{" "}
-              </CardHeader>
-              <Collapse isOpen={this.state.collapse3}>
-                <CardBody>
-                  <p>Datos del formulario para editar tema</p>
-                </CardBody>
-              </Collapse>
-            </Card>
-          </Col>
-          <Col sm="12">
-            <Card>
-              <CardHeader
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  this.toggle4();
-                }}
-              >
-                {" "}
-                Otros{" "}
-              </CardHeader>
-              <Collapse isOpen={this.state.collapse4}>
-                <CardBody>
-                  <p>Datos del formulario para editar tema</p>
-                </CardBody>
-              </Collapse>
-            </Card>
-          </Col>
-          <Col sm="12">
-            <div className="float-right">
-              <button className="btn btn-secondary btn-sm">
-                {" "}
-                <i className="fa fa-times" /> Borrar{" "}
-              </button>
-              &nbsp;
-              <button className="btn btn-secondary btn-sm">
-                {" "}
-                <i className="fa fa-edit" /> Nuevo tema{" "}
-              </button>
+        <Card>
+          <CardBody>
+            <div className="container">
+              <Row>
+                <Col sm="12">
+                  <Card>
+                    <CardHeader
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        this.toggle();
+                      }}
+                    >
+                      {" "}
+                      Header{" "}
+                    </CardHeader>
+                    <Collapse isOpen={this.state.collapse}>
+                      <CardBody>
+                        <p>Datos del formulario para editar tema</p>
+                      </CardBody>
+                    </Collapse>
+                  </Card>
+                </Col>
+                <Col sm="12">
+                  <Card>
+                    <CardHeader
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        this.toggle2();
+                      }}
+                    >
+                      {" "}
+                      Body{" "}
+                    </CardHeader>
+                    <Collapse isOpen={this.state.collapse2}>
+                      <CardBody>
+                        <p>Datos del formulario para editar tema</p>
+                      </CardBody>
+                    </Collapse>
+                  </Card>
+                </Col>
+                <Col sm="12">
+                  <Card>
+                    <CardHeader
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        this.toggle3();
+                      }}
+                    >
+                      {" "}
+                      Content{" "}
+                    </CardHeader>
+                    <Collapse isOpen={this.state.collapse3}>
+                      <CardBody>
+                        <p>Datos del formulario para editar tema</p>
+                      </CardBody>
+                    </Collapse>
+                  </Card>
+                </Col>
+                <Col sm="12">
+                  <Card>
+                    <CardHeader
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        this.toggle4();
+                      }}
+                    >
+                      {" "}
+                      Otros{" "}
+                    </CardHeader>
+                    <Collapse isOpen={this.state.collapse4}>
+                      <CardBody>
+                        <p>Datos del formulario para editar tema</p>
+                      </CardBody>
+                    </Collapse>
+                  </Card>
+                </Col>
+                <Col sm="12">
+                  <div className="float-right">
+                    <button className="btn btn-secondary btn-sm">
+                      {" "}
+                      <i className="fa fa-times" /> Borrar{" "}
+                    </button>
+                    &nbsp;
+                    <button className="btn btn-secondary btn-sm">
+                      {" "}
+                      <i className="fa fa-edit" /> Nuevo tema{" "}
+                    </button>
+                  </div>
+                </Col>
+              </Row>
             </div>
-          </Col>
-        </Row>
+          </CardBody>
+        </Card>
       </div>
     );
   }
