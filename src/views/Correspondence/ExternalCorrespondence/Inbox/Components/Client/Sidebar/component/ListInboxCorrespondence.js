@@ -13,7 +13,7 @@ class ListInboxCorrespondence extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ width: "170px" }}>
         <ListGroup>
           {/* <ListGroupItem>
             <form>
