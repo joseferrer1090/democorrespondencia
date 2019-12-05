@@ -7,7 +7,8 @@ import {
   DropdownToggle,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  UncontrolledDropdown
 } from "reactstrap";
 import PropTypes from "prop-types";
 import url from "./../../services/deploymentdata";
@@ -70,14 +71,14 @@ class DefaultHeader extends Component {
             </NavLink>
           </NavItem> */}
           <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
+            <UncontrolledDropdown nav direction="down">
               Usuario
               <img
                 src={"../../assets/img/avatars/6.jpg"}
                 className="img-avatar"
                 alt="admin@bootstrapmaster.com"
               />
-            </DropdownToggle>
+            </UncontrolledDropdown>
             <DropdownMenu right style={{ right: "auto" }}>
               <DropdownItem header tag="div" className="text-center">
                 <strong>Herramientas</strong>
