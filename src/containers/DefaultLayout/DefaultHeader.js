@@ -72,45 +72,47 @@ class DefaultHeader extends Component {
           </NavItem> */}
           <AppHeaderDropdown direction="down">
             <UncontrolledDropdown nav direction="down">
-              Usuario
-              <img
-                src={"../../assets/img/avatars/6.jpg"}
-                className="img-avatar"
-                alt="admin@bootstrapmaster.com"
-              />
-            </UncontrolledDropdown>
-            <DropdownMenu right style={{ right: "auto" }}>
-              <DropdownItem header tag="div" className="text-center">
-                <strong>Herramientas</strong>
-              </DropdownItem>
-              <DropdownItem>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    cursor: "pointer !important",
-                    color: "black"
-                  }}
-                  to="/perfil"
-                >
-                  {" "}
-                  <i className="fa fa-user" /> Perfil{" "}
-                </Link>
-              </DropdownItem>
-              {/* <DropdownItem>
+              <DropdownToggle nav style={{ marginRight: "4px !important" }}>
+                Usuario
+                <img
+                  src={"../../assets/img/avatars/user2.jpg"}
+                  className="img-avatar"
+                  alt="administratos@image"
+                />
+              </DropdownToggle>
+              <DropdownMenu right style={{ right: "auto" }}>
+                <DropdownItem header tag="div" className="text-center">
+                  <strong>Herramientas</strong>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      cursor: "pointer !important",
+                      color: "black"
+                    }}
+                    to="/perfil"
+                  >
+                    {" "}
+                    <i className="fa fa-user" /> Perfil{" "}
+                  </Link>
+                </DropdownItem>
+                {/* <DropdownItem>
                 <i className="fa fa-wrench" /> Herramientas
               </DropdownItem> */}
-              <DropdownItem
-                onClick={e => {
-                  window.location = `${url.defaultServer}3000/#/middleware`;
-                  return null;
-                }}
-              >
-                <i className="fa fa-refresh" /> cambiar de aplicacion
-              </DropdownItem>
-              <DropdownItem onClick={e => this.props.onLogout(e)}>
-                <i className="fa fa-lock" /> cerrar sesion
-              </DropdownItem>
-            </DropdownMenu>
+                <DropdownItem
+                  onClick={e => {
+                    window.location = `${url.defaultServer}3000/#/middleware`;
+                    return null;
+                  }}
+                >
+                  <i className="fa fa-refresh" /> cambiar de aplicacion
+                </DropdownItem>
+                <DropdownItem onClick={e => this.props.onLogout(e)}>
+                  <i className="fa fa-lock" /> cerrar sesion
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </AppHeaderDropdown>
         </Nav>
         {/* <AppAsideToggler className="d-md-down-none" />
