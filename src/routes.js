@@ -90,6 +90,12 @@ const FilterCorrespondence = React.lazy(() =>
 );
 
 const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
+const RadicationEmail = React.lazy(() =>
+  import("./views/Correspondence/one-stop shop/RadicationEmail/RadicationEmail")
+);
+const RadicationWeb = React.lazy(() =>
+  import("./views/Correspondence/one-stop shop/RadicationWeb/RadicationWeb")
+);
 
 const routes = [
   { path: "/", exact: true, name: "Inicio", component: DefaultLayout },
@@ -101,6 +107,16 @@ const routes = [
     path: "/radication/correspondenceinboxexternal/document",
     name: "Radicacion de correspondencia externa entrante",
     component: RadicationDocumentCorrespondenceExternalInbox
+  },
+  {
+    path: "/correspondence/one-stop-shop/email",
+    name: "Radicacion de correspondencia externa entrante vía email",
+    component: RadicationEmail
+  },
+  {
+    path: "/correspondence/one-stop-shop/web",
+    name: "Radicacion de correspondencia externa entrante vía web",
+    component: RadicationWeb
   },
   {
     path: "/correspondence/one-stop-shop/document",
