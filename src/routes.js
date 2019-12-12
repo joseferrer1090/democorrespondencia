@@ -5,10 +5,18 @@ const Dashboard = React.lazy(() => import("./views/Dashboard"));
 // Views
 const GenerateEdok = React.lazy(() => import("./views/GenerateEdok/index"));
 const Remitente = React.lazy(() => import("./views/Sender"));
+
 const RadicationDocumentCorrespondenceExternalInbox = React.lazy(() =>
   import(
     "./views/Radication/RadicationDocuments/RadicationInboxExternalDocument/RadicationInboxExternalDocument"
   )
+);
+
+const RadicationDocumentCorrespondenceExternalInboxOneStopShop = React.lazy(
+  () =>
+    import(
+      "./views/Correspondence/one-stop shop/RadicationDocument/RadicationInboxExternalDocument"
+    )
 );
 
 const RadicationDocumentCorrespondenceExternalOutbox = React.lazy(() =>
@@ -94,6 +102,12 @@ const routes = [
     name: "Radicacion de correspondencia externa entrante",
     component: RadicationDocumentCorrespondenceExternalInbox
   },
+  {
+    path: "/correspondence/one-stop-shop/document",
+    name: "Radicacion de correspondencia externa entrante",
+    component: RadicationDocumentCorrespondenceExternalInboxOneStopShop
+  },
+
   {
     path: "/radication/correspondenceoutboxexternal/document",
     name: "Radicacion de correspondencia external despachada",

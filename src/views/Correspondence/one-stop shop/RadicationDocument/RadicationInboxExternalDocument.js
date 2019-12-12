@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import HeaderComponent from "./../../../Correspondence/ExternalCorrespondence/Inbox/Components/Client/Header/HeaderInbox";
 import "bs-stepper/dist/css/bs-stepper.css";
 import Stepper from "bs-stepper";
-import Title from "../Components/Steps/Title";
+import Title from "./../../../Radication/RadicationDocuments/Components/Steps/Title";
 import Step1 from "./Components/Step1";
 import Step2 from "./Components/Step2";
 import Step3 from "./Components/Step3";
@@ -25,7 +24,6 @@ class RadicationInboxExternalDocument extends Component {
   render() {
     return (
       <div>
-        <HeaderComponent />
         <div className="card card-body">
           <div className="row">
             <div className="col-md-12">
@@ -81,7 +79,6 @@ class RadicationInboxExternalDocument extends Component {
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
                       <Step1 />
-
                       {/* <div className="col-md-6 offset-1">
                         <button
                           type={"button"}
@@ -94,7 +91,6 @@ class RadicationInboxExternalDocument extends Component {
                     </div>
                     <div id="test-l-2" className="content">
                       <Step2 />
-
                       {/* <button
                         type={"button"}
                         className="btn btn-secondary "
@@ -103,7 +99,6 @@ class RadicationInboxExternalDocument extends Component {
                         Siguiente <i className="fa fa-angle-right" />
                       </button> */}
                     </div>
-
                     {/* <button
                       type={"button"}
                       className="btn btn-primary"

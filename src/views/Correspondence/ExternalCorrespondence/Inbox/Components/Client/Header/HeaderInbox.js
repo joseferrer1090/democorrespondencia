@@ -73,6 +73,7 @@ class Headerinbox extends Component {
   }
 
   render() {
+    console.log(this.state.isOpen);
     return (
       <Fragment>
         <div className="d-none d-sm-block">
@@ -88,60 +89,63 @@ class Headerinbox extends Component {
             <NavbarBrand>{"  "}</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="mr-auto">
-                <NavItem>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret style={{ color: "black" }}>
-                      <i className="fa fa-plus" /> Nueva radicacion
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        <Link to="/radication/correspondenceinboxexternal/document">
+              <center>
+                <Nav className="mr-auto">
+                  <NavItem>
+                    <UncontrolledDropdown nav inNavbar>
+                      <DropdownToggle nav caret style={{ color: "black" }}>
+                        <i className="fa fa-plus" /> Nueva radicacion
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        <DropdownItem>
+                          <Link to="/radication/correspondenceinboxexternal/document">
+                            {" "}
+                            <i className="fa fa-file-text" /> Radicar documento{" "}
+                          </Link>
+                        </DropdownItem>
+                        <DropdownItem>
                           {" "}
-                          <i className="fa fa-file-text" /> Radicar documento{" "}
-                        </Link>
-                      </DropdownItem>
-                      <DropdownItem>
-                        {" "}
-                        <Link to="/radication/procedure">
-                          <i className="fa fa-clone" /> Radicar trámite
-                        </Link>
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
-                    <i className="fa fa-wrench" /> Configuracion de usabilidad{" "}
-                  </NavLink>
-                </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret style={{ color: "black" }}>
-                    <i className="fa fa-file-pdf-o" /> Exportar
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem
-                      onClick={() => {
-                        this.OpenModalExport();
-                      }}
-                    >
-                      {" "}
-                      <i className="fa fa-file-pdf-o" /> Archivo de consulta{" "}
-                    </DropdownItem>
-                    <DropdownItem
-                      onClick={() => {
-                        this.OpenModalExport2();
-                      }}
-                    >
-                      <i className="fa fa-file-pdf-o" /> Recibido / despachado{" "}
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </Nav>
-
-              <Nav className="ml-auto">
-                <NavItem>
-                  <NavLink>
+                          <Link to="/radication/procedure">
+                            <i className="fa fa-clone" /> Radicar trámite
+                          </Link>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </NavItem>
+                  &nbsp;
+                  <NavItem>
+                    <NavLink>
+                      <i className="fa fa-wrench" /> Configuracion de usabilidad{" "}
+                    </NavLink>
+                  </NavItem>
+                  &nbsp;
+                  <NavItem>
+                    <UncontrolledDropdown nav inNavbar>
+                      <DropdownToggle nav caret style={{ color: "black" }}>
+                        <i className="fa fa-file-pdf-o" /> Exportar
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        <DropdownItem
+                          onClick={() => {
+                            this.OpenModalExport();
+                          }}
+                        >
+                          {" "}
+                          <i className="fa fa-file-pdf-o" /> Archivo de consulta{" "}
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => {
+                            this.OpenModalExport2();
+                          }}
+                        >
+                          <i className="fa fa-file-pdf-o" /> Recibido /
+                          despachado{" "}
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </NavItem>
+                  &nbsp;
+                  <NavItem>
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav caret style={{ color: "black" }}>
                         <i className="fa fa-pie-chart" /> Reportes
@@ -164,10 +168,9 @@ class Headerinbox extends Component {
                         </DropdownItem>
                       </DropdownMenu>
                     </UncontrolledDropdown>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
+                  </NavItem>
+                  &nbsp;
+                  <NavItem>
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav caret style={{ color: "black" }}>
                         <i className="fa fa-print" /> Impresión
@@ -182,10 +185,9 @@ class Headerinbox extends Component {
                         </DropdownItem>
                       </DropdownMenu>
                     </UncontrolledDropdown>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
+                  </NavItem>
+                  &nbsp;
+                  <NavItem>
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav caret style={{ color: "black" }}>
                         <i className="fa fa-list" /> Más opciones
@@ -198,11 +200,12 @@ class Headerinbox extends Component {
                         </DropdownItem>
                       </DropdownMenu>
                     </UncontrolledDropdown>
-                  </NavLink>
-                </NavItem>
-              </Nav>
+                  </NavItem>
+                </Nav>
+              </center>
             </Collapse>
           </Navbar>
+
           <ModalExport ModalExport={this.state.modalexport} ref="child" />
           <ModalExport2 modalrecibido={this.state.modalexport2} ref="child2" />
           <ModalReport modalreport={this.state.modalreport} ref="child3" />

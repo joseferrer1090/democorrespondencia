@@ -5,7 +5,17 @@ import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Card,
+  CardHeader,
+  CardBody,
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Data2 from "./../../../../../../../services/data_inbox_extern.json";
@@ -143,7 +153,7 @@ class ContentComponent extends Component {
             <td className="inbox-small-cells">
               {this.tipoDocumento(aux.tipo)}
             </td>
-            <td className="view-message dont-show">{aux.sede} </td>
+            <td className="view-message dont-show"> {aux.sede} </td>
             <td className="view-message">{aux.consecutivo}</td>
             <td>
               <Link to={`/correspondence/external/view/${aux.id}`}>
@@ -161,8 +171,131 @@ class ContentComponent extends Component {
         );
       });
     return (
-      <div className="animated fadeIn">
-        <div className="inbox-body">
+      // <div className="animated fadeIn">
+      // <br />
+      <div className="d-none d-sm-block" style={{ marginTop: "1px" }}>
+        <Container style={{ marginLeft: "0px", padding: "0" }}>
+          <Card>
+            <CardHeader
+              className="text-center"
+              style={{ fontSize: "14px", fontWeight: "500" }}
+            >
+              <i className="icon-drawer" /> &nbsp; Bandeja de correspondencia
+              recibida vigencia 2019
+            </CardHeader>
+            <CardBody>
+              <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
+                <Col md="3">
+                  <ButtonDropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                  >
+                    <DropdownToggle caret size="sm">
+                      Acciones
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={() => this.getSelect()}>
+                        Seleccionar todo
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </Col>
+                <Col md="6">
+                  <InputGroup className="mb-4">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        {/* <i className="icon-search" /> */}
+                        <i class="fa fa-search"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      style={{ width: "auto" }}
+                      placeholder={`Buscar correspondencia`}
+                      onChange={e => this.handleSearchInput(e)}
+                    />
+                  </InputGroup>
+                </Col>
+                <Col md="3">
+                  <div className="float-right">
+                    <ul className="pagination">
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          <i className="fa fa-angle-double-left" />
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          1
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a className="page-link" href="#">
+                          2
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          3
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          <i className="fa fa-angle-double-right" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </Col>
+              </Row>
+              <Container>
+                <Row>
+                  <Col md="12" style={{ padding: "0" }}>
+                    <div className="table-responsive">
+                      <table
+                        id="tablefixed"
+                        className="table table-sm table-hover"
+                        // style={{ backgroundColor: "#F0F3F5" }}
+                      >
+                        <thead>
+                          <tr
+                            className="text-center"
+                            style={{ background: "#45B254 !important" }}
+                          >
+                            <th style={{ width: "10px" }}>
+                              <input type="checkbox" />
+                            </th>
+                            <th style={{ width: "10px" }}>Tipo</th>
+                            <th style={{ width: "10px" }}>Sede</th>
+                            <th style={{ width: "10px" }}>Consecutivo</th>
+                            <th style={{ width: "10px" }}>Asunto</th>
+                            <th style={{ width: "10px" }}>Fecha</th>
+                            <th style={{ width: "10px" }}>Destinatarios</th>
+                          </tr>
+                        </thead>
+
+                        <tbody
+                          className="text-center"
+                          style={{
+                            height: "200px",
+                            overflowY: "auto",
+                            width: "100%"
+                          }}
+                        >
+                          {datainbox}
+                        </tbody>
+                      </table>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </CardBody>
+          </Card>
+        </Container>
+      </div>
+
+      /* <div className="inbox-body">
           <h5 className="text-center">
             Bandeja de correspondencia recibida vigencia 2019{" "}
           </h5>
@@ -181,19 +314,20 @@ class ContentComponent extends Component {
                   </DropdownItem>
                 </DropdownMenu>
               </ButtonDropdown>
-            </div>
-            {/* <div className="btn-group">
+            </div> */
+
+      /* <div className="btn-group">
               <button className="btn btn-secondary btn-sm">
                 <i className="fa fa-refresh" />
               </button>
-            </div> */}
+            </div> */
 
-            <div className="btn-group hidden-phone">
+      /* <div className="btn-group hidden-phone">
               <input
                 type="text"
                 className="form-control"
                 style={{ width: "750px" }}
-                placeholder={`Bsucar correspondencia`}
+                placeholder={`Buscar correspondencia`}
                 onChange={e => this.handleSearchInput(e)}
               />
             </div>
@@ -227,9 +361,10 @@ class ContentComponent extends Component {
               </ul>
             </div>
           </div>
-        </div>
-        {/* --------------------------------------------------------------------------------------------------- */}
-        <div className="table-responsive">
+        </div> */
+      /* --------------------------------------------------------------------------------------------------- */
+
+      /* <div className="table-responsive">
           <table id="tablefixed" className="table table-sm table-hover">
             <thead>
               <tr className="text-center">
@@ -248,9 +383,9 @@ class ContentComponent extends Component {
               className="text-center"
               style={{ height: "200px", overflowY: "auto", width: "100%" }}
             >
-              {datainbox}
+              {datainbox} */
 
-              {/* <tr className="table-danger">
+      /* <tr className="table-danger">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -267,9 +402,9 @@ class ContentComponent extends Component {
                 </td>
                 <td className="view-message inbox-small-cells">04/10/2018</td>
                 <td className="view-message text-center">Pedro</td>
-              </tr> */}
+              </tr> */
 
-              {/* <tr className="table-success">
+      /* <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -325,9 +460,9 @@ class ContentComponent extends Component {
                 <td className="view-message inbox-small-cells">04/10/2018</td>
 
                 <td className="view-message text-center">Pedro</td>
-              </tr> */}
-              {/* ---------------------------------------------------------------------------------------------- */}
-              {/*
+              </tr> */
+      /* ---------------------------------------------------------------------------------------------- */
+      /*
               <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
@@ -371,11 +506,12 @@ class ContentComponent extends Component {
                   <i className="fa fa-paperclip" />
                 </td>
                 <td className="view-message  text-right">9:27 AM</td>
-              </tr> */}
-            </tbody>
+              </tr> */
+
+      /* </tbody>
           </table>
-        </div>
-      </div>
+        </div> */
+      // </div>
     );
   }
 }

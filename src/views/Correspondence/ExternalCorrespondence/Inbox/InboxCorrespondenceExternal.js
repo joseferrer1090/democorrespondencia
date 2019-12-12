@@ -13,24 +13,24 @@ class InboxCorrespondenceExternal extends Component {
     return (
       <div className="animated fadeIn">
         <HeaderInbox />
-        <div className="">
-          <div className="col-md-12">
-            <div
-              className=""
-              style={{
-                minHeight: "600px",
-                marginTop: "0px"
-              }}
-            >
-              <div className="row" style={{}}>
-                <SidebarInbox />
-                <div className="col-md-10" style={{ padding: "0px" }}>
-                  <ContentInbox />
-                </div>
+        {/* <div className=""> */}
+        <div className="col-md-12">
+          <div
+            className=""
+            style={{
+              minHeight: "600px",
+              marginTop: "0px"
+            }}
+          >
+            <div className="row" style={{}}>
+              <SidebarInbox />
+              <div className="col-md-10" style={{ padding: "0px" }}>
+                <ContentInbox />
               </div>
             </div>
           </div>
         </div>
+        {/* </div> */}
       </div>
     );
   }
