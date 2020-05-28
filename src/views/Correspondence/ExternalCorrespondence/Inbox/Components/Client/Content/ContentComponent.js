@@ -1,6 +1,4 @@
-import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -15,35 +13,13 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input
+  Input,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
-
-const checkboxes = [
-  {
-    name: "check-box-1",
-    key: "checkBox1",
-    label: "Check Box 1"
-  },
-  {
-    name: "check-box-2",
-    key: "checkBox2",
-    label: "Check Box 2"
-  },
-  {
-    name: "check-box-3",
-    key: "checkBox3",
-    label: "Check Box 3"
-  },
-  {
-    name: "check-box-4",
-    key: "checkBox4",
-    label: "Check Box 4"
-  }
-];
+import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -56,13 +32,14 @@ class ContentComponent extends Component {
       term: "",
       tblData: "",
       chkrow: false,
-      idCorrespondenceSelected: null
+      checkall: false,
+      idCorrespondenceSelected: null,
     };
   }
 
   toggle = () => {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     });
   };
 
@@ -70,11 +47,11 @@ class ContentComponent extends Component {
     const data = document.querySelector("#tablefixed");
     this.setState({
       tblData: data,
-      idCorrespondenceSelected: []
+      idCorrespondenceSelected: [],
     });
   }
 
-  tipoDocumento = data => {
+  tipoDocumento = (data) => {
     let tipo = null;
     if (data === "documento") {
       return (tipo = <i className="fa fa-file-text-o" title={`documento`} />);
@@ -84,25 +61,25 @@ class ContentComponent extends Component {
     return null;
   };
 
-  stateDocumento = data => {
+  stateDocumento = (data) => {
     let estado = null;
 
     if (data === "new") {
-      return (estado = "table-success");
+      return (estado = "table-default");
     } else if (data === "out of time") {
-      return (estado = "table-danger");
+      return (estado = "table-default");
     } else if (data === "read") {
       return (estado = "table-default");
     }
     return null;
   };
 
-  handleSearchInput = event => {
+  handleSearchInput = (event) => {
     this.setState({ term: event.target.value });
   };
 
-  searchingFor = term => {
-    return function(x) {
+  searchingFor = (term) => {
+    return function (x) {
       return x.asunto.includes(term);
     };
   };
@@ -121,7 +98,7 @@ class ContentComponent extends Component {
         this.setState({
           idCorrespondenceSelected: this.state.idCorrespondenceSelected.push(
             checkbox[i].parentNode.parentNode.firstChild.innerHTML
-          )
+          ),
         });
         console.log(this.state.idCorrespondenceSelected);
       }
@@ -129,47 +106,94 @@ class ContentComponent extends Component {
     console.log("", message);
   };
 
-  render() {
-    const id = this.state.id;
-    const term = this.state.term;
+  dataTableInbox = () => {
+    // const {data} = this.state;
+    const { term } = this.state;
     const datainbox = this.state.data
       .filter(this.searchingFor(term))
       .map((aux, i) => {
+        // console.log(aux);
         return (
-          <tr className={this.stateDocumento(aux.estado)}>
+          <tr
+            className={`${this.stateDocumento(
+              aux.estado
+            )} table-externalCorrespondence`}
+          >
             <td className="hidden" style={{ display: "none" }}>
-              {aux.id}
+              {aux.estado === "new" ? <b>{aux.id}</b> : aux.id}
             </td>
+
             <td className="inbox-small-cells">
               <input
+                name="foo"
                 type="checkbox"
                 className="mail-checkbox"
                 defaultChecked={this.state.chkrow}
-                onChange={e => {
+                onChange={(e) => {
                   this.setState({ chkrow: e.target.value });
+                  // this.setState({ chkrow: !this.state.chkrow });
                 }}
               />
             </td>
+
             <td className="inbox-small-cells">
               {this.tipoDocumento(aux.tipo)}
             </td>
-            <td className="view-message dont-show"> {aux.sede} </td>
-            <td className="view-message">{aux.consecutivo}</td>
+
+            <td className="view-message dont-show">
+              {aux.estado === "new" || aux.estado === "out of time" ? (
+                <b> {aux.sede}</b>
+              ) : (
+                aux.sede
+              )}
+            </td>
+
+            <td className="view-message">
+              {aux.estado === "new" || aux.estado === "out of time" ? (
+                <b> {aux.consecutivo}</b>
+              ) : (
+                aux.consecutivo
+              )}
+            </td>
+
             <td>
               <Link to={`/correspondence/external/view/${aux.id}`}>
-                {aux.asunto}
                 <i className="fa fa-paperclip" />
+                {aux.estado === "new" || aux.estado === "out of time" ? (
+                  <b> {aux.asunto}</b>
+                ) : (
+                  aux.asunto
+                )}
               </Link>
             </td>
+
             <td className="view-message inbox-small-cells">
-              {aux.fecha_documento}
+              {aux.estado === "new" || aux.estado === "out of time" ? (
+                <b> {aux.fecha_documento}</b>
+              ) : (
+                aux.fecha_documento
+              )}
             </td>
+
             <td className="view-message text-center">
-              {aux.destinatarios[0].name_destinatario}
+              {aux.estado === "new" || aux.estado === "out of time" ? (
+                <b>{aux.destinatarios[0].name_destinatario}</b>
+              ) : (
+                aux.destinatarios[0].name_destinatario
+              )}
             </td>
           </tr>
         );
       });
+    return datainbox;
+  };
+  toggleCheckboxes = (source, cbName) => {
+    for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
+      document.getElementsByName(cbName)[i].checked = source;
+    }
+  };
+
+  render() {
     return (
       // <div className="animated fadeIn">
       // <br />
@@ -181,7 +205,7 @@ class ContentComponent extends Component {
               style={{ fontSize: "14px", fontWeight: "500" }}
             >
               <i className="icon-drawer" /> &nbsp; Bandeja de correspondencia
-              recibida vigencia 2019
+              recibida vigencia 2020
             </CardHeader>
             <CardBody>
               <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
@@ -213,7 +237,7 @@ class ContentComponent extends Component {
                       className="form-control"
                       style={{ width: "auto" }}
                       placeholder={`Buscar correspondencia`}
-                      onChange={e => this.handleSearchInput(e)}
+                      onChange={(e) => this.handleSearchInput(e)}
                     />
                   </InputGroup>
                 </Col>
@@ -255,7 +279,7 @@ class ContentComponent extends Component {
                     <div className="table-responsive">
                       <table
                         id="tablefixed"
-                        className="table table-sm table-hover"
+                        className="table table-hover table-sm"
                         // style={{ backgroundColor: "#F0F3F5" }}
                       >
                         <thead>
@@ -264,7 +288,21 @@ class ContentComponent extends Component {
                             style={{ background: "#45B254 !important" }}
                           >
                             <th style={{ width: "10px" }}>
-                              <input type="checkbox" />
+                              <input
+                                type="checkbox"
+                                onClick={() =>
+                                  this.setState(
+                                    {
+                                      checkall: !this.state.checkall,
+                                    },
+                                    () =>
+                                      this.toggleCheckboxes(
+                                        this.state.checkall,
+                                        "foo"
+                                      )
+                                  )
+                                }
+                              />
                             </th>
                             <th style={{ width: "10px" }}>Tipo</th>
                             <th style={{ width: "10px" }}>Sede</th>
@@ -274,16 +312,16 @@ class ContentComponent extends Component {
                             <th style={{ width: "10px" }}>Destinatarios</th>
                           </tr>
                         </thead>
-
                         <tbody
                           className="text-center"
                           style={{
                             height: "200px",
                             overflowY: "auto",
-                            width: "100%"
+                            width: "100%",
                           }}
                         >
-                          {datainbox}
+                          {/* {datainbox} */}
+                          {this.dataTableInbox()}
                         </tbody>
                       </table>
                     </div>
