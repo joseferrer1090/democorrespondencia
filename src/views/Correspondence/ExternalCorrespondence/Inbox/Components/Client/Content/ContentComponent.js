@@ -65,11 +65,11 @@ class ContentComponent extends Component {
     let estado = null;
 
     if (data === "new") {
-      return (estado = "table-default");
+      return (estado = "table-dataNew");
     } else if (data === "out of time") {
-      return (estado = "table-default");
+      return (estado = "table-dataOutoftime");
     } else if (data === "read") {
-      return (estado = "table-default");
+      return (estado = "table-dataRead");
     }
     return null;
   };
@@ -157,14 +157,31 @@ class ContentComponent extends Component {
             </td>
 
             <td>
-              <Link to={`/correspondence/external/view/${aux.id}`}>
-                <i className="fa fa-paperclip" />
-                {aux.estado === "new" || aux.estado === "out of time" ? (
-                  <b> {aux.asunto}</b>
-                ) : (
-                  aux.asunto
-                )}
-              </Link>
+              {aux.estado === "new" || aux.estado === "out of time" ? (
+                <Link
+                  // style={{ color: "black" }}
+                  to={`/correspondence/external/view/${aux.id}`}
+                >
+                  <i className="fa fa-paperclip" />
+                  {aux.estado === "new" || aux.estado === "out of time" ? (
+                    <b> {aux.asunto}</b>
+                  ) : (
+                    aux.asunto
+                  )}
+                </Link>
+              ) : (
+                <Link
+                  style={{ color: "black" }}
+                  to={`/correspondence/external/view/${aux.id}`}
+                >
+                  <i className="fa fa-paperclip" />
+                  {aux.estado === "new" || aux.estado === "out of time" ? (
+                    <b> {aux.asunto}</b>
+                  ) : (
+                    aux.asunto
+                  )}
+                </Link>
+              )}
             </td>
 
             <td className="view-message inbox-small-cells">
@@ -188,6 +205,7 @@ class ContentComponent extends Component {
     return datainbox;
   };
   toggleCheckboxes = (source, cbName) => {
+    // background: rgb(194,219,255);
     for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
       document.getElementsByName(cbName)[i].checked = source;
     }
@@ -209,7 +227,7 @@ class ContentComponent extends Component {
             </CardHeader>
             <CardBody>
               <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
-                <Col md="3">
+                {/* <Col md="3">
                   <ButtonDropdown
                     isOpen={this.state.dropdownOpen}
                     toggle={this.toggle}
@@ -223,8 +241,8 @@ class ContentComponent extends Component {
                       </DropdownItem>
                     </DropdownMenu>
                   </ButtonDropdown>
-                </Col>
-                <Col md="6">
+                </Col> */}
+                <Col md="9">
                   <InputGroup className="mb-4">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
@@ -279,7 +297,9 @@ class ContentComponent extends Component {
                     <div className="table-responsive">
                       <table
                         id="tablefixed"
-                        className="table table-hover table-sm"
+                        className="table 
+                        
+                        table-sm"
                         // style={{ backgroundColor: "#F0F3F5" }}
                       >
                         <thead>
