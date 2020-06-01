@@ -9,13 +9,13 @@ class Step2 extends Component {
     this.state = {
       visible: true,
       valuebarcode: "barcodexample",
-      width: "2.5"
+      width: "2.5",
     };
   }
 
   toggle = () => {
-    this.setState(state => ({
-      visible: !state.visible
+    this.setState((state) => ({
+      visible: !state.visible,
     }));
   };
 
@@ -43,11 +43,12 @@ class Step2 extends Component {
                 color="warning"
                 isOpen={this.state.visible}
                 toggle={this.toggle}
+                className={"text-center"}
+                style={{ fontSize: "16px" }}
               >
-                <p className="text-center" style={{ fontSize: "16px" }}>
-                  Por favor, imprima el sticker generado por el sistema y
-                  péguelo en el documento a radicar y procesa a escanear.
-                </p>
+                <i className="fa fa-info-circle" /> Por favor, imprima el
+                sticker generado por el sistema y péguelo en el documento a
+                radicar y procesa a escanear.
               </Alert>
               <div className="row">
                 <div

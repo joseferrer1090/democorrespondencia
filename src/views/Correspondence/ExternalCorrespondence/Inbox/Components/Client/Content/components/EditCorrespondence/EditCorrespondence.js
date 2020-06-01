@@ -22,26 +22,26 @@ class EditCorrespondence extends Component {
       selectRemitente: null,
       selectPlantilla: null,
       dataForm: dataExample,
-      files: []
+      files: [],
     };
   }
 
   OpenCollapse = () => {
     this.setState({
-      collapse: !this.state.collapse
+      collapse: !this.state.collapse,
     });
   };
 
   OpenCollapse2 = () => {
     this.setState({
-      collapse2: !this.state.collapse2
+      collapse2: !this.state.collapse2,
     });
   };
 
-  onFilesChange = files => {
+  onFilesChange = (files) => {
     this.setState(
       {
-        files
+        files,
       },
       () => {
         console.log(this.state.files);
@@ -49,7 +49,7 @@ class EditCorrespondence extends Component {
     );
   };
 
-  filesRemoveOne = file => {
+  filesRemoveOne = (file) => {
     this.refs.files.removeFile(file);
   };
 
@@ -59,10 +59,10 @@ class EditCorrespondence extends Component {
 
   getDataApi = () => {
     fetch(`https://jsonplaceholder.typicode.com/users/`) // peticion + url
-      .then(resp => resp.json()) // Promisse => de lo que viene del server => retorna un json
-      .then(data =>
+      .then((resp) => resp.json()) // Promisse => de lo que viene del server => retorna un json
+      .then((data) =>
         this.setState({
-          getdata: data
+          getdata: data,
         })
       );
   };
@@ -85,7 +85,7 @@ class EditCorrespondence extends Component {
 
     const auxTableFiles = this.state.files;
 
-    auxTableFiles.map(file => {
+    auxTableFiles.map((file) => {
       return (
         <div key={file.id}>
           <tr>
@@ -112,7 +112,7 @@ class EditCorrespondence extends Component {
             <div
               style={{
                 minHeight: "600px",
-                marginTop: "0px"
+                marginTop: "0px",
               }}
             >
               <div className="row">
@@ -175,37 +175,37 @@ class EditCorrespondence extends Component {
                           <div className="col-md-4">
                             <div className="form-group">
                               <dt> Fecha de radicación </dt>
-                              <dd> Probando </dd>
+                              <dd> 1/06/2020 </dd>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <dt>Hora de radicación </dt>
-                              <dd> Probando </dd>
+                              <dd> 5:17 PM </dd>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <dt> Sede </dt>
-                              <dd> Probando </dd>
+                              <dd> Sede 1 </dd>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <dt> Vigencia </dt>
-                              <dd>Probando</dd>
+                              <dd>2020</dd>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <dt> Consecutivo </dt>
-                              <dd> Probando </dd>
+                              <dd> 06 </dd>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
-                              <dt> Usario radicador </dt>
-                              <dd> Probando </dd>
+                              <dt> Usuario radicador </dt>
+                              <dd> Cristian Cuartas </dd>
                             </div>
                           </div>
                         </div>
@@ -222,7 +222,7 @@ class EditCorrespondence extends Component {
                               </dt>
                               <dd>
                                 <select className="form-control form-control-sm">
-                                  <option>Seleccione</option>
+                                  <option>-- Seleccione -- </option>
                                 </select>
                               </dd>
                             </div>
@@ -262,7 +262,7 @@ class EditCorrespondence extends Component {
                               </dt>
                               <dd>
                                 <select className="form-control form-control-sm">
-                                  <option>Seleccione</option>
+                                  <option>-- Seleccione --</option>
                                 </select>
                               </dd>
                             </div>
@@ -275,7 +275,7 @@ class EditCorrespondence extends Component {
                               </dt>
                               <dd>
                                 <select className="form-control form-control-sm">
-                                  <option>Seleccione</option>
+                                  <option>-- Seleccione --</option>
                                 </select>
                               </dd>
                             </div>
@@ -321,7 +321,7 @@ class EditCorrespondence extends Component {
                               <dt>Mensajero</dt>
                               <dt>
                                 <select className="form-control form-control-sm">
-                                  <option>Seleccione</option>
+                                  <option>-- Seleccione --</option>
                                 </select>
                               </dt>
                             </div>
@@ -330,30 +330,34 @@ class EditCorrespondence extends Component {
                       </form>
                     </Card>
                     <Collapse isOpen={this.state.collapse}>
-                      <p>Adjuntar Documentos</p>
-                      <Card body>
-                        <Files
-                          ref="files"
-                          className="files-dropzone-list"
-                          onChange={this.onFilesChange}
-                          multiple
-                          clickable
-                          style={{ width: "1000px" }}
-                        >
-                          Coloque los archivos aquí o haga click para subir
-                        </Files>
-                        <br />
-                        <div className="row">
-                          <div className="col-md-6">
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={this.filesRemoveAll}
-                            >
-                              Quitar todos los archivos{" "}
-                              <i className="fa fa-trash" />
-                            </button>
-                            &nbsp;
-                            {/* <button
+                      <Card>
+                        <div className="p-2 mb-1 bg-secondary text-dark">
+                          Adjuntar Documentos
+                        </div>
+                        <div className="card-body">
+                          <Files
+                            ref="files"
+                            className="files-dropzone-list"
+                            onChange={this.onFilesChange}
+                            multiple
+                            clickable
+                            style={{ width: "1000px" }}
+                          >
+                            Coloque los archivos aquí o haga click para subir
+                          </Files>
+
+                          <br />
+                          <div className="row">
+                            <div className="col-md-6">
+                              <button
+                                className="btn btn-danger btn-sm"
+                                onClick={this.filesRemoveAll}
+                              >
+                                <i className="fa fa-trash" /> Quitar todos los
+                                archivos adjuntos
+                              </button>
+                              &nbsp;
+                              {/* <button
                               className="btn btn-secondary btn-sm"
                               onClick={() => {
                                 alert("Se Cargaron los datos");
@@ -361,275 +365,315 @@ class EditCorrespondence extends Component {
                             >
                               Upload <i className="fa fa-upload" />
                             </button> */}
+                            </div>
                           </div>
-                        </div>
-                        <br />
-                        {this.state.files.length > 0 ? (
-                          <div>
-                            <table className="table table-bordered table-hover table-sm">
-                              <tbody>
-                                {this.state.files.map(file => (
-                                  <tr key={file.id}>
-                                    <td
-                                      width="5%"
-                                      height="5%"
-                                      className="text-center"
-                                    >
-                                      <div className="files-list-item-preview">
-                                        {file.preview.type === "image" ? (
-                                          <img
-                                            className="files-list-item-preview-image"
-                                            src={file.preview.url}
-                                          />
-                                        ) : (
-                                          <div className="files-list-item-preview-extension">
-                                            {file.extension}
-                                          </div>
-                                        )}
-                                      </div>
-                                    </td>
-                                    <td className="text-center">
-                                      <div style={{ marginTop: "3%" }}>
-                                        {file.name} - {file.sizeReadable}
-                                      </div>
-                                    </td>
-                                    <td width="10%" className="text-center">
-                                      <div style={{ marginTop: "16px" }}>
-                                        <button
-                                          id={file.id}
-                                          className="btn btn-outline-danger  btn-sm float-center"
-                                          onClick={this.filesRemoveOne.bind(
-                                            this,
-                                            file
+                          <br />
+                          {this.state.files.length > 0 ? (
+                            <div>
+                              <table className="table table-bordered table-hover table-sm">
+                                <tbody>
+                                  {this.state.files.map((file) => (
+                                    <tr key={file.id}>
+                                      <td
+                                        width="5%"
+                                        height="5%"
+                                        className="text-center"
+                                      >
+                                        <div className="files-list-item-preview">
+                                          {file.preview.type === "image" ? (
+                                            <img
+                                              className="files-list-item-preview-image"
+                                              src={file.preview.url}
+                                            />
+                                          ) : (
+                                            <div className="files-list-item-preview-extension">
+                                              {file.extension}
+                                            </div>
                                           )}
-                                        >
-                                          {" "}
-                                          Quitar
-                                        </button>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        ) : null}
+                                        </div>
+                                      </td>
+                                      <td className="text-center">
+                                        <div style={{ marginTop: "3%" }}>
+                                          {file.name} - {file.sizeReadable}
+                                        </div>
+                                      </td>
+                                      <td width="10%" className="text-center">
+                                        <div style={{ marginTop: "16px" }}>
+                                          <button
+                                            id={file.id}
+                                            className="btn btn-outline-danger  btn-sm float-center"
+                                            onClick={this.filesRemoveOne.bind(
+                                              this,
+                                              file
+                                            )}
+                                          >
+                                            <i className="fa fa-trash" /> Quitar
+                                          </button>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          ) : null}
+                        </div>
+                        <div className="card-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm float-right"
+                            onClick={() => {
+                              this.setState({
+                                collapse: false,
+                              });
+                            }}
+                          >
+                            <i className="fa fa-times" /> Cancelar
+                          </button>
+                        </div>
                       </Card>
                     </Collapse>
                     <div className="row">
                       <div className="col-md-6">
-                        <Card body>
-                          <p>Remitente</p>
-                          <form>
-                            <div className="row">
-                              <div className="col-md-12">
-                                <div className="form-group">
-                                  <dt>
-                                    Buscar remitente{" "}
-                                    <span className="text-danger">*</span>
-                                  </dt>
-                                  <select
-                                    className="form-control form-control-sm"
-                                    name="selectRemitente"
-                                    onChange={e => {
-                                      this.setState({
-                                        selectRemitente: e.target.value
-                                      });
-                                    }}
-                                    value={this.state.selectRemitente}
-                                  >
-                                    <option value="0" defaultValue="0">
-                                      --Seleccione remitente--
-                                    </option>
-                                    {aux}
-                                  </select>
+                        <Card>
+                          <div className="p-2 mb-1 bg-secondary text-dark">
+                            Remitente
+                          </div>
+                          <div className="card-body">
+                            <form>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div className="form-group">
+                                    <dt>
+                                      Buscar remitente{" "}
+                                      <span className="text-danger">*</span>
+                                    </dt>
+                                    <select
+                                      className="form-control form-control-sm"
+                                      name="selectRemitente"
+                                      onChange={(e) => {
+                                        this.setState({
+                                          selectRemitente: e.target.value,
+                                        });
+                                      }}
+                                      value={this.state.selectRemitente}
+                                    >
+                                      <option value="0" defaultValue="0">
+                                        --Seleccione remitente--
+                                      </option>
+                                      {aux}
+                                    </select>
+                                  </div>
+                                  {/* Aqui va el resultado de pasar el props al otro component */}
+                                  {selectAux ? (
+                                    <CardRemitente
+                                      selectedItem={this.state.selectRemitente}
+                                      collapse={this.state.collapse3}
+                                    />
+                                  ) : null}
+                                  {/* Fin */}
                                 </div>
-                                {/* Aqui va el resultado de pasar el props al otro component */}
-                                {selectAux ? (
-                                  <CardRemitente
-                                    selectedItem={this.state.selectRemitente}
-                                    collapse={this.state.collapse3}
-                                  />
-                                ) : null}
-                                {/* Fin */}
                               </div>
-                            </div>
-                          </form>
+                            </form>
+                          </div>
                         </Card>
                       </div>
                       <div className="col-md-6">
-                        <Card body>
-                          <p>Busqueda de destinatario</p>
-                          <form>
-                            <div className="row">
-                              <div className="col-md-12">
-                                <div className="form-group">
-                                  <dt>
-                                    Buscar destinatario{" "}
-                                    <span className="text-danger">*</span>{" "}
-                                    <sub>
-                                      <a
-                                        href="#"
-                                        onClick={e => {
-                                          e.preventDefault();
-                                          this.OpenCollapse2();
-                                        }}
-                                      >
-                                        filtrar
-                                      </a>
-                                    </sub>
-                                  </dt>
-                                  <input
-                                    type="text"
-                                    className="form-control form-control-sm"
-                                  />
-                                </div>
-                                <Collapse isOpen={this.state.collapse2}>
-                                  <div className="row">
-                                    <div className="col-md-6">
-                                      <div className="form-group">
-                                        <label>Conglomerado</label>
-                                        <select className="form-control form-control-sm">
-                                          <option>Seleccione</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                      <div className="form-group">
-                                        <label>Empresa</label>
-                                        <select className="form-control form-control-sm">
-                                          <option>Seleccione</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                      <div className="form-group">
-                                        <label>Sede</label>
-                                        <select className="form-control form-control-sm">
-                                          <option>Seleccione</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                      <div className="form-group">
-                                        <label>Dependencia</label>
-                                        <select className="form-control form-control-sm">
-                                          <option>Seleccione</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                      <div className="form-group">
-                                        <label>Grupo</label>
-                                        <select className="form-control form-control-sm">
-                                          <option>Seleccione</option>
-                                        </select>
-                                      </div>
-                                    </div>
+                        <Card>
+                          <div className="p-2 mb-1 bg-secondary text-dark">
+                            Busqueda de destinatario
+                          </div>
+                          <div className="card-body">
+                            <form>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div className="form-group">
+                                    <dt>
+                                      Buscar destinatario{" "}
+                                      <span className="text-danger">*</span>{" "}
+                                      <sub>
+                                        <a
+                                          href="#"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            this.OpenCollapse2();
+                                          }}
+                                        >
+                                          | <i className="fa fa-filter" />{" "}
+                                          Filtrar
+                                        </a>
+                                      </sub>
+                                    </dt>
+                                    <input
+                                      type="text"
+                                      className="form-control form-control-sm"
+                                    />
                                   </div>
-                                </Collapse>
+                                  <Collapse isOpen={this.state.collapse2}>
+                                    <div className="row">
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <label>Conglomerado</label>
+                                          <select className="form-control form-control-sm">
+                                            <option> -- Seleccione --</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <label>Empresa</label>
+                                          <select className="form-control form-control-sm">
+                                            <option>-- Seleccione --</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <label>Sede</label>
+                                          <select className="form-control form-control-sm">
+                                            <option>-- Seleccione --</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <label>Dependencia</label>
+                                          <select className="form-control form-control-sm">
+                                            <option>-- Seleccione --</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="col-md-12">
+                                        <div className="form-group">
+                                          <label>Grupo</label>
+                                          <select className="form-control form-control-sm">
+                                            <option>-- Seleccione --</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </Collapse>
+                                </div>
                               </div>
-                            </div>
-                          </form>
+                            </form>
+                          </div>
                         </Card>
                       </div>
                     </div>
-                    <Card body>
-                      <p>Asignacion de destinatarios</p>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <dt>Destinatarios disponible</dt>
-                            <textarea
-                              className="form-control form-control-sm"
-                              disabled
-                              style={{ height: "100px" }}
-                            />
+                    <Card>
+                      <div className="p-2 mb-1 bg-secondary text-dark">
+                        Asignacion de destinatarios
+                      </div>
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col-md-6">
+                            <div className="form-group">
+                              <dt>Destinatarios disponible</dt>
+                              <textarea
+                                className="form-control form-control-sm"
+                                disabled
+                                style={{ height: "100px" }}
+                              />
+                            </div>
+                            <input type="checkbox" checked /> Original
+                            <div className="float-right">
+                              <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                              >
+                                Todos <i className="fa fa-angle-double-right" />
+                              </button>
+                            </div>
                           </div>
-                          <input type="checkbox" checked /> Original
-                          <div className="float-right">
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                            >
-                              Todos <i className="fa fa-angle-double-right" />
-                            </button>
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <dt>
-                              Destinatarios asignados{" "}
-                              <span className="text-danger">*</span>
-                            </dt>
-                            <textarea
-                              className="form-control form-control-sm"
-                              disabled
-                              style={{ height: "100px" }}
-                            />
-                          </div>
-                          <div className="float-right">
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                            >
-                              <i className="fa fa-angle-double-left" /> Todos
-                            </button>
+                          <div className="col-md-6">
+                            <div className="form-group">
+                              <dt>
+                                Destinatarios asignados{" "}
+                                <span className="text-danger">*</span>
+                              </dt>
+                              <textarea
+                                className="form-control form-control-sm"
+                                disabled
+                                style={{ height: "100px" }}
+                              />
+                            </div>
+                            <div className="float-right">
+                              <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                              >
+                                <i className="fa fa-angle-double-left" /> Todos
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </Card>
-                    <Card body>
-                      <p>Campos adiconales</p>
-                      <form>
-                        <div className="row">
-                          <div className="col-md-5">
-                            <div className="form-group">
-                              <dt>
-                                Plantilla <span className="text-danger">*</span>
-                              </dt>
-                              <select
-                                name="selectPlantilla"
-                                className="form-control form-control-sm"
-                                onChange={e => {
-                                  this.setState({
-                                    selectPlantilla: e.target.value
-                                  });
-                                }}
-                                value={this.state.selectPlantilla}
-                              >
-                                <option value="0"> --Seleccione-- </option>
-                                <option value="1"> Factura </option>
-                                <option value="2"> Factura eletronica </option>
-                                <option value="3"> Validacion </option>
-                                <option value="4"> Prueba </option>
-                              </select>
-                              {<p>{this.state.selectPlantilla}</p>}
+                    <Card>
+                      <div className="p-2 mb-1 bg-secondary text-dark">
+                        Campos adiconales
+                      </div>
+                      <div className="card-body">
+                        <form>
+                          <div className="row">
+                            <div className="col-md-5">
+                              <div className="form-group">
+                                <dt>
+                                  Plantilla{" "}
+                                  <span className="text-danger">*</span>
+                                </dt>
+                                <select
+                                  name="selectPlantilla"
+                                  className="form-control form-control-sm"
+                                  onChange={(e) => {
+                                    this.setState({
+                                      selectPlantilla: e.target.value,
+                                    });
+                                  }}
+                                  value={this.state.selectPlantilla}
+                                >
+                                  <option value="0"> --Seleccione-- </option>
+                                  <option value="1"> Factura </option>
+                                  <option value="2">
+                                    {" "}
+                                    Factura eletronica{" "}
+                                  </option>
+                                  <option value="3"> Validacion </option>
+                                  <option value="4"> Prueba </option>
+                                </select>
+                                {<p>{this.state.selectPlantilla}</p>}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                     </Card>
-                    <hr />
-                    <div className="">
-                      <div className="">
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          onClick={() => {
-                            this.props.history.goBack();
-                          }}
+                    <div className="card-footer">
+                      <div className="float-right">
+                        <div
+                          className="btn-group btn-group-sm"
+                          role="group"
+                          aria-label="..."
                         >
-                          {" "}
-                          <i className="fa fa-times" /> Cerrar{" "}
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm float-right"
-                        >
-                          {" "}
-                          <i className="fa fa-floppy-o" /> Guardar cambios
-                        </button>
+                          <button
+                            type="button"
+                            className="btn btn-success btn-sm "
+                          >
+                            {" "}
+                            <i className="fa fa-floppy-o" /> Guardar cambios
+                          </button>
+                          &nbsp;
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => {
+                              this.props.history.goBack();
+                            }}
+                          >
+                            {" "}
+                            <i className="fa fa-times" /> Cerrar{" "}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </Card>

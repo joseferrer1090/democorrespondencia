@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ModalView from "./ModalViewCorresponcenceSendOutStep1";
+import ModalAdd from "./ModalAddCorrespondenSendOutStep1";
 import PropTypes from "prop-types";
 import { Collapse } from "reactstrap";
 import CardRemitente from "./AuxiliaryComponents/Cardinformation";
@@ -10,28 +12,37 @@ class Step1 extends Component {
       collapse: false,
       collapse2: false,
       data: [],
-      selectRemitente: null
+      selectRemitente: null,
+      modalView: false,
+      modalAdd: false,
     };
   }
 
   toggle() {
-    this.setState(state => ({ collapse: !state.collapse }));
+    this.setState((state) => ({ collapse: !state.collapse }));
   }
 
   toogle2() {
-    this.setState(state => ({ collapse2: !state.collapse2 }));
+    this.setState((state) => ({ collapse2: !state.collapse2 }));
+  }
+  openModalView() {
+    this.modalViewRef.toggle();
+  }
+
+  openModalAdd() {
+    this.ModalAddRef.toggle();
   }
 
   getDatauser = () => {
     fetch(`https://jsonplaceholder.typicode.com/users`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.setState({
-          data: data
+          data: data,
         });
         console.log(this.state.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error", err);
       });
   };
@@ -40,9 +51,9 @@ class Step1 extends Component {
     this.getDatauser();
   }
 
-  handleChangeSelectRemitente = e => {
+  handleChangeSelectRemitente = (e) => {
     this.setState({
-      selectRemitente: e.target.value
+      selectRemitente: e.target.value,
     });
     console.log(this.state.selectRemitente);
   };
@@ -73,7 +84,7 @@ class Step1 extends Component {
                         <div className="col-md-2 offset-1">
                           <div className="form-group text-center">
                             <label className="">
-                              <strong> Fecha de radicacion</strong>{" "}
+                              <strong> Fecha de radicación</strong>{" "}
                             </label>
                             <dd className="">04/10/2018</dd>
                           </div>
@@ -82,7 +93,7 @@ class Step1 extends Component {
                           <div className="form-group text-center">
                             <label>
                               {" "}
-                              <strong>Hora de radicacion</strong>{" "}
+                              <strong>Hora de radicación</strong>{" "}
                             </label>
                             <dd> 09:57 AM </dd>
                           </div>
@@ -100,7 +111,7 @@ class Step1 extends Component {
                           <div className="form-group text-center">
                             <label>
                               {" "}
-                              <strong>Vigenica</strong>{" "}
+                              <strong>Vigencia</strong>{" "}
                             </label>
                             <dd> 2018 </dd>
                           </div>
@@ -126,7 +137,7 @@ class Step1 extends Component {
                         <div className="form-group">
                           <label> Conglomerado</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -134,7 +145,7 @@ class Step1 extends Component {
                         <div className="form-group">
                           <label> Empresa </label>
                           <select className="form-control form-control-sm">
-                            <option> Seleccione... </option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -142,7 +153,7 @@ class Step1 extends Component {
                         <div className="form-group">
                           <label>Sede</label>
                           <select className="form-control form-control-sm">
-                            <option> Seleccione.... </option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -153,7 +164,7 @@ class Step1 extends Component {
                             <span className="text-danger">*</span>
                           </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -183,9 +194,9 @@ class Step1 extends Component {
                       </div>
                       <div className="col-md-4">
                         <div className="form-group">
-                          <label>Pais</label>
+                          <label>País</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -193,7 +204,7 @@ class Step1 extends Component {
                         <div className="form-group">
                           <label>Departamento</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -203,7 +214,7 @@ class Step1 extends Component {
                             Ciudad <span className="text-danger">*</span>
                           </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -214,14 +225,14 @@ class Step1 extends Component {
                             <span className="text-danger">*</span>
                           </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="form-group">
                           <label>
-                            Guia <span className="text-danger">*</span>
+                            Guía <span className="text-danger">*</span>
                           </label>
                           <input
                             type="text"
@@ -254,7 +265,7 @@ class Step1 extends Component {
                             Mensajero <span className="text-danger">*</span>
                           </label>
                           <select className="form-control form-control-sm">
-                            <option> Seleccione... </option>
+                            <option> -- Seleccione -- </option>
                           </select>
                         </div>
                       </div>
@@ -271,24 +282,24 @@ class Step1 extends Component {
                     <div className="col-md-4">
                       <div className="form-group">
                         <label>Conglomerado</label>
-                        <select className="form-control">
-                          <option>Seleccione.</option>
+                        <select className="form-control form-control-sm">
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="form-group">
                         <label>Empresa</label>
-                        <select className="form-control">
-                          <option>Seleccione.</option>
+                        <select className="form-control form-control-sm">
+                          <option> -- Seleccione --</option>
                         </select>
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="form-group">
                         <label>Sede</label>
-                        <select className="form-control">
-                          <option>Seleccione.</option>
+                        <select className="form-control form-control-sm">
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -296,7 +307,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label> Vigencia </label>
                         <select className="form-control  form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -336,7 +347,7 @@ class Step1 extends Component {
                                 <div className="form-group">
                                   <label>Criterio</label>
                                   <select className="form-control form-control-sm">
-                                    <option>Seleccione...</option>
+                                    <option>-- Seleccione --</option>
                                   </select>
                                 </div>
                               </div>
@@ -378,13 +389,16 @@ class Step1 extends Component {
                                     <tbody className="text-center">
                                       <tr>
                                         <td>Bogota centro de logistica</td>
-                                        <td>2019</td>
+                                        <td>2020</td>
                                         <td>223</td>
                                         <td>31919</td>
                                         <td>
                                           <button
                                             type="button"
                                             className="btn btn-secondary btn-sm"
+                                            onClick={() => {
+                                              this.openModalView();
+                                            }}
                                           >
                                             <i className="fa fa-eye" />
                                           </button>
@@ -392,6 +406,9 @@ class Step1 extends Component {
                                           <button
                                             type="button"
                                             className="btn btn-secondary btn-sm"
+                                            onClick={() => {
+                                              this.openModalAdd();
+                                            }}
                                           >
                                             <i className="fa fa-plus" />
                                           </button>
@@ -406,6 +423,9 @@ class Step1 extends Component {
                                           <button
                                             type="button"
                                             className="btn btn-secondary btn-sm"
+                                            onClick={() => {
+                                              this.openModalView();
+                                            }}
                                           >
                                             <i className="fa fa-eye" />
                                           </button>
@@ -413,6 +433,9 @@ class Step1 extends Component {
                                           <button
                                             type="button"
                                             className="btn btn-secondary btn-sm"
+                                            onClick={() => {
+                                              this.openModalAdd();
+                                            }}
                                           >
                                             <i className="fa fa-plus" />
                                           </button>
@@ -427,6 +450,9 @@ class Step1 extends Component {
                                           <button
                                             type="button"
                                             className="btn btn-secondary btn-sm"
+                                            onClick={() => {
+                                              this.openModalView();
+                                            }}
                                           >
                                             <i className="fa fa-eye" />
                                           </button>
@@ -434,6 +460,9 @@ class Step1 extends Component {
                                           <button
                                             type="button"
                                             className="btn btn-secondary btn-sm"
+                                            onClick={() => {
+                                              this.openModalAdd();
+                                            }}
                                           >
                                             <i className="fa fa-plus" />
                                           </button>
@@ -464,9 +493,9 @@ class Step1 extends Component {
                         <select
                           name="selectPlantilla"
                           className="form-control form-control-sm"
-                          onChange={e => {
+                          onChange={(e) => {
                             this.setState({
-                              selectRemitente: e.target.value
+                              selectRemitente: e.target.value,
                             });
                           }}
                           value={this.state.selectRemitente}
@@ -498,7 +527,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label>Conglomerado</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -506,7 +535,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label>Empresa</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -514,7 +543,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label>Sede</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -522,7 +551,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label>Dependencia</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -530,7 +559,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label>Grupo</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -540,14 +569,14 @@ class Step1 extends Component {
                         <div className="input-group mb-3">
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control form-control-sm"
                             placeholder=""
                             aria-label="Recipient's username"
                             aria-describedby="button-addon2"
                           />
                           <div className="input-group-append">
                             <button
-                              className="btn btn-secondary"
+                              className="btn btn-secondary btn-sm"
                               type="button"
                               id="button-addon2"
                             >
@@ -617,7 +646,7 @@ class Step1 extends Component {
                       <div className="form-group">
                         <label>Plantilla</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
@@ -627,6 +656,14 @@ class Step1 extends Component {
             </form>
           </div>
         </div>
+        <ModalView
+          modalviewstate={this.state.modalView}
+          ref={(mv) => (this.modalViewRef = mv)}
+        />
+        <ModalAdd
+          modaladdstate={this.state.modalAdd}
+          ref={(ma) => (this.ModalAddRef = ma)}
+        />
       </div>
     );
   }

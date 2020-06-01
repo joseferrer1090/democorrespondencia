@@ -8,13 +8,13 @@ class ModalSticker extends Component {
     super(props);
     this.state = {
       modal: this.props.modalstricker,
-      valuebarcode: "barcode example"
+      valuebarcode: "barcode example",
     };
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
     }));
   };
 
@@ -27,7 +27,7 @@ class ModalSticker extends Component {
           <div className="col-sm-10 offset-1">
             <div className="card">
               <div className="p-2 mb-2  bg-secondary text-dark">
-                Sticker de recibida
+                Sticker de correspondencia recibida
               </div>
               <div className="row">
                 <div className="col-md-12">
@@ -78,6 +78,11 @@ class ModalSticker extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
+          <button className="btn btn-secondary btn-sm">
+            {" "}
+            <i className="fa fa-print" /> Imprimir{" "}
+          </button>
+          &nbsp;
           <button
             className="btn btn-secondary btn-sm"
             onClick={() => {
@@ -87,10 +92,6 @@ class ModalSticker extends Component {
             {" "}
             <i className="fa fa-times" /> Cerrar{" "}
           </button>
-          <button className="btn btn-secondary btn-sm">
-            {" "}
-            <i className="fa fa-print" /> Imprimir{" "}
-          </button>
         </ModalFooter>
       </Modal>
     );
@@ -98,7 +99,7 @@ class ModalSticker extends Component {
 }
 
 ModalSticker.propTypes = {
-  modalstricker: PropTypes.bool.isRequired
+  modalstricker: PropTypes.bool.isRequired,
 };
 
 export default ModalSticker;

@@ -8,7 +8,7 @@ import {
   DropdownItem,
   DropdownToggle,
   CardHeader,
-  CardBody
+  CardBody,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
@@ -21,7 +21,7 @@ import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/p
 import "./css/card-custom.css";
 
 const styleHR = {
-  marginTop: "0px"
+  marginTop: "0px",
 };
 
 class ViewCorrespondence extends Component {
@@ -31,7 +31,7 @@ class ViewCorrespondence extends Component {
       modalanotation: false,
       modaladdanotation: false,
       modalstikcer: false,
-      id: ""
+      id: "",
     };
     this.myViewer = React.createRef();
   }
@@ -50,7 +50,7 @@ class ViewCorrespondence extends Component {
 
   componentDidMount() {
     this.setState({
-      id: this.props.match.params
+      id: this.props.match.params,
     });
   }
 
@@ -86,7 +86,7 @@ class ViewCorrespondence extends Component {
             <div
               style={{
                 minHeight: "0px",
-                marginTop: "0px"
+                marginTop: "0px",
               }}
             >
               <div className="row">
@@ -109,7 +109,7 @@ class ViewCorrespondence extends Component {
                         &nbsp; Asunto: Descripcion del asunto{" "}
                         <div className="float-right">
                           <button
-                            title="Editar correspndencia"
+                            title="Editar correspondencia"
                             type="button"
                             className="btn btn-secondary btn-sm"
                             onClick={() => {
@@ -121,7 +121,7 @@ class ViewCorrespondence extends Component {
                           &nbsp;
                           <button
                             type="button"
-                            title="Marca como no leida"
+                            title="Marcar como no leida"
                             className="btn btn-secondary btn-sm"
                           >
                             <i className="fa fa-envelope-o" />

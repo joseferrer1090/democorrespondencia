@@ -11,7 +11,7 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from "reactstrap";
 import ModalExport from "./../Content/components/ModalExport/ModalExport";
 import ModalExport2 from "./../Content/components/ModalExport/ModalExportRecibidoDespachado";
@@ -32,14 +32,14 @@ class Headerinbox extends Component {
       modalexport2: false,
       modalreport: false,
       modalreportgeneral: false,
-      modalcopy: false
+      modalcopy: false,
       // modalmassive: false
     };
   }
 
   toggle = () => {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
   };
 
@@ -83,7 +83,7 @@ class Headerinbox extends Component {
             expand="md"
             style={{
               height: "40px ",
-              marginTop: "-25px"
+              marginTop: "-25px",
             }}
           >
             <NavbarBrand>{"  "}</NavbarBrand>
@@ -163,7 +163,7 @@ class Headerinbox extends Component {
                             this.OpenModalReport();
                           }}
                         >
-                          <i className="fa fa-file-pdf-o" /> Planilla de
+                          <i className="fa fa-file-pdf-o" /> Plantilla de
                           correspondencia{" "}
                         </DropdownItem>
                       </DropdownMenu>
