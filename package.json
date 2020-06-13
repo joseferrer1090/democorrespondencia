@@ -29,6 +29,8 @@
     "enzyme-adapter-react-16": "^1.13.1",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
+    "formik": "^2.1.4",
+    "moment": "^2.26.0",
     "node-sass": "^4.12.0",
     "pdfjs": "^2.3.0",
     "pdfjs-dist": "^2.0.943",
@@ -49,7 +51,8 @@
     "react-super-treeview": "^0.3.3",
     "react-test-renderer": "^16.8.6",
     "reactstrap": "^6.5.0",
-    "simple-line-icons": "^2.4.1"
+    "simple-line-icons": "^2.4.1",
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "react-scripts": "^2.1.8"

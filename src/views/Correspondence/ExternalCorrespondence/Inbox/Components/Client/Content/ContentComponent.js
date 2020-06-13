@@ -20,6 +20,8 @@ import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
+import moment from "moment";
+import { EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../services/EndPoints";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -34,6 +36,7 @@ class ContentComponent extends Component {
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
+      dataInbox: [],
     };
   }
 
@@ -49,7 +52,27 @@ class ContentComponent extends Component {
       tblData: data,
       idCorrespondenceSelected: [],
     });
+    this.getDataInbox();
   }
+  /* */
+  getDataInbox = () => {
+    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTIwMzE0MzQsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImRhMmM2MjYzLTUyNDMtNGFhNC04ZTE2LWJiNTk0MzAzMjFhMCIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.PybqTf9YJ2QphSbO7qgRulJrmXCCA_JaSktH-K3k4o1u-1c3Wd1Yhyk6U5r-fYY2qh3CGfBIk3vP2GALFJChAn_XkaQmFeoFajlIXbLLk7lUki7YyqkXczeChzBKHW7rDjsms7VipH4118Vd9CT5vDy0GL-OzTnPwC-H7pY7Q7deA9YtnjRKG8_95JTszeRmb01NAGrp0AYzfWTWopeP-G14OebX8tuHBLg9xgRm8cEu-gKVwEzsOcQGYB13PttsIwbUj1cxLz8zi0SjU7K05lgXTolm7AP464agjMwv0SHuY6u2mGNMwIPJY_ZVYoDncVD0f9-XUjeLr-NvIYu1oA",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          dataInbox: data,
+        });
+      })
+      .catch((Error) => console.log(" ", Error));
+  };
 
   tipoDocumento = (data) => {
     let tipo = null;
@@ -89,7 +112,7 @@ class ContentComponent extends Component {
     const gird = this.state.tblData;
 
     const checkbox = gird.getElementsByTagName("INPUT");
-    console.log(checkbox);
+    // console.log(checkbox);
 
     for (let i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked) {
@@ -100,110 +123,176 @@ class ContentComponent extends Component {
             checkbox[i].parentNode.parentNode.firstChild.innerHTML
           ),
         });
-        console.log(this.state.idCorrespondenceSelected);
+        // console.log(this.state.idCorrespondenceSelected);
       }
     }
     console.log("", message);
   };
 
+  // dataTableInbox = () => {
+  //   // const {data} = this.state;
+  //   const { term } = this.state;
+  //   const datainbox = this.state.data
+  //     .filter(this.searchingFor(term))
+  //     .map((aux, i) => {
+  //       // console.log(aux);
+  //       return (
+  //         <tr
+  //           className={`${this.stateDocumento(
+  //             aux.estado
+  //           )} table-externalCorrespondence`}
+  //         >
+  //           <td className="hidden" style={{ display: "none" }}>
+  //             {aux.estado === "new" ? <b>{aux.id}</b> : aux.id}
+  //           </td>
+
+  //           <td className="inbox-small-cells">
+  //             <input
+  //               name="foo"
+  //               type="checkbox"
+  //               className="mail-checkbox"
+  //               defaultChecked={this.state.chkrow}
+  //               onChange={(e) => {
+  //                 this.setState({ chkrow: e.target.value });
+  //                 // this.setState({ chkrow: !this.state.chkrow });
+  //               }}
+  //             />
+  //           </td>
+
+  //           <td className="inbox-small-cells">
+  //             {this.tipoDocumento(aux.tipo)}
+  //           </td>
+
+  //           <td className="view-message dont-show">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b> {aux.sede}</b>
+  //             ) : (
+  //               aux.sede
+  //             )}
+  //           </td>
+
+  //           <td className="view-message">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b> {aux.consecutivo}</b>
+  //             ) : (
+  //               aux.consecutivo
+  //             )}
+  //           </td>
+
+  //           <td>
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <Link
+  //                 // style={{ color: "black" }}
+  //                 to={`/correspondence/external/view/${aux.id}`}
+  //               >
+  //                 <i className="fa fa-paperclip" />
+  //                 {aux.estado === "new" || aux.estado === "out of time" ? (
+  //                   <b> {aux.asunto}</b>
+  //                 ) : (
+  //                   aux.asunto
+  //                 )}
+  //               </Link>
+  //             ) : (
+  //               <Link
+  //                 style={{ color: "black" }}
+  //                 to={`/correspondence/external/view/${aux.id}`}
+  //               >
+  //                 <i className="fa fa-paperclip" />
+  //                 {aux.estado === "new" || aux.estado === "out of time" ? (
+  //                   <b> {aux.asunto}</b>
+  //                 ) : (
+  //                   aux.asunto
+  //                 )}
+  //               </Link>
+  //             )}
+  //           </td>
+
+  //           <td className="view-message inbox-small-cells">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b> {aux.fecha_documento}</b>
+  //             ) : (
+  //               aux.fecha_documento
+  //             )}
+  //           </td>
+
+  //           <td className="view-message text-center">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b>{aux.destinatarios[0].name_destinatario}</b>
+  //             ) : (
+  //               aux.destinatarios[0].name_destinatario
+  //             )}
+  //           </td>
+  //         </tr>
+  //       );
+  //     });
+  //   return datainbox;
+  // };
+  DocumentDate(date) {
+    let documentDate;
+    documentDate = new Date(date);
+    return moment(documentDate).format("DD-MM-YYYY");
+  }
+
+  /* datos server */
+
   dataTableInbox = () => {
     // const {data} = this.state;
     const { term } = this.state;
-    const datainbox = this.state.data
-      .filter(this.searchingFor(term))
-      .map((aux, i) => {
-        // console.log(aux);
-        return (
-          <tr
-            className={`${this.stateDocumento(
-              aux.estado
-            )} table-externalCorrespondence`}
-          >
-            <td className="hidden" style={{ display: "none" }}>
-              {aux.estado === "new" ? <b>{aux.id}</b> : aux.id}
-            </td>
+    const datainbox = this.state.dataInbox.map((aux, i) => {
+      // console.log(aux);
+      return (
+        <tr
+          className={`${this.stateDocumento(
+            "new"
+          )} table-externalCorrespondence`}
+        >
+          <td className="hidden" style={{ display: "none" }}>
+            {aux.id}
+          </td>
 
-            <td className="inbox-small-cells">
-              <input
-                name="foo"
-                type="checkbox"
-                className="mail-checkbox"
-                defaultChecked={this.state.chkrow}
-                onChange={(e) => {
-                  this.setState({ chkrow: e.target.value });
-                  // this.setState({ chkrow: !this.state.chkrow });
-                }}
-              />
-            </td>
+          <td className="inbox-small-cells">
+            <input
+              name="foo"
+              type="checkbox"
+              className="mail-checkbox"
+              defaultChecked={this.state.chkrow}
+              onChange={(e) => {
+                this.setState({ chkrow: e.target.value });
+                // this.setState({ chkrow: !this.state.chkrow });
+              }}
+            />
+          </td>
 
-            <td className="inbox-small-cells">
-              {this.tipoDocumento(aux.tipo)}
-            </td>
+          <td className="inbox-small-cells">
+            {this.tipoDocumento("documento")}
+          </td>
 
-            <td className="view-message dont-show">
-              {aux.estado === "new" || aux.estado === "out of time" ? (
-                <b> {aux.sede}</b>
-              ) : (
-                aux.sede
-              )}
-            </td>
+          <td className="view-message dont-show">{aux.headquarter.name}</td>
 
-            <td className="view-message">
-              {aux.estado === "new" || aux.estado === "out of time" ? (
-                <b> {aux.consecutivo}</b>
-              ) : (
-                aux.consecutivo
-              )}
-            </td>
+          <td className="view-message">{aux.numFiling}</td>
 
-            <td>
-              {aux.estado === "new" || aux.estado === "out of time" ? (
-                <Link
-                  // style={{ color: "black" }}
-                  to={`/correspondence/external/view/${aux.id}`}
-                >
-                  <i className="fa fa-paperclip" />
-                  {aux.estado === "new" || aux.estado === "out of time" ? (
-                    <b> {aux.asunto}</b>
-                  ) : (
-                    aux.asunto
-                  )}
-                </Link>
-              ) : (
-                <Link
-                  style={{ color: "black" }}
-                  to={`/correspondence/external/view/${aux.id}`}
-                >
-                  <i className="fa fa-paperclip" />
-                  {aux.estado === "new" || aux.estado === "out of time" ? (
-                    <b> {aux.asunto}</b>
-                  ) : (
-                    aux.asunto
-                  )}
-                </Link>
-              )}
-            </td>
+          <td>
+            <Link
+              // style={{ color: "black" }}
+              to={`/correspondence/external/view/${aux.id}`}
+            >
+              <i className="fa fa-paperclip" />
+              {aux.issue}
+            </Link>
+          </td>
 
-            <td className="view-message inbox-small-cells">
-              {aux.estado === "new" || aux.estado === "out of time" ? (
-                <b> {aux.fecha_documento}</b>
-              ) : (
-                aux.fecha_documento
-              )}
-            </td>
+          <td className="view-message inbox-small-cells">
+            {this.DocumentDate(aux.documentDate)}
+          </td>
 
-            <td className="view-message text-center">
-              {aux.estado === "new" || aux.estado === "out of time" ? (
-                <b>{aux.destinatarios[0].name_destinatario}</b>
-              ) : (
-                aux.destinatarios[0].name_destinatario
-              )}
-            </td>
-          </tr>
-        );
-      });
+          <td className="view-message text-center"></td>
+        </tr>
+      );
+    });
     return datainbox;
   };
+
+  /* hasta acá */
   toggleCheckboxes = (source, cbName) => {
     // background: rgb(194,219,255);
     for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
@@ -212,6 +301,8 @@ class ContentComponent extends Component {
   };
 
   render() {
+    const { dataInbox } = this.state;
+    console.log(dataInbox);
     return (
       // <div className="animated fadeIn">
       // <br />
@@ -297,9 +388,7 @@ class ContentComponent extends Component {
                     <div className="table-responsive">
                       <table
                         id="tablefixed"
-                        className="table 
-                        
-                        table-sm"
+                        className="table table-sm"
                         // style={{ backgroundColor: "#F0F3F5" }}
                       >
                         <thead>
@@ -325,11 +414,11 @@ class ContentComponent extends Component {
                               />
                             </th>
                             <th style={{ width: "10px" }}>Tipo</th>
-                            <th style={{ width: "10px" }}>Sede</th>
+                            <th style={{ width: "100px" }}>Sede</th>
                             <th style={{ width: "10px" }}>Consecutivo</th>
-                            <th style={{ width: "10px" }}>Asunto</th>
-                            <th style={{ width: "10px" }}>Fecha</th>
-                            <th style={{ width: "10px" }}>Destinatarios</th>
+                            <th style={{ width: "50px" }}>Asunto</th>
+                            <th style={{ width: "50px" }}>Fecha</th>
+                            <th style={{ width: "50px" }}>Destinatarios</th>
                           </tr>
                         </thead>
                         <tbody

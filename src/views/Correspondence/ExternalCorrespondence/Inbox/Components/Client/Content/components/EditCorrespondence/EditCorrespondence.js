@@ -6,8 +6,10 @@ import SideBarInbox from "./../../../Sidebar/SidebarInboxComponent";
 import { Card, Collapse } from "reactstrap";
 import CardRemitente from "./components/CardUserRemitente";
 import dataform from "./../../../../../../../../../services/plantilla_data.json";
-
+import * as Yup from "yup";
+import { Formik, ErrorMessage, Field } from "formik";
 import "./../../../Content/components/css/reactfile.css";
+import { EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../../../services/EndPoints";
 
 const dataExample = dataform;
 
@@ -23,6 +25,8 @@ class EditCorrespondence extends Component {
       selectPlantilla: null,
       dataForm: dataExample,
       files: [],
+      idCorrespondence: "",
+      dataCorrespondencia: {},
     };
   }
 
@@ -68,10 +72,56 @@ class EditCorrespondence extends Component {
   };
 
   componentDidMount() {
+    // const { idCorrespondence } = this.state;
     this.getDataApi();
+    // console.log(this.props.match.params);
+    this.setState(
+      {
+        idCorrespondence: this.props.match.params,
+      },
+      () => this.getInfoCorrespondencia(this.state.idCorrespondence.id)
+    );
   }
 
+  getInfoCorrespondencia = (id) => {
+    // console.log(`${id}`);
+    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}?username=ccuartas`, {
+      method: "GET",
+      headers: {
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTIwMzE0MzQsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImRhMmM2MjYzLTUyNDMtNGFhNC04ZTE2LWJiNTk0MzAzMjFhMCIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.PybqTf9YJ2QphSbO7qgRulJrmXCCA_JaSktH-K3k4o1u-1c3Wd1Yhyk6U5r-fYY2qh3CGfBIk3vP2GALFJChAn_XkaQmFeoFajlIXbLLk7lUki7YyqkXczeChzBKHW7rDjsms7VipH4118Vd9CT5vDy0GL-OzTnPwC-H7pY7Q7deA9YtnjRKG8_95JTszeRmb01NAGrp0AYzfWTWopeP-G14OebX8tuHBLg9xgRm8cEu-gKVwEzsOcQGYB13PttsIwbUj1cxLz8zi0SjU7K05lgXTolm7AP464agjMwv0SHuY6u2mGNMwIPJY_ZVYoDncVD0f9-XUjeLr-NvIYu1oA",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          dataCorrespondencia: data,
+          // dataCiudad: data.city,
+          // dataSede: data.headquarter,
+          // dataUserFiling: data.userFiling,
+          // dataMessenger: data.messenger,
+          // dataDestinatarios: data.usersAddresses,
+          // dataRemitente: data.userFiling,
+          // dataTipoLlegada: data.typeShipmentArrival,
+          // dataTipoDocumental: data.typeDocumentary,
+          // dataInfoMetadatos: data.metadata,
+          // spinner: false,
+        });
+
+        // this.getInfoUsuario(this.state.dataRemitente.id);
+      })
+      .catch((Error) => {
+        console.log(" ", Error);
+        // this.setState({
+        //   spinner: false,
+        // });
+      });
+  };
   render() {
+    console.log(this.state.dataCorrespondencia);
     const aux = this.state.getdata.map((aux, i) => {
       return (
         <option key={i} value={aux.id}>
