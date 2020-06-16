@@ -90,7 +90,7 @@ class EditCorrespondence extends Component {
       headers: {
         Authorization:
           "Bearer " +
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTIwMzE0MzQsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImRhMmM2MjYzLTUyNDMtNGFhNC04ZTE2LWJiNTk0MzAzMjFhMCIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.PybqTf9YJ2QphSbO7qgRulJrmXCCA_JaSktH-K3k4o1u-1c3Wd1Yhyk6U5r-fYY2qh3CGfBIk3vP2GALFJChAn_XkaQmFeoFajlIXbLLk7lUki7YyqkXczeChzBKHW7rDjsms7VipH4118Vd9CT5vDy0GL-OzTnPwC-H7pY7Q7deA9YtnjRKG8_95JTszeRmb01NAGrp0AYzfWTWopeP-G14OebX8tuHBLg9xgRm8cEu-gKVwEzsOcQGYB13PttsIwbUj1cxLz8zi0SjU7K05lgXTolm7AP464agjMwv0SHuY6u2mGNMwIPJY_ZVYoDncVD0f9-XUjeLr-NvIYu1oA",
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTIzNjU5NzQsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6IjBiMzlhZDZhLTU3MGYtNGZiZC1hZjQ4LTI4ZTUwY2FhMWMxZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.DTudaRDWfBiGAJxd7x_TR2CKqaSb1KzOePnS8e_aM6fi3doPnmdK3-YkvHPZ0QOo3fTEqzx6mKIl4o4MiqpHhU0ForGm1geUHZU3OZmGtm_LyaWe-aIPCsDXDEMNSVj_MT-n4Gveok8zHnJveFgNBNqke9dAlFyBCqDlPIx157X9SS_8FX5irKv6Ohkj5DqW_WRpdq1sGPxqZluLKz1NB-3W1ttIaRyFfs8UeSfGa8t5iJPKFU2IiQcW4WEvTWLHuvEt_tQHyjcc24ycwTqI401-JcJLUSGhrIZmLi5pgqkC-D13N_kEljjl5u0PhFU-4_UI1LL1wnBZkg9Sv_qXOA",
         "Content-Type": "application/json",
       },
     })
@@ -98,7 +98,24 @@ class EditCorrespondence extends Component {
       .then((data) => {
         console.log(data);
         this.setState({
-          dataCorrespondencia: data,
+          dataCorrespondencia: {
+            correspondence_dateFiling: data.date_filing,
+            correspondence_timeFiling: data.time_filing,
+            correspondence_headquarter_name: data.headquarter.name,
+            correspondence_headquarter_id: data.headquarter.id,
+            correspondence_validity: data.validity,
+            correspondence_consecutive: data.num_filing,
+            correspondence_userFiling: data.userFiling.name,
+            correspondence_typeDocumentary: data.typeDocumentary.id,
+            correspondence_documentDate: data.documentDate,
+            correspondence_documentNum: data.documentNumber,
+            correspondence_city: data.city.id,
+            correspondence_typeArrival: data.typeShipmentArrival.id,
+            correspondence_guide: data.guide,
+            correspondence_issue: data.issue,
+            correspondence_messenger:data.messenger.id,
+            correspondence_template:data.template.id,
+          },
           // dataCiudad: data.city,
           // dataSede: data.headquarter,
           // dataUserFiling: data.userFiling,
