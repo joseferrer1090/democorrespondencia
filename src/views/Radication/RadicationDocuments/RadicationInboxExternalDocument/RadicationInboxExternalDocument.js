@@ -4,10 +4,10 @@ import HeaderComponent from "./../../../Correspondence/ExternalCorrespondence/In
 import "bs-stepper/dist/css/bs-stepper.css";
 import Stepper from "bs-stepper";
 import Title from "../Components/Steps/Title";
-import Step1 from "./Components/Step1";
-import Step2 from "./Components/Step2";
-import Step3 from "./Components/Step3";
-import Step4 from "./Components/Step4";
+import FormCreateStep1 from "./Components/Steps/Step1";
+import Step2 from "./Components/Steps/Step2";
+import Step3 from "./Components/Steps/Step3";
+import Step4 from "./Components/Steps/Step4";
 
 class RadicationInboxExternalDocument extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class RadicationInboxExternalDocument extends Component {
       linear: false,
       animation: true,
       displayNext: false,
-      displayPrevious: false
+      displayPrevious: false,
     });
   }
   render() {
@@ -80,7 +80,7 @@ class RadicationInboxExternalDocument extends Component {
                 <div className="bs-stepper-content">
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
-                      <Step1 />
+                      <FormCreateStep1 />
 
                       {/* <div className="col-md-6 offset-1">
                         <button

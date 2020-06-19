@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "react";
 import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
 import Files from "react-files";
-import "./react-list.css";
+import "../react-list.css";
 
 class Step3 extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Step3 extends Component {
     this.state = {
       files: [],
       visible: false,
-      error: ""
+      error: "",
     };
   }
 
@@ -18,10 +18,10 @@ class Step3 extends Component {
     this.setState({ visible: !this.state.visible });
   };
 
-  onFilesChange = files => {
+  onFilesChange = (files) => {
     this.setState(
       {
-        files
+        files,
       },
       () => {
         console.log(this.state.files);
@@ -33,7 +33,7 @@ class Step3 extends Component {
     console.log("error code" + error.code + ":" + error.message);
   };
 
-  filesRemoveOne = file => {
+  filesRemoveOne = (file) => {
     this.refs.files.removeFile(file);
   };
 
@@ -61,7 +61,7 @@ class Step3 extends Component {
                 {this.state.files.length > 0 ? (
                   <div className="files-list">
                     <ul>
-                      {this.state.files.map(file => (
+                      {this.state.files.map((file) => (
                         <li className="files-list-item" key={file.id}>
                           <div className="files-list-item-preview">
                             {file.preview.type === "image" ? (
