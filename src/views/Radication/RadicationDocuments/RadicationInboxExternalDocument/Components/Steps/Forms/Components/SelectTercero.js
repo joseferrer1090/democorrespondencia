@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import AsyncSelect from "react-select/lib/Async";
-import debounce from "lodash.debounce";
-import noop from "lodash.noop";
+import AsyncSelect from "react-select/async";
+
+// import debounce from "lodash.debounce";
+// import noop from "lodash.noop";
 
 const propTypes = {
   searchApiUrl: PropTypes.string.isRequired,
@@ -14,7 +15,7 @@ const propTypes = {
 const defaultProps = {
   limit: 25,
   defaultValue: null,
-  actionOnSelectedOption: noop,
+  // actionOnSelectedOption: noop,
 };
 
 export default class SearchableSelect extends Component {
@@ -29,7 +30,8 @@ export default class SearchableSelect extends Component {
       selectedOption: this.props.defaultValue,
       actionOnSelectedOption: props.actionOnSelectedOption,
     };
-    this.getOptions = debounce(this.getOptions.bind(this), 500);
+    // this.getOptions = debounce(this.getOptions.bind(this), 500);
+
     this.handleChange = this.handleChange.bind(this);
     this.noOptionsMessage = this.noOptionsMessage.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
