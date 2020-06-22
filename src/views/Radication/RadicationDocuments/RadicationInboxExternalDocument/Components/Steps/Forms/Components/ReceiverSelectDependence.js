@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { CITIES_BY_DEPARTMENT } from "../../../../../../../../services/EndPoints";
+import { DEPENDENCIES_BY_HEADQUARTER } from "../../../../../../../../services/EndPoints";
 
-const FieldCity = ({
+const ReceiverFieldDependence = ({
   field,
   form: { errors, touched, setFieldTouched, setFieldValue, values },
   ...props
 }) => {
-  const [dataCity, setDataCity] = useState([]);
+  const [dataDependence, setDataDependece] = useState([]);
   const fetchNewValues = (id) => {
-    fetch(`${CITIES_BY_DEPARTMENT}${id}`, {
+    fetch(`${DEPENDENCIES_BY_HEADQUARTER}${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -19,28 +19,31 @@ const FieldCity = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        setDataCity(data);
+        setDataDependece(data);
       })
       .catch((err) => {
         console.log("Error", err);
-        setDataCity([]);
+        setDataDependece([]);
       });
   };
 
   const validateValues = () => {
-    if (props.oldValueCountryId !== props.newValueCountryId) {
-      setDataCity([]);
+    if (
+      PREValueConglomerate !== props.conglomerateId ||
+      PREValueCompany !== props.companyId
+    ) {
+      setDataDependece([]);
     }
-    if (PREValue !== props.departmentId) {
-      setDataCity([]);
-      values.correspondence_city = "";
-      fetchNewValues(props.departmentId);
+    if (PREValue !== props.sedeId) {
+      setDataDependece([]);
+      values.correspondence_dependence_receiver = "";
+      fetchNewValues(props.sedeId);
     }
   };
 
   useEffect(() => {
     validateValues();
-  }, [props.departmentId, props.oldValueCountryId, props.newValueCountryId]);
+  }, [props.sedeId, props.companyId, props.conglomerateId]);
 
   const usePrevious = (value) => {
     let valueRef;
@@ -56,24 +59,30 @@ const FieldCity = ({
     return valueRef;
   };
 
-  const PREValue = usePrevious(props.departmentId);
+  const PREValue = usePrevious(props.sedeId);
+  const PREValueConglomerate = usePrevious(props.conglomerateId);
+  const PREValueCompany = usePrevious(props.companyId);
   const t = props.t;
   return (
     <div>
       {" "}
       <select
-        onChange={(e) => setFieldValue("correspondence_city", e.target.value)}
-        onBlur={(e) => setFieldTouched("correspondence_city", true)}
+        onChange={(e) =>
+          setFieldValue("correspondence_dependence_receiver", e.target.value)
+        }
+        onBlur={(e) =>
+          setFieldTouched("correspondence_dependence_receiver", true)
+        }
         className={`form-control form-control-sm ${
-          errors.correspondence_city &&
-          touched.correspondence_city &&
+          errors.correspondence_dependence_receiver &&
+          touched.correspondence_dependence_receiver &&
           "is-invalid"
         }`}
       >
         <option value={""}>-- Seleccione --</option>
-        {dataCity === []
+        {dataDependence === []
           ? null
-          : dataCity.map((aux, id) => {
+          : dataDependence.map((aux, id) => {
               return (
                 <option key={id} value={aux.id}>
                   {aux.name}
@@ -84,4 +93,4 @@ const FieldCity = ({
     </div>
   );
 };
-export default FieldCity;
+export default ReceiverFieldDependence;

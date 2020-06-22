@@ -30,6 +30,10 @@ const dataStep1 = {
   correspondence_issue: "",
   correspondence_messenger: "" /* S */,
   correspondence_template: "" /* S */,
+  correspondence_conglomerate_receiver: "" /* S */,
+  correspondence_company_receiver: "" /* S */,
+  correspondence_headquarter_receiver: "" /* S */,
+  correspondence_dependence_receiver: "" /* S */,
 };
 const FormCreateStep1 = (props) => {
   return (

@@ -18,6 +18,15 @@ import SelectTypeShipmentArrival from "./Components/SelectTypeShiptmentArrival";
 import SelectMessenger from "./Components/SelectMessenger";
 import SelectTemplate from "./Components/SelectTemplate";
 import moment from "moment";
+import ReceiverSelectConglomerado from "./Components/ReceiverSelectConglomerate";
+import ReceiverFieldCompany from "./Components/ReceiverSelectCompany";
+import ReceiverFieldHeadquarter from "./Components/ReceiverSelectHeadquarter";
+import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
+import UserList from "./Components/UserList";
+import UserListEnabled from "./Components/UserListEnabled";
+import { useSelector } from "react-redux";
+import MySelect from "./Components/SelectTercero";
+
 const FormStep1 = (props) => {
   const {
     values,
@@ -31,6 +40,9 @@ const FormStep1 = (props) => {
     setFieldTouched,
     t,
   } = props;
+
+  const userData = useSelector((state) => state.step1Reducer);
+
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
 
@@ -56,10 +68,24 @@ const FormStep1 = (props) => {
   const [newValueMessenger, setNewValueMessenger] = useState();
   const [oldValueTemplate, setOldValueTemplate] = useState();
   const [newValueTemplate, setNewValueTemplate] = useState();
+  const [
+    oldValueConglomerateReceiver,
+    setOldValueConglomerateReceiver,
+  ] = useState();
+  const [
+    newValueConglomerateReceiver,
+    setNewValueConglomerateReceiver,
+  ] = useState();
+  const [StateChangeAlert, setAux] = useState("");
 
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
     setNewValueConglomerate(New);
+  };
+
+  const changeInValueConglomerateReceiver = (Old, New) => {
+    setOldValueConglomerateReceiver(Old);
+    setNewValueConglomerateReceiver(New);
   };
 
   const changeInValueTypeDocumentary = (Old, New) => {
@@ -588,7 +614,7 @@ const FormStep1 = (props) => {
                 </div>
               </div>
             </div>
-            <div className="card">
+            {/* <div className="card">
               <div className="p-2 mb-1 bg-secondary text-dark">
                 Respuesta a correspondencia despachada
               </div>
@@ -837,27 +863,54 @@ const FormStep1 = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="card">
-              <div className="p-2 mb-1 bg-secondary text-dark">Remitente</div>
+              <div className="p-2 mb-1 bg-secondary text-dark">Tercero</div>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-8">
                     <div className="form-group">
                       <label>
                         Buscar remitente <span className="text-danger">*</span>
                       </label>
-                      <select
-                        name="selectPlantilla"
-                        className="form-control form-control-sm"
-                      >
-                        <option value="0"> --Seleccione-- </option>
-                        <option value="1"> Factura </option>
-                        <option value="2"> Factura eletronica </option>
-                        <option value="3"> Validacion </option>
-                        <option value="4"> Prueba </option>
-                      </select>
-                      {/* {<p>{this.state.selectRemitente}</p>} */}
+                      <div className="input-group input-group-sm mb-3">
+                        <input
+                          type="text"
+                          className="form-control"
+                          aria-label="Sizing example input"
+                          aria-describedby="inputGroup-sizing-sm"
+                        />
+                        <div className="input-group-prepend">
+                          <button
+                            className="btn btn-secondary"
+                            type="button"
+                            id="button-addon2"
+                            onClick={() => toggle2()}
+                          >
+                            <i className="fa fa-search" />
+                          </button>
+                        </div>
+                      </div>
+                      {/* <MySelect
+                        name={"correspondence_sender"}
+                        value={values.correspondence_sender}
+                        onChange={setFieldValue}
+                        onBlur={setFieldTouched}
+                        error={errors.correspondence_sender}
+                        touched={touched.correspondence_sender}
+                      />{" "}
+                      {touched ? (
+                        <div style={{ color: "red" }}>
+                          {" "}
+                          <div style={{ color: "#D54B4B" }}>
+                            {errors.correspondence_sender &&
+                            touched.correspondence_sender ? (
+                              <i className="fa fa-exclamation-triangle" />
+                            ) : null}
+                            <ErrorMessage name={"correspondence_sender"} />
+                          </div>
+                        </div>
+                      ) : null} */}
                     </div>
                   </div>
                   <div className="col-md-12">
@@ -874,47 +927,123 @@ const FormStep1 = (props) => {
               </div>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <div className="form-group">
                       <label>Conglomerado</label>
-                      <select className="form-control form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
+                      <ReceiverSelectConglomerado
+                        // authorization={props.authorization}
+                        // t={props.t}
+                        name={"correspondence_conglomerate_receiver"}
+                        onChange={(e) => {
+                          setFieldValue(
+                            "correspondence_conglomerate_receiver",
+                            e.target.value
+                          );
+                          changeInValueConglomerateReceiver(
+                            values.correspondence_conglomerate_receiver,
+                            e.target.value
+                          );
+                        }}
+                        onBlur={() =>
+                          setFieldTouched(
+                            "correspondence_conglomerate_receiver",
+                            true
+                          )
+                        }
+                        value={values.correspondence_conglomerate_receiver}
+                        className={`form-control form-control-sm ${
+                          errors.correspondence_conglomerate_receiver &&
+                          touched.correspondence_conglomerate_receiver &&
+                          "is-invalid"
+                        }`}
+                      />
+
+                      <div style={{ color: "#D54B4B" }}>
+                        {errors.correspondence_conglomerate_receiver &&
+                        touched.correspondence_conglomerate_receiver ? (
+                          <i class="fa fa-exclamation-triangle" />
+                        ) : null}
+                        <ErrorMessage name="correspondence_conglomerate_receiver" />
+                      </div>
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <div className="form-group">
                       <label>Empresa</label>
-                      <select className="form-control form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
+                      <Field
+                        // authorization={props.authorization}
+                        // t={props.t}
+                        name="correspondence_company_receiver"
+                        component={ReceiverFieldCompany}
+                        oldValueConglomerateId={oldValueConglomerateReceiver}
+                        newValueConglomerateId={newValueConglomerateReceiver}
+                        conglomerateId={
+                          values.correspondence_conglomerate_receiver
+                        }
+                      ></Field>
+                      <div style={{ color: "#D54B4B" }}>
+                        {errors.correspondence_company_receiver &&
+                        touched.correspondence_company_receiver ? (
+                          <i class="fa fa-exclamation-triangle" />
+                        ) : null}
+                        <ErrorMessage name="correspondence_company_receiver" />
+                      </div>
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <div className="form-group">
                       <label>Sede</label>
-                      <select className="form-control form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
+                      <Field
+                        //   authorization={props.authorization}
+                        //   t={props.t}
+                        name="correspondence_headquarter_receiver"
+                        component={ReceiverFieldHeadquarter}
+                        companyId={values.correspondence_company_receiver}
+                        conglomerateId={
+                          values.correspondence_conglomerate_receiver
+                        }
+                      ></Field>
+                      <div style={{ color: "#D54B4B" }}>
+                        {errors.correspondence_headquarter_receiver &&
+                        touched.correspondence_headquarter_receiver ? (
+                          <i className="fa fa-exclamation-triangle" />
+                        ) : null}
+                        <ErrorMessage name="correspondence_headquarter_receiver" />
+                      </div>
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <div className="form-group">
                       <label>Dependencia</label>
-                      <select className="form-control form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
+                      <Field
+                        // authorization={props.authorization}
+                        // t={props.t}
+                        name="correspondence_dependence_receiver"
+                        component={ReceiverFieldDependence}
+                        sedeId={values.correspondence_headquarter_receiver}
+                        companyId={values.correspondence_company_receiver}
+                        conglomerateId={
+                          values.correspondence_conglomerate_receiver
+                        }
+                      ></Field>
+                      <div style={{ color: "#D54B4B" }}>
+                        {errors.correspondence_dependence_receiver &&
+                        touched.correspondence_dependence_receiver ? (
+                          <i className="fa fa-exclamation-triangle" />
+                        ) : null}
+                        <ErrorMessage name="correspondence_dependence_receiver" />
+                      </div>
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  {/* <div className="col-md-4">
                     <div className="form-group">
                       <label>Grupo</label>
                       <select className="form-control form-control-sm">
                         <option>-- Seleccione --</option>
                       </select>
                     </div>
-                  </div>
-                  <div className="col-md-4">
+                  </div> */}
+                  {/* <div className="col-md-4">
                     <div className="form-group">
                       <label>Buscar destinatario</label>
                       <div className="input-group mb-3">
@@ -936,21 +1065,18 @@ const FormStep1 = (props) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <div className="form-group">
                       <label>Destinatarios disponibles</label>
-                      <textarea
-                        className="form-control from-control-sm"
-                        disabled
-                        readOnly
-                        rows={5}
+                      <UserList
+                        id={values.correspondence_dependence_receiver}
                       />
                     </div>
                     <div className="form-check">
-                      <input
+                      {/* <input
                         className="form-check-input"
                         type="checkbox"
                         defaultValue
@@ -961,29 +1087,18 @@ const FormStep1 = (props) => {
                         htmlFor="defaultCheck1"
                       >
                         Original
-                      </label>
-                      <button className="btn btn-secondary btn-sm float-right">
+                      </label> */}
+                      {/* <button className="btn btn-secondary btn-sm float-right">
                         Todos <i className="fa fa-angle-double-right" />{" "}
-                      </button>
+                      </button> */}
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label>
-                        Destinatarios asignados{" "}
-                        <span className="text-danger">*</span>
-                      </label>
-                      <textarea
-                        className="form-control form-control-sm"
-                        readOnly
-                        disabled
-                        rows={6}
-                      />
-                    </div>
-                    <button className="btn btn-secondary btn-sm float-right">
-                      <i className="fa fa-angle-double-left" /> Todos{" "}
-                    </button>
-                  </div>
+
+                  <UserListEnabled data={userData} aux={StateChangeAlert} />
+
+                  {/* <button className="btn btn-secondary btn-sm float-right">
+                    <i className="fa fa-angle-double-left" /> Todos{" "}
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -1067,6 +1182,13 @@ export default withFormik({
     correspondence_issue: props.firstStep.correspondence_issue,
     correspondence_messenger: props.firstStep.correspondence_messenger,
     correspondence_template: props.firstStep.correspondence_template,
+    correspondence_conglomerate_receiver:
+      props.firstStep.correspondence_conglomerate_receiver,
+    correspondence_company_receiver:
+      props.firstStep.correspondence_company_receiver,
+    correspondence_headquarter_receiver:
+      props.firstStep.correspondence_headquarter_receiver,
+    correspondence_sender: props.firstStep.correspondence_sender,
   }),
   validationSchema: Yup.object().shape({
     correspondence_conglomerate: Yup.string()
@@ -1114,6 +1236,15 @@ export default withFormik({
     correspondence_template: Yup.string()
       .required(" Por favor seleccione una plantilla")
       .ensure(),
+    correspondence_conglomerate_receiver: Yup.string().nullable().ensure(),
+    correspondence_company_receiver: Yup.string().nullable().ensure(),
+    correspondence_headquarter_receiver: Yup.string().nullable().ensure(),
+    correspondence_sender: Yup.array().of(
+      Yup.object().shape({
+        label: Yup.string().required(),
+        value: Yup.string().required(),
+      })
+    ),
   }),
   handleSubmit: (values, { setSubmitting, resetForm, props }) => {
     setTimeout(() => {

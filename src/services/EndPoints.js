@@ -18,9 +18,16 @@ export const COMPANY_BY_CONGLOMERATE = `${config.IP}:${config.PORT}/api/sgdea/se
 /* GET param idCompany */
 export const HEADQUARTER_BY_COMPANY = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/headquarters/company/`;
 
+//-------------------------- DEPENDENCIA -----------------------------------------//
+/* GET  param => idHeadquarter */
+export const DEPENDENCIES_BY_HEADQUARTER = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/dependencies/headquarter/`;
+
 //-------------------------- USUARIOS -----------------------------------------//
 /* GET */
 export const USER = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users`;
+
+/* GET params => idDependence */
+export const USERS_BY_DEPENDENCE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/dependence/`;
 
 //-------------------------- TIPO DOCUMENTAL -----------------------------------------//
 export const TYPE_DOCUMENTARIES_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/type/documentaries/active`;
@@ -44,3 +51,6 @@ export const MESSENGER_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/c
 
 //-------------------------- PLANTILLA -----------------------------------------//
 export const TEMPLATE_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/templates/active`;
+
+//-------------------------- TERCERO -----------------------------------------//
+export const THIRDPARTIES_BY_IDENTIFICATION = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/third/parties/find/identification/`;
