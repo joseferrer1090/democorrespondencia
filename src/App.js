@@ -11,23 +11,24 @@ const loading = () => (
 // Containers
 const DefaultLayout = Loadable({
   loader: () => import("./containers/DefaultLayout"),
-  loading
+  loading,
 });
 
 // Pages
 
 const Page404 = Loadable({
   loader: () => import("./views/Pages/Page404"),
-  loading
+  loading,
 });
 
 const Page500 = Loadable({
   loader: () => import("./views/Pages/Page500"),
-  loading
+  loading,
 });
 
 class App extends Component {
   render() {
+    console.log(this.props);
     return (
       <HashRouter>
         <Switch>
