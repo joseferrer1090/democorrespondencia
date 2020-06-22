@@ -5,9 +5,7 @@ import {
   ModalFooter,
   ModalHeader,
   Card,
-  CardHeader,
-  CardBody,
-  Collapse
+  Collapse,
 } from "reactstrap";
 import PropTypes from "prop-types";
 
@@ -17,25 +15,25 @@ class CopyCorrespondence extends Component {
     this.state = {
       modal: this.props.modalcopy,
       collapse: false,
-      collapse2: false
+      collapse2: false,
     };
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modalcopy
+    this.setState((prevState) => ({
+      modal: !prevState.modalcopy,
     }));
   };
 
   toggleCollapse = () => {
     this.setState({
-      collapse: !this.state.collapse
+      collapse: !this.state.collapse,
     });
   };
 
   toggleCollapse2 = () => {
     this.setState({
-      collapse2: !this.state.collapse2
+      collapse2: !this.state.collapse2,
     });
   };
 
@@ -50,17 +48,17 @@ class CopyCorrespondence extends Component {
                 <Card body>
                   <h5 className="card-title">
                     {" "}
-                    Usuario origen{" "}
+                    Usuario origen
                     <sub>
-                      {" "}
+                      {"  "}
                       <a
                         href=""
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault();
                           this.toggleCollapse();
                         }}
                       >
-                        busqueda avanzada{" "}
+                        | <i className="fa fa-filter" /> Busqueda avanzada{" "}
                       </a>{" "}
                     </sub>{" "}
                   </h5>
@@ -91,7 +89,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label> Conglomerado </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -99,7 +97,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label> Empresa </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -107,7 +105,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label> Sede </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -115,7 +113,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label> Dependencia </label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -126,7 +124,7 @@ class CopyCorrespondence extends Component {
                       <div className="form-group">
                         <label>Usuario</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione -- </option>
                         </select>
                       </div>
                     </div>
@@ -141,12 +139,13 @@ class CopyCorrespondence extends Component {
                       {" "}
                       <a
                         href=""
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault();
                           this.toggleCollapse2();
                         }}
                       >
-                        busqueda avanzada{" "}
+                        | <i className="fa fa-filter" />
+                        Busqueda avanzada{" "}
                       </a>{" "}
                     </sub>{" "}
                   </h5>
@@ -157,7 +156,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label>Conglomerado</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -165,7 +164,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label>Empresa</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione -- </option>
                           </select>
                         </div>
                       </div>
@@ -173,7 +172,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label>Sede</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione -- </option>
                           </select>
                         </div>
                       </div>
@@ -181,7 +180,7 @@ class CopyCorrespondence extends Component {
                         <div className="form-group">
                           <label>Dependencia</label>
                           <select className="form-control form-control-sm">
-                            <option>Seleccione...</option>
+                            <option>-- Seleccione --</option>
                           </select>
                         </div>
                       </div>
@@ -192,13 +191,13 @@ class CopyCorrespondence extends Component {
                       <div className="form-group">
                         <label>Usuario</label>
                         <select className="form-control form-control-sm">
-                          <option>Seleccione...</option>
+                          <option>-- Seleccione --</option>
                         </select>
                       </div>
                     </div>
                     <div className="col-md-12">
                       <div className="float-right">
-                        <button className="btn btn-secondary btn-sm">
+                        <button className="btn btn-success btn-sm">
                           {" "}
                           <i className="fa fa-plus" /> Agregar{" "}
                         </button>
@@ -236,18 +235,22 @@ class CopyCorrespondence extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
+          <button className="btn btn-success btn-sm">
+            {" "}
+            <i className="fa fa-copy" /> Copiar{" "}
+          </button>
           <button
             className="btn btn-secondary btn-sm"
             onClick={() => {
-              this.setState({ modal: false });
+              this.setState({
+                modal: false,
+                collapse: false,
+                collapse2: false,
+              });
             }}
           >
             {" "}
             <i className="fa fa-times" /> Cerrar{" "}
-          </button>
-          <button className="btn btn-secondary btn-sm">
-            {" "}
-            <i className="fa fa-copy" /> Copiar{" "}
           </button>
         </ModalFooter>
       </Modal>

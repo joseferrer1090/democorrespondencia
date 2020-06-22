@@ -10,6 +10,7 @@ class index extends Component {
     return (
       <div>
         <p>Estoy organizando el proyecto</p>
+
       </div>
     );
   }

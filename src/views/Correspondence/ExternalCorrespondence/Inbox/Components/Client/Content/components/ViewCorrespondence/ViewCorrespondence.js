@@ -8,7 +8,7 @@ import {
   DropdownItem,
   DropdownToggle,
   CardHeader,
-  CardBody
+  CardBody,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { browserHistory } from "react-router";
@@ -19,9 +19,14 @@ import ModalSticker from "./../ModalStciker/ModalSticker";
 import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
 import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/pdfjs";
 import "./css/card-custom.css";
+import moment from "moment";
+import {
+  EXTERNAL_CORRESPONDENCE_RECEIVED,
+  USER,
+} from "../../../../../../../../../services/EndPoints";
 
 const styleHR = {
-  marginTop: "0px"
+  marginTop: "0px",
 };
 
 class ViewCorrespondence extends Component {
@@ -31,7 +36,19 @@ class ViewCorrespondence extends Component {
       modalanotation: false,
       modaladdanotation: false,
       modalstikcer: false,
-      id: ""
+      id: "",
+      dataCorrespondencia: {},
+      dataCiudad: {},
+      dataSede: {},
+      dataUserFiling: {},
+      dataMessenger: {},
+      dataDestinatarios: [],
+      dataInfoMetadatos: [],
+      dataInfoUser: {},
+      dataRemitente: {},
+      dataTipoLlegada: {},
+      dataTipoDocumental: {},
+      dataPlantilla: {},
     };
     this.myViewer = React.createRef();
   }
@@ -49,34 +66,149 @@ class ViewCorrespondence extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      id: this.props.match.params
-    });
+    this.setState(
+      {
+        id: this.props.match.params,
+      },
+      () => this.getInfoCorrespondencia(this.state.id.id)
+    );
   }
+
+  getInfoCorrespondencia = (id) => {
+    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}?username=ccuartas`, {
+      method: "GET",
+      headers: {
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI2MjU5NTgsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImExMTZmMzcyLThjMGMtNDA3Ny05MDIyLWQwMTM0NzY0M2FmZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.EQy8M5cTIOVavoNuve5R0hNkRCQ1ihAaNP2YhPwgptgC9WMd1pSKAqk54fmvY3cMA2mwxOHi-X9uLahuIoQIS2g-IyrwbfMrQiRYKMxISUORMXKGhYoiU4CNE6murpRw0kb35PRaevJoh27eh4jH-WcHo4kmpdPRFP54LQ2ZopuCTuxZjF0IlKg5OwKxn4KnEXL5DPFDBIhI0ktpppMMcVlsVWwuSizP2uy24Rj4IqoTIq-M6ncleEwR4FAVmvKp0YkmThLwjmAXp5G49uTZPgEjgESmiQcV55Iz6_gxHg1IeK_QX_OCP644qaBlUBQ74Py9S_pCoxn69DzdguQVfA",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          dataCorrespondencia: data,
+          dataCiudad: data.city,
+          dataSede: data.headquarter,
+          dataUserFiling: data.userFiling,
+          dataMessenger: data.messenger,
+          dataDestinatarios: data.usersAddresses,
+          dataRemitente: data.userFiling,
+          dataTipoLlegada: data.typeShipmentArrival,
+          dataTipoDocumental: data.typeDocumentary,
+          dataInfoMetadatos: data.metadata,
+          dataPlantilla: data.template,
+          // spinner: false,
+        });
+        // this.getInfoCorrespondencia();
+        this.getInfoUsuario(this.state.dataRemitente.id);
+      })
+      .catch((Error) => {
+        console.log(" ", Error);
+        // this.setState({
+        //   spinner: false,
+        // });
+      });
+  };
+
+  getInfoUsuario = (id) => {
+    fetch(`${USER}/${id}/?username=ccuartas`, {
+      method: "GET",
+      headers: {
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI2MjU5NTgsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImExMTZmMzcyLThjMGMtNDA3Ny05MDIyLWQwMTM0NzY0M2FmZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.EQy8M5cTIOVavoNuve5R0hNkRCQ1ihAaNP2YhPwgptgC9WMd1pSKAqk54fmvY3cMA2mwxOHi-X9uLahuIoQIS2g-IyrwbfMrQiRYKMxISUORMXKGhYoiU4CNE6murpRw0kb35PRaevJoh27eh4jH-WcHo4kmpdPRFP54LQ2ZopuCTuxZjF0IlKg5OwKxn4KnEXL5DPFDBIhI0ktpppMMcVlsVWwuSizP2uy24Rj4IqoTIq-M6ncleEwR4FAVmvKp0YkmThLwjmAXp5G49uTZPgEjgESmiQcV55Iz6_gxHg1IeK_QX_OCP644qaBlUBQ74Py9S_pCoxn69DzdguQVfA",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          dataInfoUser: data,
+        });
+      })
+      .catch((Error) => {
+        console.log(" ", Error);
+        // this.setState({
+        //   spinner: false,
+        // });
+      });
+  };
 
   OpenOnClickEdit = () => {
     let id = this.props.match.params.id;
     let path = `/correspondence/external/edit/${id}`;
     this.props.history.push(path);
-    console.log(id);
+    // console.log(id);
   };
 
   OpenOnClickViewRelatedUsers = () => {
     let id = this.props.match.params.id;
     let path = `/correspondence/external/relatedusers/${id}`;
     this.props.history.push(path);
-    console.log(id);
+    // console.log(id);
   };
 
   OpenClickHistorialCorrespondence = () => {
     let id = this.props.match.params.id;
     let path = `/correspondence/external/historial/${id}`;
     this.props.history.push(path);
-    console.log(id);
+    // console.log(id);
+  };
+  FechaDocumento = (date) => {
+    let documentDate;
+    documentDate = new Date(date);
+    return moment(documentDate).format("DD-MM-YYYY");
   };
 
   render() {
-    console.log(this.state.id);
+    const {
+      dataCorrespondencia,
+      dataCiudad,
+      dataSede,
+      dataUserFiling,
+      dataMessenger,
+      dataDestinatarios,
+      dataInfoUser,
+      dataTipoLlegada,
+      dataTipoDocumental,
+      dataInfoMetadatos,
+      dataPlantilla,
+    } = this.state;
+    // const { dataCiudad } = this.state;
+
+    // console.log(dataCiudad);
+    // console.log(dataCorrespondencia);
+    // console.log(dataDestinatarios);
+    console.log(dataCorrespondencia);
+
+    const dataTableDestinatarios = () => {
+      let tableDestinatarios;
+      tableDestinatarios = dataDestinatarios.map((aux, idx) => {
+        // console.log(aux);
+        return (
+          <tr>
+            <td>{aux.name}</td>
+            <td>{aux.dependence}</td>
+          </tr>
+        );
+      });
+      return tableDestinatarios;
+    };
+
+    const dataTableMetadatos = () => {
+      let tableMetadatos;
+      tableMetadatos = dataInfoMetadatos.map((aux, idx) => {
+        // console.log(aux);
+        return (
+          <tr>
+            <td>{aux.name}</td>
+            <td>{aux.value}</td>
+          </tr>
+        );
+      });
+      return tableMetadatos;
+    };
 
     return (
       <div className="">
@@ -86,7 +218,7 @@ class ViewCorrespondence extends Component {
             <div
               style={{
                 minHeight: "0px",
-                marginTop: "0px"
+                marginTop: "0px",
               }}
             >
               <div className="row">
@@ -94,7 +226,7 @@ class ViewCorrespondence extends Component {
                 <div className="col-md-10" style={{ padding: "0px" }}>
                   <Card>
                     <CardHeader>
-                      <h3 className="card-title">
+                      <h4 className="card-title">
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"
@@ -106,109 +238,109 @@ class ViewCorrespondence extends Component {
                           {" "}
                           <i className="fa fa-arrow-left" />{" "}
                         </button>
-                        &nbsp; Asunto: Descripcion del asunto{" "}
-                        <div className="float-right">
-                          <button
-                            title="Editar correspndencia"
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            onClick={() => {
-                              this.OpenOnClickEdit();
-                            }}
-                          >
-                            <i className="fa fa-edit" />
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            title="Marca como no leida"
-                            className="btn btn-secondary btn-sm"
-                          >
-                            <i className="fa fa-envelope-o" />
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            title="Archivar"
-                          >
-                            <i className="fa fa-floppy-o" />
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            title="Imprimir"
-                            className="btn btn-secondary btn-sm"
-                          >
-                            {" "}
-                            <i className="fa fa-print" />
-                          </button>
-                          &nbsp;
-                          {/* <button
-                            title="Expandir"
-                            className="btn btn-secondary btn-sm"
-                            onClick={() => {
-                              window.open("", "", "width=1000,height=600");
-                            }}
-                          >
-                            {" "}
-                            <i className="fa fa-expand" />
-                          </button>
-                          &nbsp; */}
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            title="Agregar anotación"
-                            onClick={() => {
-                              this.OpenModalAddanotation();
-                            }}
-                          >
-                            <i className="fa fa-comment" />
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            title="Anotaciones"
-                            className="btn btn-secondary btn-sm"
-                            onClick={() => this.OpenModalAnotation()}
-                          >
-                            {" "}
-                            <i className="fa fa-comments" aria-hidden="true" />
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            title="Usuarios relacionados"
-                            onClick={() => {
-                              this.OpenOnClickViewRelatedUsers();
-                            }}
-                          >
-                            {" "}
-                            <i className="fa fa-users" />{" "}
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            title="Historial"
-                            onClick={() => {
-                              this.OpenClickHistorialCorrespondence();
-                            }}
-                          >
-                            <i className="fa fa-history" />
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            title="Ver radicado"
-                            onClick={() => this.OpenModalSticker()}
-                          >
-                            <i className="fa fa-file-text-o" />
-                          </button>
-                        </div>
-                      </h3>
+                        &nbsp; Asunto: {dataCorrespondencia.issue}{" "}
+                      </h4>
+                      <div className="float-right">
+                        <button
+                          title="Editar correspondencia"
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => {
+                            this.OpenOnClickEdit();
+                          }}
+                        >
+                          <i className="fa fa-edit" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          title="Marcar como no leida"
+                          className="btn btn-secondary btn-sm"
+                        >
+                          <i className="fa fa-envelope-o" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Archivar"
+                        >
+                          <i className="fa fa-floppy-o" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          title="Imprimir"
+                          className="btn btn-secondary btn-sm"
+                        >
+                          {" "}
+                          <i className="fa fa-print" />
+                        </button>
+                        &nbsp;
+                        {/* <button
+                              title="Expandir"
+                              className="btn btn-secondary btn-sm"
+                              onClick={() => {
+                                window.open("", "", "width=1000,height=600");
+                              }}
+                            >
+                              {" "}
+                              <i className="fa fa-expand" />
+                            </button>
+                            &nbsp; */}
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Agregar anotación"
+                          onClick={() => {
+                            this.OpenModalAddanotation();
+                          }}
+                        >
+                          <i className="fa fa-comment" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          title="Anotaciones"
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => this.OpenModalAnotation()}
+                        >
+                          {" "}
+                          <i className="fa fa-comments" aria-hidden="true" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Usuarios relacionados"
+                          onClick={() => {
+                            this.OpenOnClickViewRelatedUsers();
+                          }}
+                        >
+                          {" "}
+                          <i className="fa fa-users" />{" "}
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Historial"
+                          onClick={() => {
+                            this.OpenClickHistorialCorrespondence();
+                          }}
+                        >
+                          <i className="fa fa-history" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Ver radicado"
+                          onClick={() => this.OpenModalSticker()}
+                        >
+                          <i className="fa fa-file-text-o" />
+                        </button>
+                      </div>
                     </CardHeader>
                     <CardBody>
                       <div className="card-block">
@@ -225,7 +357,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Fecha de radicación</strong>
                                     </label>
-                                    <dd> 04/10/2018</dd>
+                                    <dd>{dataCorrespondencia.date_filing}</dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -233,7 +365,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Hora de radicación</strong>
                                     </label>
-                                    <dd> 09:57 AM</dd>
+                                    <dd> {dataCorrespondencia.time_filing}</dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -241,7 +373,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Sede</strong>
                                     </label>
-                                    <dd> Sede I</dd>
+                                    <dd> {dataSede.name}</dd>
                                   </div>
                                 </div>
                               </div>
@@ -252,7 +384,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Vigencia</strong>
                                     </label>
-                                    <dd> 2018</dd>
+                                    <dd> {dataCorrespondencia.validity}</dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -260,7 +392,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Usuario radicador</strong>
                                     </label>
-                                    <dd>Maria Perez</dd>
+                                    <dd>{dataUserFiling.name}</dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -268,7 +400,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Tipo de documento</strong>
                                     </label>
-                                    <dd>Factura</dd>
+                                    <dd>{dataTipoDocumental.name}</dd>
                                   </div>
                                 </div>
                               </div>
@@ -278,7 +410,12 @@ class ViewCorrespondence extends Component {
                                   <div className="form-group">
                                     <label>
                                       <strong> Fecha del documento </strong>
-                                      <dd> 04/10/2018 </dd>
+                                      <dd>
+                                        {" "}
+                                        {this.FechaDocumento(
+                                          dataCorrespondencia.documentDate
+                                        )}{" "}
+                                      </dd>
                                     </label>
                                   </div>
                                 </div>
@@ -287,7 +424,10 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Nro. del documento</strong>
                                     </label>
-                                    <dd> 111222 </dd>
+                                    <dd>
+                                      {" "}
+                                      {dataCorrespondencia.documentNumber}{" "}
+                                    </dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -295,7 +435,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong>Consecutivo</strong>
                                     </label>
-                                    <dd> 3</dd>
+                                    <dd> {dataCorrespondencia.num_filing}</dd>
                                   </div>
                                 </div>
                               </div>
@@ -306,7 +446,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong> Nro. de radicación </strong>
                                     </label>
-                                    <dd> R-3-2019-1 </dd>
+                                    <dd> {dataCorrespondencia.num_filing} </dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -314,7 +454,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong> Ciudad </strong>
                                     </label>
-                                    <dd> Bogota - Distrito capital </dd>
+                                    <dd> {dataCiudad.name} </dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -322,7 +462,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong> Asunto </strong>
                                     </label>
-                                    <dd> Asunto del documento </dd>
+                                    <dd> {dataCorrespondencia.issue} </dd>
                                   </div>
                                 </div>
                               </div>
@@ -349,7 +489,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong> Tipo de llegada </strong>
                                     </label>
-                                    <dd> A la mano </dd>
+                                    <dd> {dataTipoLlegada.name} </dd>
                                   </div>
                                 </div>
                               </div>
@@ -358,9 +498,9 @@ class ViewCorrespondence extends Component {
                                 <div className="col-md-4">
                                   <div className="form-group">
                                     <label>
-                                      <strong> Gia </strong>
+                                      <strong> Guía </strong>
                                     </label>
-                                    <dd>0123456987 </dd>
+                                    <dd>{dataCorrespondencia.guide} </dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -368,7 +508,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong> Mensajero </strong>
                                     </label>
-                                    <dd> Ninguno </dd>
+                                    <dd> {dataMessenger.name} </dd>
                                   </div>
                                 </div>
                               </div>
@@ -402,10 +542,10 @@ class ViewCorrespondence extends Component {
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          <td>123456</td>
-                                          <td>Avianca</td>
-                                          <td>info@avianca.com.co</td>
-                                          <td>52369852</td>
+                                          <td>{dataInfoUser.identification}</td>
+                                          <td>{dataInfoUser.name}</td>
+                                          <td>{dataInfoUser.email}</td>
+                                          <td>{dataInfoUser.phone}</td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -427,14 +567,12 @@ class ViewCorrespondence extends Component {
                                       <thead className="thead-light">
                                         <tr>
                                           <th>Nombre </th>
-                                          <th>dependencia</th>
+                                          <th>Dependencia</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>Carlos Perez</td>
-                                          <td>Avianca</td>
-                                        </tr>
+                                        {/* {dataTableDestinatarios()} */}
+                                        {dataTableDestinatarios()}
                                       </tbody>
                                     </table>
                                   </div>
@@ -452,6 +590,15 @@ class ViewCorrespondence extends Component {
                             Campos adiciones{" "}
                           </div>
                           <div className="card-body">
+                            <div>
+                              <span style={{ fontSize: "15px" }}>
+                                {" "}
+                                <i className="fa fa-info-circle" /> Metadatos
+                                asociados a la plantilla{" "}
+                                <b>{dataPlantilla.name}</b>
+                              </span>
+                            </div>
+                            <br />
                             <table className="table table-sm">
                               <thead className="thead-light">
                                 <tr>
@@ -459,20 +606,7 @@ class ViewCorrespondence extends Component {
                                   <th scope="col">Valor</th>
                                 </tr>
                               </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Campo 0</td>
-                                  <td>Valor 0</td>
-                                </tr>
-                                <tr>
-                                  <td>Campo 1</td>
-                                  <td>Valor 1</td>
-                                </tr>
-                                <tr>
-                                  <td>Campo 2</td>
-                                  <td>Valor 2</td>
-                                </tr>
-                              </tbody>
+                              <tbody>{dataTableMetadatos()}</tbody>
                             </table>
                           </div>
                         </div>

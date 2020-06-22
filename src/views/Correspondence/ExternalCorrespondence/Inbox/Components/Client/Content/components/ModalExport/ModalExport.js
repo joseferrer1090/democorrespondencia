@@ -7,14 +7,14 @@ class ModalExport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.modalExport
+      modal: this.props.modalExport,
     };
   }
 
   toggle = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       modal: !prevState.modal,
-      backdrop: false
+      backdrop: false,
     }));
   };
 
@@ -47,9 +47,9 @@ class ModalExport extends Component {
           </form>
         </ModalBody>
         <ModalFooter>
-          <button type="button" className="btn btn-secondary btn-sm">
+          <button type="button" className="btn btn-success btn-sm">
             {" "}
-            <i className="fa fa-download" /> Exportar{" "}
+            <i className="fa fa-download" /> Exportar CSV{" "}
           </button>
           <button
             type="button"
@@ -68,7 +68,7 @@ class ModalExport extends Component {
 }
 
 ModalExport.propTypes = {
-  modalExport: PropTypes.bool.isRequired
+  modalExport: PropTypes.bool.isRequired,
 };
 
 export default ModalExport;

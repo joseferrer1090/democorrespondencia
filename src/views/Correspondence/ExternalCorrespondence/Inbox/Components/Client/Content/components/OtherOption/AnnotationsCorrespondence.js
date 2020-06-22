@@ -11,7 +11,7 @@ const dataTableAnotation = [
     origen: "Dependencia nombre",
     destinatario: "Dependencia - nombre",
     pagina: 2,
-    anotacion: "Descripcion de la anotacion"
+    anotacion: "Descripcion de la anotacion",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const dataTableAnotation = [
     origen: "Dependencia nombre",
     destinatario: "Dependencia - nombre",
     pagina: 3,
-    anotacion: "Descripcion de la anotacion"
+    anotacion: "Descripcion de la anotacion",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const dataTableAnotation = [
     origen: "Dependencia nombre",
     destinatario: "Dependencia - nombre",
     pagina: 4,
-    anotacion: "Descripcion de la anotacion"
+    anotacion: "Descripcion de la anotacion",
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const dataTableAnotation = [
     origen: "Dependencia nombre",
     destinatario: "Dependencia - nombre",
     pagina: 5,
-    anotacion: "Descripcion de la anotacion"
+    anotacion: "Descripcion de la anotacion",
   },
   {
     id: 5,
@@ -43,8 +43,8 @@ const dataTableAnotation = [
     origen: "Dependencia nombre",
     destinatario: "Dependencia - nombre",
     pagina: 6,
-    anotacion: "Descripcion de la anotacion"
-  }
+    anotacion: "Descripcion de la anotacion",
+  },
 ];
 
 class AnnotationsCorrespondence extends Component {
@@ -52,19 +52,19 @@ class AnnotationsCorrespondence extends Component {
     super(props);
     this.state = {
       modal: this.props.annotationmodal,
-      data: ""
+      data: "",
     };
   }
 
   componentDidMount() {
     this.setState({
-      data: dataTableAnotation
+      data: dataTableAnotation,
     });
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
     }));
   };
 
@@ -72,7 +72,7 @@ class AnnotationsCorrespondence extends Component {
     console.log(this.state.data);
     return (
       <Modal className="modal-xl" isOpen={this.state.modal} fade={false}>
-        <ModalHeader>Anotaciones adicional a la correspondencia</ModalHeader>
+        <ModalHeader>Anotaciones adicionales a la correspondencia</ModalHeader>
         <ModalBody>
           <div className="row">
             <div className="col-md-12">
@@ -139,7 +139,7 @@ class AnnotationsCorrespondence extends Component {
 }
 
 AnnotationsCorrespondence.propTypes = {
-  annotationmodal: PropTypes.bool.isRequired
+  annotationmodal: PropTypes.bool.isRequired,
 };
 
 export default AnnotationsCorrespondence;

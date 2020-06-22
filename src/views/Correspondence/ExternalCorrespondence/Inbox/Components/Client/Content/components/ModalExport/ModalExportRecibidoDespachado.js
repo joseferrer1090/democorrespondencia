@@ -7,13 +7,13 @@ class ModalExportRecibidoDespachado extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.modalrecibido
+      modal: this.props.modalrecibido,
     };
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
     }));
   };
 
@@ -21,7 +21,8 @@ class ModalExportRecibidoDespachado extends Component {
     return (
       <Modal isOpen={this.state.modal} fade={false}>
         <ModalHeader>
-          Recibido / Despachado <img src={fileCSV} width="5%" />{" "}
+          Recibido / Despachado - Exportar archivo plano{" "}
+          <img src={fileCSV} width="5%" />{" "}
         </ModalHeader>
         <ModalBody>
           <p className="text-justify">
@@ -40,9 +41,9 @@ class ModalExportRecibidoDespachado extends Component {
           </form>
         </ModalBody>
         <ModalFooter>
-          <button type="button" className="btn btn-secondary btn-sm">
+          <button type="button" className="btn btn-success btn-sm">
             {" "}
-            <i className="fa fa-download" /> Exportar{" "}
+            <i className="fa fa-download" /> Exportar CSV{" "}
           </button>
           <button
             type="button"
@@ -61,7 +62,7 @@ class ModalExportRecibidoDespachado extends Component {
 }
 
 ModalExportRecibidoDespachado.propTypes = {
-  modalrecibido: PropTypes.bool.isRequired
+  modalrecibido: PropTypes.bool.isRequired,
 };
 
 export default ModalExportRecibidoDespachado;
