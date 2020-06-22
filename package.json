@@ -61,7 +61,8 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^2.1.8",
+    "webpack": "^4.43.0"
   },
   "scripts": {
     "start": "react-scripts start",
