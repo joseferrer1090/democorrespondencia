@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Alert } from "reactstrap";
 import PropTypes from "prop-types";
 
 class ModalGenerateReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.modalgeneralreport
+      modal: this.props.modalgeneralreport,
     };
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
     }));
   };
 
@@ -21,10 +21,11 @@ class ModalGenerateReport extends Component {
       <Modal className="modal-xl" fade={false} isOpen={this.state.modal}>
         <ModalHeader> Generar reporte general </ModalHeader>
         <ModalBody>
-          <p className="text-justify">
+          <Alert className="text-justify alert-info">
+            <i className="fa fa-info-circle" /> {""}
             Este reporte se genero teniendo en cuenta la usabilidad que haya
             configurado el usuario
-          </p>
+          </Alert>
           <embed
             src="http://www.africau.edu/images/default/sample.pdf"
             width={"100%"}

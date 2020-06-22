@@ -1,39 +1,27 @@
-import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
 import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Card,
+  CardHeader,
+  CardBody,
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
-
-const checkboxes = [
-  {
-    name: "check-box-1",
-    key: "checkBox1",
-    label: "Check Box 1"
-  },
-  {
-    name: "check-box-2",
-    key: "checkBox2",
-    label: "Check Box 2"
-  },
-  {
-    name: "check-box-3",
-    key: "checkBox3",
-    label: "Check Box 3"
-  },
-  {
-    name: "check-box-4",
-    key: "checkBox4",
-    label: "Check Box 4"
-  }
-];
+import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
+import moment from "moment";
+import { EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../services/EndPoints";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -46,13 +34,15 @@ class ContentComponent extends Component {
       term: "",
       tblData: "",
       chkrow: false,
-      idCorrespondenceSelected: null
+      checkall: false,
+      idCorrespondenceSelected: null,
+      dataInbox: [],
     };
   }
 
   toggle = () => {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     });
   };
 
@@ -60,11 +50,31 @@ class ContentComponent extends Component {
     const data = document.querySelector("#tablefixed");
     this.setState({
       tblData: data,
-      idCorrespondenceSelected: []
+      idCorrespondenceSelected: [],
     });
+    this.getDataInbox();
   }
+  /* */
+  getDataInbox = () => {
+    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI2MjU5NTgsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImExMTZmMzcyLThjMGMtNDA3Ny05MDIyLWQwMTM0NzY0M2FmZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.EQy8M5cTIOVavoNuve5R0hNkRCQ1ihAaNP2YhPwgptgC9WMd1pSKAqk54fmvY3cMA2mwxOHi-X9uLahuIoQIS2g-IyrwbfMrQiRYKMxISUORMXKGhYoiU4CNE6murpRw0kb35PRaevJoh27eh4jH-WcHo4kmpdPRFP54LQ2ZopuCTuxZjF0IlKg5OwKxn4KnEXL5DPFDBIhI0ktpppMMcVlsVWwuSizP2uy24Rj4IqoTIq-M6ncleEwR4FAVmvKp0YkmThLwjmAXp5G49uTZPgEjgESmiQcV55Iz6_gxHg1IeK_QX_OCP644qaBlUBQ74Py9S_pCoxn69DzdguQVfA",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          dataInbox: data,
+        });
+      })
+      .catch((Error) => console.log(" ", Error));
+  };
 
-  tipoDocumento = data => {
+  tipoDocumento = (data) => {
     let tipo = null;
     if (data === "documento") {
       return (tipo = <i className="fa fa-file-text-o" title={`documento`} />);
@@ -74,25 +84,25 @@ class ContentComponent extends Component {
     return null;
   };
 
-  stateDocumento = data => {
+  stateDocumento = (data) => {
     let estado = null;
 
     if (data === "new") {
-      return (estado = "table-success");
+      return (estado = "table-dataNew");
     } else if (data === "out of time") {
-      return (estado = "table-danger");
+      return (estado = "table-dataOutoftime");
     } else if (data === "read") {
-      return (estado = "table-default");
+      return (estado = "table-dataRead");
     }
     return null;
   };
 
-  handleSearchInput = event => {
+  handleSearchInput = (event) => {
     this.setState({ term: event.target.value });
   };
 
-  searchingFor = term => {
-    return function(x) {
+  searchingFor = (term) => {
+    return function (x) {
       return x.asunto.includes(term);
     };
   };
@@ -102,7 +112,7 @@ class ContentComponent extends Component {
     const gird = this.state.tblData;
 
     const checkbox = gird.getElementsByTagName("INPUT");
-    console.log(checkbox);
+    // console.log(checkbox);
 
     for (let i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked) {
@@ -111,58 +121,328 @@ class ContentComponent extends Component {
         this.setState({
           idCorrespondenceSelected: this.state.idCorrespondenceSelected.push(
             checkbox[i].parentNode.parentNode.firstChild.innerHTML
-          )
+          ),
         });
-        console.log(this.state.idCorrespondenceSelected);
+        // console.log(this.state.idCorrespondenceSelected);
       }
     }
     console.log("", message);
   };
 
+  // dataTableInbox = () => {
+  //   // const {data} = this.state;
+  //   const { term } = this.state;
+  //   const datainbox = this.state.data
+  //     .filter(this.searchingFor(term))
+  //     .map((aux, i) => {
+  //       // console.log(aux);
+  //       return (
+  //         <tr
+  //           className={`${this.stateDocumento(
+  //             aux.estado
+  //           )} table-externalCorrespondence`}
+  //         >
+  //           <td className="hidden" style={{ display: "none" }}>
+  //             {aux.estado === "new" ? <b>{aux.id}</b> : aux.id}
+  //           </td>
+
+  //           <td className="inbox-small-cells">
+  //             <input
+  //               name="foo"
+  //               type="checkbox"
+  //               className="mail-checkbox"
+  //               defaultChecked={this.state.chkrow}
+  //               onChange={(e) => {
+  //                 this.setState({ chkrow: e.target.value });
+  //                 // this.setState({ chkrow: !this.state.chkrow });
+  //               }}
+  //             />
+  //           </td>
+
+  //           <td className="inbox-small-cells">
+  //             {this.tipoDocumento(aux.tipo)}
+  //           </td>
+
+  //           <td className="view-message dont-show">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b> {aux.sede}</b>
+  //             ) : (
+  //               aux.sede
+  //             )}
+  //           </td>
+
+  //           <td className="view-message">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b> {aux.consecutivo}</b>
+  //             ) : (
+  //               aux.consecutivo
+  //             )}
+  //           </td>
+
+  //           <td>
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <Link
+  //                 // style={{ color: "black" }}
+  //                 to={`/correspondence/external/view/${aux.id}`}
+  //               >
+  //                 <i className="fa fa-paperclip" />
+  //                 {aux.estado === "new" || aux.estado === "out of time" ? (
+  //                   <b> {aux.asunto}</b>
+  //                 ) : (
+  //                   aux.asunto
+  //                 )}
+  //               </Link>
+  //             ) : (
+  //               <Link
+  //                 style={{ color: "black" }}
+  //                 to={`/correspondence/external/view/${aux.id}`}
+  //               >
+  //                 <i className="fa fa-paperclip" />
+  //                 {aux.estado === "new" || aux.estado === "out of time" ? (
+  //                   <b> {aux.asunto}</b>
+  //                 ) : (
+  //                   aux.asunto
+  //                 )}
+  //               </Link>
+  //             )}
+  //           </td>
+
+  //           <td className="view-message inbox-small-cells">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b> {aux.fecha_documento}</b>
+  //             ) : (
+  //               aux.fecha_documento
+  //             )}
+  //           </td>
+
+  //           <td className="view-message text-center">
+  //             {aux.estado === "new" || aux.estado === "out of time" ? (
+  //               <b>{aux.destinatarios[0].name_destinatario}</b>
+  //             ) : (
+  //               aux.destinatarios[0].name_destinatario
+  //             )}
+  //           </td>
+  //         </tr>
+  //       );
+  //     });
+  //   return datainbox;
+  // };
+  DocumentDate(date) {
+    let documentDate;
+    documentDate = new Date(date);
+    return moment(documentDate).format("DD-MM-YYYY");
+  }
+
+  /* datos server */
+
+  dataTableInbox = () => {
+    // const {data} = this.state;
+    const { term } = this.state;
+    const datainbox = this.state.dataInbox.map((aux, i) => {
+      // console.log(aux);
+      return (
+        <tr
+          className={`${this.stateDocumento(
+            "new"
+          )} table-externalCorrespondence`}
+        >
+          <td className="hidden" style={{ display: "none" }}>
+            {aux.id}
+          </td>
+
+          <td className="inbox-small-cells">
+            <input
+              name="foo"
+              type="checkbox"
+              className="mail-checkbox"
+              defaultChecked={this.state.chkrow}
+              onChange={(e) => {
+                this.setState({ chkrow: e.target.value });
+                // this.setState({ chkrow: !this.state.chkrow });
+              }}
+            />
+          </td>
+
+          <td className="inbox-small-cells">
+            {this.tipoDocumento("documento")}
+          </td>
+
+          <td className="view-message dont-show">{aux.headquarter.name}</td>
+
+          <td className="view-message">{aux.numFiling}</td>
+
+          <td>
+            <Link
+              // style={{ color: "black" }}
+              to={`/correspondence/external/view/${aux.id}`}
+            >
+              <i className="fa fa-paperclip" />
+              {aux.issue}
+            </Link>
+          </td>
+
+          <td className="view-message inbox-small-cells">
+            {this.DocumentDate(aux.documentDate)}
+          </td>
+
+          <td className="view-message text-center"></td>
+        </tr>
+      );
+    });
+    return datainbox;
+  };
+
+  /* hasta acá */
+  toggleCheckboxes = (source, cbName) => {
+    // background: rgb(194,219,255);
+    for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
+      document.getElementsByName(cbName)[i].checked = source;
+    }
+  };
+
   render() {
-    const id = this.state.id;
-    const term = this.state.term;
-    const datainbox = this.state.data
-      .filter(this.searchingFor(term))
-      .map((aux, i) => {
-        return (
-          <tr className={this.stateDocumento(aux.estado)}>
-            <td className="hidden" style={{ display: "none" }}>
-              {aux.id}
-            </td>
-            <td className="inbox-small-cells">
-              <input
-                type="checkbox"
-                className="mail-checkbox"
-                defaultChecked={this.state.chkrow}
-                onChange={e => {
-                  this.setState({ chkrow: e.target.value });
-                }}
-              />
-            </td>
-            <td className="inbox-small-cells">
-              {this.tipoDocumento(aux.tipo)}
-            </td>
-            <td className="view-message dont-show">{aux.sede} </td>
-            <td className="view-message">{aux.consecutivo}</td>
-            <td>
-              <Link to={`/correspondence/external/view/${aux.id}`}>
-                {aux.asunto}
-                <i className="fa fa-paperclip" />
-              </Link>
-            </td>
-            <td className="view-message inbox-small-cells">
-              {aux.fecha_documento}
-            </td>
-            <td className="view-message text-center">
-              {aux.destinatarios[0].name_destinatario}
-            </td>
-          </tr>
-        );
-      });
+    const { dataInbox } = this.state;
+    console.log(dataInbox);
     return (
-      <div className="animated fadeIn">
-        <div className="inbox-body">
+      // <div className="animated fadeIn">
+      // <br />
+      <div className="d-none d-sm-block" style={{ marginTop: "1px" }}>
+        <Container style={{ marginLeft: "0px", padding: "0" }}>
+          <Card>
+            <CardHeader
+              className="text-center"
+              style={{ fontSize: "14px", fontWeight: "500" }}
+            >
+              <i className="icon-drawer" /> &nbsp; Bandeja de correspondencia
+              recibida vigencia 2020
+            </CardHeader>
+            <CardBody>
+              <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
+                {/* <Col md="3">
+                  <ButtonDropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                  >
+                    <DropdownToggle caret size="sm">
+                      Acciones
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={() => this.getSelect()}>
+                        Seleccionar todo
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </Col> */}
+                <Col md="9">
+                  <InputGroup className="mb-4">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        {/* <i className="icon-search" /> */}
+                        <i class="fa fa-search"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      style={{ width: "auto" }}
+                      placeholder={`Buscar correspondencia`}
+                      onChange={(e) => this.handleSearchInput(e)}
+                    />
+                  </InputGroup>
+                </Col>
+                <Col md="3">
+                  <div className="float-right">
+                    <ul className="pagination">
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          <i className="fa fa-angle-double-left" />
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          1
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a className="page-link" href="#">
+                          2
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          3
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          <i className="fa fa-angle-double-right" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </Col>
+              </Row>
+              <Container>
+                <Row>
+                  <Col md="12" style={{ padding: "0" }}>
+                    <div className="table-responsive">
+                      <table
+                        id="tablefixed"
+                        className="table table-sm"
+                        // style={{ backgroundColor: "#F0F3F5" }}
+                      >
+                        <thead>
+                          <tr
+                            className="text-center"
+                            style={{ background: "#45B254 !important" }}
+                          >
+                            <th style={{ width: "10px" }}>
+                              <input
+                                type="checkbox"
+                                onClick={() =>
+                                  this.setState(
+                                    {
+                                      checkall: !this.state.checkall,
+                                    },
+                                    () =>
+                                      this.toggleCheckboxes(
+                                        this.state.checkall,
+                                        "foo"
+                                      )
+                                  )
+                                }
+                              />
+                            </th>
+                            <th style={{ width: "10px" }}>Tipo</th>
+                            <th style={{ width: "100px" }}>Sede</th>
+                            <th style={{ width: "10px" }}>Consecutivo</th>
+                            <th style={{ width: "50px" }}>Asunto</th>
+                            <th style={{ width: "50px" }}>Fecha</th>
+                            <th style={{ width: "50px" }}>Destinatarios</th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          className="text-center"
+                          style={{
+                            height: "200px",
+                            overflowY: "auto",
+                            width: "100%",
+                          }}
+                        >
+                          {/* {datainbox} */}
+                          {this.dataTableInbox()}
+                        </tbody>
+                      </table>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </CardBody>
+          </Card>
+        </Container>
+      </div>
+
+      /* <div className="inbox-body">
           <h5 className="text-center">
             Bandeja de correspondencia recibida vigencia 2019{" "}
           </h5>
@@ -181,19 +461,20 @@ class ContentComponent extends Component {
                   </DropdownItem>
                 </DropdownMenu>
               </ButtonDropdown>
-            </div>
-            {/* <div className="btn-group">
+            </div> */
+
+      /* <div className="btn-group">
               <button className="btn btn-secondary btn-sm">
                 <i className="fa fa-refresh" />
               </button>
-            </div> */}
+            </div> */
 
-            <div className="btn-group hidden-phone">
+      /* <div className="btn-group hidden-phone">
               <input
                 type="text"
                 className="form-control"
                 style={{ width: "750px" }}
-                placeholder={`Bsucar correspondencia`}
+                placeholder={`Buscar correspondencia`}
                 onChange={e => this.handleSearchInput(e)}
               />
             </div>
@@ -227,9 +508,10 @@ class ContentComponent extends Component {
               </ul>
             </div>
           </div>
-        </div>
-        {/* --------------------------------------------------------------------------------------------------- */}
-        <div className="table-responsive">
+        </div> */
+      /* --------------------------------------------------------------------------------------------------- */
+
+      /* <div className="table-responsive">
           <table id="tablefixed" className="table table-sm table-hover">
             <thead>
               <tr className="text-center">
@@ -248,9 +530,9 @@ class ContentComponent extends Component {
               className="text-center"
               style={{ height: "200px", overflowY: "auto", width: "100%" }}
             >
-              {datainbox}
+              {datainbox} */
 
-              {/* <tr className="table-danger">
+      /* <tr className="table-danger">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -267,9 +549,9 @@ class ContentComponent extends Component {
                 </td>
                 <td className="view-message inbox-small-cells">04/10/2018</td>
                 <td className="view-message text-center">Pedro</td>
-              </tr> */}
+              </tr> */
 
-              {/* <tr className="table-success">
+      /* <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
                 </td>
@@ -325,9 +607,9 @@ class ContentComponent extends Component {
                 <td className="view-message inbox-small-cells">04/10/2018</td>
 
                 <td className="view-message text-center">Pedro</td>
-              </tr> */}
-              {/* ---------------------------------------------------------------------------------------------- */}
-              {/*
+              </tr> */
+      /* ---------------------------------------------------------------------------------------------- */
+      /*
               <tr className="table-success">
                 <td className="inbox-small-cells">
                   <input type="checkbox" className="mail-checkbox" />
@@ -371,11 +653,12 @@ class ContentComponent extends Component {
                   <i className="fa fa-paperclip" />
                 </td>
                 <td className="view-message  text-right">9:27 AM</td>
-              </tr> */}
-            </tbody>
+              </tr> */
+
+      /* </tbody>
           </table>
-        </div>
-      </div>
+        </div> */
+      // </div>
     );
   }
 }

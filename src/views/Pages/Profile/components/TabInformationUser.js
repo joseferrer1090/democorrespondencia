@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   TabContent,
@@ -6,10 +6,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
   Row,
   Col
 } from "reactstrap";
@@ -38,7 +34,7 @@ class TabInformationUser extends Component {
 
   render() {
     return (
-      <div className="animated fadeIn">
+      <Fragment>
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -101,21 +97,35 @@ class TabInformationUser extends Component {
             </Row>
           </TabPane>
           <TabPane tabId="2">
-            <ThemeSelector />
+            <Row>
+              <Col sm="12">
+                <ThemeSelector />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tabId="3">
-            <ChangeTheme />
+            <Row>
+              <Col sm="12">
+                <ChangeTheme />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tabId="4">
-            <div className="col-md-12">
-              <ChangePassword />
-            </div>
+            <Row>
+              <Col sm="12">
+                <ChangePassword />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tabId="5">
-            <FormAdvance />
+            <Row>
+              <Col sm="12">
+                <FormAdvance />
+              </Col>
+            </Row>
           </TabPane>
         </TabContent>
-      </div>
+      </Fragment>
     );
   }
 }

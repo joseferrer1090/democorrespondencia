@@ -41,6 +41,28 @@ export default {
               icon: "icon-pencil"
             }
           ]
+        },
+        {
+          name: "Ventanilla única",
+          url: "/correspondence/one-stop shop",
+          icon: "fa fa-window-maximize",
+          children: [
+            {
+              name: "Radicación vía email",
+              url: "/correspondence/one-stop-shop/email",
+              icon: "fa fa-at"
+            },
+            {
+              name: "Radicación vía web",
+              url: "/correspondence/one-stop-shop/web",
+              icon: "fa fa-globe"
+            },
+            {
+              name: "Radicar un documento",
+              url: "/correspondence/one-stop-shop/document",
+              icon: "fa fa-file"
+            }
+          ]
         }
       ]
     }

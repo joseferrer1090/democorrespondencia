@@ -1,29 +1,36 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  CardTitle,
-  CardText,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Row,
-  Col
-} from "reactstrap";
+import { CardTitle, Row, Col } from "reactstrap";
 import TabInformation from "./components/TabInformationUser";
-import ChangePassword from "./components/ChangePasswordUser";
-import imgProfile from "./../../../assets/img/user_profile.svg";
+
+const acceptedFileTypes =
+  "image/x-png, image/png, image/jpg, image/jpeg, image/gif";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      imgProfile: "/assets/img/avatars/user2.jpg"
+    };
+    this.inputOpenFileRef = React.createRef();
   }
+  onChange = e => {
+    let files = e.target.files;
+    let dataImg = e.target.files[0];
+    console.warn("Data file:", files);
+    console.log(e.target.files[0].name);
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = e => {
+      this.setState({ imgProfile: e.target.result });
+      setTimeout(e => {
+        alert(`Se modifico con éxito la imagen:                  
+                  name: ${dataImg.name},
+                  size: ${dataImg.size},
+                  type: ${dataImg.type}`);
+      }, 1000);
+    };
+  };
   render() {
     return (
       <div className="animated fadeIn">
@@ -34,13 +41,22 @@ class Profile extends Component {
               <a
                 className="text-center"
                 onClick={() => {
-                  alert("Probando");
+                  this.inputOpenFileRef.current.click();
                 }}
               >
                 <img
-                  className="img-responsive"
-                  src={imgProfile}
-                  style={{ margin: "10px" }}
+                  className="img-thumbnail"
+                  src={this.state.imgProfile}
+                  style={{ margin: "10px", width: "150px", height: "150px" }}
+                />
+                <input
+                  multiple={false}
+                  accept={acceptedFileTypes}
+                  type="file"
+                  name="file"
+                  style={{ display: "none" }}
+                  ref={this.inputOpenFileRef}
+                  onChange={e => this.onChange(e)}
                 />
               </a>
               <CardTitle>
@@ -75,10 +91,8 @@ class Profile extends Component {
             </div> */}
           </Col>
           <Col sm="9">
-            <div>
-              <Card body style={{ height: "auto" }}>
-                <TabInformation />
-              </Card>
+            <div className="" style={{ height: "auto" }}>
+              <TabInformation />
             </div>
             {/* <div>
               <Card body style={{ height: "auto" }}>

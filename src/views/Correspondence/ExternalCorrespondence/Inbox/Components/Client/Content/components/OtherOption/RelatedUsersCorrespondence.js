@@ -15,13 +15,13 @@ class RelatedUsersCorrespondence extends Component {
       {
         date: "2012-01-01 02:04:02",
         severity: "INFO",
-        msg: "Bar was successful"
+        msg: "Bar was successful",
       },
       {
         date: "2012-01-01 02:10:12",
         severity: "DEBUG",
-        msg: "Baz was notified"
-      }
+        msg: "Baz was notified",
+      },
     ];
     return (
       <div>
@@ -30,7 +30,7 @@ class RelatedUsersCorrespondence extends Component {
           <div
             style={{
               minHeight: "600px",
-              marginTop: "0px"
+              marginTop: "0px",
             }}
           >
             <div className="row">
@@ -88,71 +88,75 @@ class RelatedUsersCorrespondence extends Component {
                   <hr style={{ marginTop: "0px" }} />
                   <div className="row">
                     <div className="col-md-12">
-                      <div className="p-1 mb-0 bg-secondary text-dark">
-                        Usuarios que despachan la comunicación recibida
+                      <div className="card">
+                        <div className="p-1 mb-0 bg-secondary text-dark">
+                          Usuarios que despachan la comunicación recibida
+                        </div>
+                        <div className="card-body">
+                          <table className="table table-hover table-sm">
+                            <thead className="thead-dark">
+                              <tr>
+                                <th className="text-center" scope="col">
+                                  Nombre
+                                </th>
+                                <th className="text-center" scope="col">
+                                  Dependencia
+                                </th>
+                                <th className="text-center" scope="col">
+                                  Origen
+                                </th>
+                                <th className="text-center" scope="col">
+                                  Documento
+                                </th>
+                                <th className="text-center" scope="col">
+                                  Consulta sobre correspondencia
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="text-center">
+                                <th scope="row">Pedro</th>
+                                <td>Dependencia 1</td>
+                                <td>Registro de correspondencia</td>
+                                <td>Original</td>
+                                <td>
+                                  <code>
+                                    El usuario vió el detalle del documento
+                                    Fecha : 04/10/2018 Hora : 09:06:32{" "}
+                                  </code>
+                                </td>
+                              </tr>
+                              <tr className="text-center">
+                                <th scope="row">Pedro</th>
+                                <td>Dependencia 1</td>
+                                <td>Registro de correspondencia</td>
+                                <td>Original</td>
+                                <td>
+                                  <code>
+                                    El usuario vió el detalle del documento
+                                    Fecha : 04/10/2018 Hora : 09:06:32{" "}
+                                  </code>
+                                </td>
+                              </tr>
+                              <tr className="text-center">
+                                <th scope="row">Pedro</th>
+                                <td>Dependencia 1</td>
+                                <td>Registro de correspondencia</td>
+                                <td>Original</td>
+                                <td>
+                                  <code>
+                                    El usuario vió el detalle del documento
+                                    Fecha : 04/10/2018 Hora : 09:06:32{" "}
+                                  </code>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
-                      <table className="table table-hover table-sm">
-                        <thead className="thead-dark">
-                          <tr>
-                            <th className="text-center" scope="col">
-                              Nombre
-                            </th>
-                            <th className="text-center" scope="col">
-                              Dependencia
-                            </th>
-                            <th className="text-center" scope="col">
-                              Origen
-                            </th>
-                            <th className="text-center" scope="col">
-                              Documento
-                            </th>
-                            <th className="text-center" scope="col">
-                              Consulta sobre correspondencia
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="text-center">
-                            <th scope="row">Pedro</th>
-                            <td>Dependencia 1</td>
-                            <td>Registro de correspondencia</td>
-                            <td>Original</td>
-                            <td>
-                              <code>
-                                El usuario vió el detalle del documento Fecha :
-                                04/10/2018 Hora : 09:06:32{" "}
-                              </code>
-                            </td>
-                          </tr>
-                          <tr className="text-center">
-                            <th scope="row">Pedro</th>
-                            <td>Dependencia 1</td>
-                            <td>Registro de correspondencia</td>
-                            <td>Original</td>
-                            <td>
-                              <code>
-                                El usuario vió el detalle del documento Fecha :
-                                04/10/2018 Hora : 09:06:32{" "}
-                              </code>
-                            </td>
-                          </tr>
-                          <tr className="text-center">
-                            <th scope="row">Pedro</th>
-                            <td>Dependencia 1</td>
-                            <td>Registro de correspondencia</td>
-                            <td>Original</td>
-                            <td>
-                              <code>
-                                El usuario vió el detalle del documento Fecha :
-                                04/10/2018 Hora : 09:06:32{" "}
-                              </code>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
                     </div>
                   </div>
-                  <div className="container">
+                  {/* <div className="container">
                     <div className="row">
                       <div
                         className="col-md-12"
@@ -164,68 +168,73 @@ class RelatedUsersCorrespondence extends Component {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <hr />
                   <div className="row">
                     <div className="col-md-12">
                       <div className="p-1 mb-0 bg-secondary text-dark">
                         Destinatarios
                       </div>
-                      <table className="table table-hover table-sm">
-                        <thead className="thead-dark">
-                          <tr>
-                            <th className="text-center" scope="col">
-                              Nombre
-                            </th>
-                            <th className="text-center" scope="col">
-                              Dependencia
-                            </th>
-                            <th className="text-center" scope="col">
-                              Origen
-                            </th>
+                      <div className="card">
+                        <div className="card-body">
+                          <table className="table table-hover table-sm">
+                            <thead className="thead-dark">
+                              <tr>
+                                <th className="text-center" scope="col">
+                                  Nombre
+                                </th>
+                                <th className="text-center" scope="col">
+                                  Dependencia
+                                </th>
+                                <th className="text-center" scope="col">
+                                  Origen
+                                </th>
 
-                            <th className="text-center" scope="col">
-                              Consulta sobre correspondencia
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="text-center">
-                            <th scope="row">Pedro</th>
-                            <td>Dependencia 1</td>
-                            <td>Original</td>
-                            <td>
-                              <code>
-                                El usuario vió el detalle del documento Fecha :
-                                04/10/2018 Hora : 09:06:32{" "}
-                              </code>
-                            </td>
-                          </tr>
-                          <tr className="text-center">
-                            <th scope="row">Pedro</th>
-                            <td>Dependencia 1</td>
-                            <td>Original</td>
-                            <td>
-                              <code>
-                                El usuario vió el detalle del documento Fecha :
-                                04/10/2018 Hora : 09:06:32{" "}
-                              </code>
-                            </td>
-                          </tr>
-                          <tr className="text-center">
-                            <th scope="row">Pedro</th>
-                            <td>Dependencia 1</td>
-                            <td>Original</td>
-                            <td>
-                              <code>
-                                El usuario vió el detalle del documento Fecha :
-                                04/10/2018 Hora : 09:06:32{" "}
-                              </code>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div className="container">
+                                <th className="text-center" scope="col">
+                                  Consulta sobre correspondencia
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="text-center">
+                                <th scope="row">Pedro</th>
+                                <td>Dependencia 1</td>
+                                <td>Original</td>
+                                <td>
+                                  <code>
+                                    El usuario vió el detalle del documento
+                                    Fecha : 04/10/2018 Hora : 09:06:32{" "}
+                                  </code>
+                                </td>
+                              </tr>
+                              <tr className="text-center">
+                                <th scope="row">Pedro</th>
+                                <td>Dependencia 1</td>
+                                <td>Original</td>
+                                <td>
+                                  <code>
+                                    El usuario vió el detalle del documento
+                                    Fecha : 04/10/2018 Hora : 09:06:32{" "}
+                                  </code>
+                                </td>
+                              </tr>
+                              <tr className="text-center">
+                                <th scope="row">Pedro</th>
+                                <td>Dependencia 1</td>
+                                <td>Original</td>
+                                <td>
+                                  <code>
+                                    El usuario vió el detalle del documento
+                                    Fecha : 04/10/2018 Hora : 09:06:32{" "}
+                                  </code>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      {/* <div className="container">
                         <div className="row">
                           <div
                             className="col-md-12"
@@ -237,7 +246,7 @@ class RelatedUsersCorrespondence extends Component {
                             </p>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </Card>
