@@ -9,8 +9,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store/store";
 import Cookie from "js-cookie";
+import { asyncLocalStorage } from "./utils/asynclocalstorage";
 
 const auth = Cookie.get("auth");
+asyncLocalStorage.setItem("auth_token", auth);
 
 ReactDOM.render(
   <Provider store={store}>
