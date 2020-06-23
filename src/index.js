@@ -8,10 +8,13 @@ import { Provider } from "react-redux";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store/store";
+import Cookie from "js-cookie";
+
+const auth = Cookie.get("auth");
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App authorization={auth} />
   </Provider>,
   document.getElementById("root")
 );

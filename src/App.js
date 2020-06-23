@@ -3,9 +3,10 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import Loadable from "react-loadable";
 import "./App.scss";
-import Cookie from "js-cookie";
 
-const auth = Cookie.get("auth");
+// Metodos para settear el localStorage
+// PrivateRoute => proteccion de las rutas
+// Validacion del localStorage y del sessionStorage => para la seguridad
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Loading...</div>
@@ -31,7 +32,6 @@ const Page500 = Loadable({
 
 class App extends Component {
   render() {
-    console.log(auth);
     return (
       <HashRouter>
         <Switch>
