@@ -5,7 +5,6 @@ import { withFormik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import { Collapse } from "reactstrap";
 import moment from "moment";
-
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
 import CardRemitente from "../../AuxiliaryComponents/Cardinformation";
@@ -26,7 +25,6 @@ import ReceiverFieldHeadquarter from "./Components/ReceiverSelectHeadquarter";
 import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
 import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
-
 import ThirdParty from "./Components/SelectTercero";
 
 const FormStep1 = (props) => {
@@ -80,7 +78,13 @@ const FormStep1 = (props) => {
   ] = useState();
   const [StateChangeAlert, setAux] = useState("");
   const [valueIdentification, setValueIdentification] = useState(null);
+  const [oldValue, setOldValue] = useState();
+  const [newValue, setNewValue] = useState();
 
+  const changeInValue = (Old, New) => {
+    setOldValue(Old);
+    setNewValue(New);
+  };
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
     setNewValueConglomerate(New);
@@ -617,266 +621,24 @@ const FormStep1 = (props) => {
                 </div>
               </div>
             </div>
-            {/* <div className="card">
-              <div className="p-2 mb-1 bg-secondary text-dark">
-                Respuesta a correspondencia despachada
-              </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Conglomerado</label>
-                      <SelectConglomerado
-                        // authorization={props.authorization}
-                        // t={props.t}
-                        name={"correspondence_conglomerate"}
-                        onChange={(e) => {
-                          setFieldValue(
-                            "correspondence_conglomerate",
-                            e.target.value
-                          );
-                          changeInValueConglomerate(
-                            values.correspondence_conglomerate,
-                            e.target.value
-                          );
-                        }}
-                        onBlur={() =>
-                          setFieldTouched("correspondence_conglomerate", true)
-                        }
-                        value={values.correspondence_conglomerate}
-                        className={`form-control form-control-sm ${
-                          errors.correspondence_conglomerate &&
-                          touched.correspondence_conglomerate &&
-                          "is-invalid"
-                        }`}
-                      />
-
-                      <div style={{ color: "#D54B4B" }}>
-                        {errors.correspondence_conglomerate &&
-                        touched.correspondence_conglomerate ? (
-                          <i class="fa fa-exclamation-triangle" />
-                        ) : null}
-                        <ErrorMessage name="correspondence_conglomerate" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Empresa</label>
-                      <Field
-                        // authorization={props.authorization}
-                        // t={props.t}
-                        name="correspondence_company"
-                        component={FieldCompany}
-                        oldValueConglomerateId={oldValueConglomerate}
-                        newValueConglomerateId={newValueConglomerate}
-                        conglomerateId={values.correspondence_conglomerate}
-                      ></Field>
-                      <div style={{ color: "#D54B4B" }}>
-                        {errors.correspondence_company &&
-                        touched.correspondence_company ? (
-                          <i class="fa fa-exclamation-triangle" />
-                        ) : null}
-                        <ErrorMessage name="correspondence_company" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Sede</label>
-                      <Field
-                        //   authorization={props.authorization}
-                        //   t={props.t}
-                        name="correspondence_headquarter"
-                        component={FieldHeadquarter}
-                        companyId={values.correspondence_company}
-                        conglomerateId={values.correspondence_conglomerate}
-                      ></Field>
-                      <div style={{ color: "#D54B4B" }}>
-                        {errors.correspondence_headquarter &&
-                        touched.correspondence_headquarter ? (
-                          <i className="fa fa-exclamation-triangle" />
-                        ) : null}
-                        <ErrorMessage name="correspondence_headquarter" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label> Vigencia </label>
-                      <select className="form-control  form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="form-group">
-                      <label> Consecutivo</label>
-                      <div className="input-group input-group-sm mb-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-sm"
-                        />
-                        <div className="input-group-prepend">
-                          <button
-                            className="btn btn-secondary"
-                            type="button"
-                            id="button-addon2"
-                            // onClick={(() => toggle(), console.log("toggl1"))}
-                            onClick={() => toggle()}
-                          >
-                            <i className="fa fa-search" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-12">
-                    <Collapse isOpen={collapse}>
-                      <div className="card">
-                        <div className="p-2 mb-1 bg-secondary text-dark">
-                          Correspondencia despachada
-                        </div>
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-md-5">
-                              <div className="form-group">
-                                <label>Criterio</label>
-                                <select className="form-control form-control-sm">
-                                  <option>-- Seleccione --</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-md-7">
-                              <div className="form-group">
-                                <label> Consecutivo</label>
-                                <div className="input-group input-group-sm mb-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    aria-label="Sizing example input"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                  />
-                                  <div className="input-group-prepend">
-                                    <button
-                                      className="btn btn-secondary"
-                                      type="button"
-                                      id="button-addon2"
-                                      onClick={() => toggle2()}
-                                    >
-                                      <i className="fa fa-search" />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <Collapse isOpen={collapse2}>
-                                <table className="table table-sm border table-hover">
-                                  <thead>
-                                    <tr className="text-center">
-                                      <th>Sede</th>
-                                      <th>Vigencia</th>
-                                      <th>Consecutivo</th>
-                                      <th>Asunto</th>
-                                      <th>Acciones</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="text-center">
-                                    <tr>
-                                      <td>Bogota centro de logistica</td>
-                                      <td>2020</td>
-                                      <td>223</td>
-                                      <td>31919</td>
-                                      <td>
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalView()}
-                                        >
-                                          <i className="fa fa-eye" />
-                                        </button>
-                                        &nbsp;
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalAdd()}
-                                        >
-                                          <i className="fa fa-plus" />
-                                        </button>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Bogota principal</td>
-                                      <td>2019</td>
-                                      <td>339</td>
-                                      <td>8820047687</td>
-                                      <td>
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalView()}
-                                        >
-                                          <i className="fa fa-eye" />
-                                        </button>
-                                        &nbsp;
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalAdd()}
-                                        >
-                                          <i className="fa fa-plus" />
-                                        </button>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Bogota principal</td>
-                                      <td>2019</td>
-                                      <td>216</td>
-                                      <td>BLA-4700001056</td>
-                                      <td>
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalView()}
-                                        >
-                                          <i className="fa fa-eye" />
-                                        </button>
-                                        &nbsp;
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalAdd()}
-                                        >
-                                          <i className="fa fa-plus" />
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </Collapse>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Collapse>
-                  </div>
-                </div>
-              </div>
-            </div> */}
             <div className="card">
-              <div className="p-2 mb-1 bg-secondary text-dark">Tercero</div>
+              <div className="p-2 mb-1 bg-secondary text-dark">
+                Asignar tercero
+              </div>
               <div className="card-body">
                 <div className="row">
                   <div className="col-md-8">
                     <div className="form-group">
                       <label>
-                        Buscar remitente <span className="text-danger">*</span>{" "}
+                        Buscar tercero: <span className="text-danger">*</span>{" "}
                       </label>
+                      <div>
+                        <label>
+                          • Por favor introduzca el número de documento:{" "}
+                        </label>{" "}
+                      </div>
                       <div className="input-group input-group-sm mb-3">
+                        &nbsp;
                         <input
                           // type="text"
                           // className="form-control"
