@@ -108,9 +108,9 @@ class DefaultHeader extends Component {
                 >
                   <i className="fa fa-refresh" /> cambiar de aplicacion
                 </DropdownItem>
-                <DropdownItem onClick={(e) => this.props.onLogout(e)}>
+                {/* <DropdownItem onClick={(e) => this.props.onLogout(e)}>
                   <i className="fa fa-lock" /> cerrar sesion
-                </DropdownItem>
+                </DropdownItem> */}
               </DropdownMenu>
             </UncontrolledDropdown>
           </AppHeaderDropdown>
