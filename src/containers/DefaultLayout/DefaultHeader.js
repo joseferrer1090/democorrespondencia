@@ -8,7 +8,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown
+  UncontrolledDropdown,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import url from "./../../services/deploymentdata";
@@ -16,13 +16,13 @@ import {
   AppAsideToggler,
   AppHeaderDropdown,
   AppNavbarBrand,
-  AppSidebarToggler
+  AppSidebarToggler,
 } from "@coreui/react";
 import logo from "../../assets/img/sevenet_ori.svg";
 import sygnet from "../../assets/img/sevenet_ori.svg";
 
 const propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 const defaultProps = {};
@@ -89,7 +89,7 @@ class DefaultHeader extends Component {
                     style={{
                       textDecoration: "none",
                       cursor: "pointer !important",
-                      color: "black"
+                      color: "black",
                     }}
                     to="/perfil"
                   >
@@ -101,14 +101,14 @@ class DefaultHeader extends Component {
                 <i className="fa fa-wrench" /> Herramientas
               </DropdownItem> */}
                 <DropdownItem
-                  onClick={e => {
-                    window.location = `${url.defaultServer}3000/#/middleware`;
+                  onClick={(e) => {
+                    window.location = `${url.defaultLocal}3000/#/middleware`;
                     return null;
                   }}
                 >
                   <i className="fa fa-refresh" /> cambiar de aplicacion
                 </DropdownItem>
-                <DropdownItem onClick={e => this.props.onLogout(e)}>
+                <DropdownItem onClick={(e) => this.props.onLogout(e)}>
                   <i className="fa fa-lock" /> cerrar sesion
                 </DropdownItem>
               </DropdownMenu>
