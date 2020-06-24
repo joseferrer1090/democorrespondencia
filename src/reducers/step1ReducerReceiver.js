@@ -2,7 +2,7 @@ import {
   AGREGAR_USUARIO_ORIGINAL,
   BORRAR_USUARIO_DISPONIBLE,
   AGREGAR_USUARIO_DISPONIBLE,
-} from "./../types";
+} from "../types";
 const initialState = {
   users: [],
   original: {},

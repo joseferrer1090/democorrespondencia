@@ -29,15 +29,32 @@ class ContentComponent extends Component {
     this.state = {
       data: Data2,
       dropdownOpen: false,
-      id:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 ",
       term: "",
       tblData: "",
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
       dataInbox: [],
+      auth: this.props.authorization,
     };
+  }
+
+  static getDerivedStaticFromProps(props, state) {
+    if (props.authorization !== state.auth) {
+      return {
+        auth: props.authorization,
+      };
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.authorization !== prevProps.authorization) {
+      this.setState({
+        auth: this.props.authorization,
+        idCorrespondenceSelected: [],
+      });
+      this.getDataInbox();
+    }
   }
 
   toggle = () => {
@@ -46,23 +63,22 @@ class ContentComponent extends Component {
     });
   };
 
-  componentDidMount() {
-    const data = document.querySelector("#tablefixed");
-    this.setState({
-      tblData: data,
-      idCorrespondenceSelected: [],
-    });
-    this.getDataInbox();
-  }
+  // componentDidMount() {
+  //   const data = document.querySelector("#tablefixed");
+  //   this.setState({
+  //     tblData: data,
+  //     idCorrespondenceSelected: [],
+  //   });
+  //   this.getDataInbox();
+  // }
   /* */
   getDataInbox = () => {
+    console.log(this.props.authorization);
     fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer " +
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI2MjU5NTgsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImExMTZmMzcyLThjMGMtNDA3Ny05MDIyLWQwMTM0NzY0M2FmZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.EQy8M5cTIOVavoNuve5R0hNkRCQ1ihAaNP2YhPwgptgC9WMd1pSKAqk54fmvY3cMA2mwxOHi-X9uLahuIoQIS2g-IyrwbfMrQiRYKMxISUORMXKGhYoiU4CNE6murpRw0kb35PRaevJoh27eh4jH-WcHo4kmpdPRFP54LQ2ZopuCTuxZjF0IlKg5OwKxn4KnEXL5DPFDBIhI0ktpppMMcVlsVWwuSizP2uy24Rj4IqoTIq-M6ncleEwR4FAVmvKp0YkmThLwjmAXp5G49uTZPgEjgESmiQcV55Iz6_gxHg1IeK_QX_OCP644qaBlUBQ74Py9S_pCoxn69DzdguQVfA",
+        Authorization: "Bearer " + this.props.authorization,
       },
     })
       .then((response) => response.json())

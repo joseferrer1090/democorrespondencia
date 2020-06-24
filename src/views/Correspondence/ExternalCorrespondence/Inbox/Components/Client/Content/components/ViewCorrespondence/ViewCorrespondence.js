@@ -29,6 +29,17 @@ const styleHR = {
   marginTop: "0px",
 };
 
+const asyncLocalStorage = {
+  setItem: async function (key, value) {
+    await null;
+    return localStorage.setItem(key, value);
+  },
+  getItem: async function (key) {
+    await null;
+    return localStorage.getItem(key);
+  },
+};
+
 class ViewCorrespondence extends Component {
   constructor(props) {
     super(props);
@@ -49,6 +60,7 @@ class ViewCorrespondence extends Component {
       dataTipoLlegada: {},
       dataTipoDocumental: {},
       dataPlantilla: {},
+      authToken: "",
     };
     this.myViewer = React.createRef();
   }
@@ -66,21 +78,33 @@ class ViewCorrespondence extends Component {
   };
 
   componentDidMount() {
+    this.getDataLocal();
     this.setState(
       {
         id: this.props.match.params,
-      },
-      () => this.getInfoCorrespondencia(this.state.id.id)
+      }
+      // () => this.getInfoCorrespondencia(this.state.id.id)
     );
   }
 
+  getDataLocal = () => {
+    asyncLocalStorage.getItem("auth_token").then((resp) => {
+      this.setState(
+        {
+          authToken: resp,
+        },
+        () => this.getInfoCorrespondencia(this.state.id.id)
+      );
+    });
+  };
+
   getInfoCorrespondencia = (id) => {
+    const { authToken } = this.state;
+    console.log(authToken);
     fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}?username=ccuartas`, {
       method: "GET",
       headers: {
-        Authorization:
-          "Bearer " +
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI2MjU5NTgsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImExMTZmMzcyLThjMGMtNDA3Ny05MDIyLWQwMTM0NzY0M2FmZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.EQy8M5cTIOVavoNuve5R0hNkRCQ1ihAaNP2YhPwgptgC9WMd1pSKAqk54fmvY3cMA2mwxOHi-X9uLahuIoQIS2g-IyrwbfMrQiRYKMxISUORMXKGhYoiU4CNE6murpRw0kb35PRaevJoh27eh4jH-WcHo4kmpdPRFP54LQ2ZopuCTuxZjF0IlKg5OwKxn4KnEXL5DPFDBIhI0ktpppMMcVlsVWwuSizP2uy24Rj4IqoTIq-M6ncleEwR4FAVmvKp0YkmThLwjmAXp5G49uTZPgEjgESmiQcV55Iz6_gxHg1IeK_QX_OCP644qaBlUBQ74Py9S_pCoxn69DzdguQVfA",
+        Authorization: "Bearer " + authToken,
         "Content-Type": "application/json",
       },
     })
@@ -112,12 +136,11 @@ class ViewCorrespondence extends Component {
   };
 
   getInfoUsuario = (id) => {
+    const { authToken } = this.state;
     fetch(`${USER}/${id}/?username=ccuartas`, {
       method: "GET",
       headers: {
-        Authorization:
-          "Bearer " +
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI2MjU5NTgsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImExMTZmMzcyLThjMGMtNDA3Ny05MDIyLWQwMTM0NzY0M2FmZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.EQy8M5cTIOVavoNuve5R0hNkRCQ1ihAaNP2YhPwgptgC9WMd1pSKAqk54fmvY3cMA2mwxOHi-X9uLahuIoQIS2g-IyrwbfMrQiRYKMxISUORMXKGhYoiU4CNE6murpRw0kb35PRaevJoh27eh4jH-WcHo4kmpdPRFP54LQ2ZopuCTuxZjF0IlKg5OwKxn4KnEXL5DPFDBIhI0ktpppMMcVlsVWwuSizP2uy24Rj4IqoTIq-M6ncleEwR4FAVmvKp0YkmThLwjmAXp5G49uTZPgEjgESmiQcV55Iz6_gxHg1IeK_QX_OCP644qaBlUBQ74Py9S_pCoxn69DzdguQVfA",
+        Authorization: "Bearer " + authToken,
         "Content-Type": "application/json",
       },
     })
@@ -181,7 +204,7 @@ class ViewCorrespondence extends Component {
     // console.log(dataCorrespondencia);
     // console.log(dataDestinatarios);
     console.log(dataCorrespondencia);
-
+    console.log(this.state.authToken);
     const dataTableDestinatarios = () => {
       let tableDestinatarios;
       tableDestinatarios = dataDestinatarios.map((aux, idx) => {

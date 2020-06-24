@@ -4,9 +4,9 @@ import { Alert } from "reactstrap";
 import {
   agregarUsuarioOriginal,
   borrarUsuarioDiponible,
-} from "./../../../../../../../../actions/step1Actions";
+} from "../../../../../../../../actions/step1ActionsReceiver";
 const UserListEnabled = (props) => {
-  const aux = useSelector((state) => state.step1Reducer.assigned);
+  const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
   const dispatch = useDispatch();
   const users = props.data;
   const t = props.t;

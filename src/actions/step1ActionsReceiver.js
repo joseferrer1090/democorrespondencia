@@ -2,7 +2,7 @@ import {
   AGREGAR_USUARIO_DISPONIBLE,
   BORRAR_USUARIO_DISPONIBLE,
   AGREGAR_USUARIO_ORIGINAL,
-} from "./../types/index";
+} from "../types/index";
 
 export const agregarUsuarioDisponible = (user) => {
   return { type: AGREGAR_USUARIO_DISPONIBLE, payload: user };

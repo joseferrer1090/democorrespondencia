@@ -19,7 +19,7 @@ const dataStep1 = {
   correspondence_folios: "",
   correspondence_consecutive: "",
   correspondence_criterion: "" /* S */,
-  correspondence_sender: "" /* S */,
+  correspondence_thirdParty: "" /* S */,
   correspondence_group: "" /* S */,
   correspondence_typeDocumentary: "" /* S */,
   correspondence_documentDate: "",
@@ -40,7 +40,10 @@ const FormCreateStep1 = (props) => {
     <div className="animated fadeIn">
       <div className="container">
         <Row>
-          <FormStep1 firstStep={dataStep1} />
+          <FormStep1
+            firstStep={dataStep1}
+            authorization={props.authorization}
+          />
         </Row>
       </div>
     </div>

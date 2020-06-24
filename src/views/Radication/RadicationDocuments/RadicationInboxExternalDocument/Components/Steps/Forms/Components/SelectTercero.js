@@ -1,101 +1,102 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AsyncSelect from "react-select/async";
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../services/EndPoints";
+import { Button } from "reactstrap";
+import { agregarTerceroDisponible } from "../../../../../../../../actions/step1ActionsThirdParty";
 
-// import debounce from "lodash.debounce";
-// import noop from "lodash.noop";git status
+const ThirdParty = (props) => {
+  // const t = props.t;
+  let id = props.id;
+  let valueInput = props.valueInput;
 
-const propTypes = {
-  searchApiUrl: PropTypes.string.isRequired,
-  limit: PropTypes.number,
-  defaultValue: PropTypes.object,
-  actionOnSelectedOption: PropTypes.func,
-};
+  const [IdThirdParty, setIdThirdParty] = useState(null);
+  const [NameThirdParty, setNameThirdParty] = useState(null);
+  // const firstUpdate = useRef(true);
 
-const defaultProps = {
-  limit: 25,
-  defaultValue: null,
-  // actionOnSelectedOption: noop,
-};
+  const dispatch = useDispatch();
+  const AgregarTercero = (user) => dispatch(agregarTerceroDisponible(user));
 
-export default class SearchableSelect extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: "",
-      searchApiUrl: props.searchApiUrl,
-      limit: props.limit,
-      selectedOption: this.props.defaultValue,
-      actionOnSelectedOption: props.actionOnSelectedOption,
-    };
-    // this.getOptions = debounce(this.getOptions.bind(this), 500);
+  const fetchNewValues = (id) => {
+    const auth = props.authorization;
+    fetch(`${THIRDPARTIES_BY_IDENTIFICATION}${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + auth,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setIdThirdParty(data.id);
+        setNameThirdParty(data.name);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+        setIdThirdParty(null);
+        setNameThirdParty(null);
+      });
+  };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.noOptionsMessage = this.noOptionsMessage.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  getOptionValue = (option) => option.id; // maps the result 'id' as the 'value'
-
-  getOptionLabel = (option) => option.name; // maps the result 'name' as the 'label'
-
-  handleChange(selectedOption, { action }) {
-    // you can use the 'action' to do different things here
-    this.setState({
-      selectedOption: selectedOption,
-    });
-    // this is for update action on selectedOption
-    // will use the noop defaultProp if the dev didn't define the prop, so no need to conditionally call
-    this.state.actionOnSelectedOption(selectedOption.value);
-  }
-
-  // async/await returns a Promise, so use the Promise form as seen in the
-  // documentation https://react-select.com/async
-  async getOptions(inputValue) {
-    if (!inputValue) {
-      return [];
+  const validateValues = () => {
+    // if (firstUpdate.current) {
+    //   firstUpdate.current = false;
+    //   return;
+    // }
+    if (id !== null) {
+      console.log("lleva data");
+      fetchNewValues(id);
+    } else {
+      console.log("vacio");
     }
-    const response = await fetch(
-      `${this.state.searchApiUrl}?search=${inputValue}&limit=${this.state.limit}`
-    );
-    const json = await response.json();
-    return json.results;
-  }
+  };
 
-  // inputValue state is controlled in the Select, so this probably isn't necessary
-  // except to maybe validate that it is changing
-  handleInputChange(inputValue) {
-    this.setState({ inputValue });
-    return inputValue;
-  }
+  useEffect(() => {
+    validateValues();
+    console.log(props.id);
+  }, [id]);
 
-  // as long as `i18n.get()` is synchronous, returning a string, there's no need to override the
-  // entire Component
-  noOptionsMessage(inputValue) {
-    if (this.props.options.length) return null;
-    if (!inputValue) {
-      //   return i18n.get('app.commons.label.search');
-    }
-    // return i18n.get('app.commons.errors.emptySearchResult');
-  }
-
-  render() {
-    const { defaultOptions, placeholder } = this.props;
-    const { selectedOption } = this.state;
-    return (
-      <AsyncSelect
-        cacheOptions
-        value={selectedOption}
-        noOptionsMessage={this.noOptionsMessage}
-        getOptionValue={this.getOptionValue}
-        getOptionLabel={this.getOptionLabel}
-        defaultOptions={defaultOptions}
-        loadOptions={this.getOptions}
-        placeholder={placeholder}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
+  return (
+    <div>
+      <div
+        style={{
+          height: "140px",
+          overflow: "scroll",
+          overflowX: "hidden",
+          border: "1px solid #e3e3e3",
+          background: "#e3e3e3",
+          padding: "10px",
+        }}
+      >
+        {NameThirdParty && IdThirdParty && valueInput !== null ? (
+          <ul className="list-unstyled">
+            <li className="media">
+              <img
+                className="mr-2"
+                src="https://via.placeholder.com/40"
+                alt="Generic placeholder image"
+              />
+              <div className="media-body">
+                <p className="mt-0 mb-1">{NameThirdParty}</p>
+                <Button
+                  style={{ marginTop: "-13px", marginLeft: "-12px" }}
+                  color={"link"}
+                  onClick={() =>
+                    AgregarTercero({ id: IdThirdParty, name: NameThirdParty })
+                  }
+                >
+                  <h6 className="badge badge-secondary">Agregar</h6>
+                </Button>
+              </div>
+            </li>
+          </ul>
+        ) : (
+          <span>
+            <i className="fa fa-info-circle" /> Terceros disponibles
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+export default ThirdParty;

@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
-import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { Collapse } from "reactstrap";
-import CardRemitente from "../../AuxiliaryComponents/Cardinformation";
 import { withFormik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
+import { Collapse } from "reactstrap";
+import moment from "moment";
+
+import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
+import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
+import CardRemitente from "../../AuxiliaryComponents/Cardinformation";
 import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
@@ -17,15 +20,14 @@ import FieldCity from "./Components/SelectCity";
 import SelectTypeShipmentArrival from "./Components/SelectTypeShiptmentArrival";
 import SelectMessenger from "./Components/SelectMessenger";
 import SelectTemplate from "./Components/SelectTemplate";
-import moment from "moment";
 import ReceiverSelectConglomerado from "./Components/ReceiverSelectConglomerate";
 import ReceiverFieldCompany from "./Components/ReceiverSelectCompany";
 import ReceiverFieldHeadquarter from "./Components/ReceiverSelectHeadquarter";
 import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
 import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
-import { useSelector } from "react-redux";
-import MySelect from "./Components/SelectTercero";
+
+import ThirdParty from "./Components/SelectTercero";
 
 const FormStep1 = (props) => {
   const {
@@ -41,7 +43,7 @@ const FormStep1 = (props) => {
     t,
   } = props;
 
-  const userData = useSelector((state) => state.step1Reducer);
+  const userData = useSelector((state) => state.step1ReducerReceiver);
 
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
@@ -77,6 +79,7 @@ const FormStep1 = (props) => {
     setNewValueConglomerateReceiver,
   ] = useState();
   const [StateChangeAlert, setAux] = useState("");
+  const [valueIdentification, setValueIdentification] = useState(null);
 
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
@@ -203,7 +206,7 @@ const FormStep1 = (props) => {
                       <div className="form-group">
                         <label> Conglomerado</label>
                         <SelectConglomerado
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name={"correspondence_conglomerate"}
                           onChange={(e) => {
@@ -240,7 +243,7 @@ const FormStep1 = (props) => {
                       <div className="form-group">
                         <label> Empresa </label>
                         <Field
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name="correspondence_company"
                           component={FieldCompany}
@@ -261,7 +264,7 @@ const FormStep1 = (props) => {
                       <div className="form-group">
                         <label>Sede</label>
                         <Field
-                          //   authorization={props.authorization}
+                          authorization={props.authorization}
                           //   t={props.t}
                           name="correspondence_headquarter"
                           component={FieldHeadquarter}
@@ -284,7 +287,7 @@ const FormStep1 = (props) => {
                           <span className="text-danger">*</span>
                         </label>
                         <SelectTypeDocumentary
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name={"correspondence_typeDocumentary"}
                           onChange={(e) => {
@@ -378,7 +381,7 @@ const FormStep1 = (props) => {
                       <div className="form-group">
                         <label>País</label>
                         <SelectCountry
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name={"correspondence_country"}
                           onChange={(e) => {
@@ -417,7 +420,7 @@ const FormStep1 = (props) => {
                       <div className="form-group">
                         <label>Departamento</label>
                         <Field
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name="correspondence_department"
                           component={FieldDepartment}
@@ -440,7 +443,7 @@ const FormStep1 = (props) => {
                           Ciudad <span className="text-danger">*</span>
                         </label>
                         <Field
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name="correspondence_city"
                           component={FieldCity}
@@ -463,7 +466,7 @@ const FormStep1 = (props) => {
                           Tipo de llegada <span className="text-danger">*</span>
                         </label>
                         <SelectTypeShipmentArrival
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name={"correspondence_typeArrival"}
                           onChange={(e) => {
@@ -578,7 +581,7 @@ const FormStep1 = (props) => {
                           Mensajero <span className="text-danger">*</span>
                         </label>
                         <SelectMessenger
-                          // authorization={props.authorization}
+                          authorization={props.authorization}
                           // t={props.t}
                           name={"correspondence_messenger"}
                           onChange={(e) => {
@@ -871,26 +874,55 @@ const FormStep1 = (props) => {
                   <div className="col-md-8">
                     <div className="form-group">
                       <label>
-                        Buscar remitente <span className="text-danger">*</span>
+                        Buscar remitente <span className="text-danger">*</span>{" "}
                       </label>
                       <div className="input-group input-group-sm mb-3">
                         <input
+                          // type="text"
+                          // className="form-control"
+                          // aria-label="Sizing example input"
+                          // aria-describedby="inputGroup-sizing-sm"
+
+                          name={"correspondence_thirdParty"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.correspondence_thirdParty}
                           type="text"
-                          className="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-sm"
+                          className={`form-control form-control-sm ${
+                            errors.correspondence_thirdParty &&
+                            touched.correspondence_thirdParty &&
+                            "is-invalid"
+                          }`}
                         />
                         <div className="input-group-prepend">
                           <button
                             className="btn btn-secondary"
                             type="button"
                             id="button-addon2"
-                            onClick={() => toggle2()}
+                            onClick={() => {
+                              setValueIdentification(
+                                values.correspondence_thirdParty
+                              );
+                            }}
                           >
                             <i className="fa fa-search" />
                           </button>
                         </div>
+                        &nbsp;
+                        <div style={{ color: "#D54B4B" }}>
+                          {errors.correspondence_thirdParty &&
+                          touched.correspondence_thirdParty ? (
+                            <i className="fa fa-exclamation-triangle" />
+                          ) : null}
+                          <ErrorMessage name="correspondence_thirdParty" />
+                        </div>
                       </div>
+
+                      <ThirdParty
+                        id={valueIdentification}
+                        valueInput={values.correspondence_thirdParty}
+                        authorization={props.authorization}
+                      />
                       {/* <MySelect
                         name={"correspondence_sender"}
                         value={values.correspondence_sender}
@@ -931,7 +963,7 @@ const FormStep1 = (props) => {
                     <div className="form-group">
                       <label>Conglomerado</label>
                       <ReceiverSelectConglomerado
-                        // authorization={props.authorization}
+                        authorization={props.authorization}
                         // t={props.t}
                         name={"correspondence_conglomerate_receiver"}
                         onChange={(e) => {
@@ -971,7 +1003,7 @@ const FormStep1 = (props) => {
                     <div className="form-group">
                       <label>Empresa</label>
                       <Field
-                        // authorization={props.authorization}
+                        authorization={props.authorization}
                         // t={props.t}
                         name="correspondence_company_receiver"
                         component={ReceiverFieldCompany}
@@ -994,7 +1026,7 @@ const FormStep1 = (props) => {
                     <div className="form-group">
                       <label>Sede</label>
                       <Field
-                        //   authorization={props.authorization}
+                        authorization={props.authorization}
                         //   t={props.t}
                         name="correspondence_headquarter_receiver"
                         component={ReceiverFieldHeadquarter}
@@ -1016,7 +1048,7 @@ const FormStep1 = (props) => {
                     <div className="form-group">
                       <label>Dependencia</label>
                       <Field
-                        // authorization={props.authorization}
+                        authorization={props.authorization}
                         // t={props.t}
                         name="correspondence_dependence_receiver"
                         component={ReceiverFieldDependence}
@@ -1072,6 +1104,7 @@ const FormStep1 = (props) => {
                     <div className="form-group">
                       <label>Destinatarios disponibles</label>
                       <UserList
+                        authorization={props.authorization}
                         id={values.correspondence_dependence_receiver}
                       />
                     </div>
@@ -1112,7 +1145,7 @@ const FormStep1 = (props) => {
                     <div className="form-group">
                       <label>Plantilla</label>
                       <SelectTemplate
-                        // authorization={props.authorization}
+                        authorization={props.authorization}
                         // t={props.t}
                         name={"correspondence_template"}
                         onChange={(e) => {
@@ -1188,7 +1221,7 @@ export default withFormik({
       props.firstStep.correspondence_company_receiver,
     correspondence_headquarter_receiver:
       props.firstStep.correspondence_headquarter_receiver,
-    correspondence_sender: props.firstStep.correspondence_sender,
+    correspondence_thirdParty: props.firstStep.correspondence_thirdParty,
   }),
   validationSchema: Yup.object().shape({
     correspondence_conglomerate: Yup.string()
@@ -1239,16 +1272,13 @@ export default withFormik({
     correspondence_conglomerate_receiver: Yup.string().nullable().ensure(),
     correspondence_company_receiver: Yup.string().nullable().ensure(),
     correspondence_headquarter_receiver: Yup.string().nullable().ensure(),
-    correspondence_sender: Yup.array().of(
-      Yup.object().shape({
-        label: Yup.string().required(),
-        value: Yup.string().required(),
-      })
+    correspondence_thirdParty: Yup.string().required(
+      " Por favor asigne un tercero."
     ),
   }),
   handleSubmit: (values, { setSubmitting, resetForm, props }) => {
     setTimeout(() => {
-      const auth = "";
+      const auth = props.authorization;
       fetch(EXTERNAL_CORRESPONDENCE_RECEIVED_POST, {
         method: "POST",
         headers: {

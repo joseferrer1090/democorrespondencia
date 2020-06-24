@@ -9,10 +9,22 @@ import Step2 from "./Components/Steps/Step2";
 import Step3 from "./Components/Steps/Step3";
 import Step4 from "./Components/Steps/Step4";
 
+const asyncLocalStorage = {
+  setItem: async function (key, value) {
+    await null;
+    return localStorage.setItem(key, value);
+  },
+  getItem: async function (key) {
+    await null;
+    return localStorage.getItem(key);
+  },
+};
 class RadicationInboxExternalDocument extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      authToken: "",
+    };
   }
   componentDidMount() {
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
@@ -21,8 +33,19 @@ class RadicationInboxExternalDocument extends Component {
       displayNext: false,
       displayPrevious: false,
     });
+    this.getDataLocal();
   }
+
+  getDataLocal = () => {
+    asyncLocalStorage.getItem("auth_token").then((resp) => {
+      this.setState({
+        authToken: resp,
+      });
+    });
+  };
+
   render() {
+    const { authToken } = this.state;
     return (
       <div>
         <HeaderComponent />
@@ -80,7 +103,7 @@ class RadicationInboxExternalDocument extends Component {
                 <div className="bs-stepper-content">
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
-                      <FormCreateStep1 />
+                      <FormCreateStep1 authorization={authToken} />
 
                       {/* <div className="col-md-6 offset-1">
                         <button
