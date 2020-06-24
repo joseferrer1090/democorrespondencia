@@ -42,7 +42,7 @@ const FormStep1 = (props) => {
     t,
   } = props;
 
-  const userData = useSelector((state) => state.step1Reducer);
+  const userData = useSelector((state) => state.step1ReducerReceiver);
 
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
@@ -907,8 +907,20 @@ const FormStep1 = (props) => {
                             <i className="fa fa-search" />
                           </button>
                         </div>
+                        &nbsp;
+                        <div style={{ color: "#D54B4B" }}>
+                          {errors.correspondence_thirdParty &&
+                          touched.correspondence_thirdParty ? (
+                            <i className="fa fa-exclamation-triangle" />
+                          ) : null}
+                          <ErrorMessage name="correspondence_thirdParty" />
+                        </div>
                       </div>
-                      <ThirdParty id={valueIdentification} />
+
+                      <ThirdParty
+                        id={valueIdentification}
+                        valueInput={values.correspondence_thirdParty}
+                      />
                       {/* <MySelect
                         name={"correspondence_sender"}
                         value={values.correspondence_sender}
@@ -1257,11 +1269,8 @@ export default withFormik({
     correspondence_conglomerate_receiver: Yup.string().nullable().ensure(),
     correspondence_company_receiver: Yup.string().nullable().ensure(),
     correspondence_headquarter_receiver: Yup.string().nullable().ensure(),
-    correspondence_sender: Yup.array().of(
-      Yup.object().shape({
-        label: Yup.string().required(),
-        value: Yup.string().required(),
-      })
+    correspondence_thirdParty: Yup.string().required(
+      " Por favor asigne un tercero."
     ),
   }),
   handleSubmit: (values, { setSubmitting, resetForm, props }) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { USERS_BY_DEPENDENCE } from "../../../../../../../../services/EndPoints";
 import { Button } from "reactstrap";
-import { agregarUsuarioDisponible } from "./../../../../../../../../actions/step1Actions";
+import { agregarUsuarioDisponible } from "../../../../../../../../actions/step1ActionsReceiver";
 
 const UserList = (props) => {
   // const t = props.t;

@@ -2,17 +2,19 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../services/EndPoints";
 import { Button } from "reactstrap";
-import { agregarUsuarioDisponible } from "./../../../../../../../../actions/step1Actions";
+import { agregarTerceroDisponible } from "../../../../../../../../actions/step1ActionsThirdParty";
 
 const ThirdParty = (props) => {
   // const t = props.t;
   let id = props.id;
+  let valueInput = props.valueInput;
+
   const [IdThirdParty, setIdThirdParty] = useState(null);
   const [NameThirdParty, setNameThirdParty] = useState(null);
   // const firstUpdate = useRef(true);
 
   const dispatch = useDispatch();
-  const AgregarUsuario = (user) => dispatch(agregarUsuarioDisponible(user));
+  const AgregarTercero = (user) => dispatch(agregarTerceroDisponible(user));
 
   const fetchNewValues = (id) => {
     fetch(`${THIRDPARTIES_BY_IDENTIFICATION}${id}`, {
@@ -67,7 +69,7 @@ const ThirdParty = (props) => {
           padding: "10px",
         }}
       >
-        {NameThirdParty && IdThirdParty !== null ? (
+        {NameThirdParty && IdThirdParty && valueInput !== null ? (
           <ul className="list-unstyled">
             <li className="media">
               <img
@@ -80,9 +82,9 @@ const ThirdParty = (props) => {
                 <Button
                   style={{ marginTop: "-13px", marginLeft: "-12px" }}
                   color={"link"}
-                  // onClick={() =>
-                  //   AgregarUsuario({ id: aux.id, name: aux.name })
-                  // }
+                  onClick={() =>
+                    AgregarTercero({ id: IdThirdParty, name: NameThirdParty })
+                  }
                 >
                   <h6 className="badge badge-secondary">Agregar</h6>
                 </Button>

@@ -7,7 +7,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Row
+  Row,
 } from "reactstrap";
 
 class Page404 extends Component {
@@ -23,6 +23,18 @@ class Page404 extends Component {
                 <p className="text-muted float-left">
                   No se encontró la página que busca.
                 </p>
+              </div>
+              <div className="text-center">
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => {
+                    window.location.href = "http://localhost:3000/#/";
+                  }}
+                >
+                  {" "}
+                  <i className="fa fa-lock" /> Login{" "}
+                </button>
               </div>
             </Col>
           </Row>
