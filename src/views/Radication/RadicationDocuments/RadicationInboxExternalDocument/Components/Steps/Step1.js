@@ -40,7 +40,10 @@ const FormCreateStep1 = (props) => {
     <div className="animated fadeIn">
       <div className="container">
         <Row>
-          <FormStep1 firstStep={dataStep1} />
+          <FormStep1
+            firstStep={dataStep1}
+            authorization={props.authorization}
+          />
         </Row>
       </div>
     </div>
