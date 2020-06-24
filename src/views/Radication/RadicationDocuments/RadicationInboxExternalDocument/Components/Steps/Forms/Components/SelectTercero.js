@@ -1,101 +1,101 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AsyncSelect from "react-select/async";
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../services/EndPoints";
+import { Button } from "reactstrap";
+import { agregarUsuarioDisponible } from "./../../../../../../../../actions/step1Actions";
 
-// import debounce from "lodash.debounce";
-// import noop from "lodash.noop";git status
+const ThirdParty = (props) => {
+  // const t = props.t;
+  let id = props.id;
+  const [IdThirdParty, setIdThirdParty] = useState(null);
+  const [NameThirdParty, setNameThirdParty] = useState(null);
+  // const firstUpdate = useRef(true);
 
-const propTypes = {
-  searchApiUrl: PropTypes.string.isRequired,
-  limit: PropTypes.number,
-  defaultValue: PropTypes.object,
-  actionOnSelectedOption: PropTypes.func,
-};
+  const dispatch = useDispatch();
+  const AgregarUsuario = (user) => dispatch(agregarUsuarioDisponible(user));
 
-const defaultProps = {
-  limit: 25,
-  defaultValue: null,
-  // actionOnSelectedOption: noop,
-};
+  const fetchNewValues = (id) => {
+    fetch(`${THIRDPARTIES_BY_IDENTIFICATION}${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTI5NzQ1NTMsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6ImI0MTQ2ZmVkLTc2OTEtNGE3NC1iZDIxLTgyY2M1YzExYWI4MyIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.gsfQL0ZYxKh0xfOqvkoFBXOfP88AWfPxz97pNqV2XGG0z4tIGOpszkqxSTT0HSDTMa72UykhodcSN7VyODPUw3Losa08MNIRlhIpYQoPoVNGVx5ZeGrykpXPG6MesEbFs-IIq4DgxqDXXSVapRPycf_N-3LIy2GTe4YWr_gwJalmmdvxewSh-bYpx2G_kIKVHzLBdzpwsqCCypnOvmjNr6hLeoLxxrH9dXRoW7jkP7f7u2uwEn5AvFbPmHRyKqrzyGaO7RK1-kYrTrY-oaOUxiq9OdZdB4Vo0BAbJFkRngQ7E6Gr-bG5tnF_i7HBEaz84yL8WY-DKrE2bvBJeG7OCg",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setIdThirdParty(data.id);
+        setNameThirdParty(data.name);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+        setIdThirdParty(null);
+        setNameThirdParty(null);
+      });
+  };
 
-export default class SearchableSelect extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: "",
-      searchApiUrl: props.searchApiUrl,
-      limit: props.limit,
-      selectedOption: this.props.defaultValue,
-      actionOnSelectedOption: props.actionOnSelectedOption,
-    };
-    // this.getOptions = debounce(this.getOptions.bind(this), 500);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.noOptionsMessage = this.noOptionsMessage.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  getOptionValue = (option) => option.id; // maps the result 'id' as the 'value'
-
-  getOptionLabel = (option) => option.name; // maps the result 'name' as the 'label'
-
-  handleChange(selectedOption, { action }) {
-    // you can use the 'action' to do different things here
-    this.setState({
-      selectedOption: selectedOption,
-    });
-    // this is for update action on selectedOption
-    // will use the noop defaultProp if the dev didn't define the prop, so no need to conditionally call
-    this.state.actionOnSelectedOption(selectedOption.value);
-  }
-
-  // async/await returns a Promise, so use the Promise form as seen in the
-  // documentation https://react-select.com/async
-  async getOptions(inputValue) {
-    if (!inputValue) {
-      return [];
+  const validateValues = () => {
+    // if (firstUpdate.current) {
+    //   firstUpdate.current = false;
+    //   return;
+    // }
+    if (id !== null) {
+      console.log("lleva data");
+      fetchNewValues(id);
+    } else {
+      console.log("vacio");
     }
-    const response = await fetch(
-      `${this.state.searchApiUrl}?search=${inputValue}&limit=${this.state.limit}`
-    );
-    const json = await response.json();
-    return json.results;
-  }
+  };
 
-  // inputValue state is controlled in the Select, so this probably isn't necessary
-  // except to maybe validate that it is changing
-  handleInputChange(inputValue) {
-    this.setState({ inputValue });
-    return inputValue;
-  }
+  useEffect(() => {
+    validateValues();
+    console.log(props.id);
+  }, [id]);
 
-  // as long as `i18n.get()` is synchronous, returning a string, there's no need to override the
-  // entire Component
-  noOptionsMessage(inputValue) {
-    if (this.props.options.length) return null;
-    if (!inputValue) {
-      //   return i18n.get('app.commons.label.search');
-    }
-    // return i18n.get('app.commons.errors.emptySearchResult');
-  }
-
-  render() {
-    const { defaultOptions, placeholder } = this.props;
-    const { selectedOption } = this.state;
-    return (
-      <AsyncSelect
-        cacheOptions
-        value={selectedOption}
-        noOptionsMessage={this.noOptionsMessage}
-        getOptionValue={this.getOptionValue}
-        getOptionLabel={this.getOptionLabel}
-        defaultOptions={defaultOptions}
-        loadOptions={this.getOptions}
-        placeholder={placeholder}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
+  return (
+    <div>
+      <div
+        style={{
+          height: "140px",
+          overflow: "scroll",
+          overflowX: "hidden",
+          border: "1px solid #e3e3e3",
+          background: "#e3e3e3",
+          padding: "10px",
+        }}
+      >
+        {NameThirdParty && IdThirdParty !== null ? (
+          <ul className="list-unstyled">
+            <li className="media">
+              <img
+                className="mr-2"
+                src="https://via.placeholder.com/40"
+                alt="Generic placeholder image"
+              />
+              <div className="media-body">
+                <p className="mt-0 mb-1">{NameThirdParty}</p>
+                <Button
+                  style={{ marginTop: "-13px", marginLeft: "-12px" }}
+                  color={"link"}
+                  // onClick={() =>
+                  //   AgregarUsuario({ id: aux.id, name: aux.name })
+                  // }
+                >
+                  <h6 className="badge badge-secondary">Agregar</h6>
+                </Button>
+              </div>
+            </li>
+          </ul>
+        ) : (
+          <span>
+            <i className="fa fa-info-circle" /> Terceros disponibles
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+export default ThirdParty;

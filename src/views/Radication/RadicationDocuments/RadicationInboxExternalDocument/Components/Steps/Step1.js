@@ -19,7 +19,7 @@ const dataStep1 = {
   correspondence_folios: "",
   correspondence_consecutive: "",
   correspondence_criterion: "" /* S */,
-  correspondence_sender: "" /* S */,
+  correspondence_thirdParty: "" /* S */,
   correspondence_group: "" /* S */,
   correspondence_typeDocumentary: "" /* S */,
   correspondence_documentDate: "",

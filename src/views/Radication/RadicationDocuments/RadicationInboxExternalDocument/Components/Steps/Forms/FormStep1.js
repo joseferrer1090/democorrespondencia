@@ -26,6 +26,7 @@ import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
 import { useSelector } from "react-redux";
 import MySelect from "./Components/SelectTercero";
+import ThirdParty from "./Components/SelectTercero";
 
 const FormStep1 = (props) => {
   const {
@@ -77,6 +78,7 @@ const FormStep1 = (props) => {
     setNewValueConglomerateReceiver,
   ] = useState();
   const [StateChangeAlert, setAux] = useState("");
+  const [valueIdentification, setValueIdentification] = useState(null);
 
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
@@ -871,26 +873,42 @@ const FormStep1 = (props) => {
                   <div className="col-md-8">
                     <div className="form-group">
                       <label>
-                        Buscar remitente <span className="text-danger">*</span>
+                        Buscar remitente <span className="text-danger">*</span>{" "}
                       </label>
                       <div className="input-group input-group-sm mb-3">
                         <input
+                          // type="text"
+                          // className="form-control"
+                          // aria-label="Sizing example input"
+                          // aria-describedby="inputGroup-sizing-sm"
+
+                          name={"correspondence_thirdParty"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.correspondence_thirdParty}
                           type="text"
-                          className="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-sm"
+                          className={`form-control form-control-sm ${
+                            errors.correspondence_thirdParty &&
+                            touched.correspondence_thirdParty &&
+                            "is-invalid"
+                          }`}
                         />
                         <div className="input-group-prepend">
                           <button
                             className="btn btn-secondary"
                             type="button"
                             id="button-addon2"
-                            onClick={() => toggle2()}
+                            onClick={() => {
+                              setValueIdentification(
+                                values.correspondence_thirdParty
+                              );
+                            }}
                           >
                             <i className="fa fa-search" />
                           </button>
                         </div>
                       </div>
+                      <ThirdParty id={valueIdentification} />
                       {/* <MySelect
                         name={"correspondence_sender"}
                         value={values.correspondence_sender}
@@ -1188,7 +1206,7 @@ export default withFormik({
       props.firstStep.correspondence_company_receiver,
     correspondence_headquarter_receiver:
       props.firstStep.correspondence_headquarter_receiver,
-    correspondence_sender: props.firstStep.correspondence_sender,
+    correspondence_thirdParty: props.firstStep.correspondence_thirdParty,
   }),
   validationSchema: Yup.object().shape({
     correspondence_conglomerate: Yup.string()
