@@ -8,7 +8,10 @@ import moment from "moment";
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
 import CardRemitente from "../../AuxiliaryComponents/Cardinformation";
-import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
+import {
+  EXTERNAL_CORRESPONDENCE_RECEIVED_POST,
+  SEARCH_BY_USERNAME,
+} from "../../../../../../../services/EndPoints";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
 import FieldHeadquarter from "./Components/SelectHeadquarter";
@@ -26,6 +29,7 @@ import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
 import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
+import { decode } from "jsonwebtoken";
 
 const FormStep1 = (props) => {
   const {
@@ -41,11 +45,14 @@ const FormStep1 = (props) => {
     t,
   } = props;
 
+  useEffect(() => {
+    setNameUserFiling(props.nameUserFiling);
+  }, [props.nameUserFiling]);
   const userData = useSelector((state) => state.step1ReducerReceiver);
-
+  const dataTercero = useSelector((state) => state.step1ReducerThirdParty);
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
-
+  const [nameUserFiling, setNameUserFiling] = useState("");
   const [collapse, setCollapse] = useState(false);
   const [collapse2, setCollapse2] = useState(false);
   const [modalView, setModalView] = useState(false);
@@ -139,6 +146,9 @@ const FormStep1 = (props) => {
   const TimeFiling = () => {
     return moment(today).format("LT");
   };
+  const DateValidity = () => {
+    return moment(today).format("YYYY");
+  };
 
   return (
     <div className="animated fadeIn">
@@ -186,7 +196,7 @@ const FormStep1 = (props) => {
                             {" "}
                             <strong>Vigencia</strong>{" "}
                           </label>
-                          <dd> 2018 </dd>
+                          <dd> {DateValidity()} </dd>
                         </div>
                       </div>
                       <div className="col-md-2">
@@ -195,7 +205,7 @@ const FormStep1 = (props) => {
                             {" "}
                             <strong>Usuario radicador</strong>{" "}
                           </label>
-                          <dd> Carmen Rojas </dd>
+                          <dd> {nameUserFiling} </dd>
                         </div>
                       </div>
                     </div>
@@ -640,11 +650,6 @@ const FormStep1 = (props) => {
                       <div className="input-group input-group-sm mb-3">
                         &nbsp;
                         <input
-                          // type="text"
-                          // className="form-control"
-                          // aria-label="Sizing example input"
-                          // aria-describedby="inputGroup-sizing-sm"
-
                           name={"correspondence_thirdParty"}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -685,33 +690,9 @@ const FormStep1 = (props) => {
                         valueInput={values.correspondence_thirdParty}
                         authorization={props.authorization}
                       />
-                      {/* <MySelect
-                        name={"correspondence_sender"}
-                        value={values.correspondence_sender}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        error={errors.correspondence_sender}
-                        touched={touched.correspondence_sender}
-                      />{" "}
-                      {touched ? (
-                        <div style={{ color: "red" }}>
-                          {" "}
-                          <div style={{ color: "#D54B4B" }}>
-                            {errors.correspondence_sender &&
-                            touched.correspondence_sender ? (
-                              <i className="fa fa-exclamation-triangle" />
-                            ) : null}
-                            <ErrorMessage name={"correspondence_sender"} />
-                          </div>
-                        </div>
-                      ) : null} */}
                     </div>
                   </div>
-                  <div className="col-md-12">
-                    {/* <CardRemitente
-                  selectedItem={this.state.selectRemitente}
-                /> */}
-                  </div>
+                  <div className="col-md-12"></div>
                 </div>
               </div>
             </div>
@@ -829,37 +810,6 @@ const FormStep1 = (props) => {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Grupo</label>
-                      <select className="form-control form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
-                    </div>
-                  </div> */}
-                  {/* <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Buscar destinatario</label>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          placeholder=""
-                          aria-label="Recipient's username"
-                          aria-describedby="button-addon2"
-                        />
-                        <div className="input-group-append">
-                          <button
-                            className="btn btn-secondary btn-sm"
-                            type="button"
-                            id="button-addon2"
-                          >
-                            <i className="fa fa-search" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
                 <div className="row">
                   <div className="col-md-12">
@@ -870,30 +820,8 @@ const FormStep1 = (props) => {
                         id={values.correspondence_dependence_receiver}
                       />
                     </div>
-                    <div className="form-check">
-                      {/* <input
-                        className="form-check-input"
-                        type="checkbox"
-                        defaultValue
-                        id="defaultCheck1"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="defaultCheck1"
-                      >
-                        Original
-                      </label> */}
-                      {/* <button className="btn btn-secondary btn-sm float-right">
-                        Todos <i className="fa fa-angle-double-right" />{" "}
-                      </button> */}
-                    </div>
                   </div>
-
                   <UserListEnabled data={userData} aux={StateChangeAlert} />
-
-                  {/* <button className="btn btn-secondary btn-sm float-right">
-                    <i className="fa fa-angle-double-left" /> Todos{" "}
-                  </button> */}
                 </div>
               </div>
             </div>
@@ -946,16 +874,8 @@ const FormStep1 = (props) => {
           </form>
         </div>
       </div>
-      <ModalView
-        modalviewstate={modalView}
-        // ref={(mv) => (modalViewRef = mv)}
-        ref={modalViewRef}
-      />
-      <ModalAdd
-        modaladdstate={modalAdd}
-        // ref={(ma) => (ModalAddRef = ma)}
-        ref={ModalAddRef}
-      />
+      <ModalView modalviewstate={modalView} ref={modalViewRef} />
+      <ModalAdd modaladdstate={modalAdd} ref={ModalAddRef} />
     </div>
   );
 };

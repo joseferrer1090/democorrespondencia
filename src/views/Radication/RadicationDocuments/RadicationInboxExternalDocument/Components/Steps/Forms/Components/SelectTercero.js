@@ -38,32 +38,20 @@ const ThirdParty = (props) => {
         console.log("Error", err);
         setIdThirdParty(null);
         setNameThirdParty(null);
+        setAlertAsignacion(false);
       });
   };
 
   const validateValues = () => {
-    // if (firstUpdate.current) {
-    //   firstUpdate.current = false;
-    //   return;
-    // }
     if (id !== null) {
-      console.log("lleva data");
       fetchNewValues(id);
     } else {
-      console.log("vacio");
     }
   };
 
   useEffect(() => {
     validateValues();
-    console.log(props.id);
-    console.log(`old: ${props.oldValueInputSearchThirdParty}`);
-    console.log(`new: ${props.newValueInputSearchThirdParty}`);
-  }, [
-    props.oldValueInputSearchThirdParty,
-    props.newValueInputSearchThirdParty,
-    id,
-  ]);
+  }, [id]);
 
   const spinnerAsignacion = () => {
     setSpinner(true);
