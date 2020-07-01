@@ -8,6 +8,8 @@ import FormCreateStep1 from "./Components/Steps/Step1";
 import Step2 from "./Components/Steps/Step2";
 import Step3 from "./Components/Steps/Step3";
 import Step4 from "./Components/Steps/Step4";
+import { SEARCH_BY_USERNAME } from "../../../../services/EndPoints";
+import { decode } from "jsonwebtoken";
 
 const asyncLocalStorage = {
   setItem: async function (key, value) {
@@ -24,28 +26,55 @@ class RadicationInboxExternalDocument extends Component {
     super(props);
     this.state = {
       authToken: "",
+      data: [],
     };
   }
+
   componentDidMount() {
+    this.getDataLocal();
+    this.functionStep();
+  }
+
+  functionStep = () => {
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
       linear: false,
       animation: true,
       displayNext: false,
       displayPrevious: false,
     });
-    this.getDataLocal();
-  }
+  };
 
   getDataLocal = () => {
     asyncLocalStorage.getItem("auth_token").then((resp) => {
+      // console.log(resp);
+      this.getInfoUser(resp);
       this.setState({
         authToken: resp,
       });
     });
   };
 
+  getInfoUser = (auth) => {
+    const username = decode(auth);
+    fetch(`${SEARCH_BY_USERNAME}/?username=${username.user_name}`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + auth,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data.name);
+        this.setState({
+          data: data.name,
+        });
+      })
+      .catch((Error) => console.log(" ", Error));
+  };
+
   render() {
-    const { authToken } = this.state;
+    const { authToken, data } = this.state;
     return (
       <div>
         <HeaderComponent />
@@ -103,7 +132,10 @@ class RadicationInboxExternalDocument extends Component {
                 <div className="bs-stepper-content">
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
-                      <FormCreateStep1 authorization={authToken} />
+                      <FormCreateStep1
+                        authorization={authToken}
+                        nameUserFiling={data}
+                      />
 
                       {/* <div className="col-md-6 offset-1">
                         <button

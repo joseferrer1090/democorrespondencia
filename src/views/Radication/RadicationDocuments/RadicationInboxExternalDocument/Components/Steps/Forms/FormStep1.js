@@ -5,11 +5,13 @@ import { withFormik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import { Collapse } from "reactstrap";
 import moment from "moment";
-
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
 import CardRemitente from "../../AuxiliaryComponents/Cardinformation";
-import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
+import {
+  EXTERNAL_CORRESPONDENCE_RECEIVED_POST,
+  SEARCH_BY_USERNAME,
+} from "../../../../../../../services/EndPoints";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
 import FieldHeadquarter from "./Components/SelectHeadquarter";
@@ -26,8 +28,8 @@ import ReceiverFieldHeadquarter from "./Components/ReceiverSelectHeadquarter";
 import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
 import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
-
 import ThirdParty from "./Components/SelectTercero";
+import { decode } from "jsonwebtoken";
 
 const FormStep1 = (props) => {
   const {
@@ -43,11 +45,14 @@ const FormStep1 = (props) => {
     t,
   } = props;
 
+  useEffect(() => {
+    setNameUserFiling(props.nameUserFiling);
+  }, [props.nameUserFiling]);
   const userData = useSelector((state) => state.step1ReducerReceiver);
-
+  const dataTercero = useSelector((state) => state.step1ReducerThirdParty);
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
-
+  const [nameUserFiling, setNameUserFiling] = useState("");
   const [collapse, setCollapse] = useState(false);
   const [collapse2, setCollapse2] = useState(false);
   const [modalView, setModalView] = useState(false);
@@ -80,7 +85,13 @@ const FormStep1 = (props) => {
   ] = useState();
   const [StateChangeAlert, setAux] = useState("");
   const [valueIdentification, setValueIdentification] = useState(null);
+  const [oldValue, setOldValue] = useState();
+  const [newValue, setNewValue] = useState();
 
+  const changeInValue = (Old, New) => {
+    setOldValue(Old);
+    setNewValue(New);
+  };
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
     setNewValueConglomerate(New);
@@ -135,6 +146,9 @@ const FormStep1 = (props) => {
   const TimeFiling = () => {
     return moment(today).format("LT");
   };
+  const DateValidity = () => {
+    return moment(today).format("YYYY");
+  };
 
   return (
     <div className="animated fadeIn">
@@ -182,7 +196,7 @@ const FormStep1 = (props) => {
                             {" "}
                             <strong>Vigencia</strong>{" "}
                           </label>
-                          <dd> 2018 </dd>
+                          <dd> {DateValidity()} </dd>
                         </div>
                       </div>
                       <div className="col-md-2">
@@ -191,7 +205,7 @@ const FormStep1 = (props) => {
                             {" "}
                             <strong>Usuario radicador</strong>{" "}
                           </label>
-                          <dd> Carmen Rojas </dd>
+                          <dd> {nameUserFiling} </dd>
                         </div>
                       </div>
                     </div>
@@ -617,272 +631,25 @@ const FormStep1 = (props) => {
                 </div>
               </div>
             </div>
-            {/* <div className="card">
-              <div className="p-2 mb-1 bg-secondary text-dark">
-                Respuesta a correspondencia despachada
-              </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Conglomerado</label>
-                      <SelectConglomerado
-                        // authorization={props.authorization}
-                        // t={props.t}
-                        name={"correspondence_conglomerate"}
-                        onChange={(e) => {
-                          setFieldValue(
-                            "correspondence_conglomerate",
-                            e.target.value
-                          );
-                          changeInValueConglomerate(
-                            values.correspondence_conglomerate,
-                            e.target.value
-                          );
-                        }}
-                        onBlur={() =>
-                          setFieldTouched("correspondence_conglomerate", true)
-                        }
-                        value={values.correspondence_conglomerate}
-                        className={`form-control form-control-sm ${
-                          errors.correspondence_conglomerate &&
-                          touched.correspondence_conglomerate &&
-                          "is-invalid"
-                        }`}
-                      />
-
-                      <div style={{ color: "#D54B4B" }}>
-                        {errors.correspondence_conglomerate &&
-                        touched.correspondence_conglomerate ? (
-                          <i class="fa fa-exclamation-triangle" />
-                        ) : null}
-                        <ErrorMessage name="correspondence_conglomerate" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Empresa</label>
-                      <Field
-                        // authorization={props.authorization}
-                        // t={props.t}
-                        name="correspondence_company"
-                        component={FieldCompany}
-                        oldValueConglomerateId={oldValueConglomerate}
-                        newValueConglomerateId={newValueConglomerate}
-                        conglomerateId={values.correspondence_conglomerate}
-                      ></Field>
-                      <div style={{ color: "#D54B4B" }}>
-                        {errors.correspondence_company &&
-                        touched.correspondence_company ? (
-                          <i class="fa fa-exclamation-triangle" />
-                        ) : null}
-                        <ErrorMessage name="correspondence_company" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Sede</label>
-                      <Field
-                        //   authorization={props.authorization}
-                        //   t={props.t}
-                        name="correspondence_headquarter"
-                        component={FieldHeadquarter}
-                        companyId={values.correspondence_company}
-                        conglomerateId={values.correspondence_conglomerate}
-                      ></Field>
-                      <div style={{ color: "#D54B4B" }}>
-                        {errors.correspondence_headquarter &&
-                        touched.correspondence_headquarter ? (
-                          <i className="fa fa-exclamation-triangle" />
-                        ) : null}
-                        <ErrorMessage name="correspondence_headquarter" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label> Vigencia </label>
-                      <select className="form-control  form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="form-group">
-                      <label> Consecutivo</label>
-                      <div className="input-group input-group-sm mb-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-sm"
-                        />
-                        <div className="input-group-prepend">
-                          <button
-                            className="btn btn-secondary"
-                            type="button"
-                            id="button-addon2"
-                            // onClick={(() => toggle(), console.log("toggl1"))}
-                            onClick={() => toggle()}
-                          >
-                            <i className="fa fa-search" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-12">
-                    <Collapse isOpen={collapse}>
-                      <div className="card">
-                        <div className="p-2 mb-1 bg-secondary text-dark">
-                          Correspondencia despachada
-                        </div>
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-md-5">
-                              <div className="form-group">
-                                <label>Criterio</label>
-                                <select className="form-control form-control-sm">
-                                  <option>-- Seleccione --</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-md-7">
-                              <div className="form-group">
-                                <label> Consecutivo</label>
-                                <div className="input-group input-group-sm mb-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    aria-label="Sizing example input"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                  />
-                                  <div className="input-group-prepend">
-                                    <button
-                                      className="btn btn-secondary"
-                                      type="button"
-                                      id="button-addon2"
-                                      onClick={() => toggle2()}
-                                    >
-                                      <i className="fa fa-search" />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <Collapse isOpen={collapse2}>
-                                <table className="table table-sm border table-hover">
-                                  <thead>
-                                    <tr className="text-center">
-                                      <th>Sede</th>
-                                      <th>Vigencia</th>
-                                      <th>Consecutivo</th>
-                                      <th>Asunto</th>
-                                      <th>Acciones</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="text-center">
-                                    <tr>
-                                      <td>Bogota centro de logistica</td>
-                                      <td>2020</td>
-                                      <td>223</td>
-                                      <td>31919</td>
-                                      <td>
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalView()}
-                                        >
-                                          <i className="fa fa-eye" />
-                                        </button>
-                                        &nbsp;
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalAdd()}
-                                        >
-                                          <i className="fa fa-plus" />
-                                        </button>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Bogota principal</td>
-                                      <td>2019</td>
-                                      <td>339</td>
-                                      <td>8820047687</td>
-                                      <td>
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalView()}
-                                        >
-                                          <i className="fa fa-eye" />
-                                        </button>
-                                        &nbsp;
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalAdd()}
-                                        >
-                                          <i className="fa fa-plus" />
-                                        </button>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Bogota principal</td>
-                                      <td>2019</td>
-                                      <td>216</td>
-                                      <td>BLA-4700001056</td>
-                                      <td>
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalView()}
-                                        >
-                                          <i className="fa fa-eye" />
-                                        </button>
-                                        &nbsp;
-                                        <button
-                                          type="button"
-                                          className="btn btn-secondary btn-sm"
-                                          onClick={() => openModalAdd()}
-                                        >
-                                          <i className="fa fa-plus" />
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </Collapse>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Collapse>
-                  </div>
-                </div>
-              </div>
-            </div> */}
             <div className="card">
-              <div className="p-2 mb-1 bg-secondary text-dark">Tercero</div>
+              <div className="p-2 mb-1 bg-secondary text-dark">
+                Asignar tercero
+              </div>
               <div className="card-body">
                 <div className="row">
                   <div className="col-md-8">
                     <div className="form-group">
                       <label>
-                        Buscar remitente <span className="text-danger">*</span>{" "}
+                        Buscar tercero: <span className="text-danger">*</span>{" "}
                       </label>
+                      <div>
+                        <label>
+                          • Por favor introduzca el número de documento:{" "}
+                        </label>{" "}
+                      </div>
                       <div className="input-group input-group-sm mb-3">
+                        &nbsp;
                         <input
-                          // type="text"
-                          // className="form-control"
-                          // aria-label="Sizing example input"
-                          // aria-describedby="inputGroup-sizing-sm"
-
                           name={"correspondence_thirdParty"}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -923,33 +690,9 @@ const FormStep1 = (props) => {
                         valueInput={values.correspondence_thirdParty}
                         authorization={props.authorization}
                       />
-                      {/* <MySelect
-                        name={"correspondence_sender"}
-                        value={values.correspondence_sender}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        error={errors.correspondence_sender}
-                        touched={touched.correspondence_sender}
-                      />{" "}
-                      {touched ? (
-                        <div style={{ color: "red" }}>
-                          {" "}
-                          <div style={{ color: "#D54B4B" }}>
-                            {errors.correspondence_sender &&
-                            touched.correspondence_sender ? (
-                              <i className="fa fa-exclamation-triangle" />
-                            ) : null}
-                            <ErrorMessage name={"correspondence_sender"} />
-                          </div>
-                        </div>
-                      ) : null} */}
                     </div>
                   </div>
-                  <div className="col-md-12">
-                    {/* <CardRemitente
-                  selectedItem={this.state.selectRemitente}
-                /> */}
-                  </div>
+                  <div className="col-md-12"></div>
                 </div>
               </div>
             </div>
@@ -1067,37 +810,6 @@ const FormStep1 = (props) => {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Grupo</label>
-                      <select className="form-control form-control-sm">
-                        <option>-- Seleccione --</option>
-                      </select>
-                    </div>
-                  </div> */}
-                  {/* <div className="col-md-4">
-                    <div className="form-group">
-                      <label>Buscar destinatario</label>
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          placeholder=""
-                          aria-label="Recipient's username"
-                          aria-describedby="button-addon2"
-                        />
-                        <div className="input-group-append">
-                          <button
-                            className="btn btn-secondary btn-sm"
-                            type="button"
-                            id="button-addon2"
-                          >
-                            <i className="fa fa-search" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
                 <div className="row">
                   <div className="col-md-12">
@@ -1108,30 +820,8 @@ const FormStep1 = (props) => {
                         id={values.correspondence_dependence_receiver}
                       />
                     </div>
-                    <div className="form-check">
-                      {/* <input
-                        className="form-check-input"
-                        type="checkbox"
-                        defaultValue
-                        id="defaultCheck1"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="defaultCheck1"
-                      >
-                        Original
-                      </label> */}
-                      {/* <button className="btn btn-secondary btn-sm float-right">
-                        Todos <i className="fa fa-angle-double-right" />{" "}
-                      </button> */}
-                    </div>
                   </div>
-
                   <UserListEnabled data={userData} aux={StateChangeAlert} />
-
-                  {/* <button className="btn btn-secondary btn-sm float-right">
-                    <i className="fa fa-angle-double-left" /> Todos{" "}
-                  </button> */}
                 </div>
               </div>
             </div>
@@ -1184,16 +874,8 @@ const FormStep1 = (props) => {
           </form>
         </div>
       </div>
-      <ModalView
-        modalviewstate={modalView}
-        // ref={(mv) => (modalViewRef = mv)}
-        ref={modalViewRef}
-      />
-      <ModalAdd
-        modaladdstate={modalAdd}
-        // ref={(ma) => (ModalAddRef = ma)}
-        ref={ModalAddRef}
-      />
+      <ModalView modalviewstate={modalView} ref={modalViewRef} />
+      <ModalAdd modaladdstate={modalAdd} ref={ModalAddRef} />
     </div>
   );
 };

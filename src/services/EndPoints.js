@@ -26,6 +26,9 @@ export const DEPENDENCIES_BY_HEADQUARTER = `${config.IP}:${config.PORT}/api/sgde
 /* GET */
 export const USER = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users`;
 
+/* GET by => username */
+export const SEARCH_BY_USERNAME = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/search/username`;
+
 /* GET params => idDependence */
 export const USERS_BY_DEPENDENCE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/dependence/`;
 

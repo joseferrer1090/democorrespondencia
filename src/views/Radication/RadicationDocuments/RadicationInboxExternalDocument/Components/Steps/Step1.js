@@ -43,6 +43,7 @@ const FormCreateStep1 = (props) => {
           <FormStep1
             firstStep={dataStep1}
             authorization={props.authorization}
+            nameUserFiling={props.nameUserFiling}
           />
         </Row>
       </div>

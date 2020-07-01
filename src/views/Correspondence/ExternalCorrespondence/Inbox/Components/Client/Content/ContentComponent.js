@@ -73,7 +73,7 @@ class ContentComponent extends Component {
   // }
   /* */
   getDataInbox = () => {
-    console.log(this.props.authorization);
+    // console.log(this.props.authorization);
     fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}`, {
       method: "GET",
       headers: {
@@ -318,7 +318,7 @@ class ContentComponent extends Component {
 
   render() {
     const { dataInbox } = this.state;
-    console.log(dataInbox);
+    // console.log(dataInbox);
     return (
       // <div className="animated fadeIn">
       // <br />

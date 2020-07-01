@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../services/EndPoints";
-import { Button } from "reactstrap";
+import { Button, Alert } from "reactstrap";
 import { agregarTerceroDisponible } from "../../../../../../../../actions/step1ActionsThirdParty";
 
 const ThirdParty = (props) => {
@@ -12,7 +12,8 @@ const ThirdParty = (props) => {
   const [IdThirdParty, setIdThirdParty] = useState(null);
   const [NameThirdParty, setNameThirdParty] = useState(null);
   // const firstUpdate = useRef(true);
-
+  const [spinner, setSpinner] = useState(false);
+  const [alertAsignacion, setAlertAsignacion] = useState(false);
   const dispatch = useDispatch();
   const AgregarTercero = (user) => dispatch(agregarTerceroDisponible(user));
 
@@ -27,37 +28,54 @@ const ThirdParty = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setIdThirdParty(data.id);
-        setNameThirdParty(data.name);
-        console.log(data);
+        setTimeout(() => {
+          setIdThirdParty(data.id);
+          setNameThirdParty(data.name);
+        }, 300);
+        setAlertAsignacion(false);
       })
       .catch((err) => {
         console.log("Error", err);
         setIdThirdParty(null);
         setNameThirdParty(null);
+        setAlertAsignacion(false);
       });
   };
 
   const validateValues = () => {
-    // if (firstUpdate.current) {
-    //   firstUpdate.current = false;
-    //   return;
-    // }
     if (id !== null) {
-      console.log("lleva data");
       fetchNewValues(id);
     } else {
-      console.log("vacio");
     }
   };
 
   useEffect(() => {
     validateValues();
-    console.log(props.id);
   }, [id]);
 
+  const spinnerAsignacion = () => {
+    setSpinner(true);
+
+    setTimeout(() => {
+      setSpinner(false);
+    }, 500);
+  };
+  const alertAsignacionTercero = () => {
+    if (alertAsignacion === true) {
+      setAlertAsignacion(false);
+      setTimeout(() => {
+        setAlertAsignacion(true);
+      }, 300);
+    } else {
+      setAlertAsignacion(true);
+    }
+  };
   return (
     <div>
+      <Alert className={"text-center"} isOpen={alertAsignacion} color="success">
+        {" "}
+        Se asigno a {NameThirdParty} como tercero.
+      </Alert>
       <div
         style={{
           height: "140px",
@@ -81,11 +99,20 @@ const ThirdParty = (props) => {
                 <Button
                   style={{ marginTop: "-13px", marginLeft: "-12px" }}
                   color={"link"}
-                  onClick={() =>
-                    AgregarTercero({ id: IdThirdParty, name: NameThirdParty })
-                  }
+                  onClick={() => {
+                    AgregarTercero(IdThirdParty);
+                    spinnerAsignacion();
+                    alertAsignacionTercero();
+                  }}
+                  disabled={spinner}
                 >
-                  <h6 className="badge badge-secondary">Agregar</h6>
+                  {spinner ? (
+                    <i className=" fa fa-spinner fa-refresh" />
+                  ) : (
+                    <div>
+                      <h6 className="badge badge-secondary">Seleccionar</h6>
+                    </div>
+                  )}
                 </Button>
               </div>
             </li>
