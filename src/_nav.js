@@ -66,9 +66,22 @@ export default {
       ],
     },
     {
-      name: "Cofiguracion sticker",
+      name: "Sticker",
       icon: "cui-cog",
-      url: "/correspondence/configuration/sticker",
+      children: [
+        {
+          name: "Configuracion sticker",
+          exact: true,
+          url: "/correspondence/configuration/sticker",
+          icon: "icon-plus",
+        },
+        {
+          name: "Editar sticker",
+          url: "/correspondence/configuration/sticker/edit/:id",
+          exact: true,
+          icon: "icon-pencil",
+        },
+      ],
     },
   ],
 };
