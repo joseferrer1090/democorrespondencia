@@ -7,6 +7,7 @@ import { agregarUsuarioDisponible } from "../../../../../../../../actions/step1A
 const UserList = (props) => {
   // const t = props.t;
   let id = props.id;
+  const users = props.data;
   const [data, setdata] = useState([]);
   const firstUpdate = useRef(true);
 
@@ -14,13 +15,12 @@ const UserList = (props) => {
   const AgregarUsuario = (user) => dispatch(agregarUsuarioDisponible(user));
 
   const fetchNewValues = (id) => {
-    const auth = props.authorization
+    const auth = props.authorization;
     fetch(`${USERS_BY_DEPENDENCE}${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + auth
+        Authorization: "Bearer " + auth,
       },
     })
       .then((response) => response.json())
@@ -29,7 +29,11 @@ const UserList = (props) => {
       })
       .catch((err) => {
         console.log("Error", err);
-        setdata([]);
+        if (users === []) {
+          setdata([]);
+        } else {
+          setdata(users);
+        }
       });
   };
 
@@ -38,13 +42,20 @@ const UserList = (props) => {
       firstUpdate.current = false;
       return;
     }
+
     fetchNewValues(id);
   };
 
   useEffect(() => {
     validateValues();
-    console.log(props.id);
-  }, [id]);
+    console.log(users);
+    // console.log(users.length !== 0);
+    if (users.length !== 0) {
+      setdata(users);
+    } else if (users.length === 0) {
+      setdata([]);
+    }
+  }, [id, props.data]);
 
   return (
     <div>
@@ -58,8 +69,10 @@ const UserList = (props) => {
           padding: "10px",
         }}
       >
-        {data.length > 0 ? (
+        {/* data !== null*/}
+        {Object.keys(data).length !== 0 ? (
           data.map((aux, id) => {
+            console.log({ id: aux.id, name: aux.name });
             return (
               <ul className="list-unstyled">
                 <li className="media">

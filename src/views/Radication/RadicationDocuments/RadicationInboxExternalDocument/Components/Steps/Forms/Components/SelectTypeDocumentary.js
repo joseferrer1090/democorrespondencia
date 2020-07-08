@@ -63,7 +63,9 @@ class SelectTypeDocumentary extends React.Component {
           value={this.props.value}
           className={this.props.className}
         >
-          <option value={""}>-- Seleccione --</option>
+          <option disabled value={""}>
+            -- Seleccione --
+          </option>
           {this.state.dataTypeDocumentary.map((aux, id) => {
             return (
               <option key={id} value={aux.id}>
