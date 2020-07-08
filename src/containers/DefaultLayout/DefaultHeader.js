@@ -20,6 +20,7 @@ import {
 } from "@coreui/react";
 import logo from "../../assets/img/sevenet_ori.svg";
 import sygnet from "../../assets/img/sevenet_ori.svg";
+import Cookie from "js-cookie";
 
 const propTypes = {
   children: PropTypes.node,
@@ -28,6 +29,11 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
+  logout = () => {
+    Cookie.remove("auth");
+    localStorage.removeItem("auth_token");
+    window.location.replace("/");
+  };
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
@@ -108,9 +114,9 @@ class DefaultHeader extends Component {
                 >
                   <i className="fa fa-refresh" /> cambiar de aplicacion
                 </DropdownItem>
-                {/* <DropdownItem onClick={(e) => this.props.onLogout(e)}>
+                <DropdownItem onClick={() => this.logout()}>
                   <i className="fa fa-lock" /> cerrar sesion
-                </DropdownItem> */}
+                </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </AppHeaderDropdown>
