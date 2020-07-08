@@ -34,6 +34,7 @@ export const USERS_BY_DEPENDENCE = `${config.IP}:${config.PORT}/api/sgdea/servic
 
 //-------------------------- TIPO DOCUMENTAL -----------------------------------------//
 export const TYPE_DOCUMENTARIES_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/type/documentaries/active`;
+export const TYPE_DOCUMENTARIES_BY_ID = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/type/documentaries/find/id/`;
 
 //-------------------------- TIPO DE ENVÍO LLEGADA -----------------------------------------//
 export const TYPE_SHIPMENT_ARRIVAL_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/type/shipments/arrivals/active`;

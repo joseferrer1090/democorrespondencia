@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { withFormik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
-import { Collapse } from "reactstrap";
 import moment from "moment";
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
-import CardRemitente from "../../AuxiliaryComponents/Cardinformation";
 import {
   EXTERNAL_CORRESPONDENCE_RECEIVED_POST,
-  SEARCH_BY_USERNAME,
+  TYPE_DOCUMENTARIES_BY_ID,
 } from "../../../../../../../services/EndPoints";
+import { obtenerDataTipoDocumental } from "./../../../../../../../actions/step1ActionsInfoTypeDocumentary";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
 import FieldHeadquarter from "./Components/SelectHeadquarter";
@@ -29,18 +28,15 @@ import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
 import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
-import { decode } from "jsonwebtoken";
-
+import FieldIssue from "./Components/FieldIssue";
 const FormStep1 = (props) => {
   const {
     values,
     touched,
     errors,
-    isSubmitting,
     handleChange,
     setFieldValue,
     handleBlur,
-    handleSubmit,
     setFieldTouched,
     t,
   } = props;
@@ -48,7 +44,12 @@ const FormStep1 = (props) => {
   useEffect(() => {
     setNameUserFiling(props.nameUserFiling);
   }, [props.nameUserFiling]);
+
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.step1ReducerReceiver);
+  const usersAvailable = useSelector(
+    (state) => state.step1ReducerActionsInfoTypeDocumentary.users
+  );
   const dataTercero = useSelector((state) => state.step1ReducerThirdParty);
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
@@ -57,6 +58,7 @@ const FormStep1 = (props) => {
   const [collapse2, setCollapse2] = useState(false);
   const [modalView, setModalView] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
+  const [dataInfoRadication, setDataInfoRadication] = useState({});
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
   const [oldValueTypeDocumentary, setOldValueTypeDocumentary] = useState();
@@ -313,6 +315,9 @@ const FormStep1 = (props) => {
                               values.correspondence_typeDocumentary,
                               e.target.value
                             );
+                            dispatch(obtenerDataTipoDocumental(e.target.value));
+                            console.log(e.target.value);
+                            // getInfoRadicationByTypeDocumentary(e.target.value);
                           }}
                           onBlur={() =>
                             setFieldTouched(
@@ -569,7 +574,20 @@ const FormStep1 = (props) => {
                         <label>
                           Asunto <span className="text-danger">*</span>
                         </label>
-                        <textarea
+                        {/* <Field
+                          authorization={props.authorization}
+                          // t={props.t}
+                          name="correspondence_city"
+                          component={FieldCity}
+                          departmentId={values.correspondence_department}
+                          oldValueCountryId={oldValueCountry}
+                          newValueCountryId={newValueCountry}
+                        ></Field> */}
+                        <Field
+                          name={"correspondence_issue"}
+                          component={FieldIssue}
+                        />
+                        {/* <textarea
                           name={"correspondence_issue"}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -579,7 +597,7 @@ const FormStep1 = (props) => {
                             touched.correspondence_issue &&
                             "is-invalid"
                           }`}
-                        />
+                        /> */}
                         <div style={{ color: "#D54B4B" }}>
                           {errors.correspondence_issue &&
                           touched.correspondence_issue ? (
@@ -818,6 +836,7 @@ const FormStep1 = (props) => {
                       <UserList
                         authorization={props.authorization}
                         id={values.correspondence_dependence_receiver}
+                        data={usersAvailable}
                       />
                     </div>
                   </div>

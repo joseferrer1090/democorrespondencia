@@ -69,6 +69,7 @@ class RadicationInboxExternalDocument extends Component {
         this.setState({
           data: data.name,
         });
+        console.log(data);
       })
       .catch((Error) => console.log(" ", Error));
   };
