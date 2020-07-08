@@ -7,6 +7,7 @@ import {
   CardBody,
 } from "reactstrap";
 import "./css/list.css";
+import TableList from "./components/TableListStickers";
 
 class Sticker extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Sticker extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row">
+        <div className="row fadeIn">
           <div className="col-md-12">
             <div className="alert alert-warning">
               <i className="fa fa-exclamation-triangle" /> Los valores presente
@@ -51,19 +52,18 @@ class Sticker extends Component {
             </div>
           </div>
           <div className="col-md-6">
-            <p>Drop</p>
             <Card>
               <CardBody>
                 <div className="row">
-                  <p>Los datos mas el orden</p>
+                  <p>Drop de los datos</p>
                 </div>
               </CardBody>
             </Card>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12" style={{ border: "1px solid red" }}>
-            <p>Probando apenas</p>
+          <div className="col-md-12">
+            <TableList />
           </div>
         </div>
       </React.Fragment>
