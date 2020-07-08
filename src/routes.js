@@ -198,11 +198,14 @@ const routes = [
   },
   {
     path: "/correspondence/configuration/sticker",
+    exact: true,
     name: "Sticker",
     component: Sticker,
   },
   {
-    path: "/correspondence/configuration/sticker/edit",
+    path: "/correspondence/configuration/sticker/edit/:id",
+    exact: true,
+    name: "Edit sticker",
     component: EditSticker,
   },
 ];
