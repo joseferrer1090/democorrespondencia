@@ -2,6 +2,7 @@ import {
   AGREGAR_USUARIO_ORIGINAL,
   BORRAR_USUARIO_DISPONIBLE,
   AGREGAR_USUARIO_DISPONIBLE,
+  ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1,
 } from "../types";
 const initialState = {
   users: [],
@@ -30,6 +31,11 @@ export default function (state = initialState, action) {
         assigned: true,
       };
     }
+    case ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1:
+      return {
+        ...state,
+        users: action.payload,
+      };
     default:
       return state;
   }

@@ -8,7 +8,7 @@ const FieldIssue = ({
   const [valueInput, setValueInput] = useState(values.correspondence_issue);
 
   const issueValue = useSelector(
-    (state) => state.step1ReducerActionsInfoTypeDocumentary.infoAdditional.issue
+    (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.issue
   );
   // console.log(issueValue);
   useEffect(() => {

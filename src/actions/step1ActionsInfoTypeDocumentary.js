@@ -8,7 +8,7 @@ import { TYPE_DOCUMENTARIES_BY_ID } from "./../services/EndPoints";
 export function obtenerDataTipoDocumental(id) {
   const auth = localStorage.getItem("auth_token");
   return (dispatch) => {
-    dispatch(obtenerInfoAdicionalTipoDocumental());
+    // dispatch(obtenerInfoAdicionalTipoDocumental());
     fetch(`${TYPE_DOCUMENTARIES_BY_ID}${id}`, {
       method: "GET",
       headers: {
@@ -20,8 +20,9 @@ export function obtenerDataTipoDocumental(id) {
       .then((data) => {
         dispatch(infoAdicionalFormStep1Radication(data));
         dispatch(arrayUsersinfoAdicionalFormStep1Radication(data.users));
-        console.log(data);
+        dispatch(obtenerInfoAdicionalTipoDocumental());
       })
+
       .catch((err) => console.log(err));
   };
 }

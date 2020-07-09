@@ -1,84 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { TEMPLATE_STATUS } from "../../../../../../../../services/EndPoints";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { obtenerDataTemplate } from "../../../../../../../../actions/step1SelectTemplateaActions";
 
-class SelectTemplate extends React.Component {
-  state = {
-    dataTemplate: [],
-    t: this.props.t,
-    auth: this.props.authorization,
-  };
+const SelectTemplate = ({
+  field,
+  form: { errors, touched, setFieldTouched, setFieldValue, values },
+  ...props
+}) => {
+  const [valueTemplate, setValueTemplate] = useState(
+    values.correspondence_template
+  );
+  const dataTemplate = useSelector(
+    (state) => state.step1ReducerDataTemplate.dataTemplate
+  );
+  const idTemplateByTypeDocumentary = useSelector(
+    (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
+  );
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.authorization !== state.auth) {
-      return {
-        auth: props.authorization,
-      };
+  // useEffect(() => {
+  //   console.log(dataTemplate);
+  // }, [dataTemplate]);
+
+  // const valueTemplate = () => {
+  //   let value = this.props.value;
+  //   if (this.props.valueTemplateByTypeDocumentary !== undefined) {
+  //     value = this.props.valueTemplateByTypeDocumentary.id;
+  //   }
+  //   return value;
+  // };
+  // onChange={(e) => {
+  //   setFieldValue(
+  //     "correspondence_template",
+  //     e.target.value
+  //   );
+  //   changeInValueTemplate(
+  //     values.correspondence_template,
+  //     e.target.value
+  //   );
+  // }}
+  // onBlur={() =>
+  //   setFieldTouched("correspondence_template", true)
+  // }
+  // value={values.correspondence_template}
+  // className={`form-control form-control-sm ${
+  //   errors.correspondence_template &&
+  //   touched.correspondence_template &&
+  //   "is-invalid"
+  // }`}
+  useEffect(() => {
+    validateValues();
+  }, [idTemplateByTypeDocumentary]);
+
+  const validateValues = () => {
+    if (idTemplateByTypeDocumentary !== undefined) {
+      setValueTemplate(idTemplateByTypeDocumentary.id);
+    } else {
+      setValueTemplate(values.correspondence_issue);
     }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.authorization !== prevProps.authorization) {
-      this.setState(
-        {
-          auth: this.props.authorization,
-        },
-        this.getData()
-      );
-    }
-  }
-
-  getData = () => {
-    fetch(`${TEMPLATE_STATUS}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.state.auth,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          dataTemplate: data,
-        });
-      });
+    return valueTemplate;
   };
 
-  handleChange = (value) => {
-    this.props.onChange("correspondence_template", value);
-  };
-
-  handleBlur = () => {
-    this.props.onBlur("correspondence_template", true);
-  };
-
-  render() {
-    const { t } = this.props;
-    return (
-      <div>
-        <select
-          name={this.props.name}
-          onChange={this.props.onChange}
-          onBlur={this.props.onBlur}
-          value={this.props.value}
-          className={this.props.className}
-        >
-          <option value={""}>-- Seleccione --</option>
-          {this.state.dataTemplate.map((aux, id) => {
-            return (
-              <option key={id} value={aux.id}>
-                {aux.name}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-    );
-  }
-}
-
-SelectTemplate.propTypes = {
-  //   t: PropTypes.any,
-  //   authorization: PropTypes.string.isRequired,
+  return (
+    <div>
+      <select
+        onChange={(e) => {
+          setFieldValue("correspondence_template", e.target.value);
+          setValueTemplate(e.target.value);
+        }}
+        onBlur={(e) => setFieldTouched("correspondence_template", true)}
+        className={`form-control form-control-sm ${
+          errors.correspondence_template &&
+          touched.correspondence_template &&
+          "is-invalid"
+        }`}
+        value={valueTemplate}
+      >
+        <option value={""}>-- Seleccione --</option>
+        {dataTemplate !== undefined
+          ? dataTemplate.map((aux, id) => {
+              return (
+                <option key={id} value={aux.id}>
+                  {aux.name}
+                </option>
+              );
+            })
+          : null}
+      </select>
+    </div>
+  );
 };
+
+SelectTemplate.propTypes = {};
+
 export default SelectTemplate;

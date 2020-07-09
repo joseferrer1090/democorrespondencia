@@ -7,7 +7,6 @@ import { agregarUsuarioDisponible } from "../../../../../../../../actions/step1A
 const UserList = (props) => {
   // const t = props.t;
   let id = props.id;
-  const users = props.data;
   const [data, setdata] = useState([]);
   const firstUpdate = useRef(true);
 
@@ -29,11 +28,7 @@ const UserList = (props) => {
       })
       .catch((err) => {
         console.log("Error", err);
-        if (users === []) {
-          setdata([]);
-        } else {
-          setdata(users);
-        }
+        setdata([]);
       });
   };
 
@@ -42,20 +37,12 @@ const UserList = (props) => {
       firstUpdate.current = false;
       return;
     }
-
     fetchNewValues(id);
   };
 
   useEffect(() => {
     validateValues();
-    console.log(users);
-    // console.log(users.length !== 0);
-    if (users.length !== 0) {
-      setdata(users);
-    } else if (users.length === 0) {
-      setdata([]);
-    }
-  }, [id, props.data]);
+  }, [id]);
 
   return (
     <div>
@@ -69,10 +56,8 @@ const UserList = (props) => {
           padding: "10px",
         }}
       >
-        {/* data !== null*/}
-        {Object.keys(data).length !== 0 ? (
+        {data.length > 0 ? (
           data.map((aux, id) => {
-            console.log({ id: aux.id, name: aux.name });
             return (
               <ul className="list-unstyled">
                 <li className="media">
