@@ -6,10 +6,7 @@ import * as Yup from "yup";
 import moment from "moment";
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
-import {
-  EXTERNAL_CORRESPONDENCE_RECEIVED_POST,
-  TYPE_DOCUMENTARIES_BY_ID,
-} from "../../../../../../../services/EndPoints";
+import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
 import { obtenerDataTipoDocumental } from "./../../../../../../../actions/step1ActionsInfoTypeDocumentary";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
@@ -29,6 +26,9 @@ import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
+import { obtenerDataTemplate } from "../../../../../../../actions/step1SelectTemplateaActions";
+import PreviewTemplate from "./Components/PreviewTemplate";
+import { obtenerMetadatos } from "../../../../../../../actions/step1ActionsPreviewTemplate";
 const FormStep1 = (props) => {
   const {
     values,
@@ -41,24 +41,16 @@ const FormStep1 = (props) => {
     t,
   } = props;
 
-  useEffect(() => {
-    setNameUserFiling(props.nameUserFiling);
-  }, [props.nameUserFiling]);
-
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.step1ReducerReceiver);
-  const usersAvailable = useSelector(
-    (state) => state.step1ReducerActionsInfoTypeDocumentary.users
-  );
-  const dataTercero = useSelector((state) => state.step1ReducerThirdParty);
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
   const [nameUserFiling, setNameUserFiling] = useState("");
+  const [headquarterFiling, setHeadquarterFiling] = useState("");
   const [collapse, setCollapse] = useState(false);
   const [collapse2, setCollapse2] = useState(false);
   const [modalView, setModalView] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
-  const [dataInfoRadication, setDataInfoRadication] = useState({});
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
   const [oldValueTypeDocumentary, setOldValueTypeDocumentary] = useState();
@@ -151,7 +143,16 @@ const FormStep1 = (props) => {
   const DateValidity = () => {
     return moment(today).format("YYYY");
   };
-
+  useEffect(() => {
+    setNameUserFiling(props.nameUserFiling);
+    setHeadquarterFiling(props.headquarterFiling);
+    dispatch(obtenerDataTemplate());
+    dispatch(obtenerMetadatos(values.correspondence_template));
+  }, [
+    props.nameUserFiling,
+    props.setHeadquarterFiling,
+    values.correspondence_template,
+  ]);
   return (
     <div className="animated fadeIn">
       <div className="">
@@ -189,7 +190,7 @@ const FormStep1 = (props) => {
                             {" "}
                             <strong>Sede</strong>{" "}
                           </label>
-                          <dd> Sede 1 </dd>
+                          <dd> {headquarterFiling} </dd>
                         </div>
                       </div>
                       <div className="col-md-2  ">
@@ -316,8 +317,6 @@ const FormStep1 = (props) => {
                               e.target.value
                             );
                             dispatch(obtenerDataTipoDocumental(e.target.value));
-                            console.log(e.target.value);
-                            // getInfoRadicationByTypeDocumentary(e.target.value);
                           }}
                           onBlur={() =>
                             setFieldTouched(
@@ -574,30 +573,10 @@ const FormStep1 = (props) => {
                         <label>
                           Asunto <span className="text-danger">*</span>
                         </label>
-                        {/* <Field
-                          authorization={props.authorization}
-                          // t={props.t}
-                          name="correspondence_city"
-                          component={FieldCity}
-                          departmentId={values.correspondence_department}
-                          oldValueCountryId={oldValueCountry}
-                          newValueCountryId={newValueCountry}
-                        ></Field> */}
                         <Field
                           name={"correspondence_issue"}
                           component={FieldIssue}
                         />
-                        {/* <textarea
-                          name={"correspondence_issue"}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.correspondence_issue}
-                          className={`form-control form-control-sm ${
-                            errors.correspondence_issue &&
-                            touched.correspondence_issue &&
-                            "is-invalid"
-                          }`}
-                        /> */}
                         <div style={{ color: "#D54B4B" }}>
                           {errors.correspondence_issue &&
                           touched.correspondence_issue ? (
@@ -836,7 +815,6 @@ const FormStep1 = (props) => {
                       <UserList
                         authorization={props.authorization}
                         id={values.correspondence_dependence_receiver}
-                        data={usersAvailable}
                       />
                     </div>
                   </div>
@@ -853,31 +831,11 @@ const FormStep1 = (props) => {
                   <div className="col-md-7">
                     <div className="form-group">
                       <label>Plantilla</label>
-                      <SelectTemplate
+                      <Field
                         authorization={props.authorization}
-                        // t={props.t}
                         name={"correspondence_template"}
-                        onChange={(e) => {
-                          setFieldValue(
-                            "correspondence_template",
-                            e.target.value
-                          );
-                          changeInValueTemplate(
-                            values.correspondence_template,
-                            e.target.value
-                          );
-                        }}
-                        onBlur={() =>
-                          setFieldTouched("correspondence_template", true)
-                        }
-                        value={values.correspondence_template}
-                        className={`form-control form-control-sm ${
-                          errors.correspondence_template &&
-                          touched.correspondence_template &&
-                          "is-invalid"
-                        }`}
+                        component={SelectTemplate}
                       />
-
                       <div style={{ color: "#D54B4B" }}>
                         {errors.correspondence_template &&
                         touched.correspondence_template ? (
@@ -886,6 +844,15 @@ const FormStep1 = (props) => {
                         <ErrorMessage name="correspondence_template" />
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <Field
+                      authorization={props.authorization}
+                      component={PreviewTemplate}
+                      id={values.correspondence_template}
+                    />
                   </div>
                 </div>
               </div>

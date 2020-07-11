@@ -27,6 +27,7 @@ class RadicationInboxExternalDocument extends Component {
     this.state = {
       authToken: "",
       data: [],
+      headquarter: {},
     };
   }
 
@@ -50,6 +51,7 @@ class RadicationInboxExternalDocument extends Component {
       this.getInfoUser(resp);
       this.setState({
         authToken: resp,
+        headquarter: decode(resp),
       });
     });
   };
@@ -69,13 +71,13 @@ class RadicationInboxExternalDocument extends Component {
         this.setState({
           data: data.name,
         });
-        console.log(data);
       })
       .catch((Error) => console.log(" ", Error));
   };
 
   render() {
-    const { authToken, data } = this.state;
+    const { authToken, data, headquarter } = this.state;
+
     return (
       <div>
         <HeaderComponent />
@@ -136,6 +138,7 @@ class RadicationInboxExternalDocument extends Component {
                       <FormCreateStep1
                         authorization={authToken}
                         nameUserFiling={data}
+                        headquarterFiling={headquarter.headquarter}
                       />
 
                       {/* <div className="col-md-6 offset-1">

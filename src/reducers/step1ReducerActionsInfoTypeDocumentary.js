@@ -30,6 +30,13 @@ export default function (state = initialState, action) {
         error: null,
       };
 
+    case "DATA_USERS_TYPE_DOCUMENTARY": {
+      return {
+        ...state,
+        users: [action.payload],
+      };
+    }
+
     default:
       return state;
   }

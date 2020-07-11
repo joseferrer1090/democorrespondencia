@@ -4,6 +4,7 @@ import { Alert } from "reactstrap";
 import {
   agregarUsuarioOriginal,
   borrarUsuarioDiponible,
+  agregarUsuarioDisponible,
 } from "../../../../../../../../actions/step1ActionsReceiver";
 const UserListEnabled = (props) => {
   const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
@@ -18,6 +19,13 @@ const UserListEnabled = (props) => {
     } else if (props.aux === null) {
       setstate(null);
     }
+    // validateValues();
+    // if (usersAvailable.length !== 0) {
+    //   usersAvailable.map((aux, id) => {
+    //     setUsersAsigned({ id: aux.id, name: aux.name });
+    //     setagregaruser(true);
+    //   });
+    // }
   }, [state, users, props.aux]);
 
   return (

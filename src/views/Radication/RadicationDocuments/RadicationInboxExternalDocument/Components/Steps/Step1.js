@@ -36,7 +36,6 @@ const dataStep1 = {
   correspondence_dependence_receiver: "" /* S */,
 };
 const FormCreateStep1 = (props) => {
-  console.log(props);
   return (
     <div className="animated fadeIn">
       <div className="container">
@@ -45,6 +44,7 @@ const FormCreateStep1 = (props) => {
             firstStep={dataStep1}
             authorization={props.authorization}
             nameUserFiling={props.nameUserFiling}
+            headquarterFiling={props.headquarterFiling}
           />
         </Row>
       </div>

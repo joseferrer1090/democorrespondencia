@@ -73,7 +73,6 @@ class Headerinbox extends Component {
   }
 
   render() {
-    console.log(this.state.isOpen);
     return (
       <Fragment>
         <div className="d-none d-sm-block">
