@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { obtenerDataTemplate } from "../../../../../../../../actions/step1SelectTemplateaActions";
+import { useSelector } from "react-redux";
 
 const SelectTemplate = ({
   field,
@@ -18,36 +17,6 @@ const SelectTemplate = ({
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
   );
 
-  // useEffect(() => {
-  //   console.log(dataTemplate);
-  // }, [dataTemplate]);
-
-  // const valueTemplate = () => {
-  //   let value = this.props.value;
-  //   if (this.props.valueTemplateByTypeDocumentary !== undefined) {
-  //     value = this.props.valueTemplateByTypeDocumentary.id;
-  //   }
-  //   return value;
-  // };
-  // onChange={(e) => {
-  //   setFieldValue(
-  //     "correspondence_template",
-  //     e.target.value
-  //   );
-  //   changeInValueTemplate(
-  //     values.correspondence_template,
-  //     e.target.value
-  //   );
-  // }}
-  // onBlur={() =>
-  //   setFieldTouched("correspondence_template", true)
-  // }
-  // value={values.correspondence_template}
-  // className={`form-control form-control-sm ${
-  //   errors.correspondence_template &&
-  //   touched.correspondence_template &&
-  //   "is-invalid"
-  // }`}
   useEffect(() => {
     validateValues();
   }, [idTemplateByTypeDocumentary]);

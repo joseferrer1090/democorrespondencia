@@ -27,6 +27,8 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import { obtenerDataTemplate } from "../../../../../../../actions/step1SelectTemplateaActions";
+import PreviewTemplate from "./Components/PreviewTemplate";
+import { obtenerMetadatos } from "../../../../../../../actions/step1ActionsPreviewTemplate";
 const FormStep1 = (props) => {
   const {
     values,
@@ -145,7 +147,12 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-  }, [props.nameUserFiling, props.setHeadquarterFiling]);
+    dispatch(obtenerMetadatos(values.correspondence_template));
+  }, [
+    props.nameUserFiling,
+    props.setHeadquarterFiling,
+    values.correspondence_template,
+  ]);
   return (
     <div className="animated fadeIn">
       <div className="">
@@ -826,30 +833,9 @@ const FormStep1 = (props) => {
                       <label>Plantilla</label>
                       <Field
                         authorization={props.authorization}
-                        // t={props.t}
                         name={"correspondence_template"}
                         component={SelectTemplate}
-                        // onChange={(e) => {
-                        //   setFieldValue(
-                        //     "correspondence_template",
-                        //     e.target.value
-                        //   );
-                        //   changeInValueTemplate(
-                        //     values.correspondence_template,
-                        //     e.target.value
-                        //   );
-                        // }}
-                        // onBlur={() =>
-                        //   setFieldTouched("correspondence_template", true)
-                        // }
-                        // value={values.correspondence_template}
-                        // className={`form-control form-control-sm ${
-                        //   errors.correspondence_template &&
-                        //   touched.correspondence_template &&
-                        //   "is-invalid"
-                        // }`}
                       />
-
                       <div style={{ color: "#D54B4B" }}>
                         {errors.correspondence_template &&
                         touched.correspondence_template ? (
@@ -858,6 +844,15 @@ const FormStep1 = (props) => {
                         <ErrorMessage name="correspondence_template" />
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <Field
+                      authorization={props.authorization}
+                      component={PreviewTemplate}
+                      id={values.correspondence_template}
+                    />
                   </div>
                 </div>
               </div>

@@ -56,5 +56,8 @@ export const MESSENGER_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/c
 //-------------------------- PLANTILLA -----------------------------------------//
 export const TEMPLATE_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/templates/active`;
 
+/* GET  params => idtemplate */
+export const GET_METADATA_FOR_TEMPLATE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/template/metadata/bag/get/template/`;
+
 //-------------------------- TERCERO -----------------------------------------//
 export const THIRDPARTIES_BY_IDENTIFICATION = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/third/parties/find/identification/`;
