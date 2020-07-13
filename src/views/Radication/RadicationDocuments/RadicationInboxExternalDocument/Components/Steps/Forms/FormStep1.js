@@ -43,6 +43,9 @@ const FormStep1 = (props) => {
 
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.step1ReducerReceiver);
+  const idTemplate = useSelector(
+    (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
+  );
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
   const [nameUserFiling, setNameUserFiling] = useState("");
@@ -81,6 +84,18 @@ const FormStep1 = (props) => {
   const [valueIdentification, setValueIdentification] = useState(null);
   const [oldValue, setOldValue] = useState();
   const [newValue, setNewValue] = useState();
+  const [previewTemplateValue, setPreviewTemplateValue] = useState(
+    values.correspondence_template
+  );
+
+  const previewTemplateDispatch = () => {
+    if (idTemplate !== undefined) {
+      setPreviewTemplateValue(idTemplate.id);
+    } else {
+      setPreviewTemplateValue(values.correspondence_template);
+    }
+    return previewTemplateValue;
+  };
 
   const changeInValue = (Old, New) => {
     setOldValue(Old);
@@ -114,10 +129,6 @@ const FormStep1 = (props) => {
     setOldValueMessenger(Old);
     setNewValueMessenger(New);
   };
-  const changeInValueTemplate = (Old, New) => {
-    setOldValueTemplate(Old);
-    setNewValueTemplate(New);
-  };
   const toggle = () => {
     setCollapse(!collapse);
   };
@@ -147,11 +158,14 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-    dispatch(obtenerMetadatos(values.correspondence_template));
+    // previewTemplateDispatch();
+    dispatch(obtenerMetadatos(previewTemplateDispatch()));
   }, [
     props.nameUserFiling,
     props.setHeadquarterFiling,
-    values.correspondence_template,
+    // values.correspondence_template,
+    idTemplate,
+    previewTemplateValue,
   ]);
   return (
     <div className="animated fadeIn">
