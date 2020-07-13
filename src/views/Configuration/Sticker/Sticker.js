@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
 import PropTypes from "prop-types";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
@@ -24,17 +23,6 @@ const dataExample = [
     status: true,
   },
 ];
-=======
-import {
-  Card,
-  CardHeader,
-  ListGroup,
-  ListGroupItem,
-  CardBody,
-} from "reactstrap";
-import "./css/list.css";
-import TableList from "./components/TableListStickers";
->>>>>>> 961982cf82f1951add0c6f95a359bac039042ae2
 
 class Sticker extends Component {
   constructor(props) {
@@ -67,7 +55,6 @@ class Sticker extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <div className="animated fadeIn">
         <div className="row">
           <div className="col-md-12">
@@ -136,59 +123,6 @@ class Sticker extends Component {
           </div>
         </div>
       </div>
-=======
-      <React.Fragment>
-        <div className="row fadeIn">
-          <div className="col-md-12">
-            <div className="alert alert-warning">
-              <i className="fa fa-exclamation-triangle" /> Los valores presente
-              son los posibles que va a estaran disponibles en el sticker de la
-              correspondencia
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="card">
-              <div className="card-header">
-                <input
-                  type="search"
-                  className="form-control form-control-sm"
-                  placeholder={`Buscar la propiedad asignar al sticker`}
-                />
-              </div>
-              <div className="card-body">
-                <ul className="list-group">
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                  <li className="list-group-item">probando</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <Card>
-              <CardBody>
-                <div className="row">
-                  <p>Drop de los datos</p>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <TableList />
-          </div>
-        </div>
-      </React.Fragment>
->>>>>>> 961982cf82f1951add0c6f95a359bac039042ae2
     );
   }
 }
