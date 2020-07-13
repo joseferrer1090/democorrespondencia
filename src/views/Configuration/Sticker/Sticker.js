@@ -1,13 +1,129 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+
+const dataExample = [
+  {
+    id: 1,
+    stickername: "Sticker de correspondencia interna",
+    description: "Configuracion del sticker de correspondencia interna",
+    status: true,
+  },
+  {
+    id: 2,
+    stickername: "Sticker de correspondencia externa",
+    description: "Configuracion del sticker de correspondencia externa",
+    status: true,
+  },
+  {
+    id: 3,
+    stickername: "Sticker de correspondencia",
+    description: "Configuracion del sticker de correspondencia",
+    status: true,
+  },
+];
 
 class Sticker extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  AccionesTableSticker(cell, row) {
+    return (
+      <div>
+        <button
+          className="btn btn-secondary btn-sm"
+          title="Editar valores del sticker"
+        >
+          <i className="fa fa-pencil" />
+        </button>
+      </div>
+    );
+  }
+
+  EstadoSticker(cell, row) {
+    let status;
+    if (row.status) {
+      status = <b className="text-success"> Activado</b>;
+    } else {
+      status = <b className="text-danger">Inactivador</b>;
+    }
+    return status;
+  }
+
   render() {
-    return <div>Probanod</div>;
+    return (
+      <div className="animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="alert alert-secondary" role="alert">
+              <h4 className="alert-heading">Configuracion de Sticker</h4>
+              <p className="text-justify">
+                Puedes configurar los Sticker de las deferentes correspondencias
+                y modificar los datos que estos muestran en cada uno de ellos.
+              </p>
+              <hr />
+              <p className="mb-0">
+                Debe tener en cuenta los valores que se van a mostrar en el
+                sticker.
+              </p>
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="card card-body">
+              <div className="table-responsive">
+                <BootstrapTable
+                  data={dataExample}
+                  search
+                  striped
+                  bordered={false}
+                  hover
+                  condensed
+                >
+                  <TableHeaderColumn
+                    isKey
+                    dataAlign={"center"}
+                    dataField={"id"}
+                  >
+                    #
+                  </TableHeaderColumn>
+                  <TableHeaderColumn
+                    dataField={"stickername"}
+                    dataAlign="center"
+                  >
+                    Nombre
+                  </TableHeaderColumn>
+                  <TableHeaderColumn
+                    dataAlign={"center"}
+                    dataField={"description"}
+                  >
+                    Descripcion
+                  </TableHeaderColumn>
+                  <TableHeaderColumn
+                    dataAlign={"center"}
+                    dataField={"status"}
+                    dataFormat={(cell, row) => this.EstadoSticker(cell, row)}
+                  >
+                    Estado
+                  </TableHeaderColumn>
+                  <TableHeaderColumn
+                    export={false}
+                    dataAlign={"center"}
+                    dataFormat={(cell, row) =>
+                      this.AccionesTableSticker(cell, row)
+                    }
+                  >
+                    Acciones
+                  </TableHeaderColumn>
+                </BootstrapTable>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 export default Sticker;
