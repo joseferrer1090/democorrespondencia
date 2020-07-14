@@ -39,12 +39,17 @@ const FormStep1 = (props) => {
     handleBlur,
     setFieldTouched,
     t,
+    isSubmitting,
+    handleSubmit,
   } = props;
 
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.step1ReducerReceiver);
   const idTemplate = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
+  );
+  const idThirdParty = useSelector(
+    (state) => state.step1ReducerThirdParty.thirdParty
   );
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
@@ -158,12 +163,10 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-    // previewTemplateDispatch();
     dispatch(obtenerMetadatos(previewTemplateDispatch()));
   }, [
     props.nameUserFiling,
     props.setHeadquarterFiling,
-    // values.correspondence_template,
     idTemplate,
     previewTemplateValue,
   ]);
@@ -871,6 +874,26 @@ const FormStep1 = (props) => {
                 </div>
               </div>
             </div>
+            <div className="card">
+              <div className="card-footer">
+                <div className="pull-right">
+                  <button
+                    type="submit"
+                    className="btn btn-success btn-sm"
+                    disabled={isSubmitting}
+                    onClick={handleSubmit}
+                  >
+                    {isSubmitting ? (
+                      <i className=" fa fa-spinner fa-spin" />
+                    ) : (
+                      <div>
+                        <i className="fa fa-save" /> Radicar
+                      </div>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -959,8 +982,13 @@ export default withFormik({
     ),
   }),
   handleSubmit: (values, { setSubmitting, resetForm, props }) => {
+    // const idThirdParty = useSelector(
+    //   (state) => state.step1ReducerThirdParty.thirdParty
+    // );
+    // const userData = useSelector((state) => state.step1ReducerReceiver.users);
     setTimeout(() => {
       const auth = props.authorization;
+
       fetch(EXTERNAL_CORRESPONDENCE_RECEIVED_POST, {
         method: "POST",
         headers: {
@@ -968,38 +996,20 @@ export default withFormik({
           Authorization: "Bearer " + auth,
         },
         body: JSON.stringify({
-          validity: "2020",
-          documentDate: "2020-06-10",
-          documentNumber: "Doc 009",
-          issue:
-            "Avances de desarrollo aplicativo de gestión documental SEVENET 2020",
-          guide: "10062020",
-          headquarterId: "b9541757-c195-4a40-b92a-04f3e68d890f",
-          typeDocumentaryId: "fc12e222-1ec9-48d6-b684-01610142caf8",
-          userFilingId: "f1adb923-b4ff-46d7-9088-3164aa686917",
-          cityId: "23ed762d-ae48-44af-a6cc-82b2430fc33b",
-          typeShipmentArrivalId: "9b52ebe4-f638-4265-9271-ec61b95e8273",
-          messengerId: "030f40e0-3b52-4193-9f08-44cb603c6b6b",
-          thirdPartyId: "715ef6f4-385b-48a1-b80c-58e54ce4dc67",
-          templateId: "ef41a67a-5acb-4d8a-8f7e-2d4709a02e7d",
-          usersAddressees: [
-            {
-              id: "583b7af0-c480-4b30-9168-c66b731d3609",
-            },
-            {
-              id: "cc4d069d-63c5-4397-ac2f-02c210d857ab",
-            },
-          ],
-          metadata: [
-            {
-              id: "43b7880e-dd99-483c-bec6-f88a15b7c303",
-              value: "A",
-            },
-            {
-              id: "a10d011d-d86d-470d-a88a-61b21fe3399f",
-              value: "B",
-            },
-          ],
+          documentDate: values.correspondence_documentDate,
+          documentNumber: values.correspondence_documentNum,
+          issue: values.correspondence_issue,
+          guide: values.correspondence_guide,
+          numFolio: values.correspondence_folios,
+          headquarterId: values.correspondence_headquarter,
+          typeDocumentaryId: values.correspondence_typeDocumentary,
+          cityId: values.correspondence_city,
+          typeShipmentArrivalId: values.correspondence_typeArrival,
+          messengerId: values.correspondence_messenger,
+          thirdPartyId: "",
+          templateId: values.correspondence_template,
+          usersAddressees: "",
+          metadata: "",
         }),
       })
         .then((response) =>
@@ -1016,8 +1026,39 @@ export default withFormik({
         .catch((error) => {
           console.log("", error);
         });
+      alert(JSON.stringify(values, "", 2));
+      console.log(values);
       setSubmitting(false);
-      resetForm({});
+      resetForm({
+        correspondence_dateFiling: "",
+        correspondence_timeFiling: "",
+        correspondence_headquarter: "" /* S */,
+        correspondence_validity: "" /* S */,
+        correspondence_userFiling: "",
+        correspondence_conglomerate: "" /* S */,
+        correspondence_company: "" /* S */,
+        correspondence_dependence: "" /* S */,
+        correspondence_country: "" /* S */,
+        correspondence_department: "" /* S */,
+        correspondence_folios: "",
+        correspondence_consecutive: "",
+        correspondence_criterion: "" /* S */,
+        correspondence_thirdParty: "" /* S */,
+        correspondence_group: "" /* S */,
+        correspondence_typeDocumentary: "" /* S */,
+        correspondence_documentDate: "",
+        correspondence_documentNum: "",
+        correspondence_city: "" /* S */,
+        correspondence_typeArrival: "" /* S */,
+        correspondence_guide: "",
+        correspondence_issue: "",
+        correspondence_messenger: "" /* S */,
+        correspondence_template: "" /* S */,
+        correspondence_conglomerate_receiver: "" /* S */,
+        correspondence_company_receiver: "" /* S */,
+        correspondence_headquarter_receiver: "" /* S */,
+        correspondence_dependence_receiver: "" /* S */,
+      });
     }, 1000);
   },
 })(FormStep1);

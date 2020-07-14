@@ -1,11 +1,9 @@
 import {
   OBTENER_INFORMACION_ADICIONAL_NUEVA_RADICACION,
   INFO_ADICION_FORM_STEP1,
-  ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1,
 } from "./../types";
 
 const initialState = {
-  users: [],
   infoAdditional: {},
   error: null,
 };
@@ -15,27 +13,14 @@ export default function (state = initialState, action) {
     case OBTENER_INFORMACION_ADICIONAL_NUEVA_RADICACION:
       return {
         ...state,
-        error: null,
+        error: false,
       };
     case INFO_ADICION_FORM_STEP1:
       return {
         ...state,
         infoAdditional: action.payload,
-        error: null,
+        error: false,
       };
-    case ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1:
-      return {
-        ...state,
-        users: action.payload,
-        error: null,
-      };
-
-    case "DATA_USERS_TYPE_DOCUMENTARY": {
-      return {
-        ...state,
-        users: [action.payload],
-      };
-    }
 
     default:
       return state;

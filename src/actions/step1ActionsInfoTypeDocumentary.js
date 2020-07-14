@@ -18,7 +18,13 @@ export function obtenerDataTipoDocumental(id) {
       .then((response) => response.json())
       .then((data) => {
         dispatch(infoAdicionalFormStep1Radication(data));
-        dispatch(arrayUsersinfoAdicionalFormStep1Radication(data.users));
+        dispatch(
+          arrayUsersinfoAdicionalFormStep1Radication(
+            data.users.map((aux, idx) => {
+              return { id: aux.id, name: aux.name };
+            })
+          )
+        );
         dispatch(obtenerInfoAdicionalTipoDocumental());
       })
 
