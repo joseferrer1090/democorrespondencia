@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import TableListStickers from "./components/TableListStickers";
 
 const dataExample = [
   {
@@ -72,54 +73,7 @@ class Sticker extends Component {
             </div>
           </div>
           <div className="col-md-12">
-            <div className="card card-body">
-              <div className="table-responsive">
-                <BootstrapTable
-                  data={dataExample}
-                  search
-                  striped
-                  bordered={false}
-                  hover
-                  condensed
-                >
-                  <TableHeaderColumn
-                    isKey
-                    dataAlign={"center"}
-                    dataField={"id"}
-                  >
-                    #
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    dataField={"stickername"}
-                    dataAlign="center"
-                  >
-                    Nombre
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    dataAlign={"center"}
-                    dataField={"description"}
-                  >
-                    Descripcion
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    dataAlign={"center"}
-                    dataField={"status"}
-                    dataFormat={(cell, row) => this.EstadoSticker(cell, row)}
-                  >
-                    Estado
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    export={false}
-                    dataAlign={"center"}
-                    dataFormat={(cell, row) =>
-                      this.AccionesTableSticker(cell, row)
-                    }
-                  >
-                    Acciones
-                  </TableHeaderColumn>
-                </BootstrapTable>
-              </div>
-            </div>
+            <TableListStickers />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import {
 } from "./../types/index";
 
 const initialState = {
-  datasticker: [],
+  stickers: [],
   error: false,
   loading: false,
 };
@@ -21,7 +21,7 @@ export default function (state = initialState, action) {
     case OBTENER_DATOS_STICKER_EXITO:
       return {
         ...state,
-        datasticker: action.payload,
+        stickers: action.payload,
         loading: false,
         error: false,
       };
