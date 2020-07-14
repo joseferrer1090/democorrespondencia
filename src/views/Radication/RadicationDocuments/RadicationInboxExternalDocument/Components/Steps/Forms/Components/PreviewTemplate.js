@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 
 const PreviewTemplate = ({ field, ...props }) => {
   const [values, setValues] = useState({});
-  useEffect(() => {
-    console.log(props.id);
-  }, [props.id]);
   const template = useSelector(
     (state) => state.step1ReducerPreviewTemplate.template
   );
+
+  useEffect(() => {}, [props.id, template]);
+
   return (
     <Fragment>
       <Card>
@@ -32,13 +32,16 @@ const PreviewTemplate = ({ field, ...props }) => {
                     formType={aux.metadata.elementConfig.type}
                     elementConfig={aux.metadata.elementConfig}
                     onChange={(event) => {
-                      setValues({
-                        ...values,
-                        [id]: {
-                          id: aux.idMetadata,
-                          defaultValue: event.target.value,
+                      setValues(
+                        {
+                          ...values,
+                          [id]: {
+                            id: aux.idMetadata,
+                            defaultValue: event.target.value,
+                          },
                         },
-                      });
+                        props.onDataOnChange(values)
+                      );
                     }}
                   />
                 ))

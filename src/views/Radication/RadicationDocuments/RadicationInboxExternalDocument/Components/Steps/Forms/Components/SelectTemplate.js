@@ -24,9 +24,13 @@ const SelectTemplate = ({
 
   const validateValues = () => {
     if (idTemplateByTypeDocumentary !== undefined) {
-      setValueTemplate(idTemplateByTypeDocumentary.id);
+      values.correspondence_template = idTemplateByTypeDocumentary.id;
+      setTimeout(() => {
+        setValueTemplate(values.correspondence_template);
+        dispatch(obtenerMetadatos(values.correspondence_template));
+      }, 100);
     } else {
-      setValueTemplate(values.correspondence_issue);
+      setValueTemplate(values.correspondence_template);
     }
     return valueTemplate;
   };

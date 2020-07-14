@@ -17,7 +17,10 @@ const FieldIssue = ({
 
   const validateValues = () => {
     if (issueValue !== null) {
-      setValueInput(issueValue);
+      values.correspondence_issue = issueValue;
+      setTimeout(() => {
+        setValueInput(values.correspondence_issue);
+      }, 100);
     } else {
       setValueInput(values.correspondence_issue);
     }
