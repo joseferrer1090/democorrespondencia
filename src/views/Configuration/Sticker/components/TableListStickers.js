@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-import { Card, CardBody } from "reactstrap";
+import { Card } from "reactstrap";
 import { obtenerStickers } from "./../../../../actions/stickerActions";
 
 import moment from "moment";
