@@ -24,7 +24,6 @@ export function obtenerStickers(stickers) {
       .then((response) => response.json())
       .then((response) => {
         dispatch(comenzarDescargaStickerExito(response));
-        console.log(response);
       })
       .catch((err) => {
         dispatch(comenzarDescargaStickerError());

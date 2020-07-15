@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { obtenerSticker } from "../../../../actions/stickerActions";
 import moment from "moment";
 
+import IMGSTICKER from "./../../../../assets/img/sticker.svg";
+
 class ModalViewSticker extends Component {
   constructor(props) {
     super(props);
@@ -38,42 +40,49 @@ class ModalViewSticker extends Component {
       <Modal className={"modal-lg"} isOpen={this.state.modal}>
         <ModalHeader>Informacion del sticker {datasticker.name}</ModalHeader>
         <ModalBody>
-          <div className="card card-body">
-            <div className="col-md-12">
-              <form className="form">
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-gorup">
-                      <dt>Codigo</dt>
-                      <dd>{datasticker.code}</dd>
+          <div className="row">
+            <div className="col-md-3">
+              <img src={IMGSTICKER} width={"100%"} alt="imagen_sticker" />
+            </div>
+            <div className="col-md-9">
+              <div className="card card-body">
+                <div className="col-md-12">
+                  <form className="form">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="form-gorup">
+                          <dt>Codigo</dt>
+                          <dd>{datasticker.code}</dd>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <dt>Nombre</dt>
+                          <dd>{datasticker.name}</dd>
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <dt>Descripcion</dt>
+                          <dd>{datasticker.description}</dd>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <dt>Fecha de creacion</dt>
+                          <dd>{this.converDate(datasticker.createdAt)}</dd>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <dt> Fecha de modificacion</dt>
+                          <dd>{this.converDate(datasticker.updatedAt)}</dd>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <dt>Nombre</dt>
-                      <dd>{datasticker.name}</dd>
-                    </div>
-                  </div>
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <dt>Descripcion</dt>
-                      <dd>{datasticker.description}</dd>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <dt>Fecha de creacion</dt>
-                      <dd>{this.converDate(datasticker.createdAt)}</dd>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <dt> Fecha de modificacion</dt>
-                      <dd>{this.converDate(datasticker.updatedAt)}</dd>
-                    </div>
-                  </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </ModalBody>
