@@ -2,6 +2,7 @@ import {
   OBTENER_METADATOS_PLANTILLA,
   OBTENER_INFO_PLANTILLA,
   OBTENER_METADATOS_ERROR,
+  RESET_FORM_STEP_1,
 } from "./../types";
 
 const initialState = {
@@ -25,6 +26,13 @@ export default function (state = initialState, action) {
         error: false,
       };
     case OBTENER_METADATOS_ERROR:
+      return {
+        ...state,
+        template: {},
+        idMetadata: [],
+        error: true,
+      };
+    case RESET_FORM_STEP_1:
       return {
         ...state,
         template: {},

@@ -4,10 +4,20 @@ import PropTypes from "prop-types";
 import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from "yup";
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { css } from "glamor";
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
 import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
-import { obtenerDataTipoDocumental } from "./../../../../../../../actions/step1ActionsInfoTypeDocumentary";
+import {
+  obtenerDataTipoDocumental,
+  resetFormStep1TypeDocumentary,
+} from "./../../../../../../../actions/step1ActionsInfoTypeDocumentary";
+import { obtenerDataTemplate } from "../../../../../../../actions/step1SelectTemplateaActions";
+import { resetFormStep1PreviewTemplate } from "../../../../../../../actions/step1ActionsPreviewTemplate";
+import { resetFormStep1Receiver } from "../../../../../../../actions/step1ActionsReceiver";
+import { resetFormStep1ThirdParty } from "../../../../../../../actions/step1ActionsThirdParty";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
 import FieldHeadquarter from "./Components/SelectHeadquarter";
@@ -26,7 +36,6 @@ import UserList from "./Components/UserList";
 import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
-import { obtenerDataTemplate } from "../../../../../../../actions/step1SelectTemplateaActions";
 import PreviewTemplate from "./Components/PreviewTemplate";
 
 const FormStep1 = (props) => {
@@ -257,19 +266,47 @@ const FormStep1 = (props) => {
             .then((response) =>
               response.json().then((data) => {
                 if (response.status === 201) {
-                  console.log("CREADO => 201");
+                  toast.success("Se registro la radicación con éxito.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    className: css({
+                      marginTop: "60px",
+                    }),
+                  });
+                  dispatch(resetFormStep1TypeDocumentary());
+                  dispatch(resetFormStep1PreviewTemplate());
+                  dispatch(resetFormStep1Receiver());
+                  dispatch(resetFormStep1ThirdParty());
                 } else if (response.status === 400) {
-                  console.log("ERROR => 400");
+                  toast.error(
+                    "Error al registrar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
                 } else if (response.status === 500) {
-                  console.log("ERROE => 500");
+                  toast.error(
+                    "Ocurrio un problema al registrar la radicación por favor inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
                 }
               })
             )
             .catch((error) => {
-              console.log("", error);
+              toast.error(`Error ${error} `, {
+                position: toast.POSITION.TOP_RIGHT,
+                className: css({
+                  marginTop: "60px",
+                }),
+              });
             });
-          alert(JSON.stringify(values, "", 2));
-          console.log(values);
           setSubmitting(false);
           resetForm({
             correspondence_dateFiling: "",
@@ -316,6 +353,7 @@ const FormStep1 = (props) => {
         handleSubmit,
       }) => (
         <div className="animated fadeIn">
+          <ToastContainer />
           <div className="">
             <p />
             <div className="col-md-10 offset-1">
@@ -1048,7 +1086,9 @@ const FormStep1 = (props) => {
                         type="submit"
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
-                        onClick={handleSubmit}
+                        onClick={() => {
+                          handleSubmit();
+                        }}
                       >
                         {isSubmitting ? (
                           <i className=" fa fa-spinner fa-spin" />

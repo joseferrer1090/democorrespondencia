@@ -2,6 +2,7 @@ import {
   OBTENER_INFORMACION_ADICIONAL_NUEVA_RADICACION,
   INFO_ADICION_FORM_STEP1,
   ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1,
+  RESET_FORM_STEP_1,
 } from "./../types";
 import { TYPE_DOCUMENTARIES_BY_ID } from "./../services/EndPoints";
 
@@ -44,4 +45,8 @@ const infoAdicionalFormStep1Radication = (data) => ({
 const arrayUsersinfoAdicionalFormStep1Radication = (data) => ({
   type: ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1,
   payload: data,
+});
+
+export const resetFormStep1TypeDocumentary = () => ({
+  type: RESET_FORM_STEP_1,
 });

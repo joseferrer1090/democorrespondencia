@@ -1,6 +1,7 @@
 import {
   OBTENER_INFORMACION_ADICIONAL_NUEVA_RADICACION,
   INFO_ADICION_FORM_STEP1,
+  RESET_FORM_STEP_1,
 } from "./../types";
 
 const initialState = {
@@ -21,7 +22,12 @@ export default function (state = initialState, action) {
         infoAdditional: action.payload,
         error: false,
       };
-
+    case RESET_FORM_STEP_1:
+      return {
+        ...state,
+        infoAdditional: {},
+        error: false,
+      };
     default:
       return state;
   }

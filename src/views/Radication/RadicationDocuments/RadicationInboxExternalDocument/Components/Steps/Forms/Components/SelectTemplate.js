@@ -8,9 +8,7 @@ const SelectTemplate = ({
   form: { errors, touched, setFieldTouched, setFieldValue, values },
   ...props
 }) => {
-  const [valueTemplate, setValueTemplate] = useState(
-    values.correspondence_template
-  );
+  const [valueTemplate, setValueTemplate] = useState("");
   const dataTemplate = useSelector(
     (state) => state.step1ReducerDataTemplate.dataTemplate
   );
