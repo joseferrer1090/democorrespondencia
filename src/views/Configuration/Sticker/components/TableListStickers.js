@@ -4,13 +4,17 @@ import { connect } from "react-redux";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import { Card, CardBody } from "reactstrap";
 import { obtenerStickers } from "./../../../../actions/stickerActions";
+
 import moment from "moment";
 import "./../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
+import ModalViewSticker from "./ModalViewSticker";
 
 class TableListSticker extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalview: false,
+    };
   }
 
   componentDidMount() {
@@ -20,10 +24,21 @@ class TableListSticker extends Component {
   getData = () => {
     this.props.sendTheAlert();
   };
+  ModalViewSticker(id) {
+    this.ModalView.toggle(id);
+  }
 
   AccionesTableSticker(cell, row) {
     return (
       <div>
+        <button
+          className="btn btn-secondary btn-sm"
+          title="Ver informacion del sticker"
+          onClick={() => this.ModalViewSticker(row.id)}
+        >
+          <i className="fa fa-eye" />
+        </button>
+        &nbsp;
         <button
           className="btn btn-secondary btn-sm"
           title="Editar valores del sticker"
@@ -91,6 +106,12 @@ class TableListSticker extends Component {
             </TableHeaderColumn>
           </BootstrapTable>
         </Card>
+        <ModalViewSticker
+          modalview={this.state.modalview}
+          ref={(mvs) => {
+            this.ModalView = mvs;
+          }}
+        />
       </div>
     );
   }
