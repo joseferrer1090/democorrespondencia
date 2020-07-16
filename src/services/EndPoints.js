@@ -75,3 +75,11 @@ export const STICKER_PUT = `${config.IP}:${config.PORT}/api/sgdea/service/config
 
 /* GET paramas => page, size */
 export const STCIKER_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/stickers/pagination`;
+
+//-------------------------------- CONFIGURACION DEL STICKER DETAIL -----------------------------------------//
+
+/* GET params => idSticker */
+export const STICKER_FIND_BY_STICKER_ID = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/stickers/detail/sticker/`;
+
+/* PUT */
+export const STICKER_PUT_DETAIL = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/stickers/detail`;
