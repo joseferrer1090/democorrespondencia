@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { obtenerSticker } from "../../../../actions/stickerActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Formik, withFormik } from "formik";
 import * as Yup from "yup";
 class EditInformactionSticker extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      sticker: {
+        code: "",
+        name: "",
+        description: "",
+      },
+    };
   }
 
   componentDidMount() {
@@ -23,7 +27,25 @@ class EditInformactionSticker extends Component {
   };
 
   render() {
-    console.log(this.props.sticker);
+    const send = () => {
+      const schema = Yup.object().shape({
+        name: Yup.string().trim().required("nombre necesario el sticker"),
+        code: Yup.string().trim().required("codigo necesario"),
+        description: Yup.string(),
+      });
+      schema
+        .validate({
+          name: this.state.sticker.name,
+          code: this.state.sticker.code,
+          description: this.state.sticker.description,
+        })
+        .then(() => {
+          alert(JSON.stringify(this.state.sticker, null, 2));
+        })
+        .catch((err) => {
+          console.log(err.errors);
+        });
+    };
     return (
       <div className="card">
         <div className="card-header">
@@ -40,6 +62,15 @@ class EditInformactionSticker extends Component {
                     name="code"
                     type="text"
                     className="form-control form-control-sm"
+                    value={this.state.sticker.code}
+                    onChange={(e) => {
+                      this.setState({
+                        sticker: {
+                          ...this.state.sticker,
+                          code: e.target.value,
+                        },
+                      });
+                    }}
                   />
                 </div>
               </div>
@@ -50,6 +81,15 @@ class EditInformactionSticker extends Component {
                     name="name"
                     type="text"
                     className="form-control form-control-sm"
+                    value={this.state.sticker.name}
+                    onChange={(e) => {
+                      this.setState({
+                        sticker: {
+                          ...this.state.sticker,
+                          name: e.target.value,
+                        },
+                      });
+                    }}
                   />
                 </div>
               </div>
@@ -59,6 +99,15 @@ class EditInformactionSticker extends Component {
                   <textarea
                     name="description"
                     className="form-control form-control-sm"
+                    value={this.state.sticker.description}
+                    onChange={(e) => {
+                      this.setState({
+                        sticker: {
+                          ...this.state.sticker,
+                          description: e.target.value,
+                        },
+                      });
+                    }}
                   ></textarea>
                 </div>
               </div>
@@ -67,7 +116,11 @@ class EditInformactionSticker extends Component {
         </div>
         <div className="card-footer">
           <div className="text-right">
-            <button type="submit" className="btn btn-secondary btn-sm">
+            <button
+              type="submit"
+              className="btn btn-secondary btn-sm"
+              onClick={() => send()}
+            >
               <i className="fa fa-pencil" /> Editar informacion
             </button>
           </div>
