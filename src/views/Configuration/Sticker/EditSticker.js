@@ -42,10 +42,4 @@ class EditSticker extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { state };
-}
-
-function mapDispatchToProps(dispatch) {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditSticker);
+export default EditSticker;

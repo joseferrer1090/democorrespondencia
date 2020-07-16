@@ -1,14 +1,28 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { obtenerSticker } from "../../../../actions/stickerActions";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { withFormik, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 class EditInformactionSticker extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: this.props.dataSticker,
-    };
+    this.state = {};
   }
+
+  componentDidMount() {
+    if (Object.entries(this.props.sticker).length === 0) {
+      this.getSticker(this.props.match.params.id);
+    } else if (Object.entries(this.props.sticker).length !== null) {
+      console.log(this.props.sticker);
+    }
+  }
+  getSticker = (id) => {
+    this.props.getData(id);
+  };
+
   render() {
     return (
       <div className="card">
@@ -52,17 +66,23 @@ class EditInformactionSticker extends Component {
   }
 }
 
-EditInformactionSticker.propTypes = {
-  dataSticker: PropTypes.object,
-};
+EditInformactionSticker.propTypes = {};
 
 function mapStateToProps(state) {
-  return { state };
+  return {
+    sticker: state.stickerReducer.sticker,
+  };
 }
 
-function mapDispatchToProps(dispatch) {}
+function mapDispatchToProps(dispatch) {
+  return {
+    getData: (id) => {
+      dispatch(obtenerSticker(id));
+    },
+  };
+}
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EditInformactionSticker);
+)(withRouter(EditInformactionSticker));
