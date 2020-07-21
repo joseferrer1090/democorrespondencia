@@ -23,28 +23,33 @@ const PreviewTemplate = ({ field, ...props }) => {
           <Card body>
             <div className="row">
               {template.length ? (
-                template.map((aux, id) => (
-                  <Inputs
-                    key={id}
-                    id={aux.id}
-                    value={aux.value}
-                    label={aux.metadata.elementConfig.labeltext}
-                    formType={aux.metadata.elementConfig.type}
-                    elementConfig={aux.metadata.elementConfig}
-                    onChange={(event) => {
-                      setValues(
-                        {
-                          ...values,
-                          [id]: {
-                            id: aux.idMetadata,
-                            defaultValue: event.target.value,
-                          },
-                        },
-                        props.onDataOnChange(values)
-                      );
-                    }}
-                  />
-                ))
+                template.map(
+                  (aux, id) => (
+                    console.log(aux.defaultValue),
+                    (
+                      <Inputs
+                        key={id}
+                        id={aux.id}
+                        value={aux.defaultValue}
+                        label={aux.metadata.elementConfig.labeltext}
+                        formType={aux.metadata.elementConfig.type}
+                        elementConfig={aux.metadata.elementConfig}
+                        onChange={(event) => {
+                          setValues(
+                            {
+                              ...values,
+                              [id]: {
+                                id: aux.idMetadata,
+                                defaultValue: event.target.value,
+                              },
+                            },
+                            props.onDataOnChange(values)
+                          );
+                        }}
+                      />
+                    )
+                  )
+                )
               ) : (
                 <p className="text-center">
                   {" "}

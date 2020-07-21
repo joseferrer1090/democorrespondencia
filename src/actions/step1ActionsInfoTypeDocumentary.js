@@ -3,6 +3,7 @@ import {
   INFO_ADICION_FORM_STEP1,
   ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1,
   RESET_FORM_STEP_1,
+  OBTENER_INFO_METADATOS_PREVIEW,
 } from "./../types";
 import { TYPE_DOCUMENTARIES_BY_ID } from "./../services/EndPoints";
 
@@ -27,6 +28,7 @@ export function obtenerDataTipoDocumental(id) {
           )
         );
         dispatch(obtenerInfoAdicionalTipoDocumental());
+        dispatch(obtenerInfoTemplateByTypeDocumentary(data.metadata));
       })
 
       .catch((err) => console.log(err));
@@ -49,4 +51,9 @@ const arrayUsersinfoAdicionalFormStep1Radication = (data) => ({
 
 export const resetFormStep1TypeDocumentary = () => ({
   type: RESET_FORM_STEP_1,
+});
+
+const obtenerInfoTemplateByTypeDocumentary = (data) => ({
+  type: OBTENER_INFO_METADATOS_PREVIEW,
+  payload: data,
 });
