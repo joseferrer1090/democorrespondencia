@@ -2,6 +2,7 @@ import {
   AGREGAR_USUARIO_DISPONIBLE,
   BORRAR_USUARIO_DISPONIBLE,
   AGREGAR_USUARIO_ORIGINAL,
+  RESET_FORM_STEP_1,
 } from "../types/index";
 
 export const agregarUsuarioDisponible = (user) => {
@@ -21,3 +22,7 @@ export const agregarUsuarioOriginal = (id) => {
     payload: id,
   };
 };
+
+export const resetFormStep1Receiver = () => ({
+  type: RESET_FORM_STEP_1,
+});
