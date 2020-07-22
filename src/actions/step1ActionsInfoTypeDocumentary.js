@@ -3,9 +3,14 @@ import {
   INFO_ADICION_FORM_STEP1,
   ARRAY_USERS_INFO_ADICIONAL_FORM_STEP1,
   RESET_FORM_STEP_1,
-  OBTENER_INFO_METADATOS_PREVIEW,
+  OBTENER_METADATOS_PLANTILLA_BY_TYPE_DOCUMENTARY,
+  OBTENER_PLANTILLA_BY_TYPE_DOCUMENTARY,
+  OBTENER_METADATOS_ERROR_BY_TYPE_DOCUMENTARY,
 } from "./../types";
-import { TYPE_DOCUMENTARIES_BY_ID } from "./../services/EndPoints";
+import {
+  TYPE_DOCUMENTARIES_BY_ID,
+  GET_METADATA_FOR_TYPE_DOCUMENTARY,
+} from "./../services/EndPoints";
 
 export function obtenerDataTipoDocumental(id) {
   const auth = localStorage.getItem("auth_token");
@@ -28,10 +33,51 @@ export function obtenerDataTipoDocumental(id) {
           )
         );
         dispatch(obtenerInfoAdicionalTipoDocumental());
+        dispatch(
+          obtenerDataMetadatos(
+            data.metadata.map((aux, id) => {
+              return {
+                id: aux.id,
+                defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+              };
+            })
+          )
+        );
         dispatch(obtenerInfoTemplateByTypeDocumentary(data.metadata));
       })
 
       .catch((err) => console.log(err));
+  };
+}
+
+export function obtenerMetadatosByTypeDocumentary(id) {
+  const auth = localStorage.getItem("auth_token");
+  return (dispatch) => {
+    fetch(`${GET_METADATA_FOR_TYPE_DOCUMENTARY}${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + auth,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(
+          obtenerDataMetadatos(
+            data.map((aux, id) => {
+              return {
+                id: aux.id,
+                defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+              };
+            })
+          )
+        );
+        dispatch(obtenerInfoTemplateByTypeDocumentary(data));
+      })
+      .catch((error) => {
+        console.log(`Error => ${error.message}`, error);
+        dispatch(clearData());
+      });
   };
 }
 
@@ -54,6 +100,14 @@ export const resetFormStep1TypeDocumentary = () => ({
 });
 
 const obtenerInfoTemplateByTypeDocumentary = (data) => ({
-  type: OBTENER_INFO_METADATOS_PREVIEW,
+  type: OBTENER_PLANTILLA_BY_TYPE_DOCUMENTARY,
   payload: data,
+});
+
+const obtenerDataMetadatos = (metadata) => ({
+  type: OBTENER_METADATOS_PLANTILLA_BY_TYPE_DOCUMENTARY,
+  payload: metadata,
+});
+const clearData = () => ({
+  type: OBTENER_METADATOS_ERROR_BY_TYPE_DOCUMENTARY,
 });

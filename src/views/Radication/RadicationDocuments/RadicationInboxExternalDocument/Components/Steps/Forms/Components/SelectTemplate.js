@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { obtenerMetadatos } from "../../../../../../../../actions/step1ActionsPreviewTemplate";
+import { obtenerMetadatosByTypeDocumentary } from "../../../../../../../../actions/step1ActionsInfoTypeDocumentary";
 
 const SelectTemplate = ({
   field,
   form: { errors, touched, setFieldTouched, setFieldValue, values },
   ...props
 }) => {
+  const dispatch = useDispatch();
   const [valueTemplate, setValueTemplate] = useState("");
   const dataTemplate = useSelector(
     (state) => state.step1ReducerDataTemplate.dataTemplate
@@ -16,15 +18,20 @@ const SelectTemplate = ({
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
   );
 
+  const idTypeDocumentary = useSelector(
+    (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.id
+  );
+
   useEffect(() => {
     validateValues();
-  }, [idTemplateByTypeDocumentary]);
+  }, [idTemplateByTypeDocumentary, idTypeDocumentary]);
 
   const validateValues = () => {
     if (idTemplateByTypeDocumentary !== undefined) {
       values.correspondence_template = idTemplateByTypeDocumentary.id;
       setTimeout(() => {
         setValueTemplate(values.correspondence_template);
+        // dispatch(obtenerMetadatosByTypeDocumentary(idTypeDocumentary));
         dispatch(obtenerMetadatos(values.correspondence_template));
       }, 100);
     } else {
@@ -32,7 +39,6 @@ const SelectTemplate = ({
     }
     return valueTemplate;
   };
-  const dispatch = useDispatch();
 
   return (
     <div>

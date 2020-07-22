@@ -14,6 +14,7 @@ const Inputs = (props) => {
               className="form-control form-control-sm"
               onChange={props.onChange}
               value={props.value}
+              defaultValue={props.defaultValue}
               {...props.elementConfig}
             />
           </div>

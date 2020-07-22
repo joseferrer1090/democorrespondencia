@@ -37,6 +37,7 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
+import PreviewTemplateByTypeDocumentary from "./Components/PreviewTemplateByTypeDocumentary";
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const FormStep1 = (props) => {
   );
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
+  const [changeInValueMetadata, setChangeInValueMetadata] = useState(false);
   const [nameUserFiling, setNameUserFiling] = useState("");
   const [headquarterFiling, setHeadquarterFiling] = useState("");
   const [modalView, setModalView] = useState(false);
@@ -127,7 +129,13 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-  }, [props.nameUserFiling, props.setHeadquarterFiling, idTemplate]);
+    console.log(changeInValueMetadata);
+  }, [
+    props.nameUserFiling,
+    props.setHeadquarterFiling,
+    idTemplate,
+    changeInValueMetadata,
+  ]);
   return (
     <Formik
       initialValues={{
@@ -1074,7 +1082,18 @@ const FormStep1 = (props) => {
                           onDataOnChange={(datainputs) =>
                             setDataInputs(datainputs)
                           }
+                          changeInMetadata={(changeInValueMetadata) =>
+                            setChangeInValueMetadata(changeInValueMetadata)
+                          }
                         />
+                      </div>
+                      <div className="col-md-12">
+                        {/* <Field
+                          component={PreviewTemplateByTypeDocumentary}
+                          onDataOnChange={(datainputs) =>
+                            setDataInputs(datainputs)
+                          }
+                        /> */}
                       </div>
                     </div>
                   </div>

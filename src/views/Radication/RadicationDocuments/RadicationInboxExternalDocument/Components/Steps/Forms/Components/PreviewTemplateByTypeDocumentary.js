@@ -4,10 +4,11 @@ import { Card, CardHeader, CardBody } from "reactstrap";
 import Inputs from "./Inputs";
 import { useSelector } from "react-redux";
 
-const PreviewTemplate = ({ field, ...props }) => {
-  const [values, setValues] = useState({ id: "", defaultValue: "" });
+const PreviewTemplateByTypeDocumentary = ({ field, ...props }) => {
+  const [values, setValues] = useState({});
+  const [valueMetadata, setValueMetadata] = useState();
   const template = useSelector(
-    (state) => state.step1ReducerPreviewTemplate.template
+    (state) => state.step1ReducerInfoTypeDocumentary.template
   );
 
   useEffect(() => {}, [props.id, template]);
@@ -24,6 +25,7 @@ const PreviewTemplate = ({ field, ...props }) => {
             <div className="row">
               {template.length ? (
                 template.map((aux, id) => (
+                  // setValueMetadata(aux.defaultValue),
                   <Inputs
                     key={id}
                     id={aux.id}
@@ -32,14 +34,14 @@ const PreviewTemplate = ({ field, ...props }) => {
                     label={aux.metadata.elementConfig.labeltext}
                     formType={aux.metadata.elementConfig.type}
                     elementConfig={aux.metadata.elementConfig}
-                    onChange={(event) => {
-                      props.changeInMetadata(true);
+                    onChange={(e) => {
+                      //   aux.defaultValue = e.target.value;
                       setValues(
                         {
                           ...values,
                           [id]: {
-                            id: aux.idMetadata,
-                            defaultValue: event.target.value,
+                            id: aux.id,
+                            defaultValue: e.target.value,
                           },
                         },
                         props.onDataOnChange(values)
@@ -65,6 +67,6 @@ const PreviewTemplate = ({ field, ...props }) => {
   );
 };
 
-PreviewTemplate.propTypes = {};
+PreviewTemplateByTypeDocumentary.propTypes = {};
 
-export default PreviewTemplate;
+export default PreviewTemplateByTypeDocumentary;

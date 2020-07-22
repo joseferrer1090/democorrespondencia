@@ -46,16 +46,26 @@ const ThirdParty = (props) => {
     if (id !== null) {
       fetchNewValues(id);
     } else {
+      setAlertAsignacion(false);
+      setIdThirdParty(null);
+      setNameThirdParty(null);
     }
   };
 
   useEffect(() => {
-    validateValues();
-  }, [id]);
+    if (valueInput === "") {
+      setAlertAsignacion(false);
+      setIdThirdParty(null);
+      setNameThirdParty(null);
+      valueInput = null;
+      id = null;
+    } else {
+      validateValues();
+    }
+  }, [props.id, valueInput]);
 
   const spinnerAsignacion = () => {
     setSpinner(true);
-
     setTimeout(() => {
       setSpinner(false);
     }, 500);
@@ -86,7 +96,7 @@ const ThirdParty = (props) => {
           padding: "10px",
         }}
       >
-        {NameThirdParty && IdThirdParty && valueInput !== null ? (
+        {NameThirdParty && IdThirdParty !== null ? (
           <ul className="list-unstyled">
             <li className="media">
               <img
