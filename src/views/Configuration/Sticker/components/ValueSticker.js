@@ -42,6 +42,23 @@ class ValueSticker extends Component {
     ev.preventDefault();
   };
 
+  onDrop = (ev, cat) => {
+    let id = ev.dataTransfer.getData("id");
+    console.log(ev);
+
+    // let tasks = this.state.tasks.filter((task) => {
+    //   if (task.name == id) {
+    //     task.category = cat;
+    //   }
+    //   return task;
+    // });
+
+    // this.setState({
+    //   ...this.state,
+    //   tasks,
+    // });
+  };
+
   render() {
     const details = {
       inputId: [],
@@ -104,7 +121,15 @@ class ValueSticker extends Component {
               </div>
               <div className="col-md-6">
                 <div className="card card-body">
-                  <p>Eu excepteur tempor irure consequat sit ex.</p>
+                  <div
+                    className="droppable"
+                    onDragOver={(e) => this.onDragOver(e)}
+                    onDrop={(e) => this.onDrop(e, "complete")}
+                  >
+                    <p className="text-center" style={{ textAlign: "middle" }}>
+                      Soltar item de la lista
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
