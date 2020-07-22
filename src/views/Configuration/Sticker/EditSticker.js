@@ -15,16 +15,13 @@ class EditSticker extends Component {
       <div className="row">
         <div className="col-md-12">
           <div className="alert alert-secondary" role="alert">
-            <h4 className="alert-heading">Well done!</h4>
-            <p>
-              Aww yeah, you successfully read this important alert message. This
-              example text is going to run a bit longer so that you can see how
-              spacing within an alert works with this kind of content.
-            </p>
-            <hr />
-            <p className="mb-0">
-              Whenever you need to, be sure to use margin utilities to keep
-              things nice and tidy.
+            <h4 className="alert-heading">Valores del sticker</h4>
+            <p className="text-justify">
+              Tener en cuenta que la informacion corresponde unicamente a la
+              informacion de este y severa reflejada al instante de la edicion.
+              Tener en cuenta que los valores del sticker se actualizaran, al
+              final de la jornada. El orden en que se seleccionen seran el ordan
+              en que saldra en el stciker.
             </p>
           </div>
         </div>
