@@ -125,6 +125,29 @@ const FormStep1 = (props) => {
   const DateValidity = () => {
     return moment(today).format("YYYY");
   };
+
+  const newDataInputsConsole = (data) => {
+    const newdata = data
+      ? Object.keys(data).map(function (key, index) {
+          console.log(`${key}`);
+          return data[key];
+        })
+      : [];
+
+    const ids = idMetadata;
+
+    if (newdata.length === ids.length) {
+      return newdata;
+    } else if (newdata.length !== ids.length) {
+      const idss = new Set(newdata.map((d) => d.id));
+      const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
+      return merged;
+    } else if (newdata === null) {
+      return data;
+    }
+    return data;
+  };
+
   useEffect(() => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
@@ -135,6 +158,7 @@ const FormStep1 = (props) => {
     props.setHeadquarterFiling,
     idTemplate,
     changeInValueMetadata,
+    // dataInputs,
   ]);
   return (
     <Formik
@@ -268,7 +292,8 @@ const FormStep1 = (props) => {
               thirdPartyId: idThirdParty,
               templateId: values.correspondence_template,
               usersAddressees: userData.users,
-              metadata: newDataInputs(dataInputs),
+              // metadata: newDataInputs(dataInputs),
+              metadata: dataInputs,
             }),
           })
             .then((response) =>
@@ -1116,6 +1141,16 @@ const FormStep1 = (props) => {
                             <i className="fa fa-save" /> Radicar
                           </div>
                         )}
+                      </button>
+                      &nbsp;
+                      <button
+                        type="button"
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => {
+                          console.log(newDataInputsConsole(dataInputs));
+                        }}
+                      >
+                        METADATOS
                       </button>
                     </div>
                   </div>

@@ -5,7 +5,7 @@ import Inputs from "./Inputs";
 import { useSelector } from "react-redux";
 
 const PreviewTemplate = ({ field, ...props }) => {
-  const [values, setValues] = useState({ id: "", defaultValue: "" });
+  const [values, setValues] = useState({});
   const template = useSelector(
     (state) => state.step1ReducerPreviewTemplate.template
   );
@@ -33,7 +33,7 @@ const PreviewTemplate = ({ field, ...props }) => {
                     formType={aux.metadata.elementConfig.type}
                     elementConfig={aux.metadata.elementConfig}
                     onChange={(event) => {
-                      props.changeInMetadata(true);
+                      // props.changeInMetadata(true);
                       setValues(
                         {
                           ...values,
