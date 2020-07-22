@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { Alert } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { obtenerSticker } from "./../../../../actions/stickerActions";
 import { STICKER_PUT } from "./../../../../services/EndPoints";
@@ -9,6 +10,12 @@ export const EditInformationSticker = ({ id }) => {
   const name = useRef("");
   const description = useRef("");
 
+  const [visible, setVisible] = useState(null);
+  const onDismiss = () => setVisible(false);
+
+  const [alerterror, setAlertError] = useState(null);
+  const onDissmisError = () => setAlertError(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +23,9 @@ export const EditInformationSticker = ({ id }) => {
   }, [dispatch, id]);
 
   const sticker = useSelector((state) => state.stickerReducer.sticker);
+
   console.log(sticker);
+
   const updateSticker = (e) => {
     e.preventDefault();
     const auth = localStorage.getItem("auth_token");
@@ -37,11 +46,21 @@ export const EditInformationSticker = ({ id }) => {
     })
       .then((response) => {
         if (response.status === 200) {
+          setVisible(true);
+          setTimeout(() => {
+            onDismiss();
+          }, 1200);
           dispatch(obtenerSticker(id));
         } else if (response.status === 500) {
-          console.log("Error al modificar", response.status);
+          setAlertError(true);
+          setTimeout(() => {
+            onDissmisError();
+          }, 1200);
         } else if (response.status === 400) {
-          console.log("Error al enviar los datos", response.status);
+          setAlertError(true);
+          setTimeout(() => {
+            onDissmisError();
+          }, 1200);
         }
       })
       .catch((err) => {
@@ -56,6 +75,14 @@ export const EditInformationSticker = ({ id }) => {
         Informacion del sticker
       </div>
       <div className="card-body">
+        <Alert color="success" isOpen={visible}>
+          <i className="fa fa-check-circle" /> Se realizo la actualizacion de
+          los valores del sticker con exito
+        </Alert>
+        <Alert color="danger" isOpen={alerterror}>
+          <i className="fa fa-exclamation-triangle" aria-hidden="true" /> Error
+          al intenter modificar los valores del sticker.
+        </Alert>
         <form className="form">
           <div className="row">
             <div className="col-md-6">
@@ -67,6 +94,7 @@ export const EditInformationSticker = ({ id }) => {
                   className="form-control form-control-sm"
                   defaultValue={sticker.code}
                   ref={code}
+                  disabled
                 />
 
                 <div className="invalid-feedback">
