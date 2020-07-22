@@ -75,12 +75,12 @@ export default {
           url: "/correspondence/configuration/sticker",
           icon: "icon-plus",
         },
-        {
-          name: "Editar sticker",
-          url: "/correspondence/configuration/sticker/edit/:id",
-          exact: true,
-          icon: "icon-pencil",
-        },
+        // {
+        //   name: "Editar sticker",
+        //   url: "/correspondence/configuration/sticker/edit/:id",
+        //   exact: true,
+        //   icon: "icon-pencil",
+        // },
       ],
     },
   ],
