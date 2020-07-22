@@ -5,19 +5,22 @@ const FieldIssue = ({
   form: { errors, touched, setFieldValue, setFieldTouched, values },
   ...props
 }) => {
-  const [valueInput, setValueInput] = useState(values.correspondence_issue);
+  const [valueInput, setValueInput] = useState("");
 
   const issueValue = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.issue
   );
-  // console.log(issueValue);
+
   useEffect(() => {
     validateValues();
   }, [issueValue]);
 
   const validateValues = () => {
     if (issueValue !== null) {
-      setValueInput(issueValue);
+      values.correspondence_issue = issueValue;
+      setTimeout(() => {
+        setValueInput(values.correspondence_issue);
+      }, 100);
     } else {
       setValueInput(values.correspondence_issue);
     }

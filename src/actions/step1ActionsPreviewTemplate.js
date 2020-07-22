@@ -2,6 +2,7 @@ import {
   OBTENER_METADATOS_PLANTILLA,
   OBTENER_INFO_PLANTILLA,
   OBTENER_METADATOS_ERROR,
+  RESET_FORM_STEP_1,
 } from "./../types";
 import { GET_METADATA_FOR_TEMPLATE } from "./../services/EndPoints";
 
@@ -46,4 +47,7 @@ const obtenerInfoTemplate = (data) => ({
 });
 const clearData = () => ({
   type: OBTENER_METADATOS_ERROR,
+});
+export const resetFormStep1PreviewTemplate = () => ({
+  type: RESET_FORM_STEP_1,
 });
