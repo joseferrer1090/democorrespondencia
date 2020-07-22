@@ -17,6 +17,18 @@ class ValueSticker extends Component {
             Valores del sticker
           </CardHeader>
           <CardBody>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="card card-body">
+                  <p>Occaecat ex eiusmod ut sunt qui culpa Lorem.</p>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="card card-body">
+                  <p>Eu excepteur tempor irure consequat sit ex.</p>
+                </div>
+              </div>
+            </div>
             <p>
               Drag and Drop para organizar los valores del sticker y asinar
               nueveos
