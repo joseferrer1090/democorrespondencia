@@ -126,27 +126,27 @@ const FormStep1 = (props) => {
     return moment(today).format("YYYY");
   };
 
-  const newDataInputsConsole = (data) => {
-    const newdata = data
-      ? Object.keys(data).map(function (key, index) {
-          console.log(`${key}`);
-          return data[key];
-        })
-      : [];
+  // const newDataInputsConsole = (data) => {
+  //   const newdata = data
+  //     ? Object.keys(data).map(function (key, index) {
+  //         console.log(`${key}`);
+  //         return data[key];
+  //       })
+  //     : [];
 
-    const ids = idMetadata;
+  //   const ids = idMetadata;
 
-    if (newdata.length === ids.length) {
-      return newdata;
-    } else if (newdata.length !== ids.length) {
-      const idss = new Set(newdata.map((d) => d.id));
-      const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
-      return merged;
-    } else if (newdata === null) {
-      return data;
-    }
-    return data;
-  };
+  //   if (newdata.length === ids.length) {
+  //     return newdata;
+  //   } else if (newdata.length !== ids.length) {
+  //     const idss = new Set(newdata.map((d) => d.id));
+  //     const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
+  //     return merged;
+  //   } else if (newdata === null) {
+  //     return data;
+  //   }
+  //   return data;
+  // };
 
   useEffect(() => {
     setNameUserFiling(props.nameUserFiling);
@@ -1142,7 +1142,7 @@ const FormStep1 = (props) => {
                           </div>
                         )}
                       </button>
-                      &nbsp;
+                      {/* &nbsp;
                       <button
                         type="button"
                         className="btn btn-secondary btn-sm"
@@ -1151,7 +1151,7 @@ const FormStep1 = (props) => {
                         }}
                       >
                         METADATOS
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
