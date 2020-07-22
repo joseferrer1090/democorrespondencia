@@ -13,7 +13,7 @@ class ValueSticker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: [
+      datasticker: [
         {
           labelText: "Fecha de radicación",
           inputId: "filingDate",
@@ -33,7 +33,31 @@ class ValueSticker extends Component {
     };
   }
 
+  onDragStart = (ev, id) => {
+    console.log("dragstart:", id);
+    ev.dataTransfer.setData("id", id);
+  };
+
+  onDragOver = (ev) => {
+    ev.preventDefault();
+  };
+
   render() {
+    const details = {
+      inputId: [],
+    };
+    this.state.datasticker.forEach((t) => (
+      <div
+        key={t.name}
+        onDragStart={(e) => this.onDragStart(e, t.name)}
+        draggable
+        className="draggable"
+        style={{ backgroundColor: t.bgcolor }}
+      >
+        {t.name}
+      </div>
+    ));
+
     return (
       <div className="animated fadeIn">
         <Card>
@@ -62,15 +86,18 @@ class ValueSticker extends Component {
                   </div>
                   <div className="card-body">
                     <ul className="list-group" style={stylelist}>
-                      <li className="list-group-item">Cras justo odio</li>
-                      <li className="list-group-item">
-                        Dapibus ac facilisis in
-                      </li>
-                      <li className="list-group-item">Morbi leo risus</li>
-                      <li className="list-group-item">
-                        Porta ac consectetur ac
-                      </li>
-                      <li className="list-group-item">Vestibulum at eros</li>
+                      {this.state.datasticker.map((aux) => (
+                        <li
+                          style={{ border: "1px dashed" }}
+                          draggable
+                          className="list-group-item draggable"
+                          onDragStart={(e) =>
+                            this.onDragStart(e, aux.labelText)
+                          }
+                        >
+                          {aux.labelText}
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
