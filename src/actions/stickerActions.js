@@ -80,5 +80,8 @@ const stickerexito = (sticker) => ({
 const stickererror = () => ({
   type: OBTENER_STICKER_ERROR,
 });
+// FIN
+
+// FUNCION PRINCIPAL PARA EDITAR LA INFORMACION DEL STICKER
 
 // FIN
