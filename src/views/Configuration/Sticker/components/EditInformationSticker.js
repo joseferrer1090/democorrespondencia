@@ -20,10 +20,13 @@ export const EditInformationSticker = ({ id }) => {
 
   useEffect(() => {
     dispatch(obtenerSticker(id));
+
   }, [dispatch, id]);
 
   const sticker = useSelector((state) => state.stickerReducer.sticker);
+
   console.log(sticker);
+  
   const updateSticker = (e) => {
     e.preventDefault();
     const auth = localStorage.getItem("auth_token");

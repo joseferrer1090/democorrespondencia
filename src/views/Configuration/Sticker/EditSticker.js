@@ -25,10 +25,10 @@ class EditSticker extends Component {
             </p>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-4">
           <EditInformationSticker id={this.props.match.params.id} />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-8">
           <ValueSticker />
         </div>
         {/* <div className="col-md-12">
