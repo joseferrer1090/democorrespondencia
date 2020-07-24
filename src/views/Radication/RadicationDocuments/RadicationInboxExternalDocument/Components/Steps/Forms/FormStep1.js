@@ -41,6 +41,7 @@ import PreviewTemplateByTypeDocumentary from "./Components/PreviewTemplateByType
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
+
   const userData = useSelector((state) => state.step1ReducerReceiver);
   const idTemplate = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
@@ -85,6 +86,9 @@ const FormStep1 = (props) => {
   const [StateChangeAlert, setAux] = useState("");
   const [valueIdentification, setValueIdentification] = useState(null);
   const [dataInputs, setDataInputs] = useState();
+  const [cObjectPosition, setCObjectPosition] = useState();
+  const [cObjectId, setCObjectId] = useState();
+  const [cObjectValue, setCObjectValue] = useState();
 
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
@@ -126,39 +130,68 @@ const FormStep1 = (props) => {
     return moment(today).format("YYYY");
   };
 
-  // const newDataInputsConsole = (data) => {
-  //   const newdata = data
-  //     ? Object.keys(data).map(function (key, index) {
-  //         console.log(`${key}`);
-  //         return data[key];
-  //       })
-  //     : [];
+  const newDataInputsConsole = (data) => {
+    const newdata = data
+      ? Object.keys(data).map(function (key, index) {
+          return data[key];
+        })
+      : [];
 
-  //   const ids = idMetadata;
+    const ids = idMetadata;
 
-  //   if (newdata.length === ids.length) {
-  //     return newdata;
-  //   } else if (newdata.length !== ids.length) {
-  //     const idss = new Set(newdata.map((d) => d.id));
-  //     const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
-  //     return merged;
-  //   } else if (newdata === null) {
-  //     return data;
-  //   }
-  //   return data;
-  // };
+    if (newdata.length === ids.length) {
+      console.log("retornando newdata");
+      return newdata;
+    } else if (newdata.length !== ids.length) {
+      console.log(newdata);
+      console.log(ids);
+      console.log(
+        `longitud newdata = ${newdata.length} - longitud idMetadata = ${ids.length}`
+      );
+      // console.log(true);
+      const idss = new Set(newdata.map((d) => d.id));
+      const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
+      console.log("retornando merged");
+      return merged;
+    } else if (newdata === null) {
+      console.log("retornando data");
+      return data;
+    }
+    return data;
+  };
+
+  const contrusctorObjectMetadata = (
+    cObjectPosition,
+    cObjectId,
+    cObjectValue
+  ) => {
+    let object = {};
+    let ids = idMetadata;
+
+    if (cObjectPosition && cObjectId && cObjectValue !== undefined) {
+      object = {
+        id: cObjectId,
+        defaultValue: cObjectValue,
+      };
+      ids.map((aux, idx) => {
+        if (aux.id === object.id) {
+          aux.defaultValue = object.defaultValue;
+        }
+      });
+      return ids;
+    }
+    return object;
+  };
 
   useEffect(() => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-    console.log(changeInValueMetadata);
   }, [
     props.nameUserFiling,
     props.setHeadquarterFiling,
     idTemplate,
     changeInValueMetadata,
-    // dataInputs,
   ]);
   return (
     <Formik
@@ -551,10 +584,12 @@ const FormStep1 = (props) => {
                                   "correspondence_typeDocumentary",
                                   e.target.value
                                 );
+
                                 changeInValueTypeDocumentary(
                                   values.correspondence_typeDocumentary,
                                   e.target.value
                                 );
+
                                 dispatch(
                                   obtenerDataTipoDocumental(e.target.value)
                                 );
@@ -1104,21 +1139,19 @@ const FormStep1 = (props) => {
                           authorization={props.authorization}
                           component={PreviewTemplate}
                           id={values.correspondence_template}
-                          onDataOnChange={(datainputs) =>
-                            setDataInputs(datainputs)
-                          }
-                          changeInMetadata={(changeInValueMetadata) =>
-                            setChangeInValueMetadata(changeInValueMetadata)
-                          }
+                          // onDataOnChange={(datainputs) =>
+                          //   setDataInputs(datainputs)
+                          // }
+                          infoMetadataPosition={(cObjectPosition) => {
+                            setCObjectPosition(cObjectPosition);
+                          }}
+                          infoMetadataId={(cObjectId) => {
+                            setCObjectId(cObjectId);
+                          }}
+                          infoMetadataValue={(cObjectValue) => {
+                            setCObjectValue(cObjectValue);
+                          }}
                         />
-                      </div>
-                      <div className="col-md-12">
-                        {/* <Field
-                          component={PreviewTemplateByTypeDocumentary}
-                          onDataOnChange={(datainputs) =>
-                            setDataInputs(datainputs)
-                          }
-                        /> */}
                       </div>
                     </div>
                   </div>
@@ -1142,16 +1175,23 @@ const FormStep1 = (props) => {
                           </div>
                         )}
                       </button>
-                      {/* &nbsp;
+                      &nbsp;
                       <button
                         type="button"
                         className="btn btn-secondary btn-sm"
                         onClick={() => {
-                          console.log(newDataInputsConsole(dataInputs));
+                          // console.log("dataInputs in function");
+                          console.log(
+                            contrusctorObjectMetadata(
+                              cObjectPosition,
+                              cObjectId,
+                              cObjectValue
+                            )
+                          );
                         }}
                       >
                         METADATOS
-                      </button> */}
+                      </button>
                     </div>
                   </div>
                 </div>

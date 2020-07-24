@@ -108,6 +108,7 @@ const obtenerDataMetadatos = (metadata) => ({
   type: OBTENER_METADATOS_PLANTILLA_BY_TYPE_DOCUMENTARY,
   payload: metadata,
 });
+
 const clearData = () => ({
   type: OBTENER_METADATOS_ERROR_BY_TYPE_DOCUMENTARY,
 });
