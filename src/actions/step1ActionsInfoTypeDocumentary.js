@@ -37,7 +37,7 @@ export function obtenerDataTipoDocumental(id) {
           obtenerDataMetadatos(
             data.metadata.map((aux, id) => {
               return {
-                id: aux.id,
+                id: aux.idMetadata,
                 defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
               };
             })
@@ -53,7 +53,7 @@ export function obtenerDataTipoDocumental(id) {
 export function obtenerMetadatosByTypeDocumentary(id) {
   const auth = localStorage.getItem("auth_token");
   return (dispatch) => {
-    fetch(`${GET_METADATA_FOR_TYPE_DOCUMENTARY}${id}`, {
+    fetch(`${TYPE_DOCUMENTARIES_BY_ID}${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -64,15 +64,15 @@ export function obtenerMetadatosByTypeDocumentary(id) {
       .then((data) => {
         dispatch(
           obtenerDataMetadatos(
-            data.map((aux, id) => {
+            data.metadata.map((aux, id) => {
               return {
-                id: aux.id,
+                id: aux.idMetadata,
                 defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
               };
             })
           )
         );
-        dispatch(obtenerInfoTemplateByTypeDocumentary(data));
+        dispatch(obtenerInfoTemplateByTypeDocumentary(data.metadata));
       })
       .catch((error) => {
         console.log(`Error => ${error.message}`, error);

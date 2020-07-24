@@ -37,26 +37,10 @@ const PreviewTemplate = ({ field, ...props }) => {
                     key={id}
                     id={aux.id}
                     defaultValue={aux.defaultValue}
-                    // value={""}
                     ref={dataInputsRef}
                     label={aux.metadata.elementConfig.labeltext}
                     formType={aux.metadata.elementConfig.type}
                     elementConfig={aux.metadata.elementConfig}
-                    // onChange={(event) => {
-                    //   setValues(
-                    //     {
-                    //       // ...values,
-                    //       // id: aux.id,
-                    //       // defaultValue: event.target.value,
-                    //       [id]: {
-                    //         id: aux.id,
-                    //         defaultValue: event.target.value,
-                    //       },
-                    //     },
-
-                    //     props.onDataOnChange(values)
-                    //   );
-                    // }}
                     onChange={(e) => {
                       props.infoMetadataPosition([id]);
                       props.infoMetadataId(aux.idMetadata);

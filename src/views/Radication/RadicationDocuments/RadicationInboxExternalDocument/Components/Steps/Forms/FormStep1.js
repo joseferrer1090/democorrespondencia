@@ -165,7 +165,7 @@ const FormStep1 = (props) => {
     cObjectId,
     cObjectValue
   ) => {
-    let object = {};
+    let object;
     let ids = idMetadata;
 
     if (cObjectPosition && cObjectId && cObjectValue !== undefined) {
@@ -173,14 +173,26 @@ const FormStep1 = (props) => {
         id: cObjectId,
         defaultValue: cObjectValue,
       };
-      ids.map((aux, idx) => {
-        if (aux.id === object.id) {
-          aux.defaultValue = object.defaultValue;
+
+      ids.map(
+        (aux, idx) => {
+          if (aux.id === object.id) {
+            aux.defaultValue = object.defaultValue;
+          }
         }
-      });
+        // console.log("Retornando ids con cambios")
+        //  return ids
+      );
+
+      if (cObjectValue === "") {
+        console.log("Sin valor");
+      }
+
+      return ids;
+    } else {
+      console.log("Retornando idMetadata");
       return ids;
     }
-    return object;
   };
 
   useEffect(() => {
