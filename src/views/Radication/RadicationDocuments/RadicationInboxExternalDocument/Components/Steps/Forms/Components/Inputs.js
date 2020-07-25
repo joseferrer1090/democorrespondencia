@@ -10,9 +10,6 @@ const Inputs = (props) => {
           <div className="form-group">
             <label htmlFor="">{props.label}</label>
             <input
-              // autoComplete="off"
-
-              // autoComplete="nope"
               type="text"
               className="form-control form-control-sm"
               onChange={props.onChange}

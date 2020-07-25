@@ -37,7 +37,6 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
-import PreviewTemplateByTypeDocumentary from "./Components/PreviewTemplateByTypeDocumentary";
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
@@ -54,7 +53,6 @@ const FormStep1 = (props) => {
   );
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
-  const [changeInValueMetadata, setChangeInValueMetadata] = useState(false);
   const [nameUserFiling, setNameUserFiling] = useState("");
   const [headquarterFiling, setHeadquarterFiling] = useState("");
   const [modalView, setModalView] = useState(false);
@@ -85,7 +83,6 @@ const FormStep1 = (props) => {
   ] = useState();
   const [StateChangeAlert, setAux] = useState("");
   const [valueIdentification, setValueIdentification] = useState(null);
-  const [dataInputs, setDataInputs] = useState();
   const [cObjectPosition, setCObjectPosition] = useState();
   const [cObjectId, setCObjectId] = useState();
   const [cObjectValue, setCObjectValue] = useState();
@@ -130,36 +127,6 @@ const FormStep1 = (props) => {
     return moment(today).format("YYYY");
   };
 
-  const newDataInputsConsole = (data) => {
-    const newdata = data
-      ? Object.keys(data).map(function (key, index) {
-          return data[key];
-        })
-      : [];
-
-    const ids = idMetadata;
-
-    if (newdata.length === ids.length) {
-      console.log("retornando newdata");
-      return newdata;
-    } else if (newdata.length !== ids.length) {
-      console.log(newdata);
-      console.log(ids);
-      console.log(
-        `longitud newdata = ${newdata.length} - longitud idMetadata = ${ids.length}`
-      );
-      // console.log(true);
-      const idss = new Set(newdata.map((d) => d.id));
-      const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
-      console.log("retornando merged");
-      return merged;
-    } else if (newdata === null) {
-      console.log("retornando data");
-      return data;
-    }
-    return data;
-  };
-
   const contrusctorObjectMetadata = (
     cObjectPosition,
     cObjectId,
@@ -174,23 +141,13 @@ const FormStep1 = (props) => {
         defaultValue: cObjectValue,
       };
 
-      ids.map(
-        (aux, idx) => {
-          if (aux.id === object.id) {
-            aux.defaultValue = object.defaultValue;
-          }
+      ids.map((aux, idx) => {
+        if (aux.id === object.id) {
+          aux.defaultValue = object.defaultValue;
         }
-        // console.log("Retornando ids con cambios")
-        //  return ids
-      );
-
-      if (cObjectValue === "") {
-        console.log("Sin valor");
-      }
-
+      });
       return ids;
     } else {
-      console.log("Retornando idMetadata");
       return ids;
     }
   };
@@ -199,12 +156,7 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-  }, [
-    props.nameUserFiling,
-    props.setHeadquarterFiling,
-    idTemplate,
-    changeInValueMetadata,
-  ]);
+  }, [props.nameUserFiling, props.setHeadquarterFiling, idTemplate]);
   return (
     <Formik
       initialValues={{
@@ -291,30 +243,6 @@ const FormStep1 = (props) => {
         ),
       })}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        const newDataInputs = (data) => {
-          const newdata = data
-            ? Object.keys(data).map(function (key, index) {
-                return data[key];
-              })
-            : [];
-
-          const ids = idMetadata;
-
-          if (newdata.length === ids.length) {
-            return newdata;
-          } else if (newdata.length !== ids.length) {
-            const idss = new Set(newdata.map((d) => d.id));
-            const merged = [
-              ...newdata,
-              ...idMetadata.filter((d) => !idss.has(d.id)),
-            ];
-            return merged;
-          } else if (newdata === null) {
-            return data;
-          }
-          return data;
-        };
-
         setTimeout(() => {
           const auth = props.authorization;
           fetch(EXTERNAL_CORRESPONDENCE_RECEIVED_POST, {
@@ -337,8 +265,11 @@ const FormStep1 = (props) => {
               thirdPartyId: idThirdParty,
               templateId: values.correspondence_template,
               usersAddressees: userData.users,
-              // metadata: newDataInputs(dataInputs),
-              metadata: dataInputs,
+              metadata: contrusctorObjectMetadata(
+                cObjectPosition,
+                cObjectId,
+                cObjectValue
+              ),
             }),
           })
             .then((response) =>
@@ -999,7 +930,6 @@ const FormStep1 = (props) => {
                           <label>Conglomerado</label>
                           <ReceiverSelectConglomerado
                             authorization={props.authorization}
-                            // t={props.t}
                             name={"correspondence_conglomerate_receiver"}
                             onChange={(e) => {
                               setFieldValue(
@@ -1039,7 +969,6 @@ const FormStep1 = (props) => {
                           <label>Empresa</label>
                           <Field
                             authorization={props.authorization}
-                            // t={props.t}
                             name="correspondence_company_receiver"
                             component={ReceiverFieldCompany}
                             oldValueConglomerateId={
@@ -1186,23 +1115,6 @@ const FormStep1 = (props) => {
                             <i className="fa fa-save" /> Radicar
                           </div>
                         )}
-                      </button>
-                      &nbsp;
-                      <button
-                        type="button"
-                        className="btn btn-secondary btn-sm"
-                        onClick={() => {
-                          // console.log("dataInputs in function");
-                          console.log(
-                            contrusctorObjectMetadata(
-                              cObjectPosition,
-                              cObjectId,
-                              cObjectValue
-                            )
-                          );
-                        }}
-                      >
-                        METADATOS
                       </button>
                     </div>
                   </div>

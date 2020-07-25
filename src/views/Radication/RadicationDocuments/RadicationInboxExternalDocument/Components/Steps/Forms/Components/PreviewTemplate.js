@@ -5,21 +5,13 @@ import Inputs from "./Inputs";
 import { useSelector } from "react-redux";
 
 const PreviewTemplate = ({ field, ...props }) => {
-  const [values, setValues] = useState({});
-
   const dataInputsRef = useRef();
 
   const template = useSelector(
     (state) => state.step1ReducerPreviewTemplate.template
   );
 
-  const templateByTypeDocumentary = useSelector(
-    (state) => state.step1ReducerInfoTypeDocumentary.template
-  );
-
-  useEffect(() => {
-    console.log(template);
-  }, [props.id, template, values]);
+  useEffect(() => {}, [props.id, template]);
 
   return (
     <Fragment>
