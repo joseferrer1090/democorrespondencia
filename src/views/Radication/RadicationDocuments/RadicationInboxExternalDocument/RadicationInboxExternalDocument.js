@@ -139,6 +139,7 @@ class RadicationInboxExternalDocument extends Component {
                         authorization={authToken}
                         nameUserFiling={data}
                         headquarterFiling={headquarter.headquarter}
+                        nextStep={() => this.stepper.next()}
                       />
 
                       {/* <div className="col-md-6 offset-1">
@@ -160,7 +161,8 @@ class RadicationInboxExternalDocument extends Component {
                         onClick={() => this.stepper.next()}
                       >
                         Siguiente <i className="fa fa-angle-right" />
-                      </button> */}
+                      </button>
+                      */}
                     </div>
 
                     {/* <button

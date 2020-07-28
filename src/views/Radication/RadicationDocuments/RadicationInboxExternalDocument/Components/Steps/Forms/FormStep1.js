@@ -37,6 +37,9 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
+import Stepper from "bs-stepper";
+import "bs-stepper/dist/css/bs-stepper.css";
+import { obtenerIdRadicacion } from "../../../../../../../actions/step2ActionsSticker";
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
@@ -156,7 +159,23 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-  }, [props.nameUserFiling, props.setHeadquarterFiling, idTemplate]);
+    // stepper();
+    // console.log(props.nextStep);
+  }, [
+    props.nameUserFiling,
+    props.setHeadquarterFiling,
+    idTemplate,
+    // props.nextStep,
+  ]);
+  // let a;
+  // const stepper = () =>
+  //   (a = new Stepper(document.querySelector("#stepper1"), {
+  //     linear: false,
+  //     animation: true,
+  //     displayNext: false,
+  //     displayPrevious: false,
+  //   }));
+
   return (
     <Formik
       initialValues={{
@@ -188,6 +207,7 @@ const FormStep1 = (props) => {
         correspondence_company_receiver: "" /* S */,
         correspondence_headquarter_receiver: "" /* S */,
         correspondence_dependence_receiver: "" /* S */,
+        /* S => Selects 15 */
       }}
       validationSchema={Yup.object().shape({
         correspondence_conglomerate: Yup.string()
@@ -275,6 +295,7 @@ const FormStep1 = (props) => {
             .then((response) =>
               response.json().then((data) => {
                 if (response.status === 201) {
+                  dispatch(obtenerIdRadicacion(data.id));
                   toast.success("Se registro la radicación con éxito.", {
                     position: toast.POSITION.TOP_RIGHT,
                     className: css({
@@ -285,7 +306,20 @@ const FormStep1 = (props) => {
                   dispatch(resetFormStep1PreviewTemplate());
                   dispatch(resetFormStep1Receiver());
                   dispatch(resetFormStep1ThirdParty());
+                  setTimeout(() => {
+                    props.nextStep();
+                  }, 5000);
                 } else if (response.status === 400) {
+                  toast.error(
+                    "Error al registrar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
+                } else if (response.status === 404) {
                   toast.error(
                     "Error al registrar la radicación. Inténtelo nuevamente.",
                     {
@@ -1104,15 +1138,35 @@ const FormStep1 = (props) => {
                         type="submit"
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
-                        onClick={() => {
+                        onClick={(e) => {
                           handleSubmit();
+                          e.preventDefault();
                         }}
                       >
                         {isSubmitting ? (
                           <i className=" fa fa-spinner fa-spin" />
                         ) : (
                           <div>
-                            <i className="fa fa-save" /> Radicar
+                            <i className="fa fa-save" /> Guardar
+                          </div>
+                        )}
+                      </button>
+                      &nbsp;
+                      <button
+                        type="submit"
+                        className="btn btn-success btn-sm"
+                        disabled={isSubmitting}
+                        onClick={(e) => {
+                          handleSubmit();
+
+                          e.preventDefault();
+                        }}
+                      >
+                        {isSubmitting ? (
+                          <i className=" fa fa-spinner fa-spin" />
+                        ) : (
+                          <div>
+                            <i className="fa fa-check" /> Continuar
                           </div>
                         )}
                       </button>
