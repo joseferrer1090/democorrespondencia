@@ -24,8 +24,6 @@ export const EditInformationSticker = ({ id }) => {
 
   const sticker = useSelector((state) => state.stickerReducer.sticker);
 
-  console.log(sticker);
-
   const updateSticker = (e) => {
     e.preventDefault();
     const auth = localStorage.getItem("auth_token");

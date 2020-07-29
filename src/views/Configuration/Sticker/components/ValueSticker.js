@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { datasticker } from "../../../../utils/valuestickers/datasticker";
+import { push } from "core-js/fn/array";
 
 const stylelist = {
   maxHeight: "400px",
@@ -15,6 +16,7 @@ class ValueSticker extends Component {
     super(props);
     this.state = {
       datasticker: [],
+      datavalues: [],
     };
   }
 
@@ -24,47 +26,40 @@ class ValueSticker extends Component {
     });
   }
 
-  onDragStart = (ev, id) => {
-    console.log("dragstart:", id);
-    ev.dataTransfer.setData("id", id);
+  onDragStart = (ev, aux) => {
+    console.log("dragstart:", aux);
+    ev.dataTransfer.setData("object", JSON.stringify(aux));
   };
 
   onDragOver = (ev) => {
     ev.preventDefault();
   };
 
-  onDrop = (ev, cat) => {
-    let id = ev.dataTransfer.getData("id");
-    console.log(ev);
-
-    // let tasks = this.state.tasks.filter((task) => {
-    //   if (task.name == id) {
-    //     task.category = cat;
-    //   }
-    //   return task;
-    // });
-
-    // this.setState({
-    //   ...this.state,
-    //   tasks,
-    // });
+  onDrop = (ev) => {
+    const aux = this.state.datavalues;
+    const obj = JSON.parse(ev.dataTransfer.getData("object"));
+    aux.push(obj);
+    this.setState({
+      datavalues: aux,
+    });
   };
 
   render() {
-    const details = {
-      inputId: [],
-    };
-    this.state.datasticker.forEach((t) => (
+    const datasticker = this.state.datasticker;
+    const datavalues = this.state.datavalues;
+
+    datasticker.map((aux) => (
       <div
-        key={t.name}
-        onDragStart={(e) => this.onDragStart(e, t.name)}
+        key={aux.name}
+        onDragStart={(e) => this.onDragStart(e, aux.name)}
         draggable
         className="draggable"
-        style={{ backgroundColor: t.bgcolor }}
       >
-        {t.name}
+        {aux.name}
       </div>
     ));
+
+    console.log(datavalues);
 
     return (
       <div className="animated fadeIn">
@@ -84,24 +79,16 @@ class ValueSticker extends Component {
                 </p>
               </div>
               <div className="col-md-6">
-                <div className="card">
-                  <div className="card-header">
-                    <input
-                      type="search"
-                      className="form-control form-control-sm"
-                      placeholder="Buscar"
-                    />
-                  </div>
-                  <div className="card-body">
+                <div className="">
+                  <div className="">
                     <ul className="list-group" style={stylelist}>
-                      {this.state.datasticker.map((aux) => (
+                      {datasticker.map((aux, id) => (
                         <li
-                          style={{ border: "1px dashed" }}
+                          key={id}
+                          onDragOver={(e) => this.onDragOver(e)}
+                          onDragStart={(e) => this.onDragStart(e, aux)}
                           draggable
-                          className="list-group-item draggable"
-                          onDragStart={(e) =>
-                            this.onDragStart(e, aux.labelText)
-                          }
+                          className="list-group-item"
                         >
                           {aux.labelText}
                         </li>
@@ -111,15 +98,46 @@ class ValueSticker extends Component {
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="card card-body">
-                  <div
-                    className="droppable"
-                    onDragOver={(e) => this.onDragOver(e)}
-                    onDrop={(e) => this.onDrop(e, "complete")}
-                  >
-                    <p className="text-center" style={{ textAlign: "middle" }}>
-                      Soltar item de la lista
-                    </p>
+                <div
+                  className=""
+                  onDragOver={(e) => this.onDragOver(e)}
+                  onDrop={(e) => this.onDrop(e)}
+                  style={{ height: "auto" }}
+                >
+                  <div className="card">
+                    <div className="card-body">
+                      {this.state.datavalues.length ? (
+                        this.state.datavalues.map((aux, id) => {
+                          return (
+                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                              {aux.labelText}
+                              <span className="">
+                                <i
+                                  className="fa fa-times"
+                                  style={{ color: "red", cursor: "pointer" }}
+                                  onClick={() => alert("Probando")}
+                                />
+                              </span>
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <p
+                          style={{
+                            textAlign: "center",
+                            padding: "2em",
+                            fontSize: "12pt",
+                            fontWeight: "bold",
+                            textTransform: "uppercase",
+                            color: "#aaa",
+                            backgroundColor: "#eee",
+                          }}
+                        >
+                          {" "}
+                          selecciones un valor para el sticker{" "}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
