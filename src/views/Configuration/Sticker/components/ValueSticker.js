@@ -38,10 +38,22 @@ class ValueSticker extends Component {
   onDrop = (ev) => {
     const aux = this.state.datavalues;
     const obj = JSON.parse(ev.dataTransfer.getData("object"));
-    aux.push(obj);
+    aux.push({
+      labelText: obj.labelText,
+      inputId: obj.inputId,
+      position: aux.length,
+    });
     this.setState({
       datavalues: aux,
     });
+  };
+
+  removeItem = (position) => {
+    const dataux = this.state.datavalues;
+    this.setState({
+      datavalues: dataux.filter((aux) => aux.position !== position),
+    });
+    // console.log(`Posicion seleccionada ${position}`);
   };
 
   render() {
@@ -115,7 +127,7 @@ class ValueSticker extends Component {
                                 <i
                                   className="fa fa-times"
                                   style={{ color: "red", cursor: "pointer" }}
-                                  onClick={() => alert("Probando")}
+                                  onClick={() => this.removeItem(aux.position)}
                                 />
                               </span>
                             </li>
