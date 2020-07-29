@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { EditInformationSticker } from "./components/EditInformationSticker";
 import ValueSticker from "./components/ValueSticker";
 import PreviewStickerConfiguration from "./components/PreviewStickerConfiguration";
@@ -29,7 +28,7 @@ class EditSticker extends Component {
           <EditInformationSticker id={this.props.match.params.id} />
         </div>
         <div className="col-md-8">
-          <ValueSticker />
+          <ValueSticker id={this.props.match.params.id} />
         </div>
         {/* <div className="col-md-12">
           <PreviewStickerConfiguration />

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { STICKER_PUT_DETAIL } from "./../../../../services/EndPoints";
 import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { datasticker } from "../../../../utils/valuestickers/datasticker";
-import { push } from "core-js/fn/array";
+import { decode } from "jsonwebtoken";
 
 const stylelist = {
   maxHeight: "400px",
@@ -41,7 +42,7 @@ class ValueSticker extends Component {
     aux.push({
       labelText: obj.labelText,
       inputId: obj.inputId,
-      position: aux.length,
+      position: `${aux.length}`,
     });
     this.setState({
       datavalues: aux,
@@ -53,6 +54,35 @@ class ValueSticker extends Component {
     this.setState({
       datavalues: dataux.filter((aux) => aux.position !== position),
     });
+  };
+
+  editStcikerValue = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("auth_token");
+    const username = decode(token);
+    const id = this.props.id;
+    fetch(`${STICKER_PUT_DETAIL}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        id: id,
+        username: username.user_name,
+        details: this.state.datavalues,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Se actualizo la data", response);
+        } else if (response.status === 400) {
+          console.log("Verificar los datos", response);
+        }
+      })
+      .catch((err) => {
+        console.log(`Error => ${err}`);
+      });
   };
 
   render() {
@@ -71,7 +101,7 @@ class ValueSticker extends Component {
     ));
 
     console.log(datavalues);
-
+    console.log(this.props.id);
     return (
       <div className="animated fadeIn">
         <Card>
@@ -156,7 +186,11 @@ class ValueSticker extends Component {
           </CardBody>
           <CardFooter>
             <div className="text-right">
-              <button type="button" className="btn btn-secondary btn-sm">
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={(e) => this.editStcikerValue(e)}
+              >
                 <i className="fa fa-pencil" /> Asignar valores
               </button>
             </div>
