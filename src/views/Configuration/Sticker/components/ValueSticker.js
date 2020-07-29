@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
-import { datasticker } from "./../../../../utils/valuestickers/data";
+import { datasticker } from "../../../../utils/valuestickers/datasticker";
 
 const stylelist = {
   maxHeight: "400px",

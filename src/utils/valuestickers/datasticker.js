@@ -25,7 +25,7 @@ export const datasticker = [
     position: 4,
   },
   {
-    labelText: "Usuario radicacor",
+    labelText: "Usuario radicador",
     inputId: "userFiling",
     position: 5,
   },
