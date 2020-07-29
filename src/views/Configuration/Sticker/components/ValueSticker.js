@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
+import { datasticker } from "./../../../../utils/valuestickers/data";
 
 const stylelist = {
   maxHeight: "400px",
@@ -13,24 +14,14 @@ class ValueSticker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datasticker: [
-        {
-          labelText: "Fecha de radicación",
-          inputId: "filingDate",
-          position: "0",
-        },
-        {
-          labelText: "Hora de radicación",
-          inputId: "filingTime",
-          position: "1",
-        },
-        {
-          labelText: "Número de radicación",
-          inputId: "filingNumber",
-          position: "2",
-        },
-      ],
+      datasticker: [],
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      datasticker: datasticker,
+    });
   }
 
   onDragStart = (ev, id) => {
