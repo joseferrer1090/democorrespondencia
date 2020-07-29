@@ -69,7 +69,7 @@ class ValueSticker extends Component {
       },
       body: JSON.stringify({
         id: id,
-        username: username.user_name,
+        userName: username.user_name,
         details: this.state.datavalues,
       }),
     })
