@@ -4,7 +4,6 @@ import {
   OBTENER_ID_RADICACION,
 } from "./../types";
 import { GENERATE_STICKER } from "./../services/EndPoints";
-import { obtenerMetadatos } from "./step1ActionsPreviewTemplate";
 
 export function generarSticker(id) {
   const auth = localStorage.getItem("auth_token");

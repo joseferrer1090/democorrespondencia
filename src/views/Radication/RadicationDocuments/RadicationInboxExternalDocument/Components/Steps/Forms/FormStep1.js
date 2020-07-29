@@ -37,7 +37,6 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
-import Stepper from "bs-stepper";
 import "bs-stepper/dist/css/bs-stepper.css";
 import { obtenerIdRadicacion } from "../../../../../../../actions/step2ActionsSticker";
 
@@ -56,6 +55,7 @@ const FormStep1 = (props) => {
   );
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
+  const [btnContinueStep2, setBtnContinueStep2] = useState(false);
   const [nameUserFiling, setNameUserFiling] = useState("");
   const [headquarterFiling, setHeadquarterFiling] = useState("");
   const [modalView, setModalView] = useState(false);
@@ -159,22 +159,7 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-    // stepper();
-    // console.log(props.nextStep);
-  }, [
-    props.nameUserFiling,
-    props.setHeadquarterFiling,
-    idTemplate,
-    // props.nextStep,
-  ]);
-  // let a;
-  // const stepper = () =>
-  //   (a = new Stepper(document.querySelector("#stepper1"), {
-  //     linear: false,
-  //     animation: true,
-  //     displayNext: false,
-  //     displayPrevious: false,
-  //   }));
+  }, [props.nameUserFiling, props.setHeadquarterFiling, idTemplate]);
 
   return (
     <Formik
@@ -302,13 +287,15 @@ const FormStep1 = (props) => {
                       marginTop: "60px",
                     }),
                   });
+                  if (btnContinueStep2) {
+                    setTimeout(() => {
+                      props.nextStep();
+                    }, 5000);
+                  }
                   dispatch(resetFormStep1TypeDocumentary());
                   dispatch(resetFormStep1PreviewTemplate());
                   dispatch(resetFormStep1Receiver());
                   dispatch(resetFormStep1ThirdParty());
-                  setTimeout(() => {
-                    props.nextStep();
-                  }, 5000);
                 } else if (response.status === 400) {
                   toast.error(
                     "Error al registrar la radicación. Inténtelo nuevamente.",
@@ -319,6 +306,7 @@ const FormStep1 = (props) => {
                       }),
                     }
                   );
+                  setBtnContinueStep2(false);
                 } else if (response.status === 404) {
                   toast.error(
                     "Error al registrar la radicación. Inténtelo nuevamente.",
@@ -329,6 +317,7 @@ const FormStep1 = (props) => {
                       }),
                     }
                   );
+                  setBtnContinueStep2(false);
                 } else if (response.status === 500) {
                   toast.error(
                     "Ocurrio un problema al registrar la radicación por favor inténtelo nuevamente.",
@@ -339,6 +328,7 @@ const FormStep1 = (props) => {
                       }),
                     }
                   );
+                  setBtnContinueStep2(false);
                 }
               })
             )
@@ -349,6 +339,7 @@ const FormStep1 = (props) => {
                   marginTop: "60px",
                 }),
               });
+              setBtnContinueStep2(false);
             });
           setSubmitting(false);
           resetForm({
@@ -1158,7 +1149,7 @@ const FormStep1 = (props) => {
                         disabled={isSubmitting}
                         onClick={(e) => {
                           handleSubmit();
-
+                          setBtnContinueStep2(true);
                           e.preventDefault();
                         }}
                       >
