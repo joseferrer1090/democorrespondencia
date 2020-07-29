@@ -53,7 +53,6 @@ class ValueSticker extends Component {
     this.setState({
       datavalues: dataux.filter((aux) => aux.position !== position),
     });
-    // console.log(`Posicion seleccionada ${position}`);
   };
 
   render() {
