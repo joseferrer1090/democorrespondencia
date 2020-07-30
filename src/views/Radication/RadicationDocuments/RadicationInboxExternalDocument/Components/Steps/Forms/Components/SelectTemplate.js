@@ -11,9 +11,11 @@ const SelectTemplate = ({
 }) => {
   const dispatch = useDispatch();
   const [valueTemplate, setValueTemplate] = useState("");
+
   const dataTemplate = useSelector(
     (state) => state.step1ReducerDataTemplate.dataTemplate
   );
+
   const idTemplateByTypeDocumentary = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
   );
@@ -31,8 +33,8 @@ const SelectTemplate = ({
       values.correspondence_template = idTemplateByTypeDocumentary.id;
       setTimeout(() => {
         setValueTemplate(values.correspondence_template);
-        // dispatch(obtenerMetadatosByTypeDocumentary(idTypeDocumentary));
         dispatch(obtenerMetadatos(values.correspondence_template));
+        dispatch(obtenerMetadatosByTypeDocumentary(idTypeDocumentary));
       }, 100);
     } else {
       setValueTemplate(values.correspondence_template);

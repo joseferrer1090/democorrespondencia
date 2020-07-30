@@ -87,8 +87,9 @@ class RadicationInboxExternalDocument extends Component {
               <button
                 type="button"
                 className="btn btn-secondary btn-sm"
-                onClick={() => {
+                onClick={(e) => {
                   this.props.history.goBack();
+                  e.preventDefault();
                 }}
                 title="atras"
               >
@@ -139,6 +140,7 @@ class RadicationInboxExternalDocument extends Component {
                         authorization={authToken}
                         nameUserFiling={data}
                         headquarterFiling={headquarter.headquarter}
+                        nextStep={() => this.stepper.next()}
                       />
 
                       {/* <div className="col-md-6 offset-1">
@@ -152,7 +154,7 @@ class RadicationInboxExternalDocument extends Component {
                       </div> */}
                     </div>
                     <div id="test-l-2" className="content">
-                      <Step2 />
+                      <Step2 nextStep={() => this.stepper.next()} />
 
                       {/* <button
                         type={"button"}
@@ -160,7 +162,8 @@ class RadicationInboxExternalDocument extends Component {
                         onClick={() => this.stepper.next()}
                       >
                         Siguiente <i className="fa fa-angle-right" />
-                      </button> */}
+                      </button>
+                      */}
                     </div>
 
                     {/* <button

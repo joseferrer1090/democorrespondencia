@@ -37,10 +37,12 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
-import PreviewTemplateByTypeDocumentary from "./Components/PreviewTemplateByTypeDocumentary";
+import "bs-stepper/dist/css/bs-stepper.css";
+import { obtenerIdRadicacion } from "../../../../../../../actions/step2ActionsSticker";
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
+
   const userData = useSelector((state) => state.step1ReducerReceiver);
   const idTemplate = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
@@ -53,7 +55,7 @@ const FormStep1 = (props) => {
   );
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
-  const [changeInValueMetadata, setChangeInValueMetadata] = useState(false);
+  const [btnContinueStep2, setBtnContinueStep2] = useState(false);
   const [nameUserFiling, setNameUserFiling] = useState("");
   const [headquarterFiling, setHeadquarterFiling] = useState("");
   const [modalView, setModalView] = useState(false);
@@ -84,7 +86,9 @@ const FormStep1 = (props) => {
   ] = useState();
   const [StateChangeAlert, setAux] = useState("");
   const [valueIdentification, setValueIdentification] = useState(null);
-  const [dataInputs, setDataInputs] = useState();
+  const [cObjectPosition, setCObjectPosition] = useState();
+  const [cObjectId, setCObjectId] = useState();
+  const [cObjectValue, setCObjectValue] = useState();
 
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
@@ -126,40 +130,37 @@ const FormStep1 = (props) => {
     return moment(today).format("YYYY");
   };
 
-  // const newDataInputsConsole = (data) => {
-  //   const newdata = data
-  //     ? Object.keys(data).map(function (key, index) {
-  //         console.log(`${key}`);
-  //         return data[key];
-  //       })
-  //     : [];
+  const contrusctorObjectMetadata = (
+    cObjectPosition,
+    cObjectId,
+    cObjectValue
+  ) => {
+    let object;
+    let ids = idMetadata;
 
-  //   const ids = idMetadata;
+    if (cObjectPosition && cObjectId && cObjectValue !== undefined) {
+      object = {
+        id: cObjectId,
+        defaultValue: cObjectValue,
+      };
 
-  //   if (newdata.length === ids.length) {
-  //     return newdata;
-  //   } else if (newdata.length !== ids.length) {
-  //     const idss = new Set(newdata.map((d) => d.id));
-  //     const merged = [...newdata, ...idMetadata.filter((d) => !idss.has(d.id))];
-  //     return merged;
-  //   } else if (newdata === null) {
-  //     return data;
-  //   }
-  //   return data;
-  // };
+      ids.map((aux, idx) => {
+        if (aux.id === object.id) {
+          aux.defaultValue = object.defaultValue;
+        }
+      });
+      return ids;
+    } else {
+      return ids;
+    }
+  };
 
   useEffect(() => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-    console.log(changeInValueMetadata);
-  }, [
-    props.nameUserFiling,
-    props.setHeadquarterFiling,
-    idTemplate,
-    changeInValueMetadata,
-    // dataInputs,
-  ]);
+  }, [props.nameUserFiling, props.setHeadquarterFiling, idTemplate]);
+
   return (
     <Formik
       initialValues={{
@@ -191,6 +192,7 @@ const FormStep1 = (props) => {
         correspondence_company_receiver: "" /* S */,
         correspondence_headquarter_receiver: "" /* S */,
         correspondence_dependence_receiver: "" /* S */,
+        /* S => Selects 15 */
       }}
       validationSchema={Yup.object().shape({
         correspondence_conglomerate: Yup.string()
@@ -246,30 +248,6 @@ const FormStep1 = (props) => {
         ),
       })}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        const newDataInputs = (data) => {
-          const newdata = data
-            ? Object.keys(data).map(function (key, index) {
-                return data[key];
-              })
-            : [];
-
-          const ids = idMetadata;
-
-          if (newdata.length === ids.length) {
-            return newdata;
-          } else if (newdata.length !== ids.length) {
-            const idss = new Set(newdata.map((d) => d.id));
-            const merged = [
-              ...newdata,
-              ...idMetadata.filter((d) => !idss.has(d.id)),
-            ];
-            return merged;
-          } else if (newdata === null) {
-            return data;
-          }
-          return data;
-        };
-
         setTimeout(() => {
           const auth = props.authorization;
           fetch(EXTERNAL_CORRESPONDENCE_RECEIVED_POST, {
@@ -292,19 +270,28 @@ const FormStep1 = (props) => {
               thirdPartyId: idThirdParty,
               templateId: values.correspondence_template,
               usersAddressees: userData.users,
-              // metadata: newDataInputs(dataInputs),
-              metadata: dataInputs,
+              metadata: contrusctorObjectMetadata(
+                cObjectPosition,
+                cObjectId,
+                cObjectValue
+              ),
             }),
           })
             .then((response) =>
               response.json().then((data) => {
                 if (response.status === 201) {
+                  dispatch(obtenerIdRadicacion(data.id));
                   toast.success("Se registro la radicación con éxito.", {
                     position: toast.POSITION.TOP_RIGHT,
                     className: css({
                       marginTop: "60px",
                     }),
                   });
+                  if (btnContinueStep2) {
+                    setTimeout(() => {
+                      props.nextStep();
+                    }, 5000);
+                  }
                   dispatch(resetFormStep1TypeDocumentary());
                   dispatch(resetFormStep1PreviewTemplate());
                   dispatch(resetFormStep1Receiver());
@@ -319,6 +306,18 @@ const FormStep1 = (props) => {
                       }),
                     }
                   );
+                  setBtnContinueStep2(false);
+                } else if (response.status === 404) {
+                  toast.error(
+                    "Error al registrar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
+                  setBtnContinueStep2(false);
                 } else if (response.status === 500) {
                   toast.error(
                     "Ocurrio un problema al registrar la radicación por favor inténtelo nuevamente.",
@@ -329,6 +328,7 @@ const FormStep1 = (props) => {
                       }),
                     }
                   );
+                  setBtnContinueStep2(false);
                 }
               })
             )
@@ -339,6 +339,7 @@ const FormStep1 = (props) => {
                   marginTop: "60px",
                 }),
               });
+              setBtnContinueStep2(false);
             });
           setSubmitting(false);
           resetForm({
@@ -551,10 +552,12 @@ const FormStep1 = (props) => {
                                   "correspondence_typeDocumentary",
                                   e.target.value
                                 );
+
                                 changeInValueTypeDocumentary(
                                   values.correspondence_typeDocumentary,
                                   e.target.value
                                 );
+
                                 dispatch(
                                   obtenerDataTipoDocumental(e.target.value)
                                 );
@@ -952,7 +955,6 @@ const FormStep1 = (props) => {
                           <label>Conglomerado</label>
                           <ReceiverSelectConglomerado
                             authorization={props.authorization}
-                            // t={props.t}
                             name={"correspondence_conglomerate_receiver"}
                             onChange={(e) => {
                               setFieldValue(
@@ -992,7 +994,6 @@ const FormStep1 = (props) => {
                           <label>Empresa</label>
                           <Field
                             authorization={props.authorization}
-                            // t={props.t}
                             name="correspondence_company_receiver"
                             component={ReceiverFieldCompany}
                             oldValueConglomerateId={
@@ -1104,21 +1105,19 @@ const FormStep1 = (props) => {
                           authorization={props.authorization}
                           component={PreviewTemplate}
                           id={values.correspondence_template}
-                          onDataOnChange={(datainputs) =>
-                            setDataInputs(datainputs)
-                          }
-                          changeInMetadata={(changeInValueMetadata) =>
-                            setChangeInValueMetadata(changeInValueMetadata)
-                          }
+                          // onDataOnChange={(datainputs) =>
+                          //   setDataInputs(datainputs)
+                          // }
+                          infoMetadataPosition={(cObjectPosition) => {
+                            setCObjectPosition(cObjectPosition);
+                          }}
+                          infoMetadataId={(cObjectId) => {
+                            setCObjectId(cObjectId);
+                          }}
+                          infoMetadataValue={(cObjectValue) => {
+                            setCObjectValue(cObjectValue);
+                          }}
                         />
-                      </div>
-                      <div className="col-md-12">
-                        {/* <Field
-                          component={PreviewTemplateByTypeDocumentary}
-                          onDataOnChange={(datainputs) =>
-                            setDataInputs(datainputs)
-                          }
-                        /> */}
                       </div>
                     </div>
                   </div>
@@ -1130,28 +1129,38 @@ const FormStep1 = (props) => {
                         type="submit"
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
-                        onClick={() => {
+                        onClick={(e) => {
                           handleSubmit();
+                          e.preventDefault();
                         }}
                       >
                         {isSubmitting ? (
                           <i className=" fa fa-spinner fa-spin" />
                         ) : (
                           <div>
-                            <i className="fa fa-save" /> Radicar
+                            <i className="fa fa-save" /> Guardar
                           </div>
                         )}
                       </button>
-                      {/* &nbsp;
+                      &nbsp;
                       <button
-                        type="button"
-                        className="btn btn-secondary btn-sm"
-                        onClick={() => {
-                          console.log(newDataInputsConsole(dataInputs));
+                        type="submit"
+                        className="btn btn-success btn-sm"
+                        disabled={isSubmitting}
+                        onClick={(e) => {
+                          handleSubmit();
+                          setBtnContinueStep2(true);
+                          e.preventDefault();
                         }}
                       >
-                        METADATOS
-                      </button> */}
+                        {isSubmitting ? (
+                          <i className=" fa fa-spinner fa-spin" />
+                        ) : (
+                          <div>
+                            <i className="fa fa-check" /> Continuar
+                          </div>
+                        )}
+                      </button>
                     </div>
                   </div>
                 </div>

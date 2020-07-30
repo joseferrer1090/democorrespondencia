@@ -3,6 +3,7 @@ import PropTypes from "react";
 import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
 import Files from "react-files";
 import "../react-list.css";
+import MyPdfViewer from "./Forms/ComponentsStep2/ViewPdf";
 
 class Step3 extends Component {
   constructor(props) {
@@ -22,10 +23,10 @@ class Step3 extends Component {
     this.setState(
       {
         files,
-      },
-      () => {
-        console.log(this.state.files);
       }
+      // () => {
+      //   console.log(this.state.files);
+      // }
     );
   };
 
@@ -42,6 +43,7 @@ class Step3 extends Component {
   };
 
   render() {
+    // console.log(this.state.files);
     return (
       <div className="animated fadeIn">
         <div className="col-md-9 offset-1">
@@ -103,9 +105,58 @@ class Step3 extends Component {
                 )}
               </Files>
             </div>
+            <MyPdfViewer
+              file={this.state.files}
+              // id={this.state.idFile}
+              // filename={this.state.FilenameFile}
+              // t={this.state.t}
+            />
           </div>
         </div>
         <div style={{ height: "80px" }} />
+
+        <div className="card">
+          <div className="card-footer">
+            <div className="pull-right">
+              <button
+                type="submit"
+                className="btn btn-success btn-sm"
+                // disabled={isSubmitting}
+                onClick={(e) => {
+                  // handleSubmit();
+                  e.preventDefault();
+                }}
+              >
+                {false ? (
+                  <i className=" fa fa-spinner fa-spin" />
+                ) : (
+                  <div>
+                    <i className="fa fa-save" /> Guardar
+                  </div>
+                )}
+              </button>
+              &nbsp;
+              <button
+                type="submit"
+                className="btn btn-success btn-sm"
+                // disabled={isSubmitting}
+                onClick={(e) => {
+                  // handleSubmit();
+                  // setBtnContinueStep2(true);
+                  e.preventDefault();
+                }}
+              >
+                {false ? (
+                  <i className=" fa fa-spinner fa-spin" />
+                ) : (
+                  <div>
+                    <i className="fa fa-check" /> Continuar
+                  </div>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -15,6 +15,7 @@ const Inputs = (props) => {
               onChange={props.onChange}
               value={props.value}
               defaultValue={props.defaultValue}
+              ref={props.ref}
               {...props.elementConfig}
             />
           </div>
