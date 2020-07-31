@@ -53,6 +53,7 @@ const FormStep1 = (props) => {
   const idMetadata = useSelector(
     (state) => state.step1ReducerPreviewTemplate.idMetadata
   );
+
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
   const [btnContinueStep2, setBtnContinueStep2] = useState(false);
@@ -269,6 +270,7 @@ const FormStep1 = (props) => {
               messengerId: values.correspondence_messenger,
               thirdPartyId: idThirdParty,
               templateId: values.correspondence_template,
+              original: userData.original,
               usersAddressees: userData.users,
               metadata: contrusctorObjectMetadata(
                 cObjectPosition,
