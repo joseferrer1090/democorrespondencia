@@ -12,6 +12,9 @@ const MyPdfViewer = (props) => {
   const canvasRef = useRef(null);
   const [id, setId] = useState(props.id);
   const [filename, setFilename] = useState(props.filename);
+  // const
+  // file: "",
+  // imagePreviewUrl: "",
 
   const { pdfDocument, pdfPage } = usePdf({
     file: file,
@@ -21,28 +24,43 @@ const MyPdfViewer = (props) => {
   });
 
   const validateValues = () => {
-    if (PreValue !== props.id) {
-      setPage(1);
+    if (props.file !== []) {
+      console.log("yes");
+    } else {
+      console.log("not");
     }
   };
+  // aver = (files) => {
+  //   let reader = new FileReader();
+  //   let file = files[0];
+  //   reader.onloadend = () => {
+  //     this.setState({
+  //       files: file,
+  //       imagePreviewUrl: reader.result,
+  //     });
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
+  // _handleImageChange = (e) => {
+  //   // e.preventDefault();
+
+  //   let reader = new FileReader();
+  //   let file = e.target.files[0];
+
+  //   reader.onloadend = () => {
+  //     this.setState({
+  //       file: file,
+  //       imagePreviewUrl: reader.result,
+  //     });
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
   useEffect(() => {
-    setId(props.id);
-    setFilename(props.filename);
     validateValues();
     console.log(props.file);
     console.log(file);
-  }, [props.file, props.filename, props.infoData]);
-
-  const PreviousValues = (value) => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    });
-
-    return ref.current;
-  };
-  const PreValue = PreviousValues(props.id);
+  }, [props.file]);
 
   return (
     <div>

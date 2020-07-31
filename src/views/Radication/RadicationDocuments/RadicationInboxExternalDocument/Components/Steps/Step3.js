@@ -12,6 +12,8 @@ class Step3 extends Component {
       files: [],
       visible: false,
       error: "",
+      // file: "",
+      // // imagePreviewUrl: "",
     };
   }
 
@@ -20,14 +22,9 @@ class Step3 extends Component {
   };
 
   onFilesChange = (files) => {
-    this.setState(
-      {
-        files,
-      }
-      // () => {
-      //   console.log(this.state.files);
-      // }
-    );
+    this.setState({
+      files,
+    });
   };
 
   onFilesError = (error, files) => {
@@ -43,7 +40,6 @@ class Step3 extends Component {
   };
 
   render() {
-    // console.log(this.state.files);
     return (
       <div className="animated fadeIn">
         <div className="col-md-9 offset-1">
@@ -105,13 +101,14 @@ class Step3 extends Component {
                 )}
               </Files>
             </div>
-            <MyPdfViewer
-              file={this.state.files}
-              // id={this.state.idFile}
-              // filename={this.state.FilenameFile}
-              // t={this.state.t}
-            />
           </div>
+          <MyPdfViewer
+            file={this.state.files}
+            // data={this.state.imagePreviewUrl}
+            // id={this.state.idFile}
+            // filename={this.state.FilenameFile}
+            // t={this.state.t}
+          />
         </div>
         <div style={{ height: "80px" }} />
 
