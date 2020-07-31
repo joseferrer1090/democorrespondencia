@@ -1,11 +1,12 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import PropTypes from "prop-types";
 import { Card, CardHeader, CardBody } from "reactstrap";
 import Inputs from "./Inputs";
 import { useSelector } from "react-redux";
 
 const PreviewTemplate = ({ field, ...props }) => {
-  const [values, setValues] = useState({});
+  const dataInputsRef = useRef();
+
   const template = useSelector(
     (state) => state.step1ReducerPreviewTemplate.template
   );
@@ -28,22 +29,14 @@ const PreviewTemplate = ({ field, ...props }) => {
                     key={id}
                     id={aux.id}
                     defaultValue={aux.defaultValue}
-                    value={null}
+                    ref={dataInputsRef}
                     label={aux.metadata.elementConfig.labeltext}
                     formType={aux.metadata.elementConfig.type}
                     elementConfig={aux.metadata.elementConfig}
-                    onChange={(event) => {
-                      // props.changeInMetadata(true);
-                      setValues(
-                        {
-                          ...values,
-                          [id]: {
-                            id: aux.idMetadata,
-                            defaultValue: event.target.value,
-                          },
-                        },
-                        props.onDataOnChange(values)
-                      );
+                    onChange={(e) => {
+                      props.infoMetadataPosition([id]);
+                      props.infoMetadataId(aux.idMetadata);
+                      props.infoMetadataValue(e.target.value);
                     }}
                   />
                 ))
