@@ -12,7 +12,7 @@ const stylelist = {
   maxHeight: "400px",
   marginBottom: "10px",
   overflow: "scroll",
-  webkitOverflowScrolling: "touch",
+  WebkitOverflowScrolling: "touch",
 };
 
 class ValueSticker extends Component {
