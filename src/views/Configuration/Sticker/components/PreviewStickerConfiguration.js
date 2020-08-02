@@ -1,59 +1,66 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "reactstrap";
 import Barcode from "react-barcode";
+import { useSelector, useDispatch } from "react-redux";
 
-class PreviewStickerConfiguration extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <div className="animated fadeIn">
-        <Card>
-          <CardHeader>
-            {" "}
-            <i className="fa fa-globe" /> Previsualizar Sticer
-          </CardHeader>
-          <CardBody>
-            <div className="row">
+export const PreviewStickerConfiguration = () => {
+  const { details, name, id } = useSelector(
+    (state) => state.stickerReducer.sticker
+  );
+
+  return (
+    <div className="animated fadeIn">
+      <Card>
+        <CardHeader>
+          {" "}
+          <i className="fa fa-globe" /> Previsualizar Sticer {name}
+        </CardHeader>
+        <CardBody>
+          <div className="row">
+            {details ? (
               <div
-                className="col-md-3 offset-md-4 text-center"
+                className="col-md-4 offset-4 text-center"
                 style={{
                   border: "1px solid #e3e3e3",
                   backgroundColor: "#e3e3e3",
+                  padding: "0px",
                 }}
               >
                 <table
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    justifyItems: "space-between",
                   }}
                 >
-                  <tbody>
-                    <tr className="text-center">fecha: dkskdk</tr>
-                    <tr className="text-center">fecha: dkskdk</tr>
-                    <tr className="text-center">fecha: dkskdk</tr>
-                    <tr className="text-center">fecha: dkskdk</tr>
+                  <tbody className="text-justify">
+                    <tr>
+                      {details.map((aux, id) => {
+                        return (
+                          <tr>
+                            {aux.labelText}: {id}
+                          </tr>
+                        );
+                      })}
+                    </tr>
                   </tbody>
                 </table>
                 <Barcode
-                  value="https://google.com.co"
-                  width="1"
-                  format={"CODE128"}
+                  value={`${id}`}
+                  width={1}
+                  format="CODE128"
                   displayValue
-                  fontSize={"15"}
+                  fontSize={12}
                   background="#e3e3e3"
                 />
               </div>
-            </div>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  }
-}
-
-export default PreviewStickerConfiguration;
+            ) : (
+              <div>
+                <p>No hay valores asignados</p>
+              </div>
+            )}
+          </div>
+        </CardBody>
+      </Card>
+    </div>
+  );
+};
