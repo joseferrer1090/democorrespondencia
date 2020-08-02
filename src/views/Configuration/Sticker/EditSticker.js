@@ -30,9 +30,9 @@ class EditSticker extends Component {
         <div className="col-md-8">
           <ValueSticker id={this.props.match.params.id} />
         </div>
-        {/* <div className="col-md-12">
+        <div className="col-md-12">
           <PreviewStickerConfiguration />
-        </div> */}
+        </div>
       </div>
     );
   }
