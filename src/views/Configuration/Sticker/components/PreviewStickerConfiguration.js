@@ -19,10 +19,19 @@ class PreviewStickerConfiguration extends Component {
           <CardBody>
             <div className="row">
               <div
-                className="col-md-4 offset-md-4 text-center"
-                style={{ border: "1px solid red", backgroundColor: "#e3e3e3" }}
+                className="col-md-3 offset-md-4 text-center"
+                style={{
+                  border: "1px solid #e3e3e3",
+                  backgroundColor: "#e3e3e3",
+                }}
               >
-                <table style={{ display: "flex", justifyContent: "center" }}>
+                <table
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    justifyItems: "space-between",
+                  }}
+                >
                   <tbody>
                     <tr className="text-center">fecha: dkskdk</tr>
                     <tr className="text-center">fecha: dkskdk</tr>
