@@ -136,10 +136,8 @@ class Step3 extends Component {
               <button
                 type="submit"
                 className="btn btn-success btn-sm"
-                // disabled={isSubmitting}
                 onClick={(e) => {
-                  // handleSubmit();
-                  // setBtnContinueStep2(true);
+                  this.props.nextStep();
                   e.preventDefault();
                 }}
               >

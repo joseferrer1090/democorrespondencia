@@ -174,7 +174,7 @@ class RadicationInboxExternalDocument extends Component {
                       &gt;Next
                     </button> */}
                     <div id="test-l-3" className="content ">
-                      <Step3 />
+                      <Step3 nextStep={() => this.stepper.next()} />
                     </div>
                     <div id="test-l-4" className="content">
                       <Step4 />

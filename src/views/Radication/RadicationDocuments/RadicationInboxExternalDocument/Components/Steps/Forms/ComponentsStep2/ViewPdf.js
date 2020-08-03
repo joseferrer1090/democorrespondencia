@@ -1,64 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "react";
 import { usePdf } from "@mikecousins/react-pdf";
 import {
   Row,
   Col,
   //  ToastBody, Toast, ToastHeader
 } from "reactstrap";
-import file from "../../../../../../../../assets/files/Test.pdf";
+import DefaultFile from "../../../../../../../../assets/files/DefaultStep3.pdf";
 
 const MyPdfViewer = (props) => {
   const [page, setPage] = useState(1);
   const canvasRef = useRef(null);
-  const [id, setId] = useState(props.id);
-  const [filename, setFilename] = useState(props.filename);
-  // const
-  // file: "",
-  // imagePreviewUrl: "",
+  const [file, setFile] = useState("");
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(DefaultFile);
 
   const { pdfDocument, pdfPage } = usePdf({
-    file: file,
+    file: imagePreviewUrl,
     page,
     canvasRef,
     pdfPage,
   });
 
+  const renderPdfPreview = (files) => {
+    let reader = new FileReader();
+    let file = files[0];
+    reader.onloadend = () => {
+      setFile(file);
+      setImagePreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const validateValues = () => {
-    if (props.file !== []) {
-      console.log("yes");
+    if (props.file.length > 0) {
+      renderPdfPreview(props.file);
     } else {
-      console.log("not");
+      setImagePreviewUrl(DefaultFile);
+      setPage(1);
     }
   };
-  // aver = (files) => {
-  //   let reader = new FileReader();
-  //   let file = files[0];
-  //   reader.onloadend = () => {
-  //     this.setState({
-  //       files: file,
-  //       imagePreviewUrl: reader.result,
-  //     });
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
-  // _handleImageChange = (e) => {
-  //   // e.preventDefault();
-
-  //   let reader = new FileReader();
-  //   let file = e.target.files[0];
-
-  //   reader.onloadend = () => {
-  //     this.setState({
-  //       file: file,
-  //       imagePreviewUrl: reader.result,
-  //     });
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
 
   useEffect(() => {
     validateValues();
     console.log(props.file);
+    console.log(props.file.length);
     console.log(file);
   }, [props.file]);
 
@@ -157,5 +142,8 @@ const MyPdfViewer = (props) => {
       </center>
     </div>
   );
+};
+MyPdfViewer.propTypes = {
+  // file: PropTypes.array.isRequired,
 };
 export default MyPdfViewer;
