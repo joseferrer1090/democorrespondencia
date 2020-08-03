@@ -215,7 +215,10 @@ class ValueSticker extends Component {
                       {this.state.datavalues.length ? (
                         this.state.datavalues.map((aux, id) => {
                           return (
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                            <li
+                              key={id}
+                              className="list-group-item d-flex justify-content-between align-items-center"
+                            >
                               {aux.labelText}
                               <span className="">
                                 <i

@@ -32,12 +32,12 @@ export const PreviewStickerConfiguration = () => {
                   padding: "0px",
                 }}
               >
-                <table class="table">
+                <table className="table">
                   <tbody>
                     {data.map((aux, id) => {
                       return (
-                        <tr>
-                          <td colspan="4">{aux.labelText}</td>
+                        <tr key={id}>
+                          <td colSpan="4">{aux.labelText}</td>
                           <th scope="row">valor desde el backend</th>
                         </tr>
                       );
