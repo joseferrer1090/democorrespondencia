@@ -1,5 +1,5 @@
 /*
-    user:{ //B USER_SHOW
+    user:{ // => validar USER_SHOW
         identification: "", 
         name: "", 
         birthDate: "", 
@@ -8,7 +8,7 @@
         email: "", 
         username: ""
      },
-     userlogged: { // Validar con el endPoint de USER_SHOW
+     userlogged: { // => Validar con el endPoint de USER_SHOW
         sede: "", 
         dependencia: "", 
         cargo: "", 
