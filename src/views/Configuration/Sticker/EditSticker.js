@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { EditInformationSticker } from "./components/EditInformationSticker";
 import ValueSticker from "./components/ValueSticker";
-import PreviewStickerConfiguration from "./components/PreviewStickerConfiguration";
+import { PreviewStickerConfiguration } from "./components/PreviewStickerConfiguration";
 
 class EditSticker extends Component {
   constructor(props) {
@@ -30,9 +30,9 @@ class EditSticker extends Component {
         <div className="col-md-8">
           <ValueSticker id={this.props.match.params.id} />
         </div>
-        {/* <div className="col-md-12">
+        <div className="col-md-12">
           <PreviewStickerConfiguration />
-        </div> */}
+        </div>
       </div>
     );
   }
