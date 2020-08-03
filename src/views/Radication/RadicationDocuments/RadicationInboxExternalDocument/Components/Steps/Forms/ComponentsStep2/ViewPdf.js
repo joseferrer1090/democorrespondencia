@@ -6,7 +6,7 @@ import {
   Col,
   //  ToastBody, Toast, ToastHeader
 } from "reactstrap";
-import DefaultFile from "../../../../../../../../assets/files/DefaultStep3.pdf";
+import DefaultFile from "../../../../../../../../assets/files/DStep3.pdf";
 
 const MyPdfViewer = (props) => {
   const [page, setPage] = useState(1);
