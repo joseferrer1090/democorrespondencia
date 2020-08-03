@@ -95,7 +95,7 @@ export const GENERATE_STICKER = `${config.IP}:${config.PORT}/api/sgdea/service/e
 export const USER_SHOW_INFORMATION = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/`;
 
 /* GET params => username, userlogged */
-export const USER_SEARCH_BY_USERNAME = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/search/`;
+export const USER_SEARCH_BY_USERNAME = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/search/username`;
 
 /* POST  */
 export const USER_UPDATE_PROFILE_PASSWORD = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/update/profile/password`;

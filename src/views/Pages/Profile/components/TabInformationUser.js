@@ -10,7 +10,7 @@ import {
   Col,
 } from "reactstrap";
 import classnames from "classnames";
-import FormUpdateData from "./FormUpdateData";
+import { FormUpdateData } from "./FormUpdateData";
 import ChangePassword from "./ChangePasswordUser";
 import ThemeSelector from "./ThemeSelector";
 import ChangeTheme from "./ChangeThemeUser";
