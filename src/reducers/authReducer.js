@@ -1,5 +1,5 @@
 /*
-    user:{
+    user:{ //B USER_SHOW
         identification: "", 
         name: "", 
         birthDate: "", 
@@ -8,14 +8,14 @@
         email: "", 
         username: ""
      },
-     userlogged: {
+     userlogged: { // Validar con el endPoint de USER_SHOW
         sede: "", 
         dependencia: "", 
         cargo: "", 
         rol: "", 
         permisos: ""
      }
-     userpassword: {
+     userpassword: {  // utilizar el endPoint =>  UPDATE_PROFILE_PASSWORD
         password_current: "", 
         new_password: "", 
         confirm_password: ""
