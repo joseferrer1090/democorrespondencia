@@ -31,9 +31,9 @@ const Step2 = (props) => {
     pri.print();
   };
   const validateIdFiling = () => {
-    dispatch(generarSticker("03148ceb-f0c7-4be6-b2ba-0b701c34a5ac"));
+    // dispatch(generarSticker("03148ceb-f0c7-4be6-b2ba-0b701c34a5ac"));
     if (idFiling !== "") {
-      // dispatch(generarSticker(idFiling));
+      dispatch(generarSticker(idFiling));
     } else {
       return null;
     }
@@ -84,16 +84,18 @@ const Step2 = (props) => {
                         {titleSticker}
                       </span>
                       <br />
-                      <span
-                        style={{
-                          fontSize: "18px",
-                          fontWeight: "bold",
-                          textAlign: "center",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Correspondencia recibida
-                      </span>
+                      {detailSticker.length > 0 ? (
+                        <span
+                          style={{
+                            fontSize: "18px",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            marginLeft: "50px",
+                          }}
+                        >
+                          Correspondencia recibida
+                        </span>
+                      ) : null}
                     </div>
 
                     <div
@@ -117,7 +119,10 @@ const Step2 = (props) => {
                         ))
                       ) : (
                         <Fragment>
-                          <div className="col-md-12 text-center">
+                          <div
+                            className="col-md-12"
+                            // style={{ marginRight: "500px" }}
+                          >
                             <strong className="text-danger">
                               <i class="fa fa-exclamation-triangle" /> No hay
                               datos para generar el sticker. Por favor verifique
