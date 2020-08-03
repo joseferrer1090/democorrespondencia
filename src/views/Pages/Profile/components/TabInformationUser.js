@@ -7,7 +7,7 @@ import {
   NavItem,
   NavLink,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 import classnames from "classnames";
 import FormUpdateData from "./FormUpdateData";
@@ -20,14 +20,14 @@ class TabInformationUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: "1"
+      activeTab: "1",
     };
   }
 
-  toggle = tab => {
+  toggle = (tab) => {
     if (this.state.activeTab !== tab) {
       this.setState({
-        activeTab: tab
+        activeTab: tab,
       });
     }
   };
@@ -67,7 +67,7 @@ class TabInformationUser extends Component {
               <i className="fa fa-lock" /> Cambiar contraseña
             </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === "2" })}
               onClick={() => {
@@ -76,8 +76,8 @@ class TabInformationUser extends Component {
             >
               <i className="fa fa-paint-brush" /> Tema
             </NavLink>
-          </NavItem>
-          <NavItem>
+          </NavItem> */}
+          {/* <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === "3" })}
               onClick={() => {
@@ -86,7 +86,7 @@ class TabInformationUser extends Component {
             >
               <i className="fa fa-wrench" /> Personalizar tema
             </NavLink>
-          </NavItem>
+          </NavItem> */}
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
