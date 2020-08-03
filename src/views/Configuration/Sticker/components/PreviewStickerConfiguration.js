@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "reactstrap";
 import Barcode from "react-barcode";
 import { useSelector, useDispatch } from "react-redux";
 
 export const PreviewStickerConfiguration = () => {
+  const [data, setdata] = useState([]);
+
   const { details, name, id } = useSelector(
     (state) => state.stickerReducer.sticker
   );
+
+  useEffect(() => {
+    setdata(details);
+  });
 
   return (
     <div className="animated fadeIn">
@@ -16,8 +22,8 @@ export const PreviewStickerConfiguration = () => {
           <i className="fa fa-globe" /> Previsualizar Sticer {name}
         </CardHeader>
         <CardBody>
-          <div className="row">
-            {details ? (
+          {data ? (
+            <div className="row">
               <div
                 className="col-md-4 offset-4 text-center"
                 style={{
@@ -26,21 +32,11 @@ export const PreviewStickerConfiguration = () => {
                   padding: "0px",
                 }}
               >
-                <table
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <tbody className="text-justify">
+                <table class="table">
+                  <tbody>
                     <tr>
-                      {details.map((aux, id) => {
-                        return (
-                          <tr>
-                            {aux.labelText}: {id}
-                          </tr>
-                        );
-                      })}
+                      <td colspan="4">Larry the Bird</td>
+                      <th scope="row">3</th>
                     </tr>
                   </tbody>
                 </table>
@@ -53,12 +49,10 @@ export const PreviewStickerConfiguration = () => {
                   background="#e3e3e3"
                 />
               </div>
-            ) : (
-              <div>
-                <p>No hay valores asignados</p>
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div>no hay datos asignado al sticker</div>
+          )}
         </CardBody>
       </Card>
     </div>
