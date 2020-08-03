@@ -34,10 +34,14 @@ export const PreviewStickerConfiguration = () => {
               >
                 <table class="table">
                   <tbody>
-                    <tr>
-                      <td colspan="4">Larry the Bird</td>
-                      <th scope="row">3</th>
-                    </tr>
+                    {data.map((aux, id) => {
+                      return (
+                        <tr>
+                          <td colspan="4">{aux.labelText}</td>
+                          <th scope="row">valor desde el backend</th>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
                 <Barcode
