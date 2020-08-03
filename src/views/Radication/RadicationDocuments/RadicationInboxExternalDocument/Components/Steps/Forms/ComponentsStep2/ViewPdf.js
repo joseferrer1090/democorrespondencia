@@ -1,48 +1,51 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "react";
 import { usePdf } from "@mikecousins/react-pdf";
 import {
   Row,
   Col,
   //  ToastBody, Toast, ToastHeader
 } from "reactstrap";
-import file from "../../../../../../../../assets/files/Test.pdf";
+import DefaultFile from "../../../../../../../../assets/files/DStep3.pdf";
 
 const MyPdfViewer = (props) => {
   const [page, setPage] = useState(1);
   const canvasRef = useRef(null);
-  const [id, setId] = useState(props.id);
-  const [filename, setFilename] = useState(props.filename);
+  const [file, setFile] = useState("");
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(DefaultFile);
 
   const { pdfDocument, pdfPage } = usePdf({
-    file: file,
+    file: imagePreviewUrl,
     page,
     canvasRef,
     pdfPage,
   });
 
+  const renderPdfPreview = (files) => {
+    let reader = new FileReader();
+    let file = files[0];
+    reader.onloadend = () => {
+      setFile(file);
+      setImagePreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const validateValues = () => {
-    if (PreValue !== props.id) {
+    if (props.file.length > 0) {
+      renderPdfPreview(props.file);
+    } else {
+      setImagePreviewUrl(DefaultFile);
       setPage(1);
     }
   };
 
   useEffect(() => {
-    setId(props.id);
-    setFilename(props.filename);
     validateValues();
     console.log(props.file);
+    console.log(props.file.length);
     console.log(file);
-  }, [props.file, props.filename, props.infoData]);
-
-  const PreviousValues = (value) => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    });
-
-    return ref.current;
-  };
-  const PreValue = PreviousValues(props.id);
+  }, [props.file]);
 
   return (
     <div>
@@ -139,5 +142,8 @@ const MyPdfViewer = (props) => {
       </center>
     </div>
   );
+};
+MyPdfViewer.propTypes = {
+  // file: PropTypes.array.isRequired,
 };
 export default MyPdfViewer;
