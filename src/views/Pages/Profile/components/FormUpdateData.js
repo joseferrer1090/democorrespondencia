@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { getUser } from "./../../../../actions/authActions";
+import { USER_PROFILE_UPDATE } from "./../../../../services/EndPoints";
 import { decode } from "jsonwebtoken";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import moment from "moment";
 
 export const FormUpdateData = () => {
+  const token = localStorage.getItem("auth_token");
   const user = decode(localStorage.getItem("auth_token"));
   const dispatch = useDispatch();
   const getDataUser = () => {
@@ -18,19 +21,60 @@ export const FormUpdateData = () => {
     getDataUser();
   }, []);
 
+  const formatDate = (date) => {
+    let aux;
+    aux = new Date(date);
+    return moment(aux).format("DD-MM-YYYY");
+  };
+
+  const validationschema = () =>
+    Yup.object.shape({
+      name: Yup.string().required("Nombre necesario para la actualizacion"),
+      birthdate: Yup.string(),
+      phone: Yup.string(),
+      address: Yup.string(),
+    });
+
   const formik = useFormik({
+    ValidationSchema: validationschema,
     enableReinitialize: true,
     initialValues: {
       identification: data.identification || "",
       name: data.name || "",
-      birthdate: data.birthDate || "",
+      birthdate: formatDate(data.birthDate) || "",
       phone: data.phone || "",
       address: data.address || "",
       email: data.email || "",
       username: data.username || "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      fetch(`${USER_PROFILE_UPDATE}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          userNameAuthenticate: user.user_name,
+          name: values.name,
+          phone: values.phone,
+          address: values.address,
+          birthDate: formatDate(values.birthDate),
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log(response);
+          } else if (response.status === 400) {
+            console.log("Validar los datos que se envian");
+          } else if (response.status === 500) {
+            console.log("Error al actualizar los datos");
+          }
+        })
+        .catch((err) => {
+          console.log(`Error => ${err}`);
+        });
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 
