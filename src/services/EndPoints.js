@@ -99,3 +99,6 @@ export const USER_SEARCH_BY_USERNAME = `${config.IP}:${config.PORT}/api/sgdea/se
 
 /* POST  */
 export const USER_UPDATE_PROFILE_PASSWORD = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/update/profile/password`;
+
+/* PUT */
+export const USER_PROFILE_UPDATE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/update/profile`;

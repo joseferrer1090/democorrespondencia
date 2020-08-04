@@ -12,15 +12,28 @@ export const FormUpdateData = () => {
   const getDataUser = () => {
     dispatch(getUser());
   };
+  const data = useSelector((state) => state.authReducer.user);
+
   useEffect(() => {
     getDataUser();
   }, []);
+
   const formik = useFormik({
-    initialValues: {},
+    enableReinitialize: true,
+    initialValues: {
+      identification: data.identification || "",
+      name: data.name || "",
+      birthdate: data.birthDate || "",
+      phone: data.phone || "",
+      address: data.address || "",
+      email: data.email || "",
+      username: data.username || "",
+    },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
   return (
     <React.Fragment>
       <div className="animated fadeIn">
@@ -33,10 +46,13 @@ export const FormUpdateData = () => {
                     <div className="form-group">
                       <label> Identificación </label>
                       <input
+                        name="identification"
+                        id="identification"
                         type="text"
                         className="form-control form-control-sm"
+                        value={formik.values.identification}
+                        onChange={formik.handleChange}
                         disabled
-                        placeholder="identificación"
                       />
                     </div>
                   </Col>
@@ -44,6 +60,10 @@ export const FormUpdateData = () => {
                     <div className="form-group">
                       <label> Nombre </label>
                       <input
+                        name="name"
+                        id="name"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
                         type="text"
                         className="form-control form-control-sm"
                       />
@@ -53,8 +73,12 @@ export const FormUpdateData = () => {
                     <div className="form-group">
                       <label> Fecha de nacimiento </label>
                       <input
+                        name="birthdate"
+                        id="birthdate"
                         type="text"
                         className="form-control form-control-sm"
+                        value={formik.values.birthdate}
+                        onChange={formik.handleChange}
                       />
                     </div>
                   </Col>
@@ -62,25 +86,37 @@ export const FormUpdateData = () => {
                     <div className="form-group">
                       <label> Telefono </label>
                       <input
+                        name="phone"
+                        id="phone"
                         type="text"
                         className="form-control form-control-sm"
+                        value={formik.values.phone}
+                        onChange={formik.handleChange}
                       />
                     </div>
                   </Col>
                   <Col sm="12">
                     <div className="form-group">
                       <label> Direccion </label>
-                      <textarea className="form-control form-control-sm" />
+                      <textarea
+                        className="form-control form-control-sm"
+                        id="address"
+                        name="address"
+                        value={formik.values.address}
+                        onChange={formik.handleChange}
+                      />
                     </div>
                   </Col>
                   <Col sm="6">
                     <div className="form-group">
                       <label> Email </label>
                       <input
+                        name="email"
+                        id="email"
                         type="text"
                         className="form-control form-control-sm"
                         disabled
-                        placeholder="email"
+                        value={formik.values.email}
                       />
                     </div>
                   </Col>
@@ -88,10 +124,12 @@ export const FormUpdateData = () => {
                     <div className="form-group">
                       <label> Usuario </label>
                       <input
+                        name="username"
+                        id="username"
                         type="text"
                         className="form-control form-control-sm"
+                        value={formik.values.username}
                         disabled
-                        placeholder="usuario"
                       />
                     </div>
                   </Col>
