@@ -3,12 +3,16 @@ import {
   OBTENER_DATA_USER_EXITO,
   OBTENER_DATA_USER_ERROR,
 } from "./../types/index";
-import { USER_SEARCH_BY_USERNAME } from "../services/EndPoints";
+import {
+  USER_SEARCH_BY_USERNAME,
+  USER_SHOW_INFORMATION,
+} from "../services/EndPoints";
+import { decode } from "jsonwebtoken";
 
-export const getUserid = (name) => {
-  return (dispathch) => {
+const getUserid = (name) => {
+  return async (dispatch) => {
     const auth = localStorage.getItem("auth_token");
-    fetch(`${USER_SEARCH_BY_USERNAME}?username=${name}`, {
+    await fetch(`${USER_SEARCH_BY_USERNAME}?username=${name}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -17,8 +21,7 @@ export const getUserid = (name) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispathch(userId(data.id));
-        console.log(data.id);
+        dispatch(userId(data.id));
       })
       .catch((err) => {
         console.log(`Error => ${err}`);
@@ -27,17 +30,37 @@ export const getUserid = (name) => {
 };
 
 export const getUser = () => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
+    const username = decode(localStorage.getItem("auth_token"));
+    const token = localStorage.getItem("auth_token");
+    await dispatch(getUserid(username.user_name));
     const { id } = getState().authReducer;
-    // Fetch para mostrar la informacion del usuario
+    await fetch(
+      `${USER_SHOW_INFORMATION}${id}?username=${username.user_name}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(setDataUser(data));
+      })
+      .catch((err) => {
+        console.log(`Error => ${err}`);
+      });
   };
 };
-
-const setUser = () => ({
-  type: OBTENER_DATA_USER_EXITO,
-});
 
 const userId = (id) => ({
   type: OBTENER_DATA_USER,
   payload: id,
+});
+
+const setDataUser = (data) => ({
+  type: OBTENER_DATA_USER_EXITO,
+  payload: data,
 });

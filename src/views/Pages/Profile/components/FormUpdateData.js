@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Card, CardBody } from "reactstrap";
-import { getUserid, getUser } from "./../../../../actions/authActions";
+import { getUser } from "./../../../../actions/authActions";
 import { decode } from "jsonwebtoken";
 
 export const FormUpdateData = () => {
   const user = decode(localStorage.getItem("auth_token"));
   const dispatch = useDispatch();
-
-  const getData = (name) => {
-    dispatch(getUserid(name));
-  };
-
-  const getInfoUser = () => {
+  const getDataUser = () => {
     dispatch(getUser());
   };
-
   useEffect(() => {
-    getData(user.user_name);
-  }, [user]);
-
+    getDataUser();
+  });
   return (
     <div className="animated fadeIn">
       <Card>
