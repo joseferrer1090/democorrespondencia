@@ -102,3 +102,6 @@ export const USER_UPDATE_PROFILE_PASSWORD = `${config.IP}:${config.PORT}/api/sgd
 
 /* PUT */
 export const USER_PROFILE_UPDATE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/update/profile`;
+
+/* GET params =idUser */
+export const USER_PHOTO_PROFILE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/photo/view/`;
