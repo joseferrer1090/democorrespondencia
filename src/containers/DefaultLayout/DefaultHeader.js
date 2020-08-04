@@ -23,6 +23,8 @@ import sygnet from "../../assets/img/sevenet_ori.svg";
 import Cookie from "js-cookie";
 import { connect } from "react-redux";
 import { getUser } from "./../../actions/authActions";
+import { decode } from "jsonwebtoken";
+
 const propTypes = {
   children: PropTypes.node,
 };
@@ -30,6 +32,11 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   logout = () => {
     Cookie.remove("auth");
     localStorage.removeItem("auth_token");
@@ -37,11 +44,18 @@ class DefaultHeader extends Component {
   };
 
   componentDidMount() {
-    console.log("probando");
+    const token = localStorage.getItem("auth_token");
+    const username = decode(token);
+    this.getData();
   }
+
+  getData = () => {
+    this.props.onGeneralData();
+  };
 
   render() {
     // eslint-disable-next-line
+    console.log(this.props.logged);
     const { children, ...attributes } = this.props;
 
     return (
@@ -85,7 +99,7 @@ class DefaultHeader extends Component {
           <AppHeaderDropdown direction="down">
             <UncontrolledDropdown nav direction="down">
               <DropdownToggle nav style={{ marginRight: "4px !important" }}>
-                Usuario
+                {this.props.logged}
                 <img
                   src={"../../assets/img/avatars/user2.jpg"}
                   className="img-avatar"
@@ -137,12 +151,16 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-function mapStateToProps(state) {
-  return { state };
-}
+const mapStateToProps = (state) => {
+  return { logged: state.authReducer.user.username };
+};
 
-function mapDispatchToProps(dispatch) {
-  return {};
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGeneralData: () => {
+      dispatch(getUser());
+    },
+  };
+};
 
-export default connect(mapDispatchToProps, mapStateToProps)(DefaultHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultHeader);

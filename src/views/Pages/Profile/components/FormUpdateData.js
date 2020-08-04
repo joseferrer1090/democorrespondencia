@@ -22,7 +22,7 @@ export const FormUpdateData = () => {
   const data = useSelector((state) => state.authReducer.user);
   const { id } = useSelector((state) => state.authReducer);
   useEffect(() => {
-    getDataUser();
+    //getDataUser();
   }, []);
 
   const formatDate = (date) => {
