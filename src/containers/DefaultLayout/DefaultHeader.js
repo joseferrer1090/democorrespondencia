@@ -21,7 +21,8 @@ import {
 import logo from "../../assets/img/sevenet_ori.svg";
 import sygnet from "../../assets/img/sevenet_ori.svg";
 import Cookie from "js-cookie";
-
+import { connect } from "react-redux";
+import { getUser } from "./../../actions/authActions";
 const propTypes = {
   children: PropTypes.node,
 };
@@ -34,6 +35,11 @@ class DefaultHeader extends Component {
     localStorage.removeItem("auth_token");
     window.location.replace("/");
   };
+
+  componentDidMount() {
+    console.log("probando");
+  }
+
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
@@ -131,4 +137,12 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-export default DefaultHeader;
+function mapStateToProps(state) {
+  return { state };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapDispatchToProps, mapStateToProps)(DefaultHeader);
