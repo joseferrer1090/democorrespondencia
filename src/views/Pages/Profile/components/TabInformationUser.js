@@ -14,7 +14,7 @@ import { FormUpdateData } from "./FormUpdateData";
 import ChangePassword from "./ChangePasswordUser";
 import ThemeSelector from "./ThemeSelector";
 import ChangeTheme from "./ChangeThemeUser";
-import FormAdvance from "./FormChangeAdvanceData";
+import FormChangeAdvanceData from "./FormChangeAdvanceData";
 
 class TabInformationUser extends Component {
   constructor(props) {
@@ -120,7 +120,7 @@ class TabInformationUser extends Component {
           <TabPane tabId="5">
             <Row>
               <Col sm="12">
-                <FormAdvance />
+                <FormChangeAdvanceData />
               </Col>
             </Row>
           </TabPane>
