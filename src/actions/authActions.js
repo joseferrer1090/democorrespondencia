@@ -2,10 +2,14 @@ import {
   OBTENER_DATA_USER,
   OBTENER_DATA_USER_EXITO,
   OBTENER_DATA_USER_ERROR,
+  CAMBIAR_PASSWORD_USER,
+  CAMBIAR_PASSWORD_USER_EXITO,
+  CAMBIAR_PASSWORD_USER_ERROR,
 } from "./../types/index";
 import {
   USER_SEARCH_BY_USERNAME,
   USER_SHOW_INFORMATION,
+  USER_UPDATE_PROFILE_PASSWORD,
 } from "../services/EndPoints";
 import { decode } from "jsonwebtoken";
 
@@ -63,4 +67,27 @@ const userId = (id) => ({
 const setDataUser = (data) => ({
   type: OBTENER_DATA_USER_EXITO,
   payload: data,
+});
+
+export function ChangePasswordAction({ username, oldpassword, newpassword }) {
+  return (dispatch) => {
+    dispatch(changepass());
+    console.log(
+      `Valores => username: ${username}, oldpassword: ${oldpassword}, newpassword: ${newpassword}`
+    );
+  };
+}
+
+const changepass = () => ({
+  type: CAMBIAR_PASSWORD_USER,
+});
+
+const changepassSuccess = (resp) => ({
+  type: CAMBIAR_PASSWORD_USER_EXITO,
+  payload: resp,
+});
+
+const changepassError = (resp) => ({
+  type: CAMBIAR_PASSWORD_USER_ERROR,
+  payload: resp,
 });
