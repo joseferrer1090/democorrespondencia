@@ -13,6 +13,10 @@ import {
 } from "reactstrap";
 
 class ChangePasswordUser extends React.Component {
+  state = {
+    alertSuccess: false,
+    alertError: false,
+  };
   render() {
     const {
       values,
@@ -37,11 +41,11 @@ class ChangePasswordUser extends React.Component {
                     <br />
                     <small>contraseña que sea difícil de decifrar</small>
                   </p>
-                  <Alert color="success">
+                  <Alert color="success" isOpen={this.state.alertSuccess}>
                     <i className="fa fa-check" /> Se actualizo la contraseña del
                     usuario
                   </Alert>
-                  <Alert color="danger">
+                  <Alert color="danger" isOpen={this.state.alertError}>
                     <i className="fa fa-times" /> Error al actualizar la
                     contraseña del usuario
                   </Alert>
@@ -63,7 +67,10 @@ class ChangePasswordUser extends React.Component {
                             onBlur={handleBlur}
                           />
                           {errors.oldpasswd && touched.oldpasswd ? (
-                            <div>{errors.oldpasswd}</div>
+                            <div className="text-danger">
+                              <i className="fa fa-exclamation-triangle" />{" "}
+                              {errors.oldpasswd}
+                            </div>
                           ) : null}
                         </div>
                       </div>
@@ -83,7 +90,10 @@ class ChangePasswordUser extends React.Component {
                             onBlur={handleBlur}
                           />
                           {errors.newpasswd && touched.newpasswd ? (
-                            <div>{errors.newpasswd}</div>
+                            <div className="text-danger">
+                              <i className="fa fa-exclamation-triangle" />{" "}
+                              {errors.newpasswd}
+                            </div>
                           ) : null}
                         </div>
                       </div>
@@ -103,7 +113,10 @@ class ChangePasswordUser extends React.Component {
                             onBlur={handleBlur}
                           />
                           {errors.confirmpasswd && touched.confirmpasswd ? (
-                            <div>{errors.confirmpasswd}</div>
+                            <div className="text-danger">
+                              <i className="fa fa-exclamation-triangle" />{" "}
+                              {errors.confirmpasswd}
+                            </div>
                           ) : null}
                         </div>
                       </div>
@@ -133,13 +146,23 @@ class ChangePasswordUser extends React.Component {
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
     oldpasswd: Yup.string().required("Necesario digitar la contraseña actual"),
-    newpasswd: Yup.string().required("No puede ir la contraseña vacia"),
-    confirmpasswd: Yup.string().required(
-      "Se Requiere confirmar la contraseña digita"
-    ),
+    newpasswd: Yup.string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/,
+        "Contraseña no valida, la contraseña debe tener al menos una letra en mayuscula, al menos un dígito, no acepta espacios en blanco y al menos un carácter especial."
+      )
+      .required("Se requiere nueva contraseña")
+      .min(8)
+      .max(15),
+    confirmpasswd: Yup.string()
+      .oneOf([Yup.ref("newpasswd"), null], "La contraseña no coincide")
+      .min(8)
+      .max(15)
+      .required("Por favor confirme la contraseña"),
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
     alert(JSON.stringify(values, 2, null));
+    setSubmitting(true);
   },
 })(ChangePasswordUser);
 
