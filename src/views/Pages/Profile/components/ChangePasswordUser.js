@@ -1,5 +1,5 @@
 import React from "react";
-import { withFormik } from "formik";
+import { withFormik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import {
@@ -62,6 +62,9 @@ class ChangePasswordUser extends React.Component {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
+                          {errors.oldpasswd && touched.oldpasswd ? (
+                            <div>{errors.oldpasswd}</div>
+                          ) : null}
                         </div>
                       </div>
                       <div className="col-md-12">
@@ -79,6 +82,9 @@ class ChangePasswordUser extends React.Component {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
+                          {errors.newpasswd && touched.newpasswd ? (
+                            <div>{errors.newpasswd}</div>
+                          ) : null}
                         </div>
                       </div>
                       <div className="col-md-12">
@@ -96,6 +102,9 @@ class ChangePasswordUser extends React.Component {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
+                          {errors.confirmpasswd && touched.confirmpasswd ? (
+                            <div>{errors.confirmpasswd}</div>
+                          ) : null}
                         </div>
                       </div>
                     </div>
