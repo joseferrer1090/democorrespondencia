@@ -11,6 +11,8 @@ import {
   Alert,
   CardHeader,
 } from "reactstrap";
+import { ChangePasswordAction } from "../../../../actions/authActions";
+import { map } from "lodash";
 
 class ChangePasswordUser extends React.Component {
   state = {
@@ -161,9 +163,22 @@ const formikEnhancer = withFormik({
       .required("Por favor confirme la contraseña"),
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
-    alert(JSON.stringify(values, 2, null));
-    setSubmitting(true);
+    // alert(JSON.stringify(values, 2, null));
+    props.changepassword({
+      username: "User logged",
+      newpassword: values.newpasswd,
+      oldpassword: values.oldpasswd,
+    });
+    setSubmitting(false);
   },
 })(ChangePasswordUser);
 
-export default connect()(formikEnhancer);
+const mapDispatch = (dispatch) => {
+  return {
+    changepassword: ({ username, oldpassword, newpassword }) => {
+      dispatch(ChangePasswordAction({ username, oldpassword, newpassword }));
+    },
+  };
+};
+
+export default connect((state) => state, mapDispatch)(formikEnhancer);
