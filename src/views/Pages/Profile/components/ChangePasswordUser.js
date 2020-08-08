@@ -136,7 +136,7 @@ class ChangePasswordUser extends React.Component {
                     >
                       {isSubmitting ? (
                         <div>
-                          <i className="fa spinner fa-spinner" />
+                          <i className="fa fa-spin fa-spinner" />
                         </div>
                       ) : (
                         <div>
