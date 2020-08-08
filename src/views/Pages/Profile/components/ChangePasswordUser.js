@@ -12,12 +12,11 @@ import {
   CardHeader,
 } from "reactstrap";
 import { ChangePasswordAction } from "../../../../actions/authActions";
-import { map } from "lodash";
 
 class ChangePasswordUser extends React.Component {
   state = {
-    alertSuccess: false,
-    alertError: false,
+    alertSuccess: null,
+    alertError: null,
   };
   render() {
     const {
@@ -31,6 +30,8 @@ class ChangePasswordUser extends React.Component {
       handleReset,
       isSubmitting,
     } = this.props;
+    const alertsuccess = this.props.alertS;
+    const alerterror = this.props.alertE;
     return (
       <React.Fragment>
         <div className="animated fadeIn">
@@ -43,13 +44,13 @@ class ChangePasswordUser extends React.Component {
                     <br />
                     <small>contraseña que sea difícil de decifrar</small>
                   </p>
-                  <Alert color="success" isOpen={this.state.alertSuccess}>
+                  <Alert color="success" isOpen={alertsuccess}>
                     <i className="fa fa-check" /> Se actualizo la contraseña del
-                    usuario
+                    usuario, en 3 segundo se reinciara la sesion.
                   </Alert>
-                  <Alert color="danger" isOpen={this.state.alertError}>
+                  <Alert color="danger" isOpen={alerterror}>
                     <i className="fa fa-times" /> Error al actualizar la
-                    contraseña del usuario
+                    contraseña del usuario, verifica con el adminitrador
                   </Alert>
                   <form className="form">
                     <div className="row">
@@ -61,6 +62,7 @@ class ChangePasswordUser extends React.Component {
                             <span className="text-danger">*</span>{" "}
                           </label>
                           <input
+                            id="oldpasswd"
                             name="oldpasswd"
                             className={`form-control form-control-sm `}
                             type="password"
@@ -132,7 +134,15 @@ class ChangePasswordUser extends React.Component {
                       className="btn btn-secondary btn-sm"
                       onClick={handleSubmit}
                     >
-                      <i className="fa fa-pencil" /> Actualizar contraseña
+                      {isSubmitting ? (
+                        <div>
+                          <i className="fa spinner fa-spinner" />
+                        </div>
+                      ) : (
+                        <div>
+                          <i className="fa fa-pencil" /> Actualizar contraseña
+                        </div>
+                      )}
                     </button>
                   </div>
                 </CardFooter>
@@ -162,16 +172,29 @@ const formikEnhancer = withFormik({
       .max(15)
       .required("Por favor confirme la contraseña"),
   }),
-  handleSubmit: (values, { props, setSubmitting }) => {
+  handleSubmit: (values, { props, setSubmitting, resetForm }) => {
     // alert(JSON.stringify(values, 2, null));
-    props.changepassword({
-      username: "User logged",
-      newpassword: values.newpasswd,
-      oldpassword: values.oldpasswd,
+    setTimeout(() => {
+      props.changepassword({
+        newpassword: values.newpasswd,
+        oldpassword: values.oldpasswd,
+      });
+      setSubmitting(true);
+    }, 1300);
+    resetForm({
+      newpasswd: "",
+      oldpassword: "",
+      confirmpasswd: "",
     });
-    setSubmitting(false);
   },
 })(ChangePasswordUser);
+
+const mapStateToProps = (state) => {
+  return {
+    alertS: state.authReducer.userpassword.response,
+    alertE: state.authReducer.userpassword.error,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -181,4 +204,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect((state) => state, mapDispatch)(formikEnhancer);
+export default connect(mapStateToProps, mapDispatch)(formikEnhancer);

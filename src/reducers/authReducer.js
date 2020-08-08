@@ -34,7 +34,10 @@ import {
 const initialState = {
   id: "",
   user: {},
-  userpassword: {},
+  userpassword: {
+    response: false,
+    error: false,
+  },
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -53,8 +56,8 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         userpassword: {
-          error: null,
-          response: null,
+          error: false,
+          response: false,
         },
       };
     case CAMBIAR_PASSWORD_USER_EXITO:

@@ -12,6 +12,7 @@ import {
   USER_UPDATE_PROFILE_PASSWORD,
 } from "../services/EndPoints";
 import { decode } from "jsonwebtoken";
+import Cookie from "js-cookie";
 
 const getUserid = (name) => {
   return async (dispatch) => {
@@ -69,12 +70,45 @@ const setDataUser = (data) => ({
   payload: data,
 });
 
-export function ChangePasswordAction({ username, oldpassword, newpassword }) {
+export function ChangePasswordAction({ oldpassword, newpassword }) {
   return (dispatch) => {
+    const token = localStorage.getItem("auth_token");
+    const username = decode(token);
     dispatch(changepass());
-    console.log(
-      `Valores => username: ${username}, oldpassword: ${oldpassword}, newpassword: ${newpassword}`
-    );
+    fetch(`${USER_UPDATE_PROFILE_PASSWORD}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        userNameAuthenticate: `${username.user_name}`,
+        passwordOld: oldpassword,
+        passwordNew: newpassword,
+        passwordConfirm: newpassword,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(changepassSuccess(response.ok));
+          setTimeout(() => {
+            Cookie.remove("auth");
+            localStorage.removeItem("auth_token");
+            window.location.replace("/");
+          }, 4000);
+          console.log(response);
+        } else if (response.status === 400) {
+          console.log(response);
+        } else if (response.status === 500) {
+          console.log(response);
+        }
+      })
+      .catch((err) => {
+        console.log(`Error => ${err}`);
+      });
+    // console.log(
+    //   `Valores => oldpassword: ${oldpassword}, newpassword: ${newpassword}`
+    // );
   };
 }
 
