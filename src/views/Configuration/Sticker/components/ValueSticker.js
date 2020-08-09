@@ -56,7 +56,7 @@ class ValueSticker extends Component {
               datavalues: data.details.map((aux) => ({
                 inputId: aux.inputId,
                 labelText: aux.labelText,
-                position: aux.numPosition,
+                position: aux.position,
               })),
             });
           } else if (response.status !== 200) {
@@ -92,10 +92,10 @@ class ValueSticker extends Component {
     });
   };
 
-  removeItem = (position) => {
+  removeItem = (inputId) => {
     const dataux = this.state.datavalues;
     this.setState({
-      datavalues: dataux.filter((aux) => aux.position !== position),
+      datavalues: dataux.filter((aux) => aux.inputId !== inputId),
     });
   };
 
@@ -215,13 +215,16 @@ class ValueSticker extends Component {
                       {this.state.datavalues.length ? (
                         this.state.datavalues.map((aux, id) => {
                           return (
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                            <li
+                              key={id}
+                              className="list-group-item d-flex justify-content-between align-items-center"
+                            >
                               {aux.labelText}
                               <span className="">
                                 <i
                                   className="fa fa-times"
                                   style={{ color: "red", cursor: "pointer" }}
-                                  onClick={() => this.removeItem(aux.position)}
+                                  onClick={() => this.removeItem(aux.inputId)}
                                 />
                               </span>
                             </li>
