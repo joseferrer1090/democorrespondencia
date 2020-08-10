@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { STICKER_PUT_DETAIL } from "./../../../../services/EndPoints";
-import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
+import {
+  STICKER_PUT_DETAIL,
+  STICKER_FIND_BY_STICKER_ID,
+} from "./../../../../services/EndPoints";
+import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
 import { datasticker } from "../../../../utils/valuestickers/datasticker";
 import { decode } from "jsonwebtoken";
 
@@ -9,7 +12,7 @@ const stylelist = {
   maxHeight: "400px",
   marginBottom: "10px",
   overflow: "scroll",
-  webkitOverflowScrolling: "touch",
+  WebkitOverflowScrolling: "touch",
 };
 
 class ValueSticker extends Component {
@@ -18,14 +21,54 @@ class ValueSticker extends Component {
     this.state = {
       datasticker: [],
       datavalues: [],
+      alert200: false,
+      alertError: false,
     };
   }
 
   componentDidMount() {
+    this.getDataStickerBeforeEdit(this.props.id);
     this.setState({
       datasticker: datasticker,
     });
   }
+
+  getDataStickerBeforeEdit = (id) => {
+    const token = localStorage.getItem("auth_token");
+    const username = decode(token);
+    fetch(
+      `${STICKER_FIND_BY_STICKER_ID}/${id}?username=${username.user_name}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+      .then((response) =>
+        response.json().then((data) => {
+          if (response.status === 200) {
+            console.log("Datos para editar");
+            console.log(data.details);
+            return this.setState({
+              ...this.state,
+              datavalues: data.details.map((aux) => ({
+                inputId: aux.inputId,
+                labelText: aux.labelText,
+                position: aux.position,
+              })),
+            });
+          } else if (response.status !== 200) {
+            console.log(response.status);
+            return { ...this.state };
+          }
+        })
+      )
+      .catch((err) => {
+        console.log(`Error => ${err}`);
+      });
+  };
 
   onDragStart = (ev, aux) => {
     console.log("dragstart:", aux);
@@ -49,10 +92,10 @@ class ValueSticker extends Component {
     });
   };
 
-  removeItem = (position) => {
+  removeItem = (inputId) => {
     const dataux = this.state.datavalues;
     this.setState({
-      datavalues: dataux.filter((aux) => aux.position !== position),
+      datavalues: dataux.filter((aux) => aux.inputId !== inputId),
     });
   };
 
@@ -75,9 +118,23 @@ class ValueSticker extends Component {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Se actualizo la data", response);
+          this.setState({
+            alert200: true,
+          });
+          setTimeout(() => {
+            this.setState({
+              alert200: false,
+            });
+          }, 1200);
         } else if (response.status === 400) {
-          console.log("Verificar los datos", response);
+          this.setState({
+            alertError: true,
+          });
+          setTimeout(() => {
+            this.setState({
+              alertError: false,
+            });
+          }, 1200);
         }
       })
       .catch((err) => {
@@ -118,6 +175,14 @@ class ValueSticker extends Component {
                   sticker. A lado izquierdo de encuentran los valores del stick,
                   se debe soltar a lado derecho, tener en cuenta el orden.
                 </p>
+                <Alert color={"success"} isOpen={this.state.alert200}>
+                  <i className="fa fa-check-circle" /> Se actualizaron los
+                  valores del sticker
+                </Alert>
+                <Alert color={"danger"} isOpen={this.state.alertError}>
+                  <i className=" fa fa-times" /> Error al actualizar los valores
+                  del sticker.
+                </Alert>
               </div>
               <div className="col-md-6">
                 <div className="">
@@ -150,13 +215,16 @@ class ValueSticker extends Component {
                       {this.state.datavalues.length ? (
                         this.state.datavalues.map((aux, id) => {
                           return (
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                            <li
+                              key={id}
+                              className="list-group-item d-flex justify-content-between align-items-center"
+                            >
                               {aux.labelText}
                               <span className="">
                                 <i
                                   className="fa fa-times"
                                   style={{ color: "red", cursor: "pointer" }}
-                                  onClick={() => this.removeItem(aux.position)}
+                                  onClick={() => this.removeItem(aux.inputId)}
                                 />
                               </span>
                             </li>

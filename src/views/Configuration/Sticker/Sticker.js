@@ -4,27 +4,6 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import TableListStickers from "./components/TableListStickers";
 
-const dataExample = [
-  {
-    id: 1,
-    stickername: "Sticker de correspondencia interna",
-    description: "Configuracion del sticker de correspondencia interna",
-    status: true,
-  },
-  {
-    id: 2,
-    stickername: "Sticker de correspondencia externa",
-    description: "Configuracion del sticker de correspondencia externa",
-    status: true,
-  },
-  {
-    id: 3,
-    stickername: "Sticker de correspondencia",
-    description: "Configuracion del sticker de correspondencia",
-    status: true,
-  },
-];
-
 class Sticker extends Component {
   constructor(props) {
     super(props);

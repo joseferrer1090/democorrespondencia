@@ -80,7 +80,7 @@ export const STCIKER_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service
 //-------------------------------- CONFIGURACION DEL STICKER DETALLES -----------------------------------------//
 
 /* GET params => idSticker */
-export const STICKER_FIND_BY_STICKER_ID = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/stickers/detail/sticker/`;
+export const STICKER_FIND_BY_STICKER_ID = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/stickers/detail/sticker`;
 
 /* PUT */
 export const STICKER_PUT_DETAIL = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/stickers/detail`;
@@ -88,3 +88,20 @@ export const STICKER_PUT_DETAIL = `${config.IP}:${config.PORT}/api/sgdea/service
 //-------------------------------- STICKER CORRESPONDENCIA RECIBIDA -----------------------------------------//
 /* GET params => idRadication */
 export const GENERATE_STICKER = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/generate/sticker/`;
+
+//-------------------------------- CONFIGURACION DEL USUARIO AUTENTICADO -----------------------------------------//
+
+/* GET params => idUser, userlogged */
+export const USER_SHOW_INFORMATION = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/`;
+
+/* GET params => username, userlogged */
+export const USER_SEARCH_BY_USERNAME = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/search/username`;
+
+/* POST  */
+export const USER_UPDATE_PROFILE_PASSWORD = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/update/profile/password`;
+
+/* PUT */
+export const USER_PROFILE_UPDATE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/update/profile`;
+
+/* GET params =idUser */
+export const USER_PHOTO_PROFILE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/photo/view/`;
