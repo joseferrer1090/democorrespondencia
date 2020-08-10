@@ -3,7 +3,7 @@ import PropTypes from "react";
 import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
 import Files from "react-files";
 import "../react-list.css";
-import MyPdfViewer from "./Forms/ComponentsStep2/ViewPdf";
+import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
 import { decode } from "jsonwebtoken";
 
 class Step3 extends Component {
