@@ -22,7 +22,7 @@ import logo from "../../assets/img/sevenet_ori.svg";
 import sygnet from "../../assets/img/sevenet_ori.svg";
 import Cookie from "js-cookie";
 import { connect } from "react-redux";
-import { getUser } from "./../../actions/authActions";
+import { getUser, getPhotoUser } from "./../../actions/authActions";
 import { decode } from "jsonwebtoken";
 
 const propTypes = {
@@ -47,10 +47,15 @@ class DefaultHeader extends Component {
     const token = localStorage.getItem("auth_token");
     const username = decode(token);
     this.getData();
+    this.getDataImg();
   }
 
   getData = () => {
     this.props.onGeneralData();
+  };
+
+  getDataImg = () => {
+    this.props.getUserProfileImage();
   };
 
   render() {
@@ -152,13 +157,18 @@ DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
-  return { logged: state.authReducer.user.username };
+  return {
+    logged: state.authReducer.user.username,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onGeneralData: () => {
       dispatch(getUser());
+    },
+    getUserProfileImage: () => {
+      dispatch(getPhotoUser());
     },
   };
 };
