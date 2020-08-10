@@ -42,9 +42,9 @@ const MyPdfViewer = (props) => {
 
   useEffect(() => {
     validateValues();
-    console.log(props.file);
-    console.log(props.file.length);
-    console.log(file);
+    // console.log(props.file);
+    // console.log(props.file.length);
+    // console.log(file);
   }, [props.file]);
 
   return (
