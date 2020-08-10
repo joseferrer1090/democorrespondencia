@@ -2,9 +2,11 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "react";
 import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
 import Files from "react-files";
+import axios from "axios";
+import { connect } from "react-redux";
+import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
 import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
-import { decode } from "jsonwebtoken";
 
 class Step3 extends Component {
   constructor(props) {
@@ -22,8 +24,23 @@ class Step3 extends Component {
   };
 
   onFilesChange = (files) => {
+    // let reader = new FileReader();
+
+    // reader.onloadend = () => {
+    //   this.setState({
+    //     files: files,
+
+    //   });
+    // };
+
     this.setState({
       files,
+    });
+  };
+
+  onChangeFromInput = (e) => {
+    this.setState({
+      files: e.target.files[0],
     });
   };
 
@@ -41,58 +58,24 @@ class Step3 extends Component {
 
   _handleSubmit = (e) => {
     e.preventDefault();
-    console.log("ENVIANDO ARCHIVO ADJUNTO ...");
-    // const {auth} = this.state;
-    // const username = decode(auth);
-    // const formData = new FormData();
-    // formData.append("file", this.state.files);
-    // formData.append("username", username.user_name);
-
-    // for (var value of formData.values()) {
-    //   console.log(value);
-    // }
-    // axios
-    //   .post(`${USER_UPLOAD_PHOTO}${this.props.id}`, formData, {
-    //     headers: {
-    //       Authorization: "Bearer " + token,
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((response) => {
-    //     // console.log(response.data);
-    //     if (response.status === 200) {
-    //       this.setState({
-    //         alertSuccess: true,
-    //       });
-    //       setTimeout(() => {
-    //         this.setState({
-    //           alertSuccess: false,
-    //         });
-    //       }, 3000);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     // console.log(` ${error.response.status}`);
-    //     if (error.response.status === 400) {
-    //       this.setState({
-    //         alertError400: true,
-    //       });
-    //       setTimeout(() => {
-    //         this.setState({
-    //           alertError400: false,
-    //         });
-    //       }, 3000);
-    //     } else if (error.response.status === 500) {
-    //       this.setState({
-    //         alertError500: true,
-    //       });
-    //       setTimeout(() => {
-    //         this.setState({
-    //           alertError500: false,
-    //         });
-    //       }, 3000);
-    //     }
-    //   });
+    const auth = this.props.authorization;
+    const { files } = this.state;
+    const formData = new FormData();
+    // var blob = new Blob(files, { type: "multipart/form-data" });
+    formData.append("attached", files[0]);
+    axios
+      .post(`${ATTACHED}${"bc2d52c1-b986-4790-af77-d40e741aa3df"}`, formData, {
+        headers: {
+          Authorization: "Bearer " + auth,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(` ${error.response.status}`);
+      });
   };
 
   render() {
@@ -100,12 +83,18 @@ class Step3 extends Component {
       <div className="animated fadeIn">
         <form
           onSubmit={(e) => this._handleSubmit(e)}
-          encType={"multipart/form-data"}
+          encType="multipart/form-data"
         >
           <div className="col-md-9 offset-1">
             <br />
             <div className="card">
               <div className="card-body">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  style={{ height: "100px" }}
+                  onChange={(e) => this.onChangeFromInput(e)}
+                />
                 <Files
                   ref="files"
                   className="flies-dropzone-list"
@@ -195,6 +184,17 @@ class Step3 extends Component {
                     </div>
                   )}
                 </button>
+                &nbsp;
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm"
+                  onClick={(e) => {
+                    console.log(this.state.auth);
+                    e.preventDefault();
+                  }}
+                >
+                  <i className="fa fa-check" /> Ver
+                </button>
               </div>
             </div>
           </div>
@@ -204,4 +204,10 @@ class Step3 extends Component {
   }
 }
 
-export default Step3;
+function mapStateToProps(state) {
+  return {
+    idFiling: state.step2ReducerSticker.idFiling,
+  };
+}
+
+export default connect(mapStateToProps, null)(Step3);
