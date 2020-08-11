@@ -24,17 +24,6 @@ class Step3 extends Component {
   };
 
   onFilesChange = (files) => {
-<<<<<<< HEAD
-    // let reader = new FileReader();
-
-    // reader.onloadend = () => {
-    //   this.setState({
-    //     files: files,
-    //   });
-    // };
-
-=======
->>>>>>> 688f83ffd96a500370ea743990a04af36e77600c
     this.setState({
       files,
     });
