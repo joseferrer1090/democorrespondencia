@@ -24,15 +24,6 @@ class Step3 extends Component {
   };
 
   onFilesChange = (files) => {
-    // let reader = new FileReader();
-
-    // reader.onloadend = () => {
-    //   this.setState({
-    //     files: files,
-
-    //   });
-    // };
-
     this.setState({
       files,
     });
@@ -59,22 +50,24 @@ class Step3 extends Component {
   _handleSubmit = (e) => {
     e.preventDefault();
     const auth = this.props.authorization;
-    const { files } = this.state;
+    const file = this.state.files;
     const formData = new FormData();
-    // var blob = new Blob(files, { type: "multipart/form-data" });
-    formData.append("attached", files[0]);
+    formData.set("file", file);
+
     axios
       .post(`${ATTACHED}${"bc2d52c1-b986-4790-af77-d40e741aa3df"}`, formData, {
         headers: {
+          "content-type": "multipart/form-data",
           Authorization: "Bearer " + auth,
-          "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(` ${error.response.status}`);
+      .then((response) =>
+        response.json().then((data) => {
+          console.log(response);
+        })
+      )
+      .catch((err) => {
+        console.log(`Error => ${err}`);
       });
   };
 
@@ -89,6 +82,12 @@ class Step3 extends Component {
             <br />
             <div className="card">
               <div className="card-body">
+                {/* <input
+                  type="file"
+                  accept=".pdf"
+                  style={{ height: "100px" }}
+                  onChange={(e) => this.onChangeFromInput(e)}
+                /> */}
                 <input
                   type="file"
                   accept=".pdf"
