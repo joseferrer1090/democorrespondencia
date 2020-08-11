@@ -144,7 +144,6 @@ export const getPhotoUser = () => {
       .then((response) => {
         if (response.status === 200) {
           console.log(response.text());
-          dispatch(saveimageUser(response.text);
         } else if (response.status === 400) {
           console.log(`Response => ${response}`);
         } else if (response.status === 500) {
