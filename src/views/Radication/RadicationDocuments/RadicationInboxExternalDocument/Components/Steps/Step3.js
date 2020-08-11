@@ -61,11 +61,11 @@ class Step3 extends Component {
     const auth = this.props.authorization;
     const file = this.state.files;
     const formData = new FormData();
-    formData.set("attached", file);
+    formData.append("file", file);
     fetch(`${ATTACHED}${"bc2d52c1-b986-4790-af77-d40e741aa3df"}`, {
       method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
+        "content-type": "multipart/form-data",
         Authorization: "Bearer " + auth,
       },
       body: formData,
