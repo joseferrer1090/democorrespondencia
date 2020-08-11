@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class Step4 extends Component {
   constructor(props) {
@@ -7,13 +8,17 @@ class Step4 extends Component {
     this.state = {};
   }
   render() {
+    const { dataFiling } = this.props;
+
     return (
       <div className="animated fadeIn">
         <div className="row">
           <div className="col-md-12 text-center">
             <h4>
               Número de radicación:{" "}
-              <span className="badge badge-warning">ABC-09876</span>{" "}
+              <span className="badge badge-warning">
+                {dataFiling.documentNumber}
+              </span>{" "}
             </h4>
           </div>
           <div className="col-md-10 offset-1">
@@ -317,4 +322,10 @@ class Step4 extends Component {
 
 Step4.propTypes = {};
 
-export default Step4;
+function mapStateToProps(state) {
+  return {
+    dataFiling: state.step3ReducerFiling.data,
+  };
+}
+
+export default connect(mapStateToProps, null)(Step4);

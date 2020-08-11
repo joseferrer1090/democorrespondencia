@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
 import { connect } from "react-redux";
+import { css } from "glamor";
 import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
 import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
-import { css } from "glamor";
+import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
 
 class Step3 extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Step3 extends Component {
     formData.set("file", file);
 
     axios
-      .post(`${ATTACHED}${"f6ccdadb-2848-40ed-8b70-e64266c128ba"}`, formData, {
+      .post(`${ATTACHED}${idFiling}`, formData, {
         headers: {
           "content-type": "multipart/form-data",
           Authorization: "Bearer " + auth,
@@ -70,7 +71,7 @@ class Step3 extends Component {
           this.setState({
             goToStep4: true,
           });
-          console.log(response.data.data);
+          this.props.getDataViewFiling(response.data.data);
           toast.success("Se adjunto el documento con éxito.", {
             position: toast.POSITION.TOP_RIGHT,
             className: css({
@@ -228,4 +229,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(Step3);
+function mapDispatch(dispatch) {
+  return {
+    getDataViewFiling(data) {
+      dispatch(obtenerDataVerRadicacion(data));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatch, null)(Step3);
