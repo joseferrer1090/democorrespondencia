@@ -29,7 +29,6 @@ class Step3 extends Component {
     // reader.onloadend = () => {
     //   this.setState({
     //     files: files,
-
     //   });
     // };
 
@@ -39,6 +38,7 @@ class Step3 extends Component {
   };
 
   onChangeFromInput = (e) => {
+    console.log(e.target.files[0]);
     this.setState({
       files: e.target.files[0],
     });
@@ -59,22 +59,24 @@ class Step3 extends Component {
   _handleSubmit = (e) => {
     e.preventDefault();
     const auth = this.props.authorization;
-    const { files } = this.state;
+    const file = this.state.files;
     const formData = new FormData();
-    // var blob = new Blob(files, { type: "multipart/form-data" });
-    formData.append("attached", files[0]);
-    axios
-      .post(`${ATTACHED}${"bc2d52c1-b986-4790-af77-d40e741aa3df"}`, formData, {
-        headers: {
-          Authorization: "Bearer " + auth,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(` ${error.response.status}`);
+    formData.set("attached", file);
+    fetch(`${ATTACHED}${"bc2d52c1-b986-4790-af77-d40e741aa3df"}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + auth,
+      },
+      body: formData,
+    })
+      .then((response) =>
+        response.json().then((data) => {
+          console.log(response);
+        })
+      )
+      .catch((err) => {
+        console.log(`Error => ${err}`);
       });
   };
 
@@ -95,7 +97,7 @@ class Step3 extends Component {
                   style={{ height: "100px" }}
                   onChange={(e) => this.onChangeFromInput(e)}
                 />
-                <Files
+                {/* <Files
                   ref="files"
                   className="flies-dropzone-list"
                   style={{ height: "100px" }}
@@ -148,10 +150,10 @@ class Step3 extends Component {
                       </div>
                     </div>
                   )}
-                </Files>
+                </Files> */}
               </div>
             </div>
-            <MyPdfViewer file={this.state.files} />
+            {/* <MyPdfViewer file={this.state.files} /> */}
           </div>
           <div style={{ height: "80px" }} />
 
