@@ -136,7 +136,6 @@ export const getPhotoUser = () => {
     const username = decode(token);
     await dispatch(getUserid(username.user_name));
     const { id } = getState().authReducer;
-    await dispatch(imgUserStart());
     fetch(`${USER_PHOTO_PROFILE}${id}`, {
       method: "GET",
       headers: {
