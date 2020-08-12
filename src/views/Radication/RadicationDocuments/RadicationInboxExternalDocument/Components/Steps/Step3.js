@@ -142,23 +142,7 @@ class Step3 extends Component {
             <br />
             <div className="card">
               <div className="card-body">
-<<<<<<< HEAD
-                {/* <input
-                  type="file"
-                  accept=".pdf"
-                  style={{ height: "100px" }}
-                  onChange={(e) => this.onChangeFromInput(e)}
-                /> */}
-                <input
-                  type="file"
-                  accept=".pdf"
-                  style={{ height: "100px" }}
-                  onChange={(e) => this.onChangeFromInput(e)}
-                />
-                {/* <Files
-=======
                 <Files
->>>>>>> cf5769ef8d44ab6a06dd575fc7410b58a48efb7d
                   ref="files"
                   className="flies-dropzone-list"
                   style={{ height: "100px" }}
@@ -211,7 +195,8 @@ class Step3 extends Component {
                       </div>
                     </div>
                   )}
-                </Files> */}
+                </Files>{" "}
+                */}
               </div>
             </div>
             {/* <MyPdfViewer file={this.state.files} /> */}
