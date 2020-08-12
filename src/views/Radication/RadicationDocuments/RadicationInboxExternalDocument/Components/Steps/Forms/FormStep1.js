@@ -322,7 +322,7 @@ const FormStep1 = (props) => {
                   setBtnContinueStep2(false);
                 } else if (response.status === 500) {
                   toast.error(
-                    "Ocurrio un problema al registrar la radicación por favor inténtelo nuevamente.",
+                    "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
                     {
                       position: toast.POSITION.TOP_RIGHT,
                       className: css({

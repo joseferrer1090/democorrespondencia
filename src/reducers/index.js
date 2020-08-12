@@ -7,7 +7,7 @@ import step1ReducerPreviewTemplate from "./step1ReducerPreviewTemplate";
 import stickerReducer from "./stickerReducer";
 import step2ReducerSticker from "./step2ReducerSticker";
 import { authReducer } from "./authReducer";
-
+import step3ReducerFiling from "./step3ReducerFiling";
 export default combineReducers({
   step2ReducerSticker,
   step1ReducerReceiver,
@@ -17,4 +17,5 @@ export default combineReducers({
   step1ReducerPreviewTemplate,
   stickerReducer,
   authReducer,
+  step3ReducerFiling,
 });
