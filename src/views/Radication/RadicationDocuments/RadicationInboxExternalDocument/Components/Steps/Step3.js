@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "react";
-import { Card, CardBody, CardFooter, CardHeader, Alert } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
 import { connect } from "react-redux";
+import { css } from "glamor";
 import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
 import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
+import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
 
 class Step3 extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class Step3 extends Component {
       files: [],
       visible: false,
       error: "",
+      goToStep4: false,
     };
   }
 
@@ -32,12 +35,12 @@ class Step3 extends Component {
   onChangeFromInput = (e) => {
     console.log(e.target.files[0]);
     this.setState({
-      files: e.target.files[0],
+      filesFromInput: e.target.files[0],
     });
   };
 
   onFilesError = (error, files) => {
-    console.log("error code" + error.code + ":" + error.message);
+    console.log("error code " + error.code + ":" + error.message);
   };
 
   filesRemoveOne = (file) => {
@@ -50,30 +53,87 @@ class Step3 extends Component {
 
   _handleSubmit = (e) => {
     e.preventDefault();
+    const idFiling = this.props.idFiling;
+    console.log(idFiling);
     const auth = this.props.authorization;
-    const file = this.state.files;
+    const file = this.state.files[0];
     const formData = new FormData();
     formData.set("file", file);
     axios
-      .post(`${ATTACHED}${"bc2d52c1-b986-4790-af77-d40e741aa3df"}`, formData, {
+      .post(`${ATTACHED}${"e45d861b-07f4-4429-89b7-68edf3d66555"}`, formData, {
         headers: {
           "content-type": "multipart/form-data",
           Authorization: "Bearer " + auth,
         },
       })
-      .then((response) =>
-        response.json().then((data) => {
-          console.log(response);
-        })
-      )
-      .catch((err) => {
-        console.log(`Error => ${err}`);
+      .then((response) => {
+        if (response.status === 200) {
+          this.setState({
+            goToStep4: true,
+          });
+          this.props.getDataViewFiling(response.data.data);
+          toast.success("Se adjunto el documento con éxito.", {
+            position: toast.POSITION.TOP_RIGHT,
+            className: css({
+              marginTop: "60px",
+            }),
+          });
+        }
+        setTimeout(() => {
+          this.refs.files.removeFile(file);
+          if (this.state.goToStep4 === true) {
+            this.props.nextStep();
+          }
+        }, 5000);
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          console.log(error.response.data);
+          toast.error("Error al adjuntar el documento. Inténtelo nuevamente.", {
+            position: toast.POSITION.TOP_RIGHT,
+            className: css({
+              marginTop: "60px",
+            }),
+          });
+        } else if (error.response.status === 500) {
+          console.log(error.response.data);
+          toast.error(
+            "Ocurrio un problema interno al adjuntar el documento. Por favor inténtelo nuevamente.",
+            {
+              position: toast.POSITION.TOP_RIGHT,
+              className: css({
+                marginTop: "60px",
+              }),
+            }
+          );
+        } else {
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+            className: css({
+              marginTop: "60px",
+            }),
+          });
+        }
+
+        setTimeout(() => {
+          this.refs.files.removeFile(file);
+        }, 5000);
+
+        /* MOSTRAR EL MENSAJE DE ERROR DEL BACKEN EN CASO DE CUALQUIER ERROR 
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          className: css({
+            marginTop: "60px",
+          }),
+        });
+        */
       });
   };
 
   render() {
     return (
       <div className="animated fadeIn">
+        <ToastContainer />
         <form
           onSubmit={(e) => this._handleSubmit(e)}
           encType="multipart/form-data"
@@ -82,6 +142,7 @@ class Step3 extends Component {
             <br />
             <div className="card">
               <div className="card-body">
+<<<<<<< HEAD
                 {/* <input
                   type="file"
                   accept=".pdf"
@@ -95,6 +156,9 @@ class Step3 extends Component {
                   onChange={(e) => this.onChangeFromInput(e)}
                 />
                 {/* <Files
+=======
+                <Files
+>>>>>>> cf5769ef8d44ab6a06dd575fc7410b58a48efb7d
                   ref="files"
                   className="flies-dropzone-list"
                   style={{ height: "100px" }}
@@ -162,37 +226,9 @@ class Step3 extends Component {
                     <i className=" fa fa-spinner fa-spin" />
                   ) : (
                     <div>
-                      <i className="fa fa-save" /> Guardar
+                      <i className="fa fa-save" /> Radicar
                     </div>
                   )}
-                </button>
-                &nbsp;
-                <button
-                  type="submit"
-                  className="btn btn-success btn-sm"
-                  onClick={(e) => {
-                    this.props.nextStep();
-                    e.preventDefault();
-                  }}
-                >
-                  {false ? (
-                    <i className=" fa fa-spinner fa-spin" />
-                  ) : (
-                    <div>
-                      <i className="fa fa-check" /> Continuar
-                    </div>
-                  )}
-                </button>
-                &nbsp;
-                <button
-                  type="button"
-                  className="btn btn-success btn-sm"
-                  onClick={(e) => {
-                    console.log(this.state.auth);
-                    e.preventDefault();
-                  }}
-                >
-                  <i className="fa fa-check" /> Ver
                 </button>
               </div>
             </div>
@@ -209,4 +245,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(Step3);
+function mapDispatch(dispatch) {
+  return {
+    getDataViewFiling(data) {
+      dispatch(obtenerDataVerRadicacion(data));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatch, null)(Step3);
