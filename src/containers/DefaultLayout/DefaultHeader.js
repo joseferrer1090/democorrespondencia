@@ -61,6 +61,7 @@ class DefaultHeader extends Component {
   render() {
     // eslint-disable-next-line
     console.log(this.props.logged);
+    console.log(this.props.imageprofile);
     const { children, ...attributes } = this.props;
 
     return (
@@ -105,11 +106,15 @@ class DefaultHeader extends Component {
             <UncontrolledDropdown nav direction="down">
               <DropdownToggle nav style={{ marginRight: "4px !important" }}>
                 {this.props.logged}
-                <img
-                  src={"../../assets/img/avatars/user2.jpg"}
-                  className="img-avatar"
-                  alt="administratos@image"
-                />
+                {this.props.imageprofile ? (
+                  <img
+                    src={this.props.imageprofile}
+                    className="img-avatar"
+                    alt="administratos@image"
+                  />
+                ) : (
+                  <i className="fa fa-spin fa-spinner" />
+                )}
               </DropdownToggle>
               <DropdownMenu right style={{ right: "auto" }}>
                 <DropdownItem header tag="div" className="text-center">
@@ -159,6 +164,7 @@ DefaultHeader.defaultProps = defaultProps;
 const mapStateToProps = (state) => {
   return {
     logged: state.authReducer.user.username,
+    imageprofile: state.authReducer.imguser,
   };
 };
 

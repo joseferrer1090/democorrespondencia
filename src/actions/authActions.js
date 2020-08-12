@@ -6,6 +6,7 @@ import {
   CAMBIAR_PASSWORD_USER_EXITO,
   CAMBIAR_PASSWORD_USER_ERROR,
   OBTENER_IMG_USER,
+  OBTENER_IMG_USER_EXITO,
 } from "./../types/index";
 import {
   USER_SEARCH_BY_USERNAME,
@@ -135,20 +136,17 @@ export const getPhotoUser = () => {
     const username = decode(token);
     await dispatch(getUserid(username.user_name));
     const { id } = getState().authReducer;
-    await fetch(`${USER_PHOTO_PROFILE}${id}`, {
+    await dispatch(imgUserStart());
+    fetch(`${USER_PHOTO_PROFILE}${id}`, {
       method: "GET",
       headers: {
+        "Content-Type": "application/text",
         Authorization: "Bearer " + token,
       },
     })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response.text());
-        } else if (response.status === 400) {
-          console.log(`Response => ${response}`);
-        } else if (response.status === 500) {
-          console.log(`Response => ${response.status}`);
-        }
+      .then((response) => response.text())
+      .then((data) => {
+        dispatch(imgUserSuccess(data));
       })
       .catch((err) => {
         console.log(`Error => ${err}`);
@@ -156,7 +154,10 @@ export const getPhotoUser = () => {
   };
 };
 
-const saveimageUser = (imguser) => ({
+const imgUserStart = () => ({
   type: OBTENER_IMG_USER,
-  imguser: imguser,
+});
+const imgUserSuccess = (data) => ({
+  type: OBTENER_IMG_USER_EXITO,
+  payload: data,
 });

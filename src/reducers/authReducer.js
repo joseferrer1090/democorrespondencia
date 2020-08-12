@@ -27,6 +27,7 @@ import {
   OBTENER_DATA_USER_EXITO,
   OBTENER_DATA_USER_ERROR,
   OBTENER_IMG_USER,
+  OBTENER_IMG_USER_EXITO,
   CAMBIAR_PASSWORD_USER,
   CAMBIAR_PASSWORD_USER_EXITO,
   CAMBIAR_PASSWORD_USER_ERROR,
@@ -34,12 +35,12 @@ import {
 
 const initialState = {
   id: "",
+  imguser: "",
   user: {},
   userpassword: {
     response: false,
     error: false,
   },
-  imguser: {},
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -79,6 +80,11 @@ export const authReducer = (state = initialState, action) => {
         },
       };
     case OBTENER_IMG_USER:
+      return {
+        ...state,
+        imguser: "",
+      };
+    case OBTENER_IMG_USER_EXITO:
       return {
         ...state,
         imguser: action.payload,
