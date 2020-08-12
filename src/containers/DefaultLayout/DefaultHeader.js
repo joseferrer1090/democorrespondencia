@@ -60,8 +60,6 @@ class DefaultHeader extends Component {
 
   render() {
     // eslint-disable-next-line
-    console.log(this.props.logged);
-    console.log(this.props.imageprofile);
     const { children, ...attributes } = this.props;
 
     return (
