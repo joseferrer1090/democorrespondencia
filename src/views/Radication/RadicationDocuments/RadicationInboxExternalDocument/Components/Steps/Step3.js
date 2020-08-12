@@ -33,6 +33,7 @@ class Step3 extends Component {
   };
 
   onChangeFromInput = (e) => {
+    console.log(e.target.files[0]);
     this.setState({
       filesFromInput: e.target.files[0],
     });
@@ -58,7 +59,6 @@ class Step3 extends Component {
     const file = this.state.files[0];
     const formData = new FormData();
     formData.set("file", file);
-
     axios
       .post(`${ATTACHED}${"e45d861b-07f4-4429-89b7-68edf3d66555"}`, formData, {
         headers: {
@@ -195,10 +195,11 @@ class Step3 extends Component {
                       </div>
                     </div>
                   )}
-                </Files>
+                </Files>{" "}
+                */}
               </div>
             </div>
-            <MyPdfViewer file={this.state.files} />
+            {/* <MyPdfViewer file={this.state.files} /> */}
           </div>
           <div style={{ height: "80px" }} />
 
