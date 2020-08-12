@@ -1,15 +1,99 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import moment from "moment";
 
 class Step4 extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  DateFiling = (date) => {
+    return moment(date).format("DD-MM-YYYY");
+  };
+
+  DataTableAddressed = (data) => {
+    let valueOriginal = "";
+    let dataUserAddresses;
+    const originalRender = (bool) => {
+      if (bool === true) {
+        valueOriginal = <span className="badge badge-success">Si</span>;
+      } else if (bool === false) {
+        valueOriginal = "No";
+      }
+      return valueOriginal;
+    };
+    if (data !== undefined) {
+      dataUserAddresses = data.map((aux, idx) => {
+        return (
+          <tr>
+            <td>{aux.name}</td>
+            <td>{aux.dependence}</td>
+            <td>{originalRender(aux.original)}</td>
+          </tr>
+        );
+      });
+    }
+
+    return dataUserAddresses;
+  };
+
+  DataTableMetadatos = (data) => {
+    let tableMetadatos;
+    if (data !== undefined) {
+      tableMetadatos = data.map((aux, idx) => {
+        return (
+          <tr>
+            <td>{aux.text}</td>
+            <td>{aux.value}</td>
+          </tr>
+        );
+      });
+    }
+
+    return tableMetadatos;
+  };
+
   render() {
     const { dataFiling } = this.props;
+    let headquarter,
+      city,
+      messenger,
+      template,
+      thirdPartyr = {
+        address: "",
+        cell_phone: "",
+        city: "",
+        email: "",
+        identification: "",
+        landline: "",
+        name: " ",
+        observation: "",
+        reference: "",
+      },
+      typeDocumentary,
+      typeShipmentArrival,
+      userFiling = "";
 
+    if (Object.keys(dataFiling).length !== 0) {
+      city = dataFiling.city.name;
+      headquarter = dataFiling.headquarter.name;
+      messenger = dataFiling.messenger.name;
+      template = dataFiling.template.name;
+      thirdPartyr.address = dataFiling.thirdPartyr.address;
+      thirdPartyr.cell_phone = dataFiling.thirdPartyr.cell_phone;
+      thirdPartyr.city = dataFiling.thirdPartyr.city;
+      thirdPartyr.email = dataFiling.thirdPartyr.email;
+      thirdPartyr.identification = dataFiling.thirdPartyr.identification;
+      thirdPartyr.landline = dataFiling.thirdPartyr.landline;
+      thirdPartyr.name = dataFiling.thirdPartyr.name;
+      thirdPartyr.observation = dataFiling.thirdPartyr.observation;
+      thirdPartyr.reference = dataFiling.thirdPartyr.reference;
+      typeDocumentary = dataFiling.typeDocumentary.name;
+      typeShipmentArrival = dataFiling.typeShipmentArrival.name;
+      userFiling = dataFiling.userFiling.name;
+    }
+    console.log(dataFiling.userAddresses);
     return (
       <div className="animated fadeIn">
         <div className="row">
@@ -17,7 +101,7 @@ class Step4 extends Component {
             <h4>
               Número de radicación:{" "}
               <span className="badge badge-warning">
-                {dataFiling.documentNumber}
+                {dataFiling.num_filing}
               </span>{" "}
             </h4>
           </div>
@@ -31,7 +115,9 @@ class Step4 extends Component {
                       <label className="">
                         <strong> Fecha de radicación</strong>{" "}
                       </label>
-                      <dd className="">04/10/2018</dd>
+                      <dd className="">
+                        {this.DateFiling(dataFiling.date_filing)}
+                      </dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -39,7 +125,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Hora de radicación</strong>
                       </label>
-                      <dd> 09:57 AM </dd>
+                      <dd> {dataFiling.time_filing}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -47,7 +133,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Sede</strong>
                       </label>
-                      <dd>Sede I</dd>
+                      <dd>{headquarter}</dd>
                     </div>
                   </div>
                 </div>
@@ -58,7 +144,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Vigencia</strong>
                       </label>
-                      <dd> 2019</dd>
+                      <dd> {dataFiling.validity}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -66,7 +152,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Usuario radicador</strong>
                       </label>
-                      <dd>Carmen Rojas</dd>
+                      <dd>{userFiling}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -74,7 +160,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Tipo de documento</strong>
                       </label>
-                      <dd>Factura </dd>
+                      <dd>{typeDocumentary} </dd>
                     </div>
                   </div>
                 </div>
@@ -85,7 +171,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Fecha del documento</strong>
                       </label>
-                      <dd> 14/02/2019</dd>
+                      <dd> {this.DateFiling(dataFiling.documentDate)}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -93,7 +179,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Nro. del documento</strong>
                       </label>
-                      <dd>147852369</dd>
+                      <dd>{dataFiling.documentNumber}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -101,7 +187,7 @@ class Step4 extends Component {
                       <label>
                         <strong> Ciudad </strong>
                       </label>
-                      <dd> BOGOTA - DISTRITO CAPITAL </dd>
+                      <dd> {city} </dd>
                     </div>
                   </div>
                 </div>
@@ -112,18 +198,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Asunto</strong>
                       </label>
-                      <dd className="text-justify">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aliquam sed mattis nulla. Donec posuere ornare
-                        fermentum. Phasellus vulputate ultrices fermentum. In
-                        eleifend rutrum mauris, et pulvinar arcu pellentesque
-                        vitae. Duis vel felis nibh. Aenean feugiat nunc a odio
-                        tincidunt volutpat. Integer sodales dui felis, vel
-                        feugiat neque iaculis quis. Vestibulum ante ipsum primis
-                        in faucibus orci luctus et ultrices posuere cubilia
-                        Curae; Duis mattis risus odio, nec interdum metus
-                        vulputate sit amet.
-                      </dd>
+                      <dd className="text-justify">{dataFiling.issue}</dd>
                     </div>
                   </div>
                 </div>
@@ -135,7 +210,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Tipo de llegada</strong>
                       </label>
-                      <dd>A la mano</dd>
+                      <dd>{typeShipmentArrival}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -143,14 +218,14 @@ class Step4 extends Component {
                       <label>
                         <strong>Folios</strong>
                       </label>
-                      <dd>2</dd>
+                      <dd>{dataFiling.numFolios}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="form-group">
                       <strong>Imágenes</strong>
                     </div>
-                    <dd>2</dd>
+                    <dd>{dataFiling.numImages}</dd>
                   </div>
                 </div>
                 <hr />
@@ -160,7 +235,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Mensajero</strong>
                       </label>
-                      <dd>12345,Servientrega</dd>
+                      <dd>{messenger}</dd>
                     </div>
                   </div>
                 </div>
@@ -175,7 +250,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Identificación</strong>
                       </label>
-                      <dd>900536113-1</dd>
+                      <dd>{thirdPartyr.identification}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -183,7 +258,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Nombre</strong>
                       </label>
-                      <dd>Demos colombia sas</dd>
+                      <dd>{thirdPartyr.name}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -191,7 +266,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Observación</strong>
                       </label>
-                      <dd> {/* informacion     */} </dd>
+                      <dd> {thirdPartyr.observation}</dd>
                     </div>
                   </div>
                 </div>
@@ -202,7 +277,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Dirección</strong>
                       </label>
-                      <dd>CALLE 93B #16-66 OFICINA 307</dd>
+                      <dd>{thirdPartyr.address}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -210,7 +285,7 @@ class Step4 extends Component {
                       <label>
                         <strong> Telefóno fijo</strong>
                       </label>
-                      <dd> 5306453 </dd>
+                      <dd> {thirdPartyr.landline} </dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -218,7 +293,7 @@ class Step4 extends Component {
                       <label>
                         <strong> Telefóno celular </strong>
                       </label>
-                      <dd>{/* */}</dd>
+                      <dd>{thirdPartyr.cell_phone}</dd>
                     </div>
                   </div>
                 </div>
@@ -229,7 +304,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Ciudad</strong>
                       </label>
-                      <dd>BOGOTA - DISTRITO CAPITAL</dd>
+                      <dd>{thirdPartyr.city}</dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -237,7 +312,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Correo electrónico</strong>
                       </label>
-                      <dd> {/* */} </dd>
+                      <dd> {thirdPartyr.email} </dd>
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -245,7 +320,7 @@ class Step4 extends Component {
                       <label>
                         <strong>Referencia</strong>
                       </label>
-                      <dd>{/* */}</dd>
+                      <dd>{thirdPartyr.reference}</dd>
                     </div>
                   </div>
                 </div>
@@ -265,13 +340,13 @@ class Step4 extends Component {
                           <th scope="col">
                             <strong>Dependencia</strong>
                           </th>
+                          <th scope="col">
+                            <strong>Original</strong>
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Carlos Perez (cperez)</td>
-                          <td>Dependencia I</td>
-                        </tr>
+                        {this.DataTableAddressed(dataFiling.usersAddresses)}
                       </tbody>
                     </table>
                   </div>
@@ -279,38 +354,28 @@ class Step4 extends Component {
               </div>
             </div>
             <div className="card">
-              <div className="card-header">Campos adiciones</div>
+              <div className="p-2 mb-1 bg-secondary text-black">
+                {" "}
+                Campos adiciones{" "}
+              </div>
               <div className="card-body">
-                <div className="row">
-                  <div className="col-md-12">
-                    <table className="table">
-                      <thead className="thead-light">
-                        <tr>
-                          <th scope="col">
-                            <strong>Campo</strong>
-                          </th>
-                          <th scope="col">
-                            <strong>Valor</strong>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Campo 0</td>
-                          <td>Valor 0</td>
-                        </tr>
-                        <tr>
-                          <td>Campo 1</td>
-                          <td>Valor 1</td>
-                        </tr>
-                        <tr>
-                          <td>Campo 2</td>
-                          <td>Valor 2</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                <div>
+                  <span style={{ fontSize: "15px" }}>
+                    {" "}
+                    <i className="fa fa-info-circle" /> Metadatos asociados a la
+                    plantilla <b>{template}</b>
+                  </span>
                 </div>
+                <br />
+                <table className="table table-sm">
+                  <thead className="thead-light">
+                    <tr>
+                      <th scope="col">Campo</th>
+                      <th scope="col">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>{this.DataTableMetadatos(dataFiling.metadata)}</tbody>
+                </table>
               </div>
             </div>
           </div>
