@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import moment from "moment";
+import ViewPdf from "./Forms/ComponentsStep4/ViewPdf";
 
 class Step4 extends Component {
   constructor(props) {
@@ -71,6 +72,12 @@ class Step4 extends Component {
         observation: "",
         reference: "",
       },
+      attached = {
+        fileName: "",
+        filenameOriginal: "",
+        id: "",
+        size: "",
+      },
       typeDocumentary,
       typeShipmentArrival,
       userFiling = "";
@@ -92,6 +99,10 @@ class Step4 extends Component {
       typeDocumentary = dataFiling.typeDocumentary.name;
       typeShipmentArrival = dataFiling.typeShipmentArrival.name;
       userFiling = dataFiling.userFiling.name;
+      attached.fileName = dataFiling.attached.fileName;
+      attached.filenameOriginal = dataFiling.attached.filenameOriginal;
+      attached.id = dataFiling.attached.id;
+      attached.size = dataFiling.attached.size;
     }
     console.log(dataFiling.userAddresses);
     return (
@@ -376,6 +387,18 @@ class Step4 extends Component {
                   </thead>
                   <tbody>{this.DataTableMetadatos(dataFiling.metadata)}</tbody>
                 </table>
+              </div>
+            </div>
+            <div
+              className="card"
+              // style={{ height: "600px", padding: "0px" }}
+            >
+              <div className="p-2 mb-1 bg-secondary text-black">
+                {" "}
+                Documento adjunto
+              </div>
+              <div className="card-body">
+                <ViewPdf id={attached.id} filename={attached.fileName} />
               </div>
             </div>
           </div>
