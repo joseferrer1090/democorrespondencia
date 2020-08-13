@@ -5,11 +5,15 @@ import {
   CAMBIAR_PASSWORD_USER,
   CAMBIAR_PASSWORD_USER_EXITO,
   CAMBIAR_PASSWORD_USER_ERROR,
+  OBTENER_IMG_USER,
+  OBTENER_IMG_USER_EXITO,
 } from "./../types/index";
 import {
   USER_SEARCH_BY_USERNAME,
   USER_SHOW_INFORMATION,
   USER_UPDATE_PROFILE_PASSWORD,
+  USER_PROFILE_UPDATE,
+  USER_PHOTO_PROFILE,
 } from "../services/EndPoints";
 import { decode } from "jsonwebtoken";
 import Cookie from "js-cookie";
@@ -124,4 +128,35 @@ const changepassSuccess = (resp) => ({
 const changepassError = (resp) => ({
   type: CAMBIAR_PASSWORD_USER_ERROR,
   payload: resp,
+});
+
+export const getPhotoUser = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const username = decode(token);
+    await dispatch(getUserid(username.user_name));
+    const { id } = getState().authReducer;
+    fetch(`${USER_PHOTO_PROFILE}${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/text",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        dispatch(imgUserSuccess(data));
+      })
+      .catch((err) => {
+        console.log(`Error => ${err}`);
+      });
+  };
+};
+
+const imgUserStart = () => ({
+  type: OBTENER_IMG_USER,
+});
+const imgUserSuccess = (data) => ({
+  type: OBTENER_IMG_USER_EXITO,
+  payload: data,
 });

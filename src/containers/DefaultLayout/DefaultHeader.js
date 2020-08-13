@@ -22,7 +22,7 @@ import logo from "../../assets/img/sevenet_ori.svg";
 import sygnet from "../../assets/img/sevenet_ori.svg";
 import Cookie from "js-cookie";
 import { connect } from "react-redux";
-import { getUser } from "./../../actions/authActions";
+import { getUser, getPhotoUser } from "./../../actions/authActions";
 import { decode } from "jsonwebtoken";
 
 const propTypes = {
@@ -47,15 +47,21 @@ class DefaultHeader extends Component {
     const token = localStorage.getItem("auth_token");
     const username = decode(token);
     this.getData();
+    this.getDataImg();
   }
 
   getData = () => {
     this.props.onGeneralData();
   };
 
+  getDataImg = () => {
+    this.props.getUserProfileImage();
+  };
+
   render() {
     // eslint-disable-next-line
     console.log(this.props.logged);
+    console.log(this.props.imageprofile);
     const { children, ...attributes } = this.props;
 
     return (
@@ -100,11 +106,15 @@ class DefaultHeader extends Component {
             <UncontrolledDropdown nav direction="down">
               <DropdownToggle nav style={{ marginRight: "4px !important" }}>
                 {this.props.logged}
-                <img
-                  src={"../../assets/img/avatars/user2.jpg"}
-                  className="img-avatar"
-                  alt="administratos@image"
-                />
+                {this.props.imageprofile ? (
+                  <img
+                    src={this.props.imageprofile}
+                    className="img-avatar"
+                    alt="administratos@image"
+                  />
+                ) : (
+                  <i className="fa fa-spin fa-spinner" />
+                )}
               </DropdownToggle>
               <DropdownMenu right style={{ right: "auto" }}>
                 <DropdownItem header tag="div" className="text-center">
@@ -152,13 +162,19 @@ DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
-  return { logged: state.authReducer.user.username };
+  return {
+    logged: state.authReducer.user.username,
+    imageprofile: state.authReducer.imguser,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onGeneralData: () => {
       dispatch(getUser());
+    },
+    getUserProfileImage: () => {
+      dispatch(getPhotoUser());
     },
   };
 };
