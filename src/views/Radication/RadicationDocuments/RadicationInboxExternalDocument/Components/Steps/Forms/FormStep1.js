@@ -39,10 +39,13 @@ import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
 import "bs-stepper/dist/css/bs-stepper.css";
 import { obtenerIdRadicacion } from "../../../../../../../actions/step2ActionsSticker";
+import {
+  changeView1,
+  changeView2,
+} from "../../../../../../../actions/controlFilingViews";
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
-
   const userData = useSelector((state) => state.step1ReducerReceiver);
   const idTemplate = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
@@ -53,7 +56,6 @@ const FormStep1 = (props) => {
   const idMetadata = useSelector(
     (state) => state.step1ReducerPreviewTemplate.idMetadata
   );
-
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
   const [btnContinueStep2, setBtnContinueStep2] = useState(false);
@@ -292,6 +294,8 @@ const FormStep1 = (props) => {
                   if (btnContinueStep2) {
                     setTimeout(() => {
                       props.nextStep();
+                      dispatch(changeView1(false));
+                      dispatch(changeView2(true));
                     }, 5000);
                   }
                   dispatch(resetFormStep1TypeDocumentary());

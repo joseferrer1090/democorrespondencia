@@ -60,7 +60,7 @@ class Step3 extends Component {
     const formData = new FormData();
     formData.set("file", file);
     axios
-      .post(`${ATTACHED}${"e45d861b-07f4-4429-89b7-68edf3d66555"}`, formData, {
+      .post(`${ATTACHED}${idFiling}`, formData, {
         headers: {
           "content-type": "multipart/form-data",
           Authorization: "Bearer " + auth,
@@ -195,11 +195,10 @@ class Step3 extends Component {
                       </div>
                     </div>
                   )}
-                </Files>{" "}
-                */}
+                </Files>
               </div>
             </div>
-            {/* <MyPdfViewer file={this.state.files} /> */}
+            <MyPdfViewer file={this.state.files} />
           </div>
           <div style={{ height: "80px" }} />
 
@@ -211,7 +210,7 @@ class Step3 extends Component {
                     <i className=" fa fa-spinner fa-spin" />
                   ) : (
                     <div>
-                      <i className="fa fa-save" /> Radicar
+                      <i className="fa fa-save" /> Radicar y visualizar
                     </div>
                   )}
                 </button>

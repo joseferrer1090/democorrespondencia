@@ -30,14 +30,15 @@ const Step2 = (props) => {
     pri.focus();
     pri.print();
   };
+
   const validateIdFiling = () => {
-    // dispatch(generarSticker("03148ceb-f0c7-4be6-b2ba-0b701c34a5ac"));
     if (idFiling !== "") {
       dispatch(generarSticker(idFiling));
     } else {
       return null;
     }
   };
+
   useEffect(() => {
     validateIdFiling();
     console.log(detailSticker);
@@ -63,16 +64,6 @@ const Step2 = (props) => {
               <div className="card-body offset-3">
                 <div className="row" id="print1">
                   <div className="col-md-12">
-                    {/* <div className="row"> */}
-                    {/* <div className="col-md-12 text-center">
-                        <h4>
-                          <strong>{titleSticker}</strong>
-                        </h4>
-                        <h5>
-                          <strong>Correspondencia recibida</strong>
-                        </h5>
-                      </div> */}
-                    {/* <div className="col-md-12 text-center"> */}
                     <div>
                       <span
                         style={{
