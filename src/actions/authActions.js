@@ -111,9 +111,6 @@ export function ChangePasswordAction({ oldpassword, newpassword }) {
       .catch((err) => {
         console.log(`Error => ${err}`);
       });
-    // console.log(
-    //   `Valores => oldpassword: ${oldpassword}, newpassword: ${newpassword}`
-    // );
   };
 }
 
