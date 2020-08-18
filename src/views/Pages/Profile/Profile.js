@@ -15,23 +15,13 @@ class Profile extends Component {
     };
     this.inputOpenFileRef = React.createRef();
   }
+
   onChange = (e) => {
-    let files = e.target.files;
-    let dataImg = e.target.files[0];
-    console.warn("Data file:", files);
-    console.log(e.target.files[0].name);
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = (e) => {
-      this.setState({ imgProfile: e.target.result });
-      setTimeout((e) => {
-        alert(`Se modifico con éxito la imagen:                  
-                  name: ${dataImg.name},
-                  size: ${dataImg.size},
-                  type: ${dataImg.type}`);
-      }, 1000);
-    };
+    console.log(e.target.files[0]);
+    //dispatch de la funcion para editar la imagen del perfil
+    this.props.changeImageProfile();
   };
+
   render() {
     // console.log(this.props.userinfo);
     // console.log(this.props.imguser);
@@ -48,19 +38,11 @@ class Profile extends Component {
                   this.inputOpenFileRef.current.click();
                 }}
               >
-                {imguser ? (
-                  <img
-                    className="img-thumbnail"
-                    src={imguser}
-                    style={{ margin: "10px", width: "150px", height: "150px" }}
-                  />
-                ) : (
-                  <img
-                    className="img-thumbnail"
-                    src={this.state.imgProfile}
-                    style={{ margin: "10px", width: "150px", height: "150px" }}
-                  />
-                )}
+                <img
+                  className="img-thumbnail"
+                  src={imguser}
+                  style={{ margin: "10px", width: "150px", height: "150px" }}
+                />
                 <input
                   multiple={false}
                   accept={acceptedFileTypes}
@@ -131,4 +113,12 @@ const mapStateToProp = (state) => {
   };
 };
 
-export default connect(mapStateToProp, null)(Profile);
+const mapDispatch = (dispatch) => {
+  return {
+    changeImageProfile: () => {
+      console.log("Hola probando el dispatch");
+    },
+  };
+};
+
+export default connect(mapStateToProp, mapDispatch)(Profile);
