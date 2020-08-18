@@ -33,6 +33,9 @@ class Profile extends Component {
     };
   };
   render() {
+    // console.log(this.props.userinfo);
+    // console.log(this.props.imguser);
+    const { imguser } = this.props;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -45,11 +48,19 @@ class Profile extends Component {
                   this.inputOpenFileRef.current.click();
                 }}
               >
-                <img
-                  className="img-thumbnail"
-                  src={this.state.imgProfile}
-                  style={{ margin: "10px", width: "150px", height: "150px" }}
-                />
+                {imguser ? (
+                  <img
+                    className="img-thumbnail"
+                    src={imguser}
+                    style={{ margin: "10px", width: "150px", height: "150px" }}
+                  />
+                ) : (
+                  <img
+                    className="img-thumbnail"
+                    src={this.state.imgProfile}
+                    style={{ margin: "10px", width: "150px", height: "150px" }}
+                  />
+                )}
                 <input
                   multiple={false}
                   accept={acceptedFileTypes}
@@ -116,6 +127,7 @@ Profile.propTypes = {};
 const mapStateToProp = (state) => {
   return {
     userinfo: state.authReducer.user,
+    imguser: state.authReducer.imguser,
   };
 };
 
