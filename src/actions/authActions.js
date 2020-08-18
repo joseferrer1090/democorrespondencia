@@ -15,6 +15,7 @@ import {
   USER_PROFILE_UPDATE,
   USER_PHOTO_PROFILE,
 } from "../services/EndPoints";
+import { fileUpload } from "./../utils/helpers/fileUpload";
 import { decode } from "jsonwebtoken";
 import Cookie from "js-cookie";
 
@@ -156,7 +157,21 @@ export const getPhotoUser = () => {
 const imgUserStart = () => ({
   type: OBTENER_IMG_USER,
 });
+
 const imgUserSuccess = (data) => ({
   type: OBTENER_IMG_USER_EXITO,
   payload: data,
 });
+
+// Funcion para subir la imagen
+
+export const startUploading = (file) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const username = decode(token);
+    await dispatch(getUserid(username.user_name));
+    const { id } = getState().authReducer;
+    const fileUrl = await fileUpload(file, token, id);
+    await dispatch(getPhotoUser());
+  };
+};
