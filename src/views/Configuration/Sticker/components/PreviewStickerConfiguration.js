@@ -13,6 +13,7 @@ export const PreviewStickerConfiguration = () => {
   useEffect(() => {
     setdata(details);
   });
+
   return (
     <div className="animated fadeIn">
       <Card>
