@@ -70,8 +70,11 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
+    "chalk": "^4.1.0",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "react-scripts": "^2.1.8",
-    "webpack": "^4.43.0"
+    "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
