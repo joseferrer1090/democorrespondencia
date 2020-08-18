@@ -18,14 +18,10 @@ class Profile extends Component {
   }
 
   onChange = (e) => {
-    // console.log(e.target.files[0]);
-    //dispatch de la funcion para editar la imagen del perfil
     this.props.changeImageProfile(e.target.files[0]);
   };
 
   render() {
-    // console.log(this.props.userinfo);
-    // console.log(this.props.imguser);
     const { imguser } = this.props;
     return (
       <div className="animated fadeIn">
@@ -44,8 +40,8 @@ class Profile extends Component {
                   src={imguser}
                   style={{
                     margin: "10px",
-                    width: "150px",
-                    height: "150px",
+                    width: "200px",
+                    height: "200px",
                     cursor: "pointer",
                   }}
                 />
@@ -73,7 +69,9 @@ class Profile extends Component {
                     {" "}
                     <p className="text-center">
                       <i className="fa fa-phone-square" />{" "}
-                      {this.props.userinfo.phone}
+                      <a href="tel:`${this.props.userinfo.phone}`">
+                        {this.props.userinfo.phone}
+                      </a>{" "}
                     </p>
                     <p className="text-center">
                       <i className="fa fa-envelope" />{" "}
