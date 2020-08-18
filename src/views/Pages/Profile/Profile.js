@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { CardTitle, Row, Col } from "reactstrap";
 import TabInformation from "./components/TabInformationUser";
+import { startUploading } from "./../../../actions/authActions";
 
 const acceptedFileTypes =
   "image/x-png, image/png, image/jpg, image/jpeg, image/gif";
@@ -17,9 +18,9 @@ class Profile extends Component {
   }
 
   onChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     //dispatch de la funcion para editar la imagen del perfil
-    this.props.changeImageProfile();
+    this.props.changeImageProfile(e.target.files[0]);
   };
 
   render() {
@@ -41,7 +42,12 @@ class Profile extends Component {
                 <img
                   className="img-thumbnail"
                   src={imguser}
-                  style={{ margin: "10px", width: "150px", height: "150px" }}
+                  style={{
+                    margin: "10px",
+                    width: "150px",
+                    height: "150px",
+                    cursor: "pointer",
+                  }}
                 />
                 <input
                   multiple={false}
@@ -115,8 +121,8 @@ const mapStateToProp = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    changeImageProfile: () => {
-      console.log("Hola probando el dispatch");
+    changeImageProfile: (file) => {
+      dispatch(startUploading(file));
     },
   };
 };

@@ -106,6 +106,9 @@ export const USER_PROFILE_UPDATE = `${config.IP}:${config.PORT}/api/sgdea/servic
 /* GET params =idUser */
 export const USER_PHOTO_PROFILE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/photo/view/base64/`;
 
+/* POST  */
+export const USER_PHOTO_UPDATE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/photo/`;
+
 //-------------------------------- ADJUNTO CORRESPONDENCIA RECIBIDA -----------------------------------------//
 /* POST => idFiling */
 export const ATTACHED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing/attached/`;
