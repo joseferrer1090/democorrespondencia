@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import HeaderComponent from "./../../../Correspondence/ExternalCorrespondence/Inbox/Components/Client/Header/HeaderInbox";
 import "bs-stepper/dist/css/bs-stepper.css";
@@ -47,8 +47,8 @@ class RadicationInboxExternalDocument extends Component {
 
   functionStep = () => {
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
-      linear: false,
-      // linear: true,
+      // linear: false,
+      linear: true,
       animation: true,
       displayNext: false,
       displayPrevious: false,
@@ -185,7 +185,10 @@ class RadicationInboxExternalDocument extends Component {
   }
 }
 
-RadicationInboxExternalDocument.propTypes = {};
+RadicationInboxExternalDocument.propTypes = {
+  activeViews: PropTypes.func.isRequired,
+};
+
 function mapStateToProps(state) {
   return {
     step1: state.controlFilingViews.step1,

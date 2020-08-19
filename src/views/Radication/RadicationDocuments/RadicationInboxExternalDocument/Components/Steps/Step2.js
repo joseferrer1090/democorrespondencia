@@ -208,4 +208,9 @@ const Step2 = (props) => {
   );
 };
 
+Step2.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  nextStep: PropTypes.func.isRequired,
+};
+
 export default Step2;

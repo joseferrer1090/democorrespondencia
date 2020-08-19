@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "react";
+import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
@@ -74,12 +74,14 @@ class Step3 extends Component {
           this.props.getDataViewFiling(response.data.data);
           toast.success("Se adjunto el documento con éxito.", {
             position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
             className: css({
               marginTop: "60px",
             }),
           });
         }
         setTimeout(() => {
+          toast.dismiss();
           this.refs.files.removeFile(file);
           if (this.state.goToStep4 === true) {
             this.props.nextStep();
@@ -117,6 +119,7 @@ class Step3 extends Component {
 
         setTimeout(() => {
           this.refs.files.removeFile(file);
+          toast.dismiss();
         }, 5000);
 
         /* MOSTRAR EL MENSAJE DE ERROR DEL BACKEN EN CASO DE CUALQUIER ERROR 
@@ -133,7 +136,7 @@ class Step3 extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <ToastContainer />
+        <ToastContainer autoClose={5000} />
         <form
           onSubmit={(e) => this._handleSubmit(e)}
           encType="multipart/form-data"
@@ -222,6 +225,11 @@ class Step3 extends Component {
     );
   }
 }
+
+Step3.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  nextStep: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {

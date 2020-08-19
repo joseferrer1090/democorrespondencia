@@ -21,8 +21,10 @@ const FormCreateStep1 = (props) => {
 };
 
 FormCreateStep1.propTypes = {
-  dataStep1: PropTypes.object.isRequired,
-  // authorization: PropTypes.string.isRequired
+  authorization: PropTypes.string.isRequired,
+  nameUserFiling: PropTypes.string.isRequired,
+  headquarterFiling: PropTypes.string.isRequired,
+  nextStep: PropTypes.func.isRequired,
 };
 
 export default FormCreateStep1;

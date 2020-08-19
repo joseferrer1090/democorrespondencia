@@ -42,6 +42,7 @@ const ModalPrintBarcode = forwardRef((props, ref) => {
     })
       .then((response) => response.json())
       .then((response) => {
+
         if (response.success === true) {
           props.nextStep(false);
           setAlertSuccess(true);
