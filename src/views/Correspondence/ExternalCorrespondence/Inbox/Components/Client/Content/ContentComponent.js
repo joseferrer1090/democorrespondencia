@@ -64,6 +64,7 @@ class ContentComponent extends Component {
 
   componentDidMount() {
     this.props.getData();
+    console.log(this.props.content);
   }
 
   toggle = () => {
@@ -363,7 +364,7 @@ class ContentComponent extends Component {
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         {/* <i className="icon-search" /> */}
-                        <i class="fa fa-search"></i>
+                        <i className="fa fa-search"></i>
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
@@ -691,7 +692,9 @@ class ContentComponent extends Component {
 ContentComponent.propTypes = {};
 
 const mapState = (state) => {
-  return { state };
+  return {
+    content: state.dataCorrespondenceExternal.received,
+  };
 };
 
 const mapDispatch = (dispatch) => {
