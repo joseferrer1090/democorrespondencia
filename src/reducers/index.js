@@ -8,6 +8,8 @@ import stickerReducer from "./stickerReducer";
 import step2ReducerSticker from "./step2ReducerSticker";
 import { authReducer } from "./authReducer";
 import step3ReducerFiling from "./step3ReducerFiling";
+import { dataCorrespondenceExternal } from "./dataCorrespondenceExternal";
+
 export default combineReducers({
   step2ReducerSticker,
   step1ReducerReceiver,
@@ -18,4 +20,5 @@ export default combineReducers({
   stickerReducer,
   authReducer,
   step3ReducerFiling,
+  dataCorrespondenceExternal,
 });
