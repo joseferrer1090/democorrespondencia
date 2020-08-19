@@ -25,6 +25,8 @@ import {
   EXTERNAL_CORRESPONDENCE_RECEIVED,
   EXTERNAL_CORRESPONDENCE_PAGINATION,
 } from "../../../../../../../services/EndPoints";
+import { connect } from "react-redux";
+import { dataCorrespondence } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -58,6 +60,10 @@ class ContentComponent extends Component {
       });
       this.getDataInbox();
     }
+  }
+
+  componentDidMount() {
+    this.props.getData();
   }
 
   toggle = () => {
@@ -684,4 +690,16 @@ class ContentComponent extends Component {
 
 ContentComponent.propTypes = {};
 
-export default ContentComponent;
+const mapState = (state) => {
+  return { state };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getData: () => {
+      dispatch(dataCorrespondence());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(ContentComponent);
