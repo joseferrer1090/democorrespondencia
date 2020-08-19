@@ -45,7 +45,7 @@ class Step4 extends Component {
       tableMetadatos = data.map((aux, idx) => {
         return (
           <tr>
-            <td>{aux.text}</td>
+            <td>{aux.name}</td>
             <td>{aux.value}</td>
           </tr>
         );

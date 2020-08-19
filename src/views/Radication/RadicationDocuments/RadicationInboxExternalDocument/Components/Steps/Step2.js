@@ -54,10 +54,8 @@ const Step2 = (props) => {
 
   useEffect(() => {
     validateIdFiling();
-    console.log(detailSticker);
     printBarCore();
-    console.log(confirmPrint);
-  }, [idFiling, confirmPrint]);
+  }, [idFiling, confirmPrint, continueNextStep]);
   return (
     <div className="animated fadeIn">
       <div className="col-md-10 offset-1">

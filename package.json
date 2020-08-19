@@ -63,7 +63,7 @@
     "react-super-treeview": "^0.3.3",
     "react-test-renderer": "^16.8.6",
     "react-toastify": "^6.0.8",
-    "reactstrap": "^6.5.0",
+    "reactstrap": "^8.5.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "simple-line-icons": "^2.4.1",
