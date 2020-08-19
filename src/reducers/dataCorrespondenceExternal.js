@@ -5,7 +5,10 @@ correspondeData {
 }
 */
 
-import { OBTENER_DATA_EXTERNA_CORRESPONDENCE } from "../types";
+import {
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE,
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
+} from "../types";
 
 const initalState = {
   received: [],
@@ -18,6 +21,11 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         received: [],
+      };
+    case OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO:
+      return {
+        ...state,
+        received: { ...action.payload },
       };
 
     default:
