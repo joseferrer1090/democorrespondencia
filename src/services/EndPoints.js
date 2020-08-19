@@ -5,6 +5,8 @@ import config from "./configRequest/config";
 export const EXTERNAL_CORRESPONDENCE_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received`;
 /* POST */
 export const EXTERNAL_CORRESPONDENCE_RECEIVED_POST = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing`;
+/* GET params =>  */
+export const EXTERNAL_CORRESPONDENCE_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination?page=0&size=10`;
 
 //-------------------------- CONGLOMERADO -----------------------------------------//
 /* GET */
