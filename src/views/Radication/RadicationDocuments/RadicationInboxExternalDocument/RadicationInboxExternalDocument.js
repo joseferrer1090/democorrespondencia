@@ -47,7 +47,7 @@ class RadicationInboxExternalDocument extends Component {
 
   functionStep = () => {
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
-      linear: true,
+      linear: false,
       animation: true,
       displayNext: false,
       displayPrevious: false,
@@ -84,7 +84,7 @@ class RadicationInboxExternalDocument extends Component {
 
   render() {
     const { authToken, data, headquarter } = this.state;
-    const { step1, step2, step3, step4 } = this.props;
+
     return (
       <div>
         <HeaderComponent />
@@ -157,7 +157,10 @@ class RadicationInboxExternalDocument extends Component {
                     </div>
 
                     <div id="test-l-2" className="content">
-                      <Step2 nextStep={() => this.stepper.next()} />
+                      <Step2
+                        nextStep={() => this.stepper.next()}
+                        authorization={authToken}
+                      />
                     </div>
 
                     <div id="test-l-3" className="content ">
