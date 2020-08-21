@@ -9,6 +9,7 @@ import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
 import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
 import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
+import { PDFJS } from "pdfjs-dist";
 
 class Step3 extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class Step3 extends Component {
       visible: false,
       error: "",
       goToStep4: false,
+      filesFromInput: [],
+      data64: "",
     };
   }
 
@@ -30,6 +33,66 @@ class Step3 extends Component {
     this.setState({
       files,
     });
+  };
+
+  convertDataURIToBinary = (dataURI) => {
+    let i;
+    const BASE64_MARKER = ";base64,";
+    const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+    const base64 = dataURI.substring(base64Index);
+    const raw = window.atob(base64);
+    const rawLength = raw.length;
+    const array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for (i = 0; i < rawLength; i++) {
+      array[i] = raw.charCodeAt(i);
+    }
+    console.log(array);
+    return array;
+  };
+
+  getBase64 = (file) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      console.log(reader.result);
+      const BASE64_MARKER = ";base64,";
+      const base64Index =
+        reader.result.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+
+      const base64 = reader.result.substring(base64Index);
+      // const raw = window.atob(base64);
+
+      const byteCharacters = atob(base64);
+      const byteArrays = [];
+      const sliceSize = 512;
+
+      for (
+        let offset = 0;
+        offset < byteCharacters.length;
+        offset += sliceSize
+      ) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+
+      const blob = new Blob([byteArrays], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+      const aver = encodeURIComponent(blobUrl);
+      console.log(blobUrl);
+      console.log(aver);
+    };
+
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
   };
 
   onChangeFromInput = (e) => {
@@ -134,6 +197,9 @@ class Step3 extends Component {
   };
 
   render() {
+    // if (this.state.files.length > 0) {
+    //   this.getBase64(this.state.files[0]);
+    // }
     return (
       <div className="animated fadeIn">
         <ToastContainer autoClose={5000} />
