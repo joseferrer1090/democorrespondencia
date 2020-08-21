@@ -640,11 +640,13 @@ class ViewCorrespondence extends Component {
                           className="card card-body"
                           style={{ height: "600px", padding: "0px" }}
                         >
+                          
                           <PDFViewer
                             ref={this.myViewer}
                             backend={PDFJSBackend}
                             src={"/assets/edok_word_excel.pdf"}
                           />
+
                         </div>
                         {/* Fin Cuarta seccion */}
 
