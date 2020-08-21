@@ -90,6 +90,8 @@ export const STICKER_PUT_DETAIL = `${config.IP}:${config.PORT}/api/sgdea/service
 //-------------------------------- STICKER CORRESPONDENCIA RECIBIDA -----------------------------------------//
 /* GET params => idRadication */
 export const GENERATE_STICKER = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/generate/sticker/`;
+/* PUT */
+export const PRINT_STICKER = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing/print`;
 
 //-------------------------------- CONFIGURACION DEL USUARIO AUTENTICADO -----------------------------------------//
 

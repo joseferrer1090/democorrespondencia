@@ -10,6 +10,13 @@ import Step3 from "./Components/Steps/Step3";
 import Step4 from "./Components/Steps/Step4";
 import { SEARCH_BY_USERNAME } from "../../../../services/EndPoints";
 import { decode } from "jsonwebtoken";
+import { connect } from "react-redux";
+import {
+  changeView1,
+  changeView2,
+  changeView3,
+  changeView4,
+} from "../../../../actions/controlFilingViews";
 
 const asyncLocalStorage = {
   setItem: async function (key, value) {
@@ -28,17 +35,20 @@ class RadicationInboxExternalDocument extends Component {
       authToken: "",
       data: [],
       headquarter: {},
+      step2: "",
     };
   }
 
   componentDidMount() {
     this.getDataLocal();
     this.functionStep();
+    this.props.activeViews(true);
   }
 
   functionStep = () => {
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
-      linear: false,
+      // linear: false,
+      linear: true,
       animation: true,
       displayNext: false,
       displayPrevious: false,
@@ -47,7 +57,6 @@ class RadicationInboxExternalDocument extends Component {
 
   getDataLocal = () => {
     asyncLocalStorage.getItem("auth_token").then((resp) => {
-      // console.log(resp);
       this.getInfoUser(resp);
       this.setState({
         authToken: resp,
@@ -67,7 +76,6 @@ class RadicationInboxExternalDocument extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.name);
         this.setState({
           data: data.name,
         });
@@ -110,12 +118,14 @@ class RadicationInboxExternalDocument extends Component {
                     </button>
                   </div>
                   <div className="line" />
+
                   <div className="step" data-target="#test-l-2">
                     <button className="step-trigger">
                       <span className="bs-stepper-circle">2</span>
                       <span className="bs-stepper-label">Sticker</span>
                     </button>
                   </div>
+
                   <div className="line" />
                   <div className="step" data-target="#test-l-3">
                     <button className="step-trigger">
@@ -125,7 +135,9 @@ class RadicationInboxExternalDocument extends Component {
                       </span>
                     </button>
                   </div>
+
                   <div className="line" />
+
                   <div className="step" data-target="#test-l-4">
                     <button className="step-trigger">
                       <span className="bs-stepper-circle">4</span>
@@ -133,6 +145,7 @@ class RadicationInboxExternalDocument extends Component {
                     </button>
                   </div>
                 </div>
+
                 <div className="bs-stepper-content">
                   <form onSubmit={this.onSubmit}>
                     <div id="test-l-1" className="content">
@@ -142,43 +155,22 @@ class RadicationInboxExternalDocument extends Component {
                         headquarterFiling={headquarter.headquarter}
                         nextStep={() => this.stepper.next()}
                       />
-
-                      {/* <div className="col-md-6 offset-1">
-                        <button
-                          type={"button"}
-                          className="btn btn-secondary "
-                          onClick={() => this.stepper.next()}
-                        >
-                          Siguiente <i className="fa fa-angle-right" />
-                        </button>
-                      </div> */}
                     </div>
+
                     <div id="test-l-2" className="content">
-                      <Step2 nextStep={() => this.stepper.next()} />
-
-                      {/* <button
-                        type={"button"}
-                        className="btn btn-secondary "
-                        onClick={() => this.stepper.next()}
-                      >
-                        Siguiente <i className="fa fa-angle-right" />
-                      </button>
-                      */}
+                      <Step2
+                        nextStep={() => this.stepper.next()}
+                        authorization={authToken}
+                      />
                     </div>
 
-                    {/* <button
-                      type={"button"}
-                      className="btn btn-primary"
-                      onClick={() => this.stepper.previous()}
-                    >
-                      &gt;Next
-                    </button> */}
                     <div id="test-l-3" className="content ">
                       <Step3
                         nextStep={() => this.stepper.next()}
                         authorization={authToken}
                       />
                     </div>
+
                     <div id="test-l-4" className="content">
                       <Step4 />
                     </div>
@@ -193,6 +185,37 @@ class RadicationInboxExternalDocument extends Component {
   }
 }
 
-RadicationInboxExternalDocument.propTypes = {};
+RadicationInboxExternalDocument.propTypes = {
+  activeViews: PropTypes.func.isRequired,
+};
 
-export default RadicationInboxExternalDocument;
+function mapStateToProps(state) {
+  return {
+    step1: state.controlFilingViews.step1,
+    step2: state.controlFilingViews.step2,
+    step3: state.controlFilingViews.step3,
+    step4: state.controlFilingViews.step4,
+  };
+}
+function mapDispatch(dispatch) {
+  return {
+    activeViews(bool) {
+      dispatch(changeView1(bool));
+    },
+    changeActiveTo2(bool) {
+      dispatch(changeView2(bool));
+    },
+    changeActiveTo3(bool) {
+      dispatch(changeView3(bool));
+    },
+    changeActiveTo4(bool) {
+      dispatch(changeView4(bool));
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatch,
+  null
+)(RadicationInboxExternalDocument);

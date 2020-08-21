@@ -39,10 +39,13 @@ import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
 import "bs-stepper/dist/css/bs-stepper.css";
 import { obtenerIdRadicacion } from "../../../../../../../actions/step2ActionsSticker";
+import {
+  changeView1,
+  changeView2,
+} from "../../../../../../../actions/controlFilingViews";
 
 const FormStep1 = (props) => {
   const dispatch = useDispatch();
-
   const userData = useSelector((state) => state.step1ReducerReceiver);
   const idTemplate = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
@@ -53,7 +56,6 @@ const FormStep1 = (props) => {
   const idMetadata = useSelector(
     (state) => state.step1ReducerPreviewTemplate.idMetadata
   );
-
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
   const [btnContinueStep2, setBtnContinueStep2] = useState(false);
@@ -285,13 +287,17 @@ const FormStep1 = (props) => {
                   dispatch(obtenerIdRadicacion(data.id));
                   toast.success("Se registro la radicación con éxito.", {
                     position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
                     className: css({
                       marginTop: "60px",
                     }),
                   });
                   if (btnContinueStep2) {
                     setTimeout(() => {
+                      toast.dismiss();
                       props.nextStep();
+                      dispatch(changeView1(false));
+                      dispatch(changeView2(true));
                     }, 5000);
                   }
                   dispatch(resetFormStep1TypeDocumentary());
@@ -309,6 +315,11 @@ const FormStep1 = (props) => {
                     }
                   );
                   setBtnContinueStep2(false);
+                  setTimeout(() => toast.dismiss(), 5000);
+                  dispatch(resetFormStep1TypeDocumentary());
+                  dispatch(resetFormStep1PreviewTemplate());
+                  dispatch(resetFormStep1Receiver());
+                  dispatch(resetFormStep1ThirdParty());
                 } else if (response.status === 404) {
                   toast.error(
                     "Error al registrar la radicación. Inténtelo nuevamente.",
@@ -320,6 +331,11 @@ const FormStep1 = (props) => {
                     }
                   );
                   setBtnContinueStep2(false);
+                  setTimeout(() => toast.dismiss(), 5000);
+                  dispatch(resetFormStep1TypeDocumentary());
+                  dispatch(resetFormStep1PreviewTemplate());
+                  dispatch(resetFormStep1Receiver());
+                  dispatch(resetFormStep1ThirdParty());
                 } else if (response.status === 500) {
                   toast.error(
                     "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
@@ -331,6 +347,11 @@ const FormStep1 = (props) => {
                     }
                   );
                   setBtnContinueStep2(false);
+                  setTimeout(() => toast.dismiss(), 5000);
+                  dispatch(resetFormStep1TypeDocumentary());
+                  dispatch(resetFormStep1PreviewTemplate());
+                  dispatch(resetFormStep1Receiver());
+                  dispatch(resetFormStep1ThirdParty());
                 }
               })
             )
@@ -342,6 +363,11 @@ const FormStep1 = (props) => {
                 }),
               });
               setBtnContinueStep2(false);
+              setTimeout(() => toast.dismiss(), 5000);
+              dispatch(resetFormStep1TypeDocumentary());
+              dispatch(resetFormStep1PreviewTemplate());
+              dispatch(resetFormStep1Receiver());
+              dispatch(resetFormStep1ThirdParty());
             });
           setSubmitting(false);
           resetForm({
@@ -375,6 +401,7 @@ const FormStep1 = (props) => {
             correspondence_dependence_receiver: "" /* S */,
           });
         }, 1000);
+        toast.dismiss();
       }}
       render={({
         values,
@@ -389,7 +416,7 @@ const FormStep1 = (props) => {
         handleSubmit,
       }) => (
         <div className="animated fadeIn">
-          <ToastContainer />
+          <ToastContainer autoClose={5000} />
           <div className="">
             <p />
             <div className="col-md-10 offset-1">
@@ -1175,5 +1202,12 @@ const FormStep1 = (props) => {
       )}
     />
   );
+};
+
+FormStep1.propTypes = {
+  nameUserFiling: PropTypes.string.isRequired,
+  headquarterFiling: PropTypes.string.isRequired,
+  authorization: PropTypes.string.isRequired,
+  nextStep: PropTypes.func.isRequired,
 };
 export default FormStep1;

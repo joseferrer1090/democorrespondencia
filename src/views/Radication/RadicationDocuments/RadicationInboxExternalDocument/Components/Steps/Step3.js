@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "react";
+import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
 import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
 import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
+import { PDFJS } from "pdfjs-dist";
 
 class Step3 extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class Step3 extends Component {
       visible: false,
       error: "",
       goToStep4: false,
+      filesFromInput: [],
+      data64: "",
     };
   }
 
@@ -30,6 +33,66 @@ class Step3 extends Component {
     this.setState({
       files,
     });
+  };
+
+  convertDataURIToBinary = (dataURI) => {
+    let i;
+    const BASE64_MARKER = ";base64,";
+    const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+    const base64 = dataURI.substring(base64Index);
+    const raw = window.atob(base64);
+    const rawLength = raw.length;
+    const array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for (i = 0; i < rawLength; i++) {
+      array[i] = raw.charCodeAt(i);
+    }
+    console.log(array);
+    return array;
+  };
+
+  getBase64 = (file) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      console.log(reader.result);
+      const BASE64_MARKER = ";base64,";
+      const base64Index =
+        reader.result.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+
+      const base64 = reader.result.substring(base64Index);
+      // const raw = window.atob(base64);
+
+      const byteCharacters = atob(base64);
+      const byteArrays = [];
+      const sliceSize = 512;
+
+      for (
+        let offset = 0;
+        offset < byteCharacters.length;
+        offset += sliceSize
+      ) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+
+      const blob = new Blob([byteArrays], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+      const aver = encodeURIComponent(blobUrl);
+      console.log(blobUrl);
+      console.log(aver);
+    };
+
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
   };
 
   onChangeFromInput = (e) => {
@@ -60,7 +123,7 @@ class Step3 extends Component {
     const formData = new FormData();
     formData.set("file", file);
     axios
-      .post(`${ATTACHED}${"e45d861b-07f4-4429-89b7-68edf3d66555"}`, formData, {
+      .post(`${ATTACHED}${idFiling}`, formData, {
         headers: {
           "content-type": "multipart/form-data",
           Authorization: "Bearer " + auth,
@@ -74,12 +137,14 @@ class Step3 extends Component {
           this.props.getDataViewFiling(response.data.data);
           toast.success("Se adjunto el documento con éxito.", {
             position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
             className: css({
               marginTop: "60px",
             }),
           });
         }
         setTimeout(() => {
+          toast.dismiss();
           this.refs.files.removeFile(file);
           if (this.state.goToStep4 === true) {
             this.props.nextStep();
@@ -117,6 +182,7 @@ class Step3 extends Component {
 
         setTimeout(() => {
           this.refs.files.removeFile(file);
+          toast.dismiss();
         }, 5000);
 
         /* MOSTRAR EL MENSAJE DE ERROR DEL BACKEN EN CASO DE CUALQUIER ERROR 
@@ -131,9 +197,12 @@ class Step3 extends Component {
   };
 
   render() {
+    // if (this.state.files.length > 0) {
+    //   this.getBase64(this.state.files[0]);
+    // }
     return (
       <div className="animated fadeIn">
-        <ToastContainer />
+        <ToastContainer autoClose={5000} />
         <form
           onSubmit={(e) => this._handleSubmit(e)}
           encType="multipart/form-data"
@@ -195,11 +264,10 @@ class Step3 extends Component {
                       </div>
                     </div>
                   )}
-                </Files>{" "}
-                */}
+                </Files>
               </div>
             </div>
-            {/* <MyPdfViewer file={this.state.files} /> */}
+            <MyPdfViewer file={this.state.files} />
           </div>
           <div style={{ height: "80px" }} />
 
@@ -211,7 +279,7 @@ class Step3 extends Component {
                     <i className=" fa fa-spinner fa-spin" />
                   ) : (
                     <div>
-                      <i className="fa fa-save" /> Radicar
+                      <i className="fa fa-save" /> Radicar y visualizar
                     </div>
                   )}
                 </button>
@@ -223,6 +291,11 @@ class Step3 extends Component {
     );
   }
 }
+
+Step3.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  nextStep: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {

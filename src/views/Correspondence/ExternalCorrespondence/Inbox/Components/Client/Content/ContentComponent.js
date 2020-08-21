@@ -93,6 +93,7 @@ class ContentComponent extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         this.setState({
           dataInbox: data,
         });

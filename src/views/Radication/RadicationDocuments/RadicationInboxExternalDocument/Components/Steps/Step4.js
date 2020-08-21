@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import moment from "moment";
 import ViewPdf from "./Forms/ComponentsStep4/ViewPdf";
-
+import PDFViewer from "../../../../../../utils/pdfViewer/components/PDFViewer";
+import PDFJSBackend from "../../../../../../utils/pdfViewer/backend/pdfjs";
 class Step4 extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +46,7 @@ class Step4 extends Component {
       tableMetadatos = data.map((aux, idx) => {
         return (
           <tr>
-            <td>{aux.text}</td>
+            <td>{aux.name}</td>
             <td>{aux.value}</td>
           </tr>
         );
@@ -105,6 +106,7 @@ class Step4 extends Component {
       attached.size = dataFiling.attached.size;
     }
     console.log(dataFiling.userAddresses);
+    const sourceViewPDF = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${attached.id}/${attached.fileName}`;
     return (
       <div className="animated fadeIn">
         <div className="row">
@@ -398,7 +400,15 @@ class Step4 extends Component {
                 Documento adjunto
               </div>
               <div className="card-body">
-                <ViewPdf id={attached.id} filename={attached.fileName} />
+                {attached.id && attached.fileName !== "" ? (
+                  <PDFViewer
+                    ref={this.myViewer}
+                    backend={PDFJSBackend}
+                    src={sourceViewPDF}
+                  />
+                ) : null}
+
+                {/* <ViewPdf id={attached.id} filename={attached.fileName} /> */}
               </div>
             </div>
           </div>

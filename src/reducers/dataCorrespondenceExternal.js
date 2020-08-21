@@ -1,4 +1,5 @@
 /* Global State
+
 correspondeData {
     received: [],  => Listo todas las correspondencias del usuarios
     pending: [] => Listo todas las correspondencias pendientes que tenga el usuario

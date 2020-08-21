@@ -1,11 +1,14 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Alert } from "reactstrap";
 import Barcode from "react-barcode";
 import { generarSticker } from "../../../../../../actions/step2ActionsSticker";
+import ModalPrintBarcode from "./Forms/ComponentsStep2/ModalPrint";
+import { ref } from "yup";
 
 const Step2 = (props) => {
+  const child = useRef();
   const dispatch = useDispatch();
   const idFiling = useSelector((state) => state.step2ReducerSticker.idFiling);
   const detailSticker = useSelector(
@@ -15,33 +18,44 @@ const Step2 = (props) => {
 
   const [width, setWidth] = useState(1);
   const [visible, setVisible] = useState(true);
-  // const [valuebarcode, setValuebarcode] = useState();
+  const [modalprint, setModalprint] = useState(false);
+  const [confirmPrint, setConfirmPrint] = useState(false);
+  const [continueNextStep, setContinueNextStep] = useState(true);
 
   const toggle = () => {
     setVisible(!visible);
   };
 
   const printBarCore = () => {
-    let content = document.getElementById("print1");
-    let pri = document.getElementById("ifmcontentstoprint").contentWindow;
-    pri.document.open();
-    pri.document.write(content.innerHTML);
-    pri.document.close();
-    pri.focus();
-    pri.print();
+    if (confirmPrint === true) {
+      let content = document.getElementById("print1");
+      let pri = document.getElementById("ifmcontentstoprint").contentWindow;
+      pri.document.open();
+      pri.document.write(content.innerHTML);
+      pri.document.close();
+      pri.focus();
+      pri.print();
+    } else {
+      return null;
+    }
   };
+
   const validateIdFiling = () => {
-    // dispatch(generarSticker("03148ceb-f0c7-4be6-b2ba-0b701c34a5ac"));
     if (idFiling !== "") {
       dispatch(generarSticker(idFiling));
     } else {
       return null;
     }
   };
+
+  const openModalPrint = () => {
+    child.current.togglePrint();
+  };
+
   useEffect(() => {
     validateIdFiling();
-    console.log(detailSticker);
-  }, [idFiling]);
+    printBarCore();
+  }, [idFiling, confirmPrint, continueNextStep]);
   return (
     <div className="animated fadeIn">
       <div className="col-md-10 offset-1">
@@ -63,16 +77,6 @@ const Step2 = (props) => {
               <div className="card-body offset-3">
                 <div className="row" id="print1">
                   <div className="col-md-12">
-                    {/* <div className="row"> */}
-                    {/* <div className="col-md-12 text-center">
-                        <h4>
-                          <strong>{titleSticker}</strong>
-                        </h4>
-                        <h5>
-                          <strong>Correspondencia recibida</strong>
-                        </h5>
-                      </div> */}
-                    {/* <div className="col-md-12 text-center"> */}
                     <div>
                       <span
                         style={{
@@ -164,7 +168,9 @@ const Step2 = (props) => {
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
-                  onClick={() => printBarCore()}
+                  // onClick={() => printBarCore()}
+
+                  onClick={openModalPrint}
                 >
                   {" "}
                   <i className="fa fa-print" /> Imprimir
@@ -177,6 +183,7 @@ const Step2 = (props) => {
                     props.nextStep();
                     e.preventDefault();
                   }}
+                  disabled={continueNextStep}
                 >
                   <div>
                     <i className="fa fa-check" /> Continuar
@@ -187,8 +194,23 @@ const Step2 = (props) => {
           </div>
         </div>
       </div>
+      <Fragment>
+        <ModalPrintBarcode
+          ModalPrint={modalprint}
+          ref={child}
+          confirm={(confirmPrint) => setConfirmPrint(confirmPrint)}
+          nextStep={(continueNextStep) => setContinueNextStep(continueNextStep)}
+          id={idFiling}
+          auth={props.authorization}
+        />
+      </Fragment>
     </div>
   );
+};
+
+Step2.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  nextStep: PropTypes.func.isRequired,
 };
 
 export default Step2;
