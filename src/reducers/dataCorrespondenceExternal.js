@@ -3,6 +3,9 @@
 correspondeData {
     received: [],  => Listo todas las correspondencias del usuarios
     pending: [] => Listo todas las correspondencias pendientes que tenga el usuario
+    totalPages: => numero total de paginas
+    totalElements: => numero total de elementos
+    size: => tamaño por pagina
 }
 */
 
@@ -14,6 +17,9 @@ import {
 const initalState = {
   received: [],
   pending: [],
+  totalPages: 0,
+  totalElements: 0,
+  size: 0,
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
