@@ -55,8 +55,7 @@ class ListInboxCorrespondence extends Component {
             {" "}
             Entrada{" "}
             <Badge pill className="float-right  badge-info">
-              {" "}
-              1{" "}
+              0{" "}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem className="" tag="button" action onClick={getDataP}>
@@ -89,7 +88,11 @@ class ListInboxCorrespondence extends Component {
 ListInboxCorrespondence.propTypes = {};
 
 const mapState = (state) => {
-  return { pending: state.dataCorrespondenceExternal.pending };
+  return {
+    pending: state.dataCorrespondenceExternal.pending,
+    totalcurrently: state.dataCorrespondenceExternal.totalElements,
+    totalPendig: state.dataCorrespondenceExternal.totalElements,
+  };
 };
 
 const mapDispatch = (dispatch) => {
