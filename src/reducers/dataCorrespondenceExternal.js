@@ -12,6 +12,8 @@ correspondeData {
 import {
   OBTENER_DATA_EXTERNA_CORRESPONDENCE,
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING,
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO,
 } from "../types";
 
 const initalState = {
@@ -28,11 +30,36 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         received: [],
+        pending: [],
+        totalPages: 0,
+        totalElements: 0,
+        size: 0,
       };
     case OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO:
       return {
         ...state,
-        received: { ...action.payload },
+        received: action.payload.content,
+        totalPages: action.payload.totalPages,
+        totalElements: action.payload.totalElements,
+        size: action.payload.size,
+      };
+
+    case OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING:
+      return {
+        ...state,
+        pending: [],
+        totalPages: 0,
+        totalElements: 0,
+        size: 0,
+      };
+
+    case OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO:
+      return {
+        ...state,
+        pending: action.payload.content,
+        totalPages: action.payload.totalPages,
+        totalElements: action.payload.totalElements,
+        size: action.payload.size,
       };
 
     default:

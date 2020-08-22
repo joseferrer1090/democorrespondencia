@@ -4,6 +4,11 @@ import { ListGroup, ListGroupItem, Badge } from "reactstrap";
 import Tags from "./TagViewer";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  dataCorrespondencePending,
+  dataCorrespondence,
+} from "./../../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
@@ -12,6 +17,13 @@ class ListInboxCorrespondence extends Component {
   }
 
   render() {
+    console.log(this.props.pending);
+    const getDataP = () => {
+      this.props.getDataPending();
+    };
+    const getDataC = () => {
+      this.props.getDataCurrently();
+    };
     return (
       <div style={{ padding: "0" }}>
         <ListGroup>
@@ -39,7 +51,7 @@ class ListInboxCorrespondence extends Component {
               <i className="fa fa-refresh" />{" "}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action>
+          <ListGroupItem className="" tag="button" action onClick={getDataC}>
             {" "}
             Entrada{" "}
             <Badge pill className="float-right  badge-info">
@@ -47,7 +59,7 @@ class ListInboxCorrespondence extends Component {
               1{" "}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action>
+          <ListGroupItem className="" tag="button" action onClick={getDataP}>
             {" "}
             Pendiente{" "}
             <Badge pill className="float-right  badge-danger  ">
@@ -76,4 +88,19 @@ class ListInboxCorrespondence extends Component {
 
 ListInboxCorrespondence.propTypes = {};
 
-export default ListInboxCorrespondence;
+const mapState = (state) => {
+  return { pending: state.dataCorrespondenceExternal.pending };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getDataPending: () => {
+      dispatch(dataCorrespondencePending());
+    },
+    getDataCurrently: () => {
+      dispatch(dataCorrespondence());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(ListInboxCorrespondence);
