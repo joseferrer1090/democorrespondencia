@@ -1,9 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Card,
   CardHeader,
   CardBody,
@@ -15,19 +13,18 @@ import {
   InputGroupText,
   Input,
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import Data2 from "./../../../../../../../services/data_inbox_extern.json";
+import Pagination from "react-js-pagination";
+import moment from "moment";
+import { PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../services/EndPoints";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
-import moment from "moment";
-import { EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../services/EndPoints";
+import { disabled } from "glamor";
 
 class ContentComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: Data2,
       dropdownOpen: false,
       term: "",
       tblData: "",
@@ -36,6 +33,12 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
+      activePage: 0,
+      totalPages: null,
+      itemsCountPerPage: null,
+      totalItemsCount: null,
+      currentPage: 0,
+      contentPerPage: 1,
     };
   }
 
@@ -48,12 +51,15 @@ class ContentComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { activePage } = this.state;
     if (this.props.authorization !== prevProps.authorization) {
       this.setState({
         auth: this.props.authorization,
         idCorrespondenceSelected: [],
       });
-      this.getDataInbox();
+      this.handlePageChange(activePage);
+
+      // this.getDataInbox(activePage);
     }
   }
 
@@ -63,19 +69,26 @@ class ContentComponent extends Component {
     });
   };
 
-  getDataInbox = () => {
-    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.props.authorization,
-      },
-    })
+  getDataInbox = (page) => {
+    fetch(
+      `${PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED}?page=${page}&size=${this.state.contentPerPage}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.props.authorization,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         this.setState({
-          dataInbox: data,
+          dataInbox: data.content,
+          totalPages: data.totalPages,
+          totalItemsCount: data.totalElements,
+          itemsCountPerPage: data.size,
+          currentPage: data.number + 1,
         });
       })
       .catch((Error) => console.log(" ", Error));
@@ -117,123 +130,19 @@ class ContentComponent extends Component {
   getSelect = () => {
     const message = "";
     const gird = this.state.tblData;
-
     const checkbox = gird.getElementsByTagName("INPUT");
-    // console.log(checkbox);
-
     for (let i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked) {
-        // const row = checkbox[i].parentNode.parentNode.firstChild.innerHTML;
-        // console.log(row);
         this.setState({
           idCorrespondenceSelected: this.state.idCorrespondenceSelected.push(
             checkbox[i].parentNode.parentNode.firstChild.innerHTML
           ),
         });
-        // console.log(this.state.idCorrespondenceSelected);
       }
     }
     console.log("", message);
   };
 
-  // dataTableInbox = () => {
-  //   // const {data} = this.state;
-  //   const { term } = this.state;
-  //   const datainbox = this.state.data
-  //     .filter(this.searchingFor(term))
-  //     .map((aux, i) => {
-  //       // console.log(aux);
-  //       return (
-  //         <tr
-  //           className={`${this.stateDocumento(
-  //             aux.estado
-  //           )} table-externalCorrespondence`}
-  //         >
-  //           <td className="hidden" style={{ display: "none" }}>
-  //             {aux.estado === "new" ? <b>{aux.id}</b> : aux.id}
-  //           </td>
-
-  //           <td className="inbox-small-cells">
-  //             <input
-  //               name="foo"
-  //               type="checkbox"
-  //               className="mail-checkbox"
-  //               defaultChecked={this.state.chkrow}
-  //               onChange={(e) => {
-  //                 this.setState({ chkrow: e.target.value });
-  //                 // this.setState({ chkrow: !this.state.chkrow });
-  //               }}
-  //             />
-  //           </td>
-
-  //           <td className="inbox-small-cells">
-  //             {this.tipoDocumento(aux.tipo)}
-  //           </td>
-
-  //           <td className="view-message dont-show">
-  //             {aux.estado === "new" || aux.estado === "out of time" ? (
-  //               <b> {aux.sede}</b>
-  //             ) : (
-  //               aux.sede
-  //             )}
-  //           </td>
-
-  //           <td className="view-message">
-  //             {aux.estado === "new" || aux.estado === "out of time" ? (
-  //               <b> {aux.consecutivo}</b>
-  //             ) : (
-  //               aux.consecutivo
-  //             )}
-  //           </td>
-
-  //           <td>
-  //             {aux.estado === "new" || aux.estado === "out of time" ? (
-  //               <Link
-  //                 // style={{ color: "black" }}
-  //                 to={`/correspondence/external/view/${aux.id}`}
-  //               >
-  //                 <i className="fa fa-paperclip" />
-  //                 {aux.estado === "new" || aux.estado === "out of time" ? (
-  //                   <b> {aux.asunto}</b>
-  //                 ) : (
-  //                   aux.asunto
-  //                 )}
-  //               </Link>
-  //             ) : (
-  //               <Link
-  //                 style={{ color: "black" }}
-  //                 to={`/correspondence/external/view/${aux.id}`}
-  //               >
-  //                 <i className="fa fa-paperclip" />
-  //                 {aux.estado === "new" || aux.estado === "out of time" ? (
-  //                   <b> {aux.asunto}</b>
-  //                 ) : (
-  //                   aux.asunto
-  //                 )}
-  //               </Link>
-  //             )}
-  //           </td>
-
-  //           <td className="view-message inbox-small-cells">
-  //             {aux.estado === "new" || aux.estado === "out of time" ? (
-  //               <b> {aux.fecha_documento}</b>
-  //             ) : (
-  //               aux.fecha_documento
-  //             )}
-  //           </td>
-
-  //           <td className="view-message text-center">
-  //             {aux.estado === "new" || aux.estado === "out of time" ? (
-  //               <b>{aux.destinatarios[0].name_destinatario}</b>
-  //             ) : (
-  //               aux.destinatarios[0].name_destinatario
-  //             )}
-  //           </td>
-  //         </tr>
-  //       );
-  //     });
-  //   return datainbox;
-  // };
   DocumentDate(date) {
     let documentDate;
     documentDate = new Date(date);
@@ -243,10 +152,7 @@ class ContentComponent extends Component {
   /* datos server */
 
   dataTableInbox = () => {
-    // const {data} = this.state;
-    const { term } = this.state;
     const datainbox = this.state.dataInbox.map((aux, i) => {
-      // console.log(aux);
       return (
         <tr
           className={`${this.stateDocumento(
@@ -256,7 +162,6 @@ class ContentComponent extends Component {
           <td className="hidden" style={{ display: "none" }}>
             {aux.id}
           </td>
-
           <td className="inbox-small-cells">
             <input
               name="foo"
@@ -265,7 +170,6 @@ class ContentComponent extends Component {
               defaultChecked={this.state.chkrow}
               onChange={(e) => {
                 this.setState({ chkrow: e.target.value });
-                // this.setState({ chkrow: !this.state.chkrow });
               }}
             />
           </td>
@@ -274,15 +178,12 @@ class ContentComponent extends Component {
             {this.tipoDocumento("documento")}
           </td>
 
-          <td className="view-message dont-show">{aux.headquarter.name}</td>
+          <td className="view-message dont-show">{aux.headquarter}</td>
 
-          <td className="view-message">{aux.numFiling}</td>
+          <td className="view-message">{aux.consecutive}</td>
 
           <td>
-            <Link
-              // style={{ color: "black" }}
-              to={`/correspondence/external/view/${aux.id}`}
-            >
+            <Link to={`/correspondence/external/view/${aux.id}`}>
               <i className="fa fa-paperclip" />
               {aux.issue}
             </Link>
@@ -291,8 +192,6 @@ class ContentComponent extends Component {
           <td className="view-message inbox-small-cells">
             {this.DocumentDate(aux.documentDate)}
           </td>
-
-          <td className="view-message text-center"></td>
         </tr>
       );
     });
@@ -301,18 +200,59 @@ class ContentComponent extends Component {
 
   /* hasta acá */
   toggleCheckboxes = (source, cbName) => {
-    // background: rgb(194,219,255);
     for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
       document.getElementsByName(cbName)[i].checked = source;
     }
   };
 
+  handlePageChange = (pageNumber) => {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({
+      activePage: pageNumber,
+    });
+    this.getDataInbox(pageNumber);
+  };
+
+  firstPage = () => {
+    if (this.state.currentPage > 1) {
+      this.setState({
+        currentPage: 1,
+      });
+    }
+  };
+
+  prevPage = () => {
+    if (this.state.currentPage > 1) {
+      this.state({
+        currentPage: this.state.currentPage - 1,
+      });
+    }
+  };
+
+  lastPage = () => {
+    if (
+      this.state.currentPage <
+      Math.ceil(this.state.dataInbox.length / this.state.contentPerPage)
+    ) {
+      this.setState({
+        currentPage: Math.ceil(this.state.length / this.state.contentPerPage),
+      });
+    }
+  };
+
+  nextPage = () => {
+    if (
+      this.state.currentPage <
+      Math.ceil(this.state.dataInbox.length / this.state.contentPerPage)
+    ) {
+      this.setState({
+        currentPage: this.state.currentPage + 1,
+      });
+    }
+  };
+
   render() {
-    const { dataInbox } = this.state;
-    // console.log(dataInbox);
     return (
-      // <div className="animated fadeIn">
-      // <br />
       <div className="d-none d-sm-block" style={{ marginTop: "1px" }}>
         <Container style={{ marginLeft: "0px", padding: "0" }}>
           <Card>
@@ -325,21 +265,6 @@ class ContentComponent extends Component {
             </CardHeader>
             <CardBody>
               <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
-                {/* <Col md="3">
-                  <ButtonDropdown
-                    isOpen={this.state.dropdownOpen}
-                    toggle={this.toggle}
-                  >
-                    <DropdownToggle caret size="sm">
-                      Acciones
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem onClick={() => this.getSelect()}>
-                        Seleccionar todo
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </Col> */}
                 <Col md="9">
                   <InputGroup className="mb-4">
                     <InputGroupAddon addonType="prepend">
@@ -359,33 +284,16 @@ class ContentComponent extends Component {
                 </Col>
                 <Col md="3">
                   <div className="float-right">
-                    <ul className="pagination">
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          <i className="fa fa-angle-double-left" />
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item ">
-                        <a className="page-link" href="#">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          <i className="fa fa-angle-double-right" />
-                        </a>
-                      </li>
-                    </ul>
+                    <Pagination
+                      hideNavigation
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={3}
+                      itemClass="page-item"
+                      linkClass="btn btn-light"
+                      onChange={this.handlePageChange}
+                    />
                   </div>
                 </Col>
               </Row>
@@ -425,7 +333,6 @@ class ContentComponent extends Component {
                             <th style={{ width: "10px" }}>Consecutivo</th>
                             <th style={{ width: "50px" }}>Asunto</th>
                             <th style={{ width: "50px" }}>Fecha</th>
-                            <th style={{ width: "50px" }}>Destinatarios</th>
                           </tr>
                         </thead>
                         <tbody
@@ -436,7 +343,6 @@ class ContentComponent extends Component {
                             width: "100%",
                           }}
                         >
-                          {/* {datainbox} */}
                           {this.dataTableInbox()}
                         </tbody>
                       </table>
@@ -448,224 +354,6 @@ class ContentComponent extends Component {
           </Card>
         </Container>
       </div>
-
-      /* <div className="inbox-body">
-          <h5 className="text-center">
-            Bandeja de correspondencia recibida vigencia 2019{" "}
-          </h5>
-          <div className="mail-option">
-            <div className="chk-all" style={{ marginLeft: "-9px" }}>
-              <ButtonDropdown
-                isOpen={this.state.dropdownOpen}
-                toggle={this.toggle}
-              >
-                <DropdownToggle caret size="sm">
-                  Acciones
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem onClick={() => this.getSelect()}>
-                    Seleccionar todo
-                  </DropdownItem>
-                </DropdownMenu>
-              </ButtonDropdown>
-            </div> */
-
-      /* <div className="btn-group">
-              <button className="btn btn-secondary btn-sm">
-                <i className="fa fa-refresh" />
-              </button>
-            </div> */
-
-      /* <div className="btn-group hidden-phone">
-              <input
-                type="text"
-                className="form-control"
-                style={{ width: "750px" }}
-                placeholder={`Buscar correspondencia`}
-                onChange={e => this.handleSearchInput(e)}
-              />
-            </div>
-            <div className="float-right">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    <i className="fa fa-angle-double-left" />
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item ">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    <i className="fa fa-angle-double-right" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> */
-      /* --------------------------------------------------------------------------------------------------- */
-
-      /* <div className="table-responsive">
-          <table id="tablefixed" className="table table-sm table-hover">
-            <thead>
-              <tr className="text-center">
-                <th>
-                  <input type="checkbox" />
-                </th>
-                <th>Tipo</th>
-                <th>Sede</th>
-                <th>Consecutivo</th>
-                <th>Asunto</th>
-                <th>Fecha del documento</th>
-                <th>Destinatarios</th>
-              </tr>
-            </thead>
-            <tbody
-              className="text-center"
-              style={{ height: "200px", overflowY: "auto", width: "100%" }}
-            >
-              {datainbox} */
-
-      /* <tr className="table-danger">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-folder" title="tramite" />
-                </td>
-                <td className="view-message dont-show">SEDE I </td>
-                <td className="view-message">012345678910</td>
-                <td>
-                  <Link to={`/correspondence/external/view/${id}`}>
-                    Added a new class: Login Class Fast Site asdasda asdasd
-                    asdasd asasd <i className="fa fa-paperclip" />
-                  </Link>
-                </td>
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-                <td className="view-message text-center">Pedro</td>
-              </tr> */
-
-      /* <tr className="table-success">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-
-                <td className="inbox-small-cells">
-                  <i className="fa fa-file-o" title="documento" />
-                </td>
-
-                <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
-                <td>Improve the search presence of WebSite</td>
-
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-
-                <td className="view-message text-center">Pedro</td>
-              </tr>
-              <tr className="table-default">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-
-                <td className="inbox-small-cells">
-                  <i className="fa fa-folder" title="documento" />
-                </td>
-
-                <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
-                <td>Improve the search presence of WebSite</td>
-
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-
-                <td className="view-message text-center">Pedro</td>
-              </tr>
-              <tr className="table-primary">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-
-                <td className="inbox-small-cells">
-                  <i className="fa fa-file-o" title="documento" />
-                </td>
-
-                <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
-                <td>Improve the search presence of WebSite</td>
-
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-
-                <td className="view-message text-center">Pedro</td>
-              </tr> */
-      /* ---------------------------------------------------------------------------------------------- */
-      /*
-              <tr className="table-success">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-light">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-default">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i class="fa fa-star" />
-                </td>
-                <td className="view-message  dont-show">PHPClass</td>
-                <td className="view-message ">
-                  Added a new class: Login Class Fast Site
-                </td>
-                <td className="view-message  inbox-small-cells">
-                  <i className="fa fa-paperclip" />
-                </td>
-                <td className="view-message  text-right">9:27 AM</td>
-              </tr> */
-
-      /* </tbody>
-          </table>
-        </div> */
-      // </div>
     );
   }
 }

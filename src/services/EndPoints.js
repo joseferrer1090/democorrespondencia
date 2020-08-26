@@ -3,6 +3,8 @@ import config from "./configRequest/config";
 //-------------------------- INBOX EXTERNAL CORRESPONDENCE --------------------//
 /* GET */
 export const EXTERNAL_CORRESPONDENCE_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received`;
+/* GET PAGINADO Params => page, size */
+export const PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination`;
 /* POST */
 export const EXTERNAL_CORRESPONDENCE_RECEIVED_POST = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing`;
 
