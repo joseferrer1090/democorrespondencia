@@ -8,12 +8,27 @@ import { connect } from "react-redux";
 import {
   dataCorrespondencePending,
   dataCorrespondence,
+  dataNumerReceived,
+  dataNumberPending,
 } from "./../../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  getNumberR = () => {
+    this.props.getNumberReceived();
+  };
+
+  getNumberP = () => {
+    this.props.getNumberPending();
+  };
+
+  componentDidMount() {
+    this.getNumberR();
+    this.getNumberP();
   }
 
   render() {
@@ -23,6 +38,9 @@ class ListInboxCorrespondence extends Component {
     const getDataC = () => {
       this.props.getDataCurrently();
     };
+
+    console.log(this.props.numerorecibidos);
+
     return (
       <div style={{ padding: "0" }}>
         <ListGroup>
@@ -52,17 +70,16 @@ class ListInboxCorrespondence extends Component {
           </ListGroupItem>
           <ListGroupItem className="" tag="button" action onClick={getDataC}>
             {" "}
-            Entrada{" "}
+            Entrada
             <Badge pill className="float-right  badge-info">
-              0{" "}
+              {this.props.numerorecibidos}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem className="" tag="button" action onClick={getDataP}>
             {" "}
             Pendiente{" "}
             <Badge pill className="float-right  badge-danger  ">
-              {" "}
-              0{" "}
+              {this.props.numeropendientes}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem className="" tag="button" action>
@@ -92,6 +109,8 @@ const mapState = (state) => {
     pending: state.dataCorrespondenceExternal.pending,
     totalcurrently: state.dataCorrespondenceExternal.totalElements,
     totalPendig: state.dataCorrespondenceExternal.totalElements,
+    numerorecibidos: state.dataCorrespondenceExternal.numerorecibidas,
+    numeropendientes: state.dataCorrespondenceExternal.numeropendientes,
   };
 };
 
@@ -102,6 +121,12 @@ const mapDispatch = (dispatch) => {
     },
     getDataCurrently: () => {
       dispatch(dataCorrespondence());
+    },
+    getNumberReceived: () => {
+      dispatch(dataNumerReceived());
+    },
+    getNumberPending: () => {
+      dispatch(dataNumberPending());
     },
   };
 };
