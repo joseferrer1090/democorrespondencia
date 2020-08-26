@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { CITIES_BY_DEPARTMENT } from "../../../../../../../../services/EndPoints";
 
 const FieldCity = ({
@@ -56,7 +57,6 @@ const FieldCity = ({
   };
 
   const PREValue = usePrevious(props.departmentId);
-  const t = props.t;
   return (
     <div>
       {" "}
@@ -82,5 +82,12 @@ const FieldCity = ({
       </select>{" "}
     </div>
   );
+};
+
+FieldCity.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  oldValueCountryId: PropTypes.string.isRequired,
+  newValueCountryId: PropTypes.string.isRequired,
+  departmentId: PropTypes.string.isRequired,
 };
 export default FieldCity;

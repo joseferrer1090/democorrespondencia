@@ -58,6 +58,10 @@ const PreviewTemplate = ({ field, ...props }) => {
   );
 };
 
-PreviewTemplate.propTypes = {};
+PreviewTemplate.propTypes = {
+  infoMetadataPosition: PropTypes.func.isRequired,
+  infoMetadataId: PropTypes.func.isRequired,
+  infoMetadataValue: PropTypes.func.isRequired,
+};
 
 export default PreviewTemplate;

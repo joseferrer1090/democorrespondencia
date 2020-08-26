@@ -5,7 +5,6 @@ import { CONGLOMERATES_STATUS } from "../../../../../../../../services/EndPoints
 class ReceiverSelectConglomerado extends React.Component {
   state = {
     dataConglomerate: [],
-    t: this.props.t,
     auth: this.props.authorization,
   };
 
@@ -53,7 +52,6 @@ class ReceiverSelectConglomerado extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         <select
@@ -78,7 +76,11 @@ class ReceiverSelectConglomerado extends React.Component {
 }
 
 ReceiverSelectConglomerado.propTypes = {
-  //   t: PropTypes.any,
-  //   authorization: PropTypes.string.isRequired,
+  authorization: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 export default ReceiverSelectConglomerado;

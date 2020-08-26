@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import moment from "moment";
 import PDFViewer from "../../../../../../utils/pdfViewer/components/PDFViewer";
 import PDFJSBackend from "../../../../../../utils/pdfViewer/backend/pdfjs";
-import { Link } from "react-router-dom";
 
 class Step4 extends Component {
   constructor(props) {
@@ -106,7 +105,6 @@ class Step4 extends Component {
       attached.id = dataFiling.attached.id;
       attached.size = dataFiling.attached.size;
     }
-    console.log(dataFiling.userAddresses);
     const sourceViewPDF = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${attached.id}/${attached.fileName}`;
     return (
       <div className="animated fadeIn">
@@ -392,10 +390,7 @@ class Step4 extends Component {
                 </table>
               </div>
             </div>
-            <div
-              className="card"
-              // style={{ height: "600px", padding: "0px" }}
-            >
+            <div className="card">
               <div className="p-2 mb-1 bg-secondary text-black">
                 {" "}
                 Documento adjunto
@@ -434,7 +429,9 @@ class Step4 extends Component {
   }
 }
 
-Step4.propTypes = {};
+Step4.propTypes = {
+  endFiling: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {

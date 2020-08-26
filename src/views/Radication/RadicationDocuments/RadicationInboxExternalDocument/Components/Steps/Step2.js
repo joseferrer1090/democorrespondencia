@@ -5,7 +5,6 @@ import { Alert } from "reactstrap";
 import Barcode from "react-barcode";
 import { generarSticker } from "../../../../../../actions/step2ActionsSticker";
 import ModalPrintBarcode from "./Forms/ComponentsStep2/ModalPrint";
-import { ref } from "yup";
 
 const Step2 = (props) => {
   const child = useRef();
@@ -15,10 +14,13 @@ const Step2 = (props) => {
     (state) => state.step2ReducerSticker.details
   );
   const titleSticker = useSelector((state) => state.step2ReducerSticker.title);
+  const valueBarcode = useSelector(
+    (state) => state.step2ReducerSticker.barcode
+  );
 
   const [width, setWidth] = useState(1);
-  const [visible, setVisible] = useState(true);
   const [modalprint, setModalprint] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [confirmPrint, setConfirmPrint] = useState(false);
   const [continueNextStep, setContinueNextStep] = useState(true);
 
@@ -142,7 +144,7 @@ const Step2 = (props) => {
                             return (
                               <div className="col-md-8  text-center barcode">
                                 <Barcode
-                                  value={`R-${aux.value}`}
+                                  value={`${valueBarcode}`}
                                   width={width}
                                 />
                               </div>
@@ -152,7 +154,6 @@ const Step2 = (props) => {
                       : null}
                     <br />
                   </div>
-
                   <div className="col-md-12">
                     <iframe
                       id="ifmcontentstoprint"
@@ -168,8 +169,6 @@ const Step2 = (props) => {
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
-                  // onClick={() => printBarCore()}
-
                   onClick={openModalPrint}
                 >
                   {" "}

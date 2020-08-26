@@ -1,23 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
 import { ErrorMessage, Field, Formik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import { css } from "glamor";
+import PropTypes from "prop-types";
 import * as Yup from "yup";
 import moment from "moment";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { css } from "glamor";
+import "bs-stepper/dist/css/bs-stepper.css";
 import ModalView from "../../ModalViewCorresponcenceSendOutStep1";
 import ModalAdd from "../../ModalAddCorrespondenSendOutStep1";
-import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
-import {
-  obtenerDataTipoDocumental,
-  resetFormStep1TypeDocumentary,
-} from "./../../../../../../../actions/step1ActionsInfoTypeDocumentary";
-import { obtenerDataTemplate } from "../../../../../../../actions/step1SelectTemplateaActions";
-import { resetFormStep1PreviewTemplate } from "../../../../../../../actions/step1ActionsPreviewTemplate";
-import { resetFormStep1Receiver } from "../../../../../../../actions/step1ActionsReceiver";
-import { resetFormStep1ThirdParty } from "../../../../../../../actions/step1ActionsThirdParty";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
 import FieldHeadquarter from "./Components/SelectHeadquarter";
@@ -37,7 +29,15 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
-import "bs-stepper/dist/css/bs-stepper.css";
+import { EXTERNAL_CORRESPONDENCE_RECEIVED_POST } from "../../../../../../../services/EndPoints";
+import {
+  obtenerDataTipoDocumental,
+  resetFormStep1TypeDocumentary,
+} from "./../../../../../../../actions/step1ActionsInfoTypeDocumentary";
+import { obtenerDataTemplate } from "../../../../../../../actions/step1SelectTemplateaActions";
+import { resetFormStep1PreviewTemplate } from "../../../../../../../actions/step1ActionsPreviewTemplate";
+import { resetFormStep1Receiver } from "../../../../../../../actions/step1ActionsReceiver";
+import { resetFormStep1ThirdParty } from "../../../../../../../actions/step1ActionsThirdParty";
 import { obtenerIdRadicacion } from "../../../../../../../actions/step2ActionsSticker";
 import {
   changeView1,
@@ -87,7 +87,7 @@ const FormStep1 = (props) => {
     newValueConglomerateReceiver,
     setNewValueConglomerateReceiver,
   ] = useState();
-  const [StateChangeAlert, setAux] = useState("");
+  const [StateChangeAlert, setAux] = useState(null);
   const [valueIdentification, setValueIdentification] = useState(null);
   const [cObjectPosition, setCObjectPosition] = useState();
   const [cObjectId, setCObjectId] = useState();
@@ -169,26 +169,26 @@ const FormStep1 = (props) => {
       initialValues={{
         correspondence_dateFiling: "",
         correspondence_timeFiling: "",
+        correspondence_guide: "",
+        correspondence_issue: "",
+        correspondence_userFiling: "",
+        correspondence_folios: "",
+        correspondence_consecutive: "",
+        correspondence_documentDate: "",
+        correspondence_documentNum: "",
         correspondence_headquarter: "" /* S */,
         correspondence_validity: "" /* S */,
-        correspondence_userFiling: "",
         correspondence_conglomerate: "" /* S */,
         correspondence_company: "" /* S */,
         correspondence_dependence: "" /* S */,
         correspondence_country: "" /* S */,
         correspondence_department: "" /* S */,
-        correspondence_folios: "",
-        correspondence_consecutive: "",
         correspondence_criterion: "" /* S */,
         correspondence_thirdParty: "" /* S */,
         correspondence_group: "" /* S */,
         correspondence_typeDocumentary: "" /* S */,
-        correspondence_documentDate: "",
-        correspondence_documentNum: "",
         correspondence_city: "" /* S */,
         correspondence_typeArrival: "" /* S */,
-        correspondence_guide: "",
-        correspondence_issue: "",
         correspondence_messenger: "" /* S */,
         correspondence_template: "" /* S */,
         correspondence_conglomerate_receiver: "" /* S */,
@@ -372,34 +372,6 @@ const FormStep1 = (props) => {
           setSubmitting(false);
           resetForm({
             values: "",
-            // correspondence_dateFiling: "",
-            // correspondence_timeFiling: "",
-            // correspondence_headquarter: "" /* S */,
-            // correspondence_validity: "" /* S */,
-            // correspondence_userFiling: "",
-            // correspondence_conglomerate: "" /* S */,
-            // correspondence_company: "" /* S */,
-            // correspondence_dependence: "" /* S */,
-            // correspondence_country: "" /* S */,
-            // correspondence_department: "" /* S */,
-            // correspondence_folios: "",
-            // correspondence_consecutive: "",
-            // correspondence_criterion: "" /* S */,
-            // correspondence_thirdParty: "" /* S */,
-            // correspondence_group: "" /* S */,
-            // correspondence_typeDocumentary: "" /* S */,
-            // correspondence_documentDate: "",
-            // correspondence_documentNum: "",
-            // correspondence_city: "" /* S */,
-            // correspondence_typeArrival: "" /* S */,
-            // correspondence_guide: "",
-            // correspondence_issue: "",
-            // correspondence_messenger: "" /* S */,
-            // correspondence_template: "" /* S */,
-            // correspondence_conglomerate_receiver: "" /* S */,
-            // correspondence_company_receiver: "" /* S */,
-            // correspondence_headquarter_receiver: "" /* S */,
-            // correspondence_dependence_receiver: "" /* S */,
           });
         }, 1000);
         toast.dismiss();
@@ -412,7 +384,6 @@ const FormStep1 = (props) => {
         setFieldValue,
         handleBlur,
         setFieldTouched,
-        t,
         isSubmitting,
         handleSubmit,
       }) => (
@@ -1115,7 +1086,6 @@ const FormStep1 = (props) => {
                         <div className="form-group">
                           <label>Plantilla</label>
                           <Field
-                            authorization={props.authorization}
                             name={"correspondence_template"}
                             component={SelectTemplate}
                           />
@@ -1135,9 +1105,6 @@ const FormStep1 = (props) => {
                           authorization={props.authorization}
                           component={PreviewTemplate}
                           id={values.correspondence_template}
-                          // onDataOnChange={(datainputs) =>
-                          //   setDataInputs(datainputs)
-                          // }
                           infoMetadataPosition={(cObjectPosition) => {
                             setCObjectPosition(cObjectPosition);
                           }}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { COMPANY_BY_CONGLOMERATE } from "../../../../../../../../services/EndPoints";
 
 const ReceiverFieldCompany = ({
@@ -41,7 +42,6 @@ const ReceiverFieldCompany = ({
     validateValues();
   }, [props.newValueConglomerateId, props.conglomerateId]);
 
-  const t = props.t;
   return (
     <div>
       {" "}
@@ -69,4 +69,10 @@ const ReceiverFieldCompany = ({
   );
 };
 
+ReceiverFieldCompany.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  oldValueConglomerateId: PropTypes.string.isRequired,
+  newValueConglomerateId: PropTypes.string.isRequired,
+  conglomerateId: PropTypes.string.isRequired,
+};
 export default ReceiverFieldCompany;

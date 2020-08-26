@@ -51,7 +51,6 @@ class SelectCountry extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         <select
@@ -75,8 +74,12 @@ class SelectCountry extends React.Component {
   }
 }
 SelectCountry.propTypes = {
-  //   t: PropTypes.any,
-  //   authorization: PropTypes.string.isRequired
+  authorization: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default SelectCountry;

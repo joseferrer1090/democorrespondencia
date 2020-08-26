@@ -5,7 +5,6 @@ import { TYPE_DOCUMENTARIES_STATUS } from "../../../../../../../../services/EndP
 class SelectTypeDocumentary extends React.Component {
   state = {
     dataTypeDocumentary: [],
-    t: this.props.t,
     auth: this.props.authorization,
   };
 
@@ -53,7 +52,6 @@ class SelectTypeDocumentary extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         <select
@@ -80,7 +78,11 @@ class SelectTypeDocumentary extends React.Component {
 }
 
 SelectTypeDocumentary.propTypes = {
-  //   t: PropTypes.any,
-  //   authorization: PropTypes.string.isRequired,
+  authorization: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 export default SelectTypeDocumentary;

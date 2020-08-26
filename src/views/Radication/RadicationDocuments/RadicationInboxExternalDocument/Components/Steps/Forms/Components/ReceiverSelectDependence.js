@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { DEPENDENCIES_BY_HEADQUARTER } from "../../../../../../../../services/EndPoints";
 
 const ReceiverFieldDependence = ({
@@ -61,7 +62,6 @@ const ReceiverFieldDependence = ({
   const PREValue = usePrevious(props.sedeId);
   const PREValueConglomerate = usePrevious(props.conglomerateId);
   const PREValueCompany = usePrevious(props.companyId);
-  const t = props.t;
   return (
     <div>
       {" "}
@@ -91,5 +91,11 @@ const ReceiverFieldDependence = ({
       </select>{" "}
     </div>
   );
+};
+ReceiverFieldDependence.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  companyId: PropTypes.string.isRequired,
+  conglomerateId: PropTypes.string.isRequired,
+  sedeId: PropTypes.string.isRequired,
 };
 export default ReceiverFieldDependence;

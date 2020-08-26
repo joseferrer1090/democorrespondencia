@@ -85,7 +85,6 @@ class RadicationInboxExternalDocument extends Component {
 
   render() {
     const { authToken, data, headquarter } = this.state;
-
     return (
       <div>
         <HeaderComponent />

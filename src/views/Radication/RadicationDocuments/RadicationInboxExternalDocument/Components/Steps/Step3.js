@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 import { css } from "glamor";
 import { ATTACHED } from "../../../../../../services/EndPoints";
-import "../react-list.css";
 import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
+import "../react-list.css";
 
 class Step3 extends Component {
   constructor(props) {
@@ -18,21 +18,12 @@ class Step3 extends Component {
       visible: false,
       error: "",
       goToStep4: false,
-      filesFromInput: [],
-      data64: "",
     };
   }
 
   toggle = () => {
     this.setState({ visible: !this.state.visible });
   };
-
-  onFilesChange = (files) => {
-    this.setState({
-      files,
-    });
-  };
-
   getBase64 = (file) => {
     var reader = new FileReader();
     reader.readAsDataURL(file);
@@ -50,10 +41,9 @@ class Step3 extends Component {
     };
   };
 
-  onChangeFromInput = (e) => {
-    console.log(e.target.files[0]);
+  onFilesChange = (files) => {
     this.setState({
-      filesFromInput: e.target.files[0],
+      files,
     });
   };
 
@@ -139,15 +129,6 @@ class Step3 extends Component {
           this.refs.files.removeFile(file);
           toast.dismiss();
         }, 5000);
-
-        /* MOSTRAR EL MENSAJE DE ERROR DEL BACKEN EN CASO DE CUALQUIER ERROR 
-        toast.error(error.response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          className: css({
-            marginTop: "60px",
-          }),
-        });
-        */
       });
   };
 
@@ -228,26 +209,13 @@ class Step3 extends Component {
               width={"100%!"}
               height={"700px"}
             ></iframe>
-
-            {/* <MyPdfViewer file={this.state.files} /> */}
           </div>
           <div style={{ height: "80px" }} />
 
           <div className="card">
             <div className="card-footer">
               <div className="pull-right">
-                <button
-                  type="submit"
-                  className="btn btn-success btn-sm"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setTimeout(() => {
-                      this.setState({
-                        files: [],
-                      });
-                    }, 5000);
-                  }}
-                >
+                <button type="submit" className="btn btn-success btn-sm">
                   {false ? (
                     <i className=" fa fa-spinner fa-spin" />
                   ) : (

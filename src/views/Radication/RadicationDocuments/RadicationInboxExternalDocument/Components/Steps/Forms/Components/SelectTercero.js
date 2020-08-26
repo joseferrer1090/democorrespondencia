@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../services/EndPoints";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Alert } from "reactstrap";
+import PropTypes from "prop-types";
+import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../services/EndPoints";
 import { agregarTerceroDisponible } from "../../../../../../../../actions/step1ActionsThirdParty";
 
 const ThirdParty = (props) => {
-  // const t = props.t;
   let id = props.id;
   let valueInput = props.valueInput;
 
   const [IdThirdParty, setIdThirdParty] = useState(null);
   const [NameThirdParty, setNameThirdParty] = useState(null);
-  // const firstUpdate = useRef(true);
   const [spinner, setSpinner] = useState(false);
   const [alertAsignacion, setAlertAsignacion] = useState(false);
   const dispatch = useDispatch();
@@ -135,5 +134,11 @@ const ThirdParty = (props) => {
       </div>
     </div>
   );
+};
+
+ThirdParty.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  valueInput: PropTypes.string.isRequired,
 };
 export default ThirdParty;
