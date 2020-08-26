@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Fragment } from "react";
 import PropTypes from "react";
 import { usePdf } from "@mikecousins/react-pdf";
 import {
@@ -42,9 +42,6 @@ const MyPdfViewer = (props) => {
 
   useEffect(() => {
     validateValues();
-    // console.log(props.file);
-    // console.log(props.file.length);
-    // console.log(file);
   }, [props.file]);
 
   return (
@@ -85,6 +82,7 @@ const MyPdfViewer = (props) => {
                 >
                   {`${page} de ${pdfDocument.numPages}`}
                 </button>
+
                 <button
                   className="btn btn-secondary btn-sm"
                   data-trigger="hover"

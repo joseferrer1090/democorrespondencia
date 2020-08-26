@@ -9,7 +9,6 @@ import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
 import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
 import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
-import { PDFJS } from "pdfjs-dist";
 
 class Step3 extends Component {
   constructor(props) {
@@ -52,18 +51,26 @@ class Step3 extends Component {
   };
 
   getBase64 = (file) => {
+    let i;
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      console.log(reader.result);
+      // console.log(reader.result);
       const BASE64_MARKER = ";base64,";
       const base64Index =
         reader.result.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-
       const base64 = reader.result.substring(base64Index);
-      // const raw = window.atob(base64);
+      const raw = window.atob(base64);
+      const rawLength = raw.length;
+      const array = new Uint8Array(new ArrayBuffer(rawLength));
 
-      const byteCharacters = atob(base64);
+      for (i = 0; i < rawLength; i++) {
+        array[i] = raw.charCodeAt(i);
+      }
+
+      /* 
+     BLOB URL
+     const byteCharacters = atob(base64);
       const byteArrays = [];
       const sliceSize = 512;
 
@@ -84,12 +91,8 @@ class Step3 extends Component {
       }
 
       const blob = new Blob([byteArrays], { type: "application/pdf" });
-      const blobUrl = URL.createObjectURL(blob);
-      const aver = encodeURIComponent(blobUrl);
-      console.log(blobUrl);
-      console.log(aver);
+      const blobUrl = URL.createObjectURL(blob);*/
     };
-
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
@@ -197,9 +200,9 @@ class Step3 extends Component {
   };
 
   render() {
-    // if (this.state.files.length > 0) {
-    //   this.getBase64(this.state.files[0]);
-    // }
+    if (this.state.files.length > 0) {
+      this.getBase64(this.state.files[0]);
+    }
     return (
       <div className="animated fadeIn">
         <ToastContainer autoClose={5000} />
@@ -267,6 +270,13 @@ class Step3 extends Component {
                 </Files>
               </div>
             </div>
+            {/* <iframe
+              id="pdfViewer"
+              src="/pdfjs-2.5.207-dist/web/viewer.html"
+              width={"100%!"}
+              height={"700px"}
+            ></iframe> */}
+
             <MyPdfViewer file={this.state.files} />
           </div>
           <div style={{ height: "80px" }} />
