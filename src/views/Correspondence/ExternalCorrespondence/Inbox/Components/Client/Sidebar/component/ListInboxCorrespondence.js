@@ -17,8 +17,7 @@ class ListInboxCorrespondence extends Component {
     super(props);
     this.state = {
       active: {
-        active1: true,
-        active2: false,
+        active2: true,
         active3: false,
       },
     };
@@ -70,20 +69,7 @@ class ListInboxCorrespondence extends Component {
               />
             </form>
           </ListGroupItem> */}
-          <ListGroupItem
-            className=""
-            tag="button"
-            action
-            onClick={() => {
-              this.setState({
-                ...this.state,
-                active: {
-                  active1: true,
-                },
-              });
-            }}
-            active={this.state.active.active1}
-          >
+          <ListGroupItem className="" tag="button" action>
             {" "}
             Actualizar{" "}
             <Badge className="float-right" pill>
