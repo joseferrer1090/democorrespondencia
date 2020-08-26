@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { CardTitle, Row, Col } from "reactstrap";
 import TabInformation from "./components/TabInformationUser";
+import { startUploading } from "./../../../actions/authActions";
 
 const acceptedFileTypes =
   "image/x-png, image/png, image/jpg, image/jpeg, image/gif";
@@ -10,28 +12,17 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgProfile: "/assets/img/avatars/user2.jpg"
+      imgProfile: "/assets/img/avatars/user2.jpg",
     };
     this.inputOpenFileRef = React.createRef();
   }
-  onChange = e => {
-    let files = e.target.files;
-    let dataImg = e.target.files[0];
-    console.warn("Data file:", files);
-    console.log(e.target.files[0].name);
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = e => {
-      this.setState({ imgProfile: e.target.result });
-      setTimeout(e => {
-        alert(`Se modifico con éxito la imagen:                  
-                  name: ${dataImg.name},
-                  size: ${dataImg.size},
-                  type: ${dataImg.type}`);
-      }, 1000);
-    };
+
+  onChange = (e) => {
+    this.props.changeImageProfile(e.target.files[0]);
   };
+
   render() {
+    const { imguser } = this.props;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -46,8 +37,13 @@ class Profile extends Component {
               >
                 <img
                   className="img-thumbnail"
-                  src={this.state.imgProfile}
-                  style={{ margin: "10px", width: "150px", height: "150px" }}
+                  src={imguser}
+                  style={{
+                    margin: "10px",
+                    width: "200px",
+                    height: "200px",
+                    cursor: "pointer",
+                  }}
                 />
                 <input
                   multiple={false}
@@ -56,24 +52,30 @@ class Profile extends Component {
                   name="file"
                   style={{ display: "none" }}
                   ref={this.inputOpenFileRef}
-                  onChange={e => this.onChange(e)}
+                  onChange={(e) => this.onChange(e)}
                 />
               </a>
               <CardTitle>
                 <p className="text-center">
                   {" "}
-                  Nombre del usuario{" "}
-                  <small className="form-text"> Usuario </small>{" "}
+                  {this.props.userinfo.name}
+                  <small className="form-text">
+                    {" "}
+                    {this.props.userinfo.username}{" "}
+                  </small>{" "}
                 </p>
                 <address>
                   <div style={{ margin: "10px ", fontSize: "13px" }}>
                     {" "}
                     <p className="text-center">
-                      <i className="fa fa-phone-square" />
-                      {"   "}+(1234) - 5678910
+                      <i className="fa fa-phone-square" />{" "}
+                      <a href="tel:`${this.props.userinfo.phone}`">
+                        {this.props.userinfo.phone}
+                      </a>{" "}
                     </p>
                     <p className="text-center">
-                      <i className="fa fa-envelope" /> {"   "} usuario@app.com
+                      <i className="fa fa-envelope" />{" "}
+                      {this.props.userinfo.email}
                     </p>
                   </div>
                 </address>
@@ -108,4 +110,19 @@ class Profile extends Component {
 
 Profile.propTypes = {};
 
-export default Profile;
+const mapStateToProp = (state) => {
+  return {
+    userinfo: state.authReducer.user,
+    imguser: state.authReducer.imguser,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    changeImageProfile: (file) => {
+      dispatch(startUploading(file));
+    },
+  };
+};
+
+export default connect(mapStateToProp, mapDispatch)(Profile);

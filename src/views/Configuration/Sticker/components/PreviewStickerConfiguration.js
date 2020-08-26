@@ -38,7 +38,7 @@ export const PreviewStickerConfiguration = () => {
                       return (
                         <tr key={id}>
                           <td colSpan="4">{aux.labelText}</td>
-                          <th scope="row">valor desde el backend</th>
+                          <th scope="row">[STICKER!DATA {aux.inputId}]</th>
                         </tr>
                       );
                     })}
