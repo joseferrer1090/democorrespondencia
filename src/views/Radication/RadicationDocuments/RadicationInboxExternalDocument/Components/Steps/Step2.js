@@ -71,7 +71,7 @@ const Step2 = (props) => {
             >
               <i className="fa fa-info-circle" /> Por favor imprima el sticker
               generado por el sistema y adjúntelo con el documento a radicar
-              posteriormente procesa a escanear.
+              posteriormente procesa a adjuntar el documento.
             </Alert>
             <div className="card">
               <div className="card-body offset-3">
@@ -182,6 +182,7 @@ const Step2 = (props) => {
                   onClick={(e) => {
                     props.nextStep();
                     e.preventDefault();
+                    setVisible(false);
                   }}
                   disabled={continueNextStep}
                 >

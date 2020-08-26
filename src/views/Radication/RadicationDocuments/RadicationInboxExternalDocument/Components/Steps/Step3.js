@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { css } from "glamor";
 import { ATTACHED } from "../../../../../../services/EndPoints";
 import "../react-list.css";
-import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
 import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
 
 class Step3 extends Component {
@@ -34,64 +33,17 @@ class Step3 extends Component {
     });
   };
 
-  convertDataURIToBinary = (dataURI) => {
-    let i;
-    const BASE64_MARKER = ";base64,";
-    const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-    const base64 = dataURI.substring(base64Index);
-    const raw = window.atob(base64);
-    const rawLength = raw.length;
-    const array = new Uint8Array(new ArrayBuffer(rawLength));
-
-    for (i = 0; i < rawLength; i++) {
-      array[i] = raw.charCodeAt(i);
-    }
-    console.log(array);
-    return array;
-  };
-
   getBase64 = (file) => {
-    let i;
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      // console.log(reader.result);
       const BASE64_MARKER = ";base64,";
       const base64Index =
         reader.result.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
       const base64 = reader.result.substring(base64Index);
-      const raw = window.atob(base64);
-      const rawLength = raw.length;
-      const array = new Uint8Array(new ArrayBuffer(rawLength));
-
-      for (i = 0; i < rawLength; i++) {
-        array[i] = raw.charCodeAt(i);
-      }
-
-      /* 
-     BLOB URL
-     const byteCharacters = atob(base64);
-      const byteArrays = [];
-      const sliceSize = 512;
-
-      for (
-        let offset = 0;
-        offset < byteCharacters.length;
-        offset += sliceSize
-      ) {
-        const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
-        }
-
-        const byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
-      }
-
-      const blob = new Blob([byteArrays], { type: "application/pdf" });
-      const blobUrl = URL.createObjectURL(blob);*/
+      document
+        .getElementById("pdfViewer")
+        .contentWindow.openFileFromBase64(base64);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -270,21 +222,32 @@ class Step3 extends Component {
                 </Files>
               </div>
             </div>
-            {/* <iframe
+            <iframe
               id="pdfViewer"
               src="/pdfjs-2.5.207-dist/web/viewer.html"
               width={"100%!"}
               height={"700px"}
-            ></iframe> */}
+            ></iframe>
 
-            <MyPdfViewer file={this.state.files} />
+            {/* <MyPdfViewer file={this.state.files} /> */}
           </div>
           <div style={{ height: "80px" }} />
 
           <div className="card">
             <div className="card-footer">
               <div className="pull-right">
-                <button type="submit" className="btn btn-success btn-sm">
+                <button
+                  type="submit"
+                  className="btn btn-success btn-sm"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setTimeout(() => {
+                      this.setState({
+                        files: [],
+                      });
+                    }, 5000);
+                  }}
+                >
                   {false ? (
                     <i className=" fa fa-spinner fa-spin" />
                   ) : (

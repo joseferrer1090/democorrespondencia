@@ -5,7 +5,7 @@ const FieldIssue = ({
   form: { errors, touched, setFieldValue, setFieldTouched, values },
   ...props
 }) => {
-  const [valueInput, setValueInput] = useState(values.correspondence_issue);
+  const [valueInput, setValueInput] = useState("");
 
   const issueValue = useSelector(
     (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.issue

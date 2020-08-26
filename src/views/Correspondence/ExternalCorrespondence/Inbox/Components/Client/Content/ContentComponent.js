@@ -63,17 +63,7 @@ class ContentComponent extends Component {
     });
   };
 
-  // componentDidMount() {
-  //   const data = document.querySelector("#tablefixed");
-  //   this.setState({
-  //     tblData: data,
-  //     idCorrespondenceSelected: [],
-  //   });
-  //   this.getDataInbox();
-  // }
-  /* */
   getDataInbox = () => {
-    // console.log(this.props.authorization);
     fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}`, {
       method: "GET",
       headers: {
@@ -83,7 +73,7 @@ class ContentComponent extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         this.setState({
           dataInbox: data,
         });
