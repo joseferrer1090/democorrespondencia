@@ -17,7 +17,6 @@ class ListInboxCorrespondence extends Component {
   }
 
   render() {
-    console.log(this.props.pending);
     const getDataP = () => {
       this.props.getDataPending();
     };
@@ -89,6 +88,7 @@ ListInboxCorrespondence.propTypes = {};
 
 const mapState = (state) => {
   return {
+    current: state.dataCorrespondenceExternal.received,
     pending: state.dataCorrespondenceExternal.pending,
     totalcurrently: state.dataCorrespondenceExternal.totalElements,
     totalPendig: state.dataCorrespondenceExternal.totalElements,

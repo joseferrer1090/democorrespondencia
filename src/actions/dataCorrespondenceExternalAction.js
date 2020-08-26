@@ -3,6 +3,8 @@ import {
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING,
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO,
+  DATA_ALL_CORRESPONDENCE,
+  DATA_ALL_CORRESPONDENCE_PENDING,
 } from "./../types/index";
 import {
   loadCorrespondenceData,
@@ -16,6 +18,7 @@ export const dataCorrespondence = () => {
     await dispatch(startLoadDataCorrespondence());
     const aux = await loadCorrespondenceData(token);
     dispatch(loadDataCorrespondenceSuccess(aux));
+    dispatch(loadDataAll());
   };
 };
 
@@ -24,8 +27,12 @@ export const startLoadDataCorrespondence = () => ({
 });
 
 export const loadDataCorrespondenceSuccess = (data) => ({
-  type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
+  type: { OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO, DATA_ALL_CORRESPONDENCE },
   payload: data,
+});
+
+export const loadDataAll = () => ({
+  type: DATA_ALL_CORRESPONDENCE_PENDING,
 });
 
 // Funcion Principal para pending
@@ -35,6 +42,7 @@ export const dataCorrespondencePending = () => {
     await dispatch(startLoadDataCorrespondenceExternalPending());
     const aux = await loadCorrespondenceExternalPendingData(token);
     dispatch(loadDataCorrespondencePendingSuccess(aux));
+    dispatch(loadDataAllPendong());
   };
 };
 
@@ -45,4 +53,8 @@ export const startLoadDataCorrespondenceExternalPending = () => ({
 export const loadDataCorrespondencePendingSuccess = (data) => ({
   type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO,
   payload: data,
+});
+
+export const loadDataAllPendong = () => ({
+  type: DATA_ALL_CORRESPONDENCE_PENDING,
 });

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import HeaderInbox from "./Components/Client/Header/HeaderInbox";
 import SidebarInbox from "./Components/Client/Sidebar/SidebarInboxComponent";
 import ContentInbox from "./Components/Client/Content/ContentComponent";
@@ -51,7 +52,10 @@ class InboxCorrespondenceExternal extends Component {
             <div className="row" style={{}}>
               <SidebarInbox />
               <div className="col-md-10" style={{ padding: "0px" }}>
-                <ContentInbox authorization={authToken} />
+                <ContentInbox
+                  authorization={authToken}
+                  datacorrespondence={this.props.alldata}
+                />
               </div>
             </div>
           </div>
@@ -66,4 +70,8 @@ class InboxCorrespondenceExternal extends Component {
 
 InboxCorrespondenceExternal.propTypes = {};
 
-export default InboxCorrespondenceExternal;
+const mapStateToProps = (state) => {
+  return { alldata: state.dataCorrespondenceExternal.alldata };
+};
+
+export default connect(mapStateToProps, null)(InboxCorrespondenceExternal);

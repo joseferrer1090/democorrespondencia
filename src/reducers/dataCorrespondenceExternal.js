@@ -14,9 +14,12 @@ import {
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING,
   OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO,
+  DATA_ALL_CORRESPONDENCE,
+  DATA_ALL_CORRESPONDENCE_PENDING,
 } from "../types";
 
 const initalState = {
+  alldata: [],
   received: [],
   pending: [],
   totalPages: 0,
@@ -29,6 +32,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
     case OBTENER_DATA_EXTERNA_CORRESPONDENCE:
       return {
         ...state,
+        alldata: [],
         received: [],
         pending: [],
         totalPages: 0,
@@ -44,9 +48,16 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         size: action.payload.size,
       };
 
+    case DATA_ALL_CORRESPONDENCE:
+      return {
+        ...state,
+        alldata: state.received,
+      };
+
     case OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING:
       return {
         ...state,
+        alldata: [],
         pending: [],
         totalPages: 0,
         totalElements: 0,
@@ -60,6 +71,12 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         totalPages: action.payload.totalPages,
         totalElements: action.payload.totalElements,
         size: action.payload.size,
+      };
+
+    case DATA_ALL_CORRESPONDENCE_PENDING:
+      return {
+        ...state,
+        alldata: state.pending,
       };
 
     default:
