@@ -15,7 +15,13 @@ import {
 class ListInboxCorrespondence extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      active: {
+        active1: true,
+        active2: false,
+        active3: false,
+      },
+    };
   }
 
   getNumberR = () => {
@@ -34,13 +40,24 @@ class ListInboxCorrespondence extends Component {
   render() {
     const getDataP = () => {
       this.props.getDataPending();
+      this.setState({
+        ...this.state,
+        active: {
+          ...this.state,
+          active3: true,
+        },
+      });
     };
     const getDataC = () => {
       this.props.getDataCurrently();
+      this.setState({
+        ...this.state,
+        active: {
+          ...this.state,
+          active2: true,
+        },
+      });
     };
-
-    console.log(this.props.numerorecibidos);
-
     return (
       <div style={{ padding: "0" }}>
         <ListGroup>
@@ -58,8 +75,14 @@ class ListInboxCorrespondence extends Component {
             tag="button"
             action
             onClick={() => {
-              alert("probando");
+              this.setState({
+                ...this.state,
+                active: {
+                  active1: true,
+                },
+              });
             }}
+            active={this.state.active.active1}
           >
             {" "}
             Actualizar{" "}
@@ -68,14 +91,26 @@ class ListInboxCorrespondence extends Component {
               <i className="fa fa-refresh" />{" "}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action onClick={getDataC}>
+          <ListGroupItem
+            className=""
+            tag="button"
+            action
+            onClick={getDataC}
+            active={this.state.active.active2}
+          >
             {" "}
             Entrada
             <Badge pill className="float-right  badge-info">
               {this.props.numerorecibidos}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action onClick={getDataP}>
+          <ListGroupItem
+            className=""
+            tag="button"
+            action
+            onClick={getDataP}
+            active={this.state.active.active3}
+          >
             {" "}
             Pendiente{" "}
             <Badge pill className="float-right  badge-danger  ">
