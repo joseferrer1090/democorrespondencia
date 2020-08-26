@@ -11,8 +11,6 @@ import {
   CardBody,
 } from "reactstrap";
 import PropTypes from "prop-types";
-import { browserHistory } from "react-router";
-import { withRouter } from "react-router-dom";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
 import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
 import ModalSticker from "./../ModalStciker/ModalSticker";
