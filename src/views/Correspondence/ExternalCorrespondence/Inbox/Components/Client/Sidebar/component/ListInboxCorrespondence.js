@@ -127,9 +127,9 @@ class ListInboxCorrespondence extends Component {
               </Badge>{" "}
             </Link>
           </ListGroupItem>
-          <ListGroupItem>
+          {/* <ListGroupItem>
             <Tags />
-          </ListGroupItem>
+          </ListGroupItem> */}
         </ListGroup>
       </div>
     );
