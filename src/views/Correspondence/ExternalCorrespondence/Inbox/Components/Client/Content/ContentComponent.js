@@ -28,7 +28,7 @@ import {
 import { connect } from "react-redux";
 import { dataCorrespondence } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
-import ReactPaniganate from "react-paginate";
+import Pagination from "react-js-pagination";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -43,6 +43,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
+      activePage: 0 + 1,
     };
   }
 
@@ -66,17 +67,20 @@ class ContentComponent extends Component {
 
   componentDidMount() {
     this.props.getData();
-    console.log(this.props.content);
-    console.log(this.props.pending);
   }
 
   getInformation = () => {
     this.props.getData();
   };
 
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber });
+  }
+
   render() {
     const { data } = this.state;
-    const { content, pending, allcontent } = this.props;
+    const { content, pending, allcontent, size, totalElements } = this.props;
     // console.log(pending);
     console.log(this.props);
     console.log(data);
@@ -106,17 +110,12 @@ class ContentComponent extends Component {
                   </div>
                 </div>
                 <div className="col-md-5">
-                  <ReactPaniganate
-                    breakClassName={"page-item"}
-                    breakLinkClassName={"page-link"}
-                    containerClassName={"pagination"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link"}
-                    previousClassName={"page-item"}
-                    previousLinkClassName={"page-link"}
-                    nextClassName={"page-item"}
-                    nextLinkClassName={"page-link"}
-                    activeClassName={"active"}
+                  <Pagination
+                    activePage={this.state.activePage}
+                    itemsCountPerPage={size}
+                    totalItemsCount={totalElements}
+                    pageRangeDisplayed={size}
+                    onChange={this.handlePageChange.bind(this)}
                   />
                 </div>
               </div>
@@ -189,6 +188,8 @@ const mapState = (state) => {
     content: state.dataCorrespondenceExternal.received,
     pending: state.dataCorrespondenceExternal.pending,
     allcontent: state.dataCorrespondenceExternal.alldata,
+    size: state.dataCorrespondenceExternal.size,
+    totalElements: state.dataCorrespondenceExternal.totalElements,
   };
 };
 
