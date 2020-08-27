@@ -1,0 +1,137 @@
+// <div className="animated fadeIn">
+// <br />
+<div className="d-none d-sm-block" style={{ marginTop: "1px" }}>
+  <Container style={{ marginLeft: "0px", padding: "0" }}>
+    <Card>
+      <CardHeader
+        className="text-center"
+        style={{ fontSize: "14px", fontWeight: "500" }}
+      >
+        <i className="icon-drawer" /> &nbsp; Bandeja de correspondencia recibida
+        vigencia {new Date().getFullYear()}
+      </CardHeader>
+      <CardBody>
+        <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
+          {/* <Col md="3">
+                  <ButtonDropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                  >
+                    <DropdownToggle caret size="sm">
+                      Acciones
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={() => this.getSelect()}>
+                        Seleccionar todo
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </Col> */}
+          <Col md="9">
+            <InputGroup className="mb-4">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>
+                  {/* <i className="icon-search" /> */}
+                  <i className="fa fa-search"></i>
+                </InputGroupText>
+              </InputGroupAddon>
+              <Input
+                type="text"
+                className="form-control"
+                style={{ width: "auto" }}
+                placeholder={`Buscar correspondencia`}
+                onChange={(e) => this.handleSearchInput(e)}
+              />
+            </InputGroup>
+          </Col>
+          <Col md="3">
+            <div className="float-right">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a className="page-link" href="#">
+                    <i className="fa fa-angle-double-left" />
+                  </a>
+                </li>
+                <li className="page-item">
+                  <a className="page-link" href="#">
+                    1
+                  </a>
+                </li>
+                <li className="page-item ">
+                  <a className="page-link" href="#">
+                    2
+                  </a>
+                </li>
+                <li className="page-item">
+                  <a className="page-link" href="#">
+                    3
+                  </a>
+                </li>
+                <li className="page-item">
+                  <a className="page-link" href="#">
+                    <i className="fa fa-angle-double-right" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </Col>
+        </Row>
+        <Container>
+          <Row>
+            <Col md="12" style={{ padding: "0" }}>
+              <div className="table-responsive">
+                <table
+                  id="tablefixed"
+                  className="table table-sm"
+                  // style={{ backgroundColor: "#F0F3F5" }}
+                >
+                  <thead>
+                    <tr
+                      className="text-center"
+                      style={{ background: "#45B254 !important" }}
+                    >
+                      <th style={{ width: "10px" }}>
+                        <input
+                          type="checkbox"
+                          onClick={() =>
+                            this.setState(
+                              {
+                                checkall: !this.state.checkall,
+                              },
+                              () =>
+                                this.toggleCheckboxes(
+                                  this.state.checkall,
+                                  "foo"
+                                )
+                            )
+                          }
+                        />
+                      </th>
+                      <th style={{ width: "10px" }}>Tipo</th>
+                      <th style={{ width: "100px" }}>Sede</th>
+                      <th style={{ width: "10px" }}>Consecutivo</th>
+                      <th style={{ width: "50px" }}>Asunto</th>
+                      <th style={{ width: "50px" }}>Fecha</th>
+                      <th style={{ width: "50px" }}>Destinatarios</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    className="text-center"
+                    style={{
+                      height: "200px",
+                      overflowY: "auto",
+                      width: "100%",
+                    }}
+                  >
+                    {/* {datainbox} */}
+                    {/* {this.dataTableInbox()} */}
+                  </tbody>
+                </table>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </CardBody>
+    </Card>
+  </Container>
+</div>;
