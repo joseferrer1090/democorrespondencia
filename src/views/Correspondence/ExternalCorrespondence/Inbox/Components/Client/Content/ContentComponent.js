@@ -28,6 +28,7 @@ import {
 import { connect } from "react-redux";
 import { dataCorrespondence } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
+import ReactPaniganate from "react-paginate";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class ContentComponent extends Component {
           {Object.keys(data).length ? (
             <React.Fragment>
               <div className="row">
-                <div className="col-md-8" style={{ padding: 0 }}>
+                <div className="col-md-7" style={{ padding: 0 }}>
                   <div className="form-group">
                     <input
                       type="search"
@@ -104,7 +105,20 @@ class ContentComponent extends Component {
                     />
                   </div>
                 </div>
-                <div className="col-md-4">Paginacion</div>
+                <div className="col-md-5">
+                  <ReactPaniganate
+                    breakClassName={"page-item"}
+                    breakLinkClassName={"page-link"}
+                    containerClassName={"pagination"}
+                    pageClassName={"page-item"}
+                    pageLinkClassName={"page-link"}
+                    previousClassName={"page-item"}
+                    previousLinkClassName={"page-link"}
+                    nextClassName={"page-item"}
+                    nextLinkClassName={"page-link"}
+                    activeClassName={"active"}
+                  />
+                </div>
               </div>
               <div className="row">
                 <div className="col-md-12" style={{ padding: 0 }}>
