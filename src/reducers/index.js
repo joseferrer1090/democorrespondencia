@@ -9,6 +9,8 @@ import step2ReducerSticker from "./step2ReducerSticker";
 import { authReducer } from "./authReducer";
 import step3ReducerFiling from "./step3ReducerFiling";
 import controlFilingViews from "./controlFilingViewsReducer";
+import { dataCorrespondenceExternal } from "./dataCorrespondenceExternal";
+
 export default combineReducers({
   step2ReducerSticker,
   step1ReducerReceiver,
@@ -20,4 +22,5 @@ export default combineReducers({
   authReducer,
   step3ReducerFiling,
   controlFilingViews,
+  dataCorrespondenceExternal,
 });
