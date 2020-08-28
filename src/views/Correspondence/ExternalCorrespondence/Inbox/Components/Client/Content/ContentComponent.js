@@ -43,7 +43,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
-      activePage: 0 + 1,
+      activePage: 1,
     };
   }
 
@@ -80,7 +80,7 @@ class ContentComponent extends Component {
 
   render() {
     const { data } = this.state;
-    const { content, pending, allcontent, size, totalElements } = this.props;
+    const { allcontent, size, totalElements } = this.props;
     // console.log(pending);
     console.log(this.props);
     console.log(data);
