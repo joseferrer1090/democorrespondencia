@@ -43,7 +43,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
-      activePage: 1,
+      // activePage: 0,
     };
   }
 
@@ -80,7 +80,7 @@ class ContentComponent extends Component {
 
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements } = this.props;
+    const { allcontent, size, totalElements, number } = this.props;
     // console.log(pending);
     console.log(this.props);
     console.log(data);
@@ -111,7 +111,7 @@ class ContentComponent extends Component {
                 </div>
                 <div className="col-md-5">
                   <Pagination
-                    activePage={this.state.activePage}
+                    activePage={0}
                     itemsCountPerPage={size}
                     totalItemsCount={totalElements}
                     pageRangeDisplayed={size}
@@ -190,6 +190,7 @@ const mapState = (state) => {
     allcontent: state.dataCorrespondenceExternal.alldata,
     size: state.dataCorrespondenceExternal.size,
     totalElements: state.dataCorrespondenceExternal.totalElements,
+    number: state.dataCorrespondenceExternal.number,
   };
 };
 

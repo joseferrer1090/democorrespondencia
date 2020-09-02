@@ -72,8 +72,8 @@ export const loadNumberElementsPending = async (token) => {
     }
   );
   const numberelementpending = await responses.json();
-  const { numberOfElements } = numberelementpending;
-  console.log(numberOfElements);
-  return { numberelementpending, numberOfElements };
+  const { totalElements } = numberelementpending;
+  console.log(totalElements);
+  return { numberelementpending, totalElements };
 };
 // FIN

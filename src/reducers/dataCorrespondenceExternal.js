@@ -93,7 +93,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
     case NUMERO_ELEMENTOS_PENDIENTES:
       return {
         ...state,
-        numeropendientes: action.payload.numberOfElements,
+        numeropendientes: action.payload.totalElements,
       };
 
     default:

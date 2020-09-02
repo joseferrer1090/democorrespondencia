@@ -8,7 +8,7 @@ export const EXTERNAL_CORRESPONDENCE_RECEIVED_POST = `${config.IP}:${config.PORT
 /* GET  */
 export const EXTERNAL_CORRESPONDENCE_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination?page=1&size=10`;
 /* GET */
-export const EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=1&size=10`;
+export const EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=0&size=10`;
 
 //-------------------------- CONGLOMERADO -----------------------------------------//
 /* GET */
