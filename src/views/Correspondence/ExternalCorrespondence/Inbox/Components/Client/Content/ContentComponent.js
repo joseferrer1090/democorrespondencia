@@ -26,9 +26,13 @@ import {
   EXTERNAL_CORRESPONDENCE_PAGINATION,
 } from "../../../../../../../services/EndPoints";
 import { connect } from "react-redux";
-import { dataCorrespondence } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import {
+  dataCorrespondence,
+  filterData,
+} from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import Pagination from "react-js-pagination";
+import InputSearch from "./InputSearch";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -80,7 +84,7 @@ class ContentComponent extends Component {
 
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements, number } = this.props;
+    const { allcontent, size, totalElements, number, valuesearch } = this.props;
     // console.log(pending);
     console.log(this.props);
     console.log(data);
@@ -95,18 +99,7 @@ class ContentComponent extends Component {
               <div className="row">
                 <div className="col-md-7" style={{ padding: 0 }}>
                   <div className="form-group">
-                    <input
-                      type="search"
-                      className="form-control form-control-sm"
-                      style={{
-                        borderRadius: "10px",
-                        textDecoration: "inherit",
-                        fontFamily: "FontAwesome, Helvetica Neue",
-                        fontStyle: "normal",
-                        fontWeight: "normal",
-                      }}
-                      placeholder="&#xF002; Buscar correspondencia"
-                    />
+                    <InputSearch />
                   </div>
                 </div>
                 <div className="col-md-5">
@@ -191,6 +184,7 @@ const mapState = (state) => {
     size: state.dataCorrespondenceExternal.size,
     totalElements: state.dataCorrespondenceExternal.totalElements,
     number: state.dataCorrespondenceExternal.number,
+    valuesearch: state.dataCorrespondenceExternal.valuesearch,
   };
 };
 
@@ -198,6 +192,9 @@ const mapDispatch = (dispatch) => {
   return {
     getData: () => {
       dispatch(dataCorrespondence());
+    },
+    filter: (data) => {
+      dispatch(filterData(data));
     },
   };
 };

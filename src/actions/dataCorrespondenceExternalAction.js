@@ -7,6 +7,7 @@ import {
   DATA_ALL_CORRESPONDENCE_PENDING,
   NUMERO_ELEMENTOS_RECIBIDOS,
   NUMERO_ELEMENTOS_PENDIENTES,
+  BUSCAR_CORRESPONDENCIA_PENDIENTE,
 } from "./../types/index";
 import {
   loadCorrespondenceData,
@@ -86,5 +87,10 @@ export const dataNumberPending = () => {
 
 export const numberElementPending = (data) => ({
   type: NUMERO_ELEMENTOS_PENDIENTES,
+  payload: data,
+});
+
+export const filterData = (data) => ({
+  type: BUSCAR_CORRESPONDENCIA_PENDIENTE,
   payload: data,
 });

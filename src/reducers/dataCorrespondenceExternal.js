@@ -18,7 +18,9 @@ import {
   DATA_ALL_CORRESPONDENCE_PENDING,
   NUMERO_ELEMENTOS_PENDIENTES,
   NUMERO_ELEMENTOS_RECIBIDOS,
+  BUSCAR_CORRESPONDENCIA_PENDIENTE,
 } from "../types";
+import { includes, values } from "core-js/fn/array";
 
 const initalState = {
   alldata: [],
@@ -29,6 +31,7 @@ const initalState = {
   size: 0,
   numerorecibidas: 0,
   numeropendientes: 0,
+  valuesearch: "",
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
@@ -87,13 +90,22 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
     case DATA_ALL_CORRESPONDENCE_PENDING:
       return {
         ...state,
-        alldata: state.pending,
+        alldata: [...state.pending],
       };
 
     case NUMERO_ELEMENTOS_PENDIENTES:
       return {
         ...state,
         numeropendientes: action.payload.totalElements,
+      };
+
+    case BUSCAR_CORRESPONDENCIA_PENDIENTE:
+      return {
+        ...state,
+        // valuesearch: action.payload,
+        alldata: [
+          ...state.alldata.filter((val) => val.issue === action.payload),
+        ],
       };
 
     default:
