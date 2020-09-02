@@ -12,6 +12,8 @@ import {
   InputGroupAddon,
   InputGroupText,
   Input,
+  Button,
+  FormGroup,
 } from "reactstrap";
 import Pagination from "react-js-pagination";
 import moment from "moment";
@@ -31,14 +33,13 @@ class ContentComponent extends Component {
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
-      dataInbox: [],
       auth: this.props.authorization,
-      activePage: 0,
+
+      dataInbox: [],
+      itemsCountPerPage: 5,
+      currentPage: 1,
       totalPages: null,
-      itemsCountPerPage: null,
-      totalItemsCount: null,
-      currentPage: 0,
-      contentPerPage: 1,
+      totalElements: null,
     };
   }
 
@@ -51,15 +52,13 @@ class ContentComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { activePage } = this.state;
+    const { currentPage } = this.state;
     if (this.props.authorization !== prevProps.authorization) {
       this.setState({
         auth: this.props.authorization,
         idCorrespondenceSelected: [],
       });
-      this.handlePageChange(activePage);
-
-      // this.getDataInbox(activePage);
+      this.getDataInbox(currentPage);
     }
   }
 
@@ -69,9 +68,11 @@ class ContentComponent extends Component {
     });
   };
 
-  getDataInbox = (page) => {
+  getDataInbox = (currentPage) => {
+    const { itemsCountPerPage } = this.state;
+    currentPage -= 1;
     fetch(
-      `${PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED}?page=${page}&size=${this.state.contentPerPage}`,
+      `${PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED}?page=${currentPage}&size=${itemsCountPerPage}`,
       {
         method: "GET",
         headers: {
@@ -86,7 +87,7 @@ class ContentComponent extends Component {
         this.setState({
           dataInbox: data.content,
           totalPages: data.totalPages,
-          totalItemsCount: data.totalElements,
+          totalElements: data.totalElements,
           itemsCountPerPage: data.size,
           currentPage: data.number + 1,
         });
@@ -205,53 +206,60 @@ class ContentComponent extends Component {
     }
   };
 
-  handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
+  handlePageChange = (event) => {
+    let targetPage = parseInt(event.target.value);
+
+    this.getDataInbox(targetPage);
     this.setState({
-      activePage: pageNumber,
+      [event.target.value]: targetPage,
     });
-    this.getDataInbox(pageNumber);
   };
 
   firstPage = () => {
-    if (this.state.currentPage > 1) {
-      this.setState({
-        currentPage: 1,
-      });
+    const { currentPage } = this.state;
+    let firstPage = 1;
+    if (currentPage > firstPage) {
+      this.getDataInbox(firstPage);
     }
   };
 
   prevPage = () => {
-    if (this.state.currentPage > 1) {
-      this.state({
-        currentPage: this.state.currentPage - 1,
-      });
+    const { currentPage } = this.state;
+    let prevPage = 1;
+    if (currentPage > prevPage) {
+      this.getDataInbox(currentPage - prevPage);
     }
   };
 
   lastPage = () => {
-    if (
-      this.state.currentPage <
-      Math.ceil(this.state.dataInbox.length / this.state.contentPerPage)
-    ) {
-      this.setState({
-        currentPage: Math.ceil(this.state.length / this.state.contentPerPage),
-      });
+    const { currentPage } = this.state;
+    let condition = Math.ceil(
+      this.state.totalElements / this.state.itemsCountPerPage
+    );
+    if (currentPage < condition) {
+      this.getDataInbox(condition);
     }
   };
 
   nextPage = () => {
+    const { currentPage } = this.state;
     if (
-      this.state.currentPage <
-      Math.ceil(this.state.dataInbox.length / this.state.contentPerPage)
+      currentPage <
+      Math.ceil(this.state.totalElements / this.state.itemsCountPerPage)
     ) {
-      this.setState({
-        currentPage: this.state.currentPage + 1,
-      });
+      this.getDataInbox(currentPage + 1);
     }
   };
 
   render() {
+    const { currentPage, totalPages } = this.state;
+    const pageNumCss = {
+      width: "45px",
+      boder: "1px solid #17A2B8",
+      color: "#17A2B8",
+      textAling: "center",
+      fontWeight: "bold",
+    };
     return (
       <div className="d-none d-sm-block" style={{ marginTop: "1px" }}>
         <Container style={{ marginLeft: "0px", padding: "0" }}>
@@ -265,7 +273,7 @@ class ContentComponent extends Component {
             </CardHeader>
             <CardBody>
               <Row style={{ borderColor: "#C38282", borderWidth: "1px" }}>
-                <Col md="9">
+                <Col md="6">
                   <InputGroup className="mb-4">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
@@ -282,9 +290,63 @@ class ContentComponent extends Component {
                     />
                   </InputGroup>
                 </Col>
-                <Col md="3">
+                <Col md="6">
+                  <div className="float-left">
+                    Showing Page {currentPage} of {totalPages}
+                  </div>
                   <div className="float-right">
-                    <Pagination
+                    <InputGroup size="sm">
+                      {" "}
+                      <InputGroupAddon addonType="prepend">
+                        <Button
+                          className="btn btn-sm"
+                          type="button"
+                          variant="outline-info"
+                          // disabled={currentPage === 1 ? true : false}
+                          onClick={this.firstPage}
+                        >
+                          First
+                        </Button>
+                        <Button
+                          className="btn btn-sm"
+                          type="button"
+                          variant="outline-info"
+                          // disabled={currentPage === 1 ? true : false}
+                          onClick={this.prevPage}
+                        >
+                          Prev
+                        </Button>
+                      </InputGroupAddon>
+                      <Input
+                        style={pageNumCss}
+                        className="bg-dark"
+                        name="currentPage"
+                        value={currentPage}
+                        onChange={this.handlePageChange}
+                      />
+                      <InputGroupAddon addonType="append">
+                        <Button
+                          className="btn btn-sm"
+                          type="button"
+                          variant="outline-info"
+                          // disabled={currentPage === totalPages ? true : false}
+                          onClick={this.nextPage}
+                        >
+                          Next
+                        </Button>
+                        <Button
+                          className="btn btn-sm"
+                          type="button"
+                          variant="outline-info"
+                          // disabled={currentPage === totalPages ? true : false}
+                          onClick={this.lastPage}
+                        >
+                          Last
+                        </Button>
+                      </InputGroupAddon>
+                    </InputGroup>
+
+                    {/* <Pagination
                       hideNavigation
                       activePage={this.state.activePage}
                       itemsCountPerPage={this.state.itemsCountPerPage}
@@ -293,7 +355,7 @@ class ContentComponent extends Component {
                       itemClass="page-item"
                       linkClass="btn btn-light"
                       onChange={this.handlePageChange}
-                    />
+                    /> */}
                   </div>
                 </Col>
               </Row>
