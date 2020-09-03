@@ -20,7 +20,6 @@ import {
   NUMERO_ELEMENTOS_RECIBIDOS,
   BUSCAR_CORRESPONDENCIA_PENDIENTE,
 } from "../types";
-import { includes, values } from "core-js/fn/array";
 
 const initalState = {
   alldata: [],
