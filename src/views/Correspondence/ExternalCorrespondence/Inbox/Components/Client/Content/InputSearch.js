@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { filterData, resetFilterData } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import {
+  filterData,
+  resetFilterData,
+} from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class InputSearch extends Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class InputSearch extends Component {
     return (
       <div>
         <input
-          type="search"
+          type="text"
           className="form-control form-control-sm"
           value={valuesearch}
           style={{
@@ -41,7 +44,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     reset: () => {
       dispatch(resetFilterData());
-    }
+    },
   };
 };
 

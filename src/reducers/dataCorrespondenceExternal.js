@@ -33,7 +33,7 @@ const initalState = {
   size: 0,
   numerorecibidas: 0,
   numeropendientes: 0,
-  valuesearch: "",
+  valuesearch: null,
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
@@ -105,14 +105,35 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         valuesearch: action.payload,
-        alldata: state.valuesearch === "" || state.valuesearch !== null ? [...state.alldata.filter((val) => val.issue.indexOf(state.valuesearch) > -1)] : [...state.pending]
-      }
+        alldata:
+          state.valuesearch === "" || state.valuesearch !== null
+            ? [
+                ...state.alldata.filter(
+                  (val) => val.issue.indexOf(state.valuesearch) > -1
+                ),
+              ]
+            : [...state.pending],
+      };
+
+    // case BUSCAR_CORRESPONDENCIA_PENDIENTE:
+    //   return {
+    //     ...state,
+    //     valuesearch: action.payload,
+    //     alldata:
+    //       state.valuesearch === "" || state.valuesearch !== null
+    //         ? [
+    //             ...state.alldata.filter(
+    //               (val) => val.issue.indexOf(state.valuesearch) > -1
+    //             ),
+    //           ]
+    //         : [...state.pending],
+    //   };
 
     case "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE":
       return {
         ...state,
-        alldata: [...state]
-      }
+        alldata: [...state.pending],
+      };
 
     default:
       return state;

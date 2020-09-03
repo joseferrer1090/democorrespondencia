@@ -33,6 +33,7 @@ import {
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import Pagination from "react-js-pagination";
 import InputSearch from "./InputSearch";
+import SearchResults from "react-filter-search";
 
 class ContentComponent extends Component {
   constructor(props) {
