@@ -6,6 +6,9 @@ correspondeData {
     totalPages: => numero total de paginas
     totalElements: => numero total de elementos
     size: => tamaño por pagina
+    numerorecibidas: => numero de recibidas
+    numeropendientes: => numero de pendientes
+    valuesearch: => valor para realizar la busqueda
 }
 */
 
@@ -101,11 +104,15 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
     case BUSCAR_CORRESPONDENCIA_PENDIENTE:
       return {
         ...state,
-        // valuesearch: action.payload,
-        alldata: [
-          ...state.alldata.filter((val) => val.issue === action.payload),
-        ],
-      };
+        valuesearch: action.payload,
+        alldata: state.valuesearch === "" || state.valuesearch !== null ? [...state.alldata.filter((val) => val.issue.indexOf(state.valuesearch) > -1)] : [...state.pending]
+      }
+
+    case "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE":
+      return {
+        ...state,
+        alldata: [...state]
+      }
 
     default:
       return state;

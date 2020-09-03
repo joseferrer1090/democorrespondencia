@@ -94,3 +94,7 @@ export const filterData = (data) => ({
   type: BUSCAR_CORRESPONDENCIA_PENDIENTE,
   payload: data,
 });
+
+export const resetFilterData = () => ({
+  type: "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE"
+})
