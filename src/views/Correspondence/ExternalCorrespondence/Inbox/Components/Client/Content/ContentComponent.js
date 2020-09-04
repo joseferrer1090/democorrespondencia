@@ -33,7 +33,6 @@ import {
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import Pagination from "react-js-pagination";
 import InputSearch from "./InputSearch";
-import SearchResults from "react-filter-search";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -95,38 +94,60 @@ class ContentComponent extends Component {
     return (
       <div className="col-md-12 card">
         <div className="card-body">
-          {Object.keys(data).length ? (
-            <React.Fragment>
-              <div className="row">
-                <div className="col-md-7" style={{ padding: 0 }}>
-                  <div className="form-group">
-                    <InputSearch />
-                  </div>
-                </div>
-                <div className="col-md-5">
-                  <Pagination
-                    activePage={0}
-                    itemsCountPerPage={size}
-                    totalItemsCount={totalElements}
-                    pageRangeDisplayed={size}
-                    onChange={this.handlePageChange.bind(this)}
-                  />
+          <React.Fragment>
+            <div className="row">
+              <div className="col-md-7" style={{ padding: 0 }}>
+                <div className="form-group">
+                  <InputSearch />
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-12" style={{ padding: 0 }}>
-                  <div className="table-responsive">
-                    <table className="table table-hover table-condensed table-sm">
-                      <thead>
-                        <tr>
-                          <th style={{ width: "10px" }}>Tipo</th>
-                          <th style={{ width: "100px" }}>Sede</th>
-                          <th style={{ width: "10px" }}>Consecutivo</th>
-                          <th style={{ width: "50px" }}>Asunto</th>
-                          <th style={{ width: "50px" }}>Fecha</th>
-                          <th style={{ width: "50px" }}>Destinatarios</th>
-                        </tr>
-                      </thead>
+              <div className="col-md-5">
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination">
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        Previous
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        1
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        2
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        3
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        Next
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12" style={{ padding: 0 }}>
+                <div className="table">
+                  <table className="table table-hover table-sm table-condensed">
+                    <thead>
+                      <tr>
+                        <th style={{ width: "10px" }}>Tipo</th>
+                        <th style={{ width: "100px" }}>Sede</th>
+                        <th style={{ width: "10px" }}>Consecutivo</th>
+                        <th style={{ width: "50px" }}>Asunto</th>
+                        <th style={{ width: "50px" }}>Fecha</th>
+                        <th style={{ width: "50px" }}>Destinatarios</th>
+                      </tr>
+                    </thead>
+                    {allcontent.length ? (
                       <tbody>
                         {allcontent.map((correspondence, id) => {
                           return (
@@ -141,34 +162,22 @@ class ContentComponent extends Component {
                           );
                         })}
                       </tbody>
-                    </table>
-                  </div>
+                    ) : (
+                      <tbody>
+                        <tr>
+                          <td colSpan={6}>
+                            <div className="jumbotron">
+                              <h6 className="text-center">No hay datos</h6>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    )}
+                  </table>
                 </div>
               </div>
-            </React.Fragment>
-          ) : (
-            <div className="col-md-12">
-              <div
-                className=""
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={IMGERROR}
-                  width="100"
-                  height="100"
-                  alt="disconnected"
-                />
-              </div>
-              <h3 className="text-center text-danger">
-                {" "}
-                No tienes correspondencias recibidas
-              </h3>
             </div>
-          )}
+          </React.Fragment>
         </div>
       </div>
     );
