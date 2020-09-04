@@ -29,6 +29,7 @@ import { connect } from "react-redux";
 import {
   dataCorrespondence,
   filterData,
+  loadpaginationperpage,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import Pagination from "react-js-pagination";
@@ -77,17 +78,23 @@ class ContentComponent extends Component {
     this.props.getData();
   };
 
-  handlePageChange(pageNumber) {
+  getPagination = (page, size) => {
+    this.props.pagination(page, size);
+  };
+
+  handlePageChange(pageNumber, size) {
     console.log(`active page is ${pageNumber}`);
-    this.setState({ activePage: pageNumber });
+    this.setState({ activePage: pageNumber }, () => {
+      this.getPagination((size = pageNumber), (size = 10));
+    });
   }
 
   render() {
     const { data } = this.state;
     const { allcontent, size, totalElements, number, valuesearch } = this.props;
     // console.log(pending);
-    console.log(this.props);
-    console.log(data);
+    // console.log(this.props);
+    // console.log(data);
 
     const aux = Object.keys(data).length ? "Datos" : "No datos";
 
@@ -102,35 +109,14 @@ class ContentComponent extends Component {
                 </div>
               </div>
               <div className="col-md-5">
-                <nav aria-label="Page navigation example">
-                  <ul className="pagination">
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        Previous
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+                <Pagination
+                  itemClass="page-item"
+                  linkClass="page-link"
+                  activePage={number}
+                  totalItemsCount={size}
+                  totalItemsCount={totalElements}
+                  onChange={this.handlePageChange.bind(this)}
+                />
               </div>
             </div>
             <div className="row">
@@ -195,6 +181,7 @@ const mapState = (state) => {
     totalElements: state.dataCorrespondenceExternal.totalElements,
     number: state.dataCorrespondenceExternal.number,
     valuesearch: state.dataCorrespondenceExternal.valuesearch,
+    totalPages: state.dataCorrespondenceExternal.totalPages,
   };
 };
 
@@ -205,6 +192,9 @@ const mapDispatch = (dispatch) => {
     },
     filter: (data) => {
       dispatch(filterData(data));
+    },
+    pagination: (page, size) => {
+      dispatch(loadpaginationperpage(page, size));
     },
   };
 };

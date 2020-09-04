@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  filterData,
-  resetFilterData,
-} from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import { filterData } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class InputSearch extends Component {
   constructor(props) {
@@ -41,9 +38,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     filterdata: (data) => {
       dispatch(filterData(data));
-    },
-    reset: () => {
-      dispatch(resetFilterData());
     },
   };
 };

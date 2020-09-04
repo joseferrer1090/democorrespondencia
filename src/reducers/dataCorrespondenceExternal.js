@@ -31,6 +31,7 @@ const initalState = {
   totalPages: 0,
   totalElements: 0,
   size: 0,
+  number: 0,
   numerorecibidas: 0,
   numeropendientes: 0,
   valuesearch: null,
@@ -46,6 +47,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         pending: [],
         totalPages: 0,
         totalElements: 0,
+        number: 0,
         size: 0,
       };
 
@@ -78,6 +80,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         pending: [],
         totalPages: 0,
         totalElements: 0,
+        number: 0,
         size: 0,
       };
 

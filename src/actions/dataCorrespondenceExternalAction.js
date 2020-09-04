@@ -14,6 +14,7 @@ import {
   loadCorrespondenceExternalPendingData,
   loadNumerElementsReceived,
   loadNumberElementsPending,
+  loadPagination,
 } from "./../utils/helpers/loadCorrespondenceExternal";
 
 // Funcion principal
@@ -95,6 +96,11 @@ export const filterData = (data) => ({
   payload: data,
 });
 
-export const resetFilterData = () => ({
-  type: "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE",
-});
+export const loadpaginationperpage = (page, size) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await loadPagination(token, page, size);
+    dispatch(loadDataCorrespondencePendingSuccess(aux));
+    dispatch(loadDataAllPendong());
+  };
+};
