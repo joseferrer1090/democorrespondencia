@@ -48,6 +48,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         totalElements: 0,
         size: 0,
       };
+
     case OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO:
       return {
         ...state,
@@ -105,14 +106,13 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         valuesearch: action.payload,
-        alldata:
-          state.valuesearch === "" || state.valuesearch !== null
-            ? [
-                ...state.alldata.filter(
-                  (val) => val.issue.indexOf(state.valuesearch) > -1
-                ),
-              ]
-            : [...state.pending],
+        alldata: !!action.payload
+          ? state.alldata.filter((item) =>
+              JSON.stringify(item)
+                .toLowerCase()
+                .includes(`${action.payload}`.toLowerCase())
+            )
+          : [...state.pending],
       };
 
     // case BUSCAR_CORRESPONDENCIA_PENDIENTE:
@@ -132,7 +132,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
     case "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE":
       return {
         ...state,
-        alldata: [...state.pending],
+        alldata: [...state.pending].filter,
       };
 
     default:
