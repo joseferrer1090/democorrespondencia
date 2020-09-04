@@ -48,7 +48,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
-      // activePage: 0,
+      activePage: null,
     };
   }
 
@@ -82,10 +82,10 @@ class ContentComponent extends Component {
     this.props.pagination(page, size);
   };
 
-  handlePageChange(pageNumber, size) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({ activePage: pageNumber }, () => {
-      this.getPagination((size = pageNumber), (size = 10));
+  handlePageChange(page, size) {
+    console.log(`active page is ${page}`);
+    this.setState({ activePage: this.props.number + 1 }, () => {
+      this.getPagination(page, (size = 10));
     });
   }
 
@@ -112,8 +112,8 @@ class ContentComponent extends Component {
                 <Pagination
                   itemClass="page-item"
                   linkClass="page-link"
-                  activePage={number}
-                  totalItemsCount={size}
+                  activePage={this.state.activePage}
+                  itemsCountPerPage={size}
                   totalItemsCount={totalElements}
                   onChange={this.handlePageChange.bind(this)}
                 />

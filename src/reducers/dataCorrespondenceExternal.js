@@ -47,7 +47,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         pending: [],
         totalPages: 0,
         totalElements: 0,
-        number: 0,
+        number: 1,
         size: 0,
       };
 
