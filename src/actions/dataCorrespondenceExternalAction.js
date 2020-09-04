@@ -7,12 +7,14 @@ import {
   DATA_ALL_CORRESPONDENCE_PENDING,
   NUMERO_ELEMENTOS_RECIBIDOS,
   NUMERO_ELEMENTOS_PENDIENTES,
+  BUSCAR_CORRESPONDENCIA_PENDIENTE,
 } from "./../types/index";
 import {
   loadCorrespondenceData,
   loadCorrespondenceExternalPendingData,
   loadNumerElementsReceived,
   loadNumberElementsPending,
+  loadPagination,
 } from "./../utils/helpers/loadCorrespondenceExternal";
 
 // Funcion principal
@@ -88,3 +90,17 @@ export const numberElementPending = (data) => ({
   type: NUMERO_ELEMENTOS_PENDIENTES,
   payload: data,
 });
+
+export const filterData = (data) => ({
+  type: BUSCAR_CORRESPONDENCIA_PENDIENTE,
+  payload: data,
+});
+
+export const loadpaginationperpage = (page, size) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await loadPagination(token, page, size);
+    dispatch(loadDataCorrespondencePendingSuccess(aux));
+    dispatch(loadDataAllPendong());
+  };
+};

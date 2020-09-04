@@ -26,9 +26,14 @@ import {
   EXTERNAL_CORRESPONDENCE_PAGINATION,
 } from "../../../../../../../services/EndPoints";
 import { connect } from "react-redux";
-import { dataCorrespondence } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import {
+  dataCorrespondence,
+  filterData,
+  loadpaginationperpage,
+} from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import Pagination from "react-js-pagination";
+import InputSearch from "./InputSearch";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -43,7 +48,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
-      activePage: 1,
+      activePage: null,
     };
   }
 
@@ -73,66 +78,62 @@ class ContentComponent extends Component {
     this.props.getData();
   };
 
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({ activePage: pageNumber });
+  getPagination = (page, size) => {
+    this.props.pagination(page, size);
+  };
+
+  handlePageChange(page, size) {
+    console.log(`active page is ${page}`);
+    this.setState({ activePage: this.props.number + 1 }, () => {
+      this.getPagination(page, (size = 10));
+    });
   }
 
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements } = this.props;
+    const { allcontent, size, totalElements, number, valuesearch } = this.props;
     // console.log(pending);
-    console.log(this.props);
-    console.log(data);
+    // console.log(this.props);
+    // console.log(data);
 
     const aux = Object.keys(data).length ? "Datos" : "No datos";
 
     return (
       <div className="col-md-12 card">
         <div className="card-body">
-          {Object.keys(data).length ? (
-            <React.Fragment>
-              <div className="row">
-                <div className="col-md-7" style={{ padding: 0 }}>
-                  <div className="form-group">
-                    <input
-                      type="search"
-                      className="form-control form-control-sm"
-                      style={{
-                        borderRadius: "10px",
-                        textDecoration: "inherit",
-                        fontFamily: "FontAwesome, Helvetica Neue",
-                        fontStyle: "normal",
-                        fontWeight: "normal",
-                      }}
-                      placeholder="&#xF002; Buscar correspondencia"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-5">
-                  <Pagination
-                    activePage={this.state.activePage}
-                    itemsCountPerPage={size}
-                    totalItemsCount={totalElements}
-                    pageRangeDisplayed={size}
-                    onChange={this.handlePageChange.bind(this)}
-                  />
+          <React.Fragment>
+            <div className="row">
+              <div className="col-md-7" style={{ padding: 0 }}>
+                <div className="form-group">
+                  <InputSearch />
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-12" style={{ padding: 0 }}>
-                  <div className="table-responsive">
-                    <table className="table table-hover table-condensed table-sm">
-                      <thead>
-                        <tr>
-                          <th style={{ width: "10px" }}>Tipo</th>
-                          <th style={{ width: "100px" }}>Sede</th>
-                          <th style={{ width: "10px" }}>Consecutivo</th>
-                          <th style={{ width: "50px" }}>Asunto</th>
-                          <th style={{ width: "50px" }}>Fecha</th>
-                          <th style={{ width: "50px" }}>Destinatarios</th>
-                        </tr>
-                      </thead>
+              <div className="col-md-5">
+                <Pagination
+                  itemClass="page-item"
+                  linkClass="page-link"
+                  activePage={this.state.activePage}
+                  itemsCountPerPage={size}
+                  totalItemsCount={totalElements}
+                  onChange={this.handlePageChange.bind(this)}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12" style={{ padding: 0 }}>
+                <div className="table">
+                  <table className="table table-hover table-sm table-condensed">
+                    <thead>
+                      <tr>
+                        <th style={{ width: "10px" }}>Tipo</th>
+                        <th style={{ width: "100px" }}>Sede</th>
+                        <th style={{ width: "10px" }}>Consecutivo</th>
+                        <th style={{ width: "50px" }}>Asunto</th>
+                        <th style={{ width: "50px" }}>Fecha</th>
+                        <th style={{ width: "50px" }}>Destinatarios</th>
+                      </tr>
+                    </thead>
+                    {allcontent.length ? (
                       <tbody>
                         {allcontent.map((correspondence, id) => {
                           return (
@@ -147,34 +148,22 @@ class ContentComponent extends Component {
                           );
                         })}
                       </tbody>
-                    </table>
-                  </div>
+                    ) : (
+                      <tbody>
+                        <tr>
+                          <td colSpan={6}>
+                            <div className="jumbotron">
+                              <h6 className="text-center">No hay datos</h6>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    )}
+                  </table>
                 </div>
               </div>
-            </React.Fragment>
-          ) : (
-            <div className="col-md-12">
-              <div
-                className=""
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={IMGERROR}
-                  width="100"
-                  height="100"
-                  alt="disconnected"
-                />
-              </div>
-              <h3 className="text-center text-danger">
-                {" "}
-                No tienes correspondencias recibidas
-              </h3>
             </div>
-          )}
+          </React.Fragment>
         </div>
       </div>
     );
@@ -190,6 +179,9 @@ const mapState = (state) => {
     allcontent: state.dataCorrespondenceExternal.alldata,
     size: state.dataCorrespondenceExternal.size,
     totalElements: state.dataCorrespondenceExternal.totalElements,
+    number: state.dataCorrespondenceExternal.number,
+    valuesearch: state.dataCorrespondenceExternal.valuesearch,
+    totalPages: state.dataCorrespondenceExternal.totalPages,
   };
 };
 
@@ -197,6 +189,12 @@ const mapDispatch = (dispatch) => {
   return {
     getData: () => {
       dispatch(dataCorrespondence());
+    },
+    filter: (data) => {
+      dispatch(filterData(data));
+    },
+    pagination: (page, size) => {
+      dispatch(loadpaginationperpage(page, size));
     },
   };
 };

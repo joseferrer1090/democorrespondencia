@@ -43,6 +43,22 @@ export const loadCorrespondenceExternalPendingData = async (token) => {
   return { correspondencespending, totalPages, size, totalElements, content };
 };
 
+export const loadPagination = async (token, page, size) => {
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=${page}&size=${size}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  const correspondencepeding = await responses.json();
+  const content = correspondencepeding.content;
+  return { correspondencepeding, content };
+};
+
 // FIN
 
 // MOSTRAR LOS NUMEROS DE ELEMENTOS RECIBIDA Y PENDIENTE
@@ -72,8 +88,9 @@ export const loadNumberElementsPending = async (token) => {
     }
   );
   const numberelementpending = await responses.json();
-  const { numberOfElements } = numberelementpending;
-  console.log(numberOfElements);
-  return { numberelementpending, numberOfElements };
+  const { totalElements } = numberelementpending;
+  console.log(totalElements);
+  return { numberelementpending, totalElements };
 };
+
 // FIN
