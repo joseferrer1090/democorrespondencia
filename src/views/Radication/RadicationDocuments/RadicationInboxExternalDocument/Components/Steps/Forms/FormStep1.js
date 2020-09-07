@@ -152,8 +152,10 @@ const FormStep1 = (props) => {
           aux.defaultValue = object.defaultValue;
         }
       });
+      console.log(ids);
       return ids;
     } else {
+      console.log(ids);
       return ids;
     }
   };
@@ -1122,6 +1124,22 @@ const FormStep1 = (props) => {
                 <div className="card">
                   <div className="card-footer">
                     <div className="pull-right">
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm"
+                        disabled={isSubmitting}
+                        onClick={(e) => {
+                          contrusctorObjectMetadata(
+                            cObjectPosition,
+                            cObjectId,
+                            cObjectValue
+                          );
+                          e.preventDefault();
+                        }}
+                      >
+                        metadatos
+                      </button>
+                      &nbsp;
                       <button
                         type="submit"
                         className="btn btn-success btn-sm"
