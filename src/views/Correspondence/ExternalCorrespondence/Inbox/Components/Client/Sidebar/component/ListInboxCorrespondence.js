@@ -4,14 +4,59 @@ import { ListGroup, ListGroupItem, Badge } from "reactstrap";
 import Tags from "./TagViewer";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  dataCorrespondencePending,
+  dataCorrespondence,
+  dataNumerReceived,
+  dataNumberPending,
+} from "./../../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      active: {
+        active2: true,
+        active3: false,
+      },
+    };
+  }
+
+  getNumberR = () => {
+    this.props.getNumberReceived();
+  };
+
+  getNumberP = () => {
+    this.props.getNumberPending();
+  };
+
+  componentDidMount() {
+    this.getNumberR();
+    this.getNumberP();
   }
 
   render() {
+    const getDataP = () => {
+      this.props.getDataPending();
+      this.setState({
+        ...this.state,
+        active: {
+          ...this.state,
+          active3: true,
+        },
+      });
+    };
+    const getDataC = () => {
+      this.props.getDataCurrently();
+      this.setState({
+        ...this.state,
+        active: {
+          ...this.state,
+          active2: true,
+        },
+      });
+    };
     return (
       <div style={{ padding: "0" }}>
         <ListGroup>
@@ -24,14 +69,7 @@ class ListInboxCorrespondence extends Component {
               />
             </form>
           </ListGroupItem> */}
-          <ListGroupItem
-            className=""
-            tag="button"
-            action
-            onClick={() => {
-              alert("probando");
-            }}
-          >
+          <ListGroupItem className="" tag="button" action>
             {" "}
             Actualizar{" "}
             <Badge className="float-right" pill>
@@ -39,20 +77,30 @@ class ListInboxCorrespondence extends Component {
               <i className="fa fa-refresh" />{" "}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action>
+          <ListGroupItem
+            className=""
+            tag="button"
+            action
+            onClick={getDataC}
+            active={this.state.active.active2}
+          >
             {" "}
-            Entrada{" "}
+            Entrada
             <Badge pill className="float-right  badge-info">
-              {" "}
-              1{" "}
+              {this.props.numerorecibidos}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action>
+          <ListGroupItem
+            className=""
+            tag="button"
+            action
+            onClick={getDataP}
+            active={this.state.active.active3}
+          >
             {" "}
             Pendiente{" "}
             <Badge pill className="float-right  badge-danger  ">
-              {" "}
-              0{" "}
+              {this.props.numeropendientes}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem className="" tag="button" action>
@@ -65,9 +113,9 @@ class ListInboxCorrespondence extends Component {
               </Badge>{" "}
             </Link>
           </ListGroupItem>
-          <ListGroupItem>
+          {/* <ListGroupItem>
             <Tags />
-          </ListGroupItem>
+          </ListGroupItem> */}
         </ListGroup>
       </div>
     );
@@ -76,4 +124,32 @@ class ListInboxCorrespondence extends Component {
 
 ListInboxCorrespondence.propTypes = {};
 
-export default ListInboxCorrespondence;
+const mapState = (state) => {
+  return {
+    current: state.dataCorrespondenceExternal.received,
+    pending: state.dataCorrespondenceExternal.pending,
+    totalcurrently: state.dataCorrespondenceExternal.totalElements,
+    totalPendig: state.dataCorrespondenceExternal.totalElements,
+    numerorecibidos: state.dataCorrespondenceExternal.numerorecibidas,
+    numeropendientes: state.dataCorrespondenceExternal.numeropendientes,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getDataPending: () => {
+      dispatch(dataCorrespondencePending());
+    },
+    getDataCurrently: () => {
+      dispatch(dataCorrespondence());
+    },
+    getNumberReceived: () => {
+      dispatch(dataNumerReceived());
+    },
+    getNumberPending: () => {
+      dispatch(dataNumberPending());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(ListInboxCorrespondence);

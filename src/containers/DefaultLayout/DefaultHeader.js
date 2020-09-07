@@ -151,8 +151,9 @@ class DefaultHeader extends Component {
           </UncontrolledDropdown>
           {/* </AppHeaderDropdown> */}
         </Nav>
-        {/* <AppAsideToggler className="d-md-down-none" />
-        <AppAsideToggler className="d-lg-none" mobile /> */}
+        <div style={{ marginRight: 85 }}></div>
+        {/* <AppAsideToggler className="d-md-down-none" /> */}
+        {/* <AppAsideToggler className="d-lg-none" mobile /> */}
       </React.Fragment>
     );
   }
