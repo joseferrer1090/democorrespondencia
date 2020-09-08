@@ -112,9 +112,9 @@ class ContentComponent extends Component {
                 <Pagination
                   itemClass="page-item"
                   linkClass="page-link"
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={size}
-                  totalItemsCount={totalElements}
+                  activePage={1}
+                  itemsCountPerPage={10}
+                  totalItemsCount={30}
                   onChange={this.handlePageChange.bind(this)}
                 />
               </div>
@@ -125,12 +125,15 @@ class ContentComponent extends Component {
                   <table className="table table-hover table-sm table-condensed">
                     <thead>
                       <tr>
-                        <th style={{ width: "10px" }}>Tipo</th>
-                        <th style={{ width: "100px" }}>Sede</th>
-                        <th style={{ width: "10px" }}>Consecutivo</th>
-                        <th style={{ width: "50px" }}>Asunto</th>
-                        <th style={{ width: "50px" }}>Fecha</th>
-                        <th style={{ width: "50px" }}>Destinatarios</th>
+                        <th style={{ width: "auto" }}>
+                          <input type="checkbox" />
+                        </th>
+                        <th>Sede</th>
+                        <th>No.Radicacion</th>
+                        <th>Asunto</th>
+                        <th>Fecha de Radicacion</th>
+                        <th>Destinatarios</th>
+                        <th>Acciones</th>
                       </tr>
                     </thead>
                     {allcontent.length ? (
@@ -144,6 +147,32 @@ class ContentComponent extends Component {
                               <td>{correspondence.validity}</td>
                               <td>{correspondence.guide}</td>
                               <td>{correspondence.status}</td>
+                              <td>
+                                <div className="">
+                                  <button
+                                    title="Ver correspondencia"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
+                                  >
+                                    <i className="fa fa-eye" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    title="editar y/o completar correspondencia"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
+                                  >
+                                    <i className="fa fa-pencil" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    className="btn btn-secondary btn-sm"
+                                    title="agregar nota"
+                                  >
+                                    <i className="fa fa-sticky-note" />
+                                  </button>
+                                </div>
+                              </td>
                             </tr>
                           );
                         })}
