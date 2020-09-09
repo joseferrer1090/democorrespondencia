@@ -1,5 +1,23 @@
 import React, { Component } from "react";
-import Pagination from "react-js-pagination";
+import {
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Card,
+  CardHeader,
+  CardBody,
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Pagination,
+} from "reactstrap";
+import { Link } from "react-router-dom";
+import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
@@ -9,7 +27,9 @@ import {
   filterData,
   loadpaginationperpage,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import InputSearch from "./InputSearch";
+import ReactPaginate from "react-paginate";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -23,7 +43,7 @@ class ContentComponent extends Component {
       checkall: false,
       idCorrespondenceSelected: null,
       auth: this.props.authorization,
-      activePage: null,
+      pageCount: null,
     };
   }
 
@@ -53,20 +73,35 @@ class ContentComponent extends Component {
     this.props.getData();
   };
 
-  getPagination = (page, size) => {
-    this.props.pagination(page, size);
+  getPagination = (page) => {
+    this.props.pagination(page);
   };
 
-  handlePageChange(page, size) {
-    console.log(`active page is ${page}`);
-    this.setState({ activePage: this.props.number + 1 }, () => {
-      this.getPagination(page, (size = 10));
-    });
+  handlePageChange(page) {
+    console.log(page);
+    this.getPagination(page);
   }
-
+  handlePageClick = (data) => {
+    let selected = data.selected;
+    console.log(selected);
+    this.props.pagination(selected);
+  };
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements } = this.props;
+    const {
+      allcontent,
+      size,
+      totalElements,
+      number,
+      valuesearch,
+      totalPages,
+    } = this.props;
+    const pageCount = totalElements / size;
+
+    // console.log(pending);
+    // console.log(this.props);
+    // console.log(data);
+
     const aux = Object.keys(data).length ? "Datos" : "No datos";
     return (
       <div className="col-md-12 card">
@@ -79,13 +114,11 @@ class ContentComponent extends Component {
                 </div>
               </div>
               <div className="col-md-5">
-                <Pagination
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={size}
-                  totalItemsCount={totalElements}
-                  onChange={this.handlePageChange.bind(this)}
+                <ReactPaginate
+                  pageCount={totalPages}
+                  pageRangeDisplayed={number}
+                  marginPagesDisplayed={totalElements}
+                  onPageChange={this.handlePageClick}
                 />
               </div>
             </div>
@@ -95,12 +128,15 @@ class ContentComponent extends Component {
                   <table className="table table-hover table-sm table-condensed">
                     <thead>
                       <tr>
-                        <th style={{ width: "10px" }}>Tipo</th>
-                        <th style={{ width: "100px" }}>Sede</th>
-                        <th style={{ width: "10px" }}>Consecutivo</th>
-                        <th style={{ width: "50px" }}>Asunto</th>
-                        <th style={{ width: "50px" }}>Fecha</th>
-                        <th style={{ width: "50px" }}>Destinatarios</th>
+                        <th style={{ width: "auto" }}>
+                          <input type="checkbox" />
+                        </th>
+                        <th>Sede</th>
+                        <th>No.Radicacion</th>
+                        <th>Asunto</th>
+                        <th>Fecha de Radicacion</th>
+                        <th>Destinatarios</th>
+                        <th>Acciones</th>
                       </tr>
                     </thead>
                     {allcontent.length ? (
@@ -114,6 +150,32 @@ class ContentComponent extends Component {
                               <td>{correspondence.validity}</td>
                               <td>{correspondence.guide}</td>
                               <td>{correspondence.status}</td>
+                              <td>
+                                <div className="">
+                                  <button
+                                    title="Ver correspondencia"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
+                                  >
+                                    <i className="fa fa-eye" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    title="editar y/o completar correspondencia"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
+                                  >
+                                    <i className="fa fa-pencil" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    className="btn btn-secondary btn-sm"
+                                    title="agregar nota"
+                                  >
+                                    <i className="fa fa-sticky-note" />
+                                  </button>
+                                </div>
+                              </td>
                             </tr>
                           );
                         })}
@@ -121,7 +183,7 @@ class ContentComponent extends Component {
                     ) : (
                       <tbody>
                         <tr>
-                          <td colSpan={6}>
+                          <td colSpan={7}>
                             <div className="jumbotron">
                               <h6 className="text-center">No hay datos</h6>
                             </div>
@@ -163,8 +225,8 @@ const mapDispatch = (dispatch) => {
     filter: (data) => {
       dispatch(filterData(data));
     },
-    pagination: (page, size) => {
-      dispatch(loadpaginationperpage(page, size));
+    pagination: (page) => {
+      dispatch(loadpaginationperpage(page));
     },
   };
 };
