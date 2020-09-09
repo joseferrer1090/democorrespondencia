@@ -14,6 +14,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   Input,
+  Pagination,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Data2 from "./../../../../../../../services/data_inbox_extern.json";
@@ -50,7 +51,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
-      activePage: 0,
+      pageCount: null,
     };
   }
 
@@ -103,6 +104,7 @@ class ContentComponent extends Component {
       valuesearch,
       totalPages,
     } = this.props;
+    const pageCount = totalElements / size;
 
     // console.log(pending);
     // console.log(this.props);
@@ -121,12 +123,12 @@ class ContentComponent extends Component {
                 </div>
               </div>
               <div className="col-md-5">
-                <ReactPaginate
+                {/* <ReactPaginate
                   pageCount={totalPages}
                   pageRangeDisplayed={number}
                   marginPagesDisplayed={totalElements}
                   onPageChange={this.handlePageClick}
-                />
+                /> */}
               </div>
             </div>
             <div className="row">
