@@ -1,39 +1,14 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Container,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  Button,
-  FormGroup,
-} from "reactstrap";
 import Pagination from "react-js-pagination";
-import moment from "moment";
-import { PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../services/EndPoints";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
-// import moment from "moment";
-import {
-  EXTERNAL_CORRESPONDENCE_RECEIVED,
-  EXTERNAL_CORRESPONDENCE_PAGINATION,
-} from "../../../../../../../services/EndPoints";
 import { connect } from "react-redux";
 import {
   dataCorrespondence,
   filterData,
   loadpaginationperpage,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
-import IMGERROR from "./../../../../../../../assets/img/spam.png";
-// import Pagination from "react-js-pagination";
 import InputSearch from "./InputSearch";
 
 class ContentComponent extends Component {
@@ -89,60 +64,10 @@ class ContentComponent extends Component {
     });
   }
 
-  handlePageChange = (event) => {
-    let targetPage = parseInt(event.target.value);
-
-    this.getDataInbox(targetPage);
-    this.setState({
-      [event.target.value]: targetPage,
-    });
-  };
-
-  firstPage = () => {
-    const { currentPage } = this.state;
-    let firstPage = 1;
-    if (currentPage > firstPage) {
-      this.getDataInbox(firstPage);
-    }
-  };
-
-  prevPage = () => {
-    const { currentPage } = this.state;
-    let prevPage = 1;
-    if (currentPage > prevPage) {
-      this.getDataInbox(currentPage - prevPage);
-    }
-  };
-
-  lastPage = () => {
-    const { currentPage } = this.state;
-    let condition = Math.ceil(
-      this.state.totalElements / this.state.itemsCountPerPage
-    );
-    if (currentPage < condition) {
-      this.getDataInbox(condition);
-    }
-  };
-
-  nextPage = () => {
-    const { currentPage } = this.state;
-    if (
-      currentPage <
-      Math.ceil(this.state.totalElements / this.state.itemsCountPerPage)
-    ) {
-      this.getDataInbox(currentPage + 1);
-    }
-  };
-
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements, number, valuesearch } = this.props;
-    // console.log(pending);
-    // console.log(this.props);
-    // console.log(data);
-
+    const { allcontent, size, totalElements } = this.props;
     const aux = Object.keys(data).length ? "Datos" : "No datos";
-
     return (
       <div className="col-md-12 card">
         <div className="card-body">

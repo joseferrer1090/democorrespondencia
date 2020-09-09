@@ -25,6 +25,18 @@ checkBoxes select all
 
 pagination
 
+-- Revisar los props entrantes de mapState para validar valores qure necesite tener la paginación 
+
+al montarse el componente debe llamar al handlePageChange para posterior llamar toda la data
+El la respuet fetch de la data debe sumar una al urrent page ya que viene 0 por defecto 
+
+1.) Ver com arranca el componente y de ser posible no quemar en la url la pagina y el tamaño si no asignarlo desde la paginación para controlar la data
+2.) Llamar el handle page con el disaptch de la data y tomar los valores
+
+url donde se quema "EXTERNAL_CORRESPONDENCE_PAGINATION" recibida => entrante 
+url donde se quema "EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO" pendinete => bandeja de pendientes
+
+
 State:
     itemsCountPerPage: 5,
     currentPage: 1,
