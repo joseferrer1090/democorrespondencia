@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { USERS_BY_DEPENDENCE } from "../../../../../../../../services/EndPoints";
+import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
+import PropTypes from "prop-types";
+import { USERS_BY_DEPENDENCE } from "../../../../../../../../services/EndPoints";
 import { agregarUsuarioDisponible } from "../../../../../../../../actions/step1ActionsReceiver";
 
 const UserList = (props) => {
@@ -91,5 +92,10 @@ const UserList = (props) => {
       </div>
     </div>
   );
+};
+
+UserList.propTypes = {
+  id: PropTypes.string.isRequired,
+  authorization: PropTypes.string.isRequired,
 };
 export default UserList;

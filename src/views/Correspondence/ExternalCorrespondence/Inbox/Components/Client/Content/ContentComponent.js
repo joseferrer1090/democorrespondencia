@@ -21,11 +21,6 @@ import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
-import moment from "moment";
-import {
-  EXTERNAL_CORRESPONDENCE_RECEIVED,
-  EXTERNAL_CORRESPONDENCE_PAGINATION,
-} from "../../../../../../../services/EndPoints";
 import { connect } from "react-redux";
 import {
   dataCorrespondence,
@@ -49,7 +44,6 @@ class ContentComponent extends Component {
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
-      dataInbox: [],
       auth: this.props.authorization,
       pageCount: null,
     };
@@ -111,7 +105,6 @@ class ContentComponent extends Component {
     // console.log(data);
 
     const aux = Object.keys(data).length ? "Datos" : "No datos";
-
     return (
       <div className="col-md-12 card">
         <div className="card-body">
@@ -123,12 +116,12 @@ class ContentComponent extends Component {
                 </div>
               </div>
               <div className="col-md-5">
-                {/* <ReactPaginate
+                <ReactPaginate
                   pageCount={totalPages}
                   pageRangeDisplayed={number}
                   marginPagesDisplayed={totalElements}
                   onPageChange={this.handlePageClick}
-                /> */}
+                />
               </div>
             </div>
             <div className="row">

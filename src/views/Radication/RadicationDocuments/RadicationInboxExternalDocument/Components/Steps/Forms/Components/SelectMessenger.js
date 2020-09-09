@@ -5,7 +5,6 @@ import { MESSENGER_STATUS } from "../../../../../../../../services/EndPoints";
 class SelectMessenger extends React.Component {
   state = {
     dataMessenger: [],
-    t: this.props.t,
     auth: this.props.authorization,
   };
 
@@ -53,7 +52,6 @@ class SelectMessenger extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         <select
@@ -78,7 +76,11 @@ class SelectMessenger extends React.Component {
 }
 
 SelectMessenger.propTypes = {
-  //   t: PropTypes.any,
-  //   authorization: PropTypes.string.isRequired,
+  authorization: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 export default SelectMessenger;

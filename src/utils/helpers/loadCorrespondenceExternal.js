@@ -56,6 +56,8 @@ export const loadPagination = async (token, page, size) => {
   );
   const correspondencepeding = await responses.json();
   const content = correspondencepeding.content;
+  console.log("desde loadPagination");
+  console.log(correspondencepeding);
   return { correspondencepeding, content };
 };
 

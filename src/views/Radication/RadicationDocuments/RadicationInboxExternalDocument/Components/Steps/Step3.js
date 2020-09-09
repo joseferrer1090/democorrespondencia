@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 import { css } from "glamor";
 import { ATTACHED } from "../../../../../../services/EndPoints";
-import "../react-list.css";
-import MyPdfViewer from "./Forms/ComponentsStep3/ViewPdf";
 import { obtenerDataVerRadicacion } from "./../../../../../../actions/step3ActionsFiling";
+import "../react-list.css";
 
 class Step3 extends Component {
   constructor(props) {
@@ -19,89 +18,32 @@ class Step3 extends Component {
       visible: false,
       error: "",
       goToStep4: false,
-      filesFromInput: [],
-      data64: "",
     };
   }
 
   toggle = () => {
     this.setState({ visible: !this.state.visible });
   };
-
-  onFilesChange = (files) => {
-    this.setState({
-      files,
-    });
-  };
-
-  convertDataURIToBinary = (dataURI) => {
-    let i;
-    const BASE64_MARKER = ";base64,";
-    const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-    const base64 = dataURI.substring(base64Index);
-    const raw = window.atob(base64);
-    const rawLength = raw.length;
-    const array = new Uint8Array(new ArrayBuffer(rawLength));
-
-    for (i = 0; i < rawLength; i++) {
-      array[i] = raw.charCodeAt(i);
-    }
-    console.log(array);
-    return array;
-  };
-
   getBase64 = (file) => {
-    let i;
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      // console.log(reader.result);
       const BASE64_MARKER = ";base64,";
       const base64Index =
         reader.result.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
       const base64 = reader.result.substring(base64Index);
-      const raw = window.atob(base64);
-      const rawLength = raw.length;
-      const array = new Uint8Array(new ArrayBuffer(rawLength));
-
-      for (i = 0; i < rawLength; i++) {
-        array[i] = raw.charCodeAt(i);
-      }
-
-      /* 
-     BLOB URL
-     const byteCharacters = atob(base64);
-      const byteArrays = [];
-      const sliceSize = 512;
-
-      for (
-        let offset = 0;
-        offset < byteCharacters.length;
-        offset += sliceSize
-      ) {
-        const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
-        }
-
-        const byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
-      }
-
-      const blob = new Blob([byteArrays], { type: "application/pdf" });
-      const blobUrl = URL.createObjectURL(blob);*/
+      document
+        .getElementById("pdfViewer")
+        .contentWindow.openFileFromBase64(base64);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
   };
 
-  onChangeFromInput = (e) => {
-    console.log(e.target.files[0]);
+  onFilesChange = (files) => {
     this.setState({
-      filesFromInput: e.target.files[0],
+      files,
     });
   };
 
@@ -187,15 +129,6 @@ class Step3 extends Component {
           this.refs.files.removeFile(file);
           toast.dismiss();
         }, 5000);
-
-        /* MOSTRAR EL MENSAJE DE ERROR DEL BACKEN EN CASO DE CUALQUIER ERROR 
-        toast.error(error.response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          className: css({
-            marginTop: "60px",
-          }),
-        });
-        */
       });
   };
 
@@ -270,14 +203,12 @@ class Step3 extends Component {
                 </Files>
               </div>
             </div>
-            {/* <iframe
+            <iframe
               id="pdfViewer"
               src="/pdfjs-2.5.207-dist/web/viewer.html"
               width={"100%!"}
               height={"700px"}
-            ></iframe> */}
-
-            <MyPdfViewer file={this.state.files} />
+            ></iframe>
           </div>
           <div style={{ height: "80px" }} />
 

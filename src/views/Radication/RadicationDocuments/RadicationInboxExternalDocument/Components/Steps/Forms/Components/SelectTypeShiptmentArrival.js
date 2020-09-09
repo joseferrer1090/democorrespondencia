@@ -78,7 +78,11 @@ class SelectTypeShipmentArrival extends React.Component {
 }
 
 SelectTypeShipmentArrival.propTypes = {
-  //   t: PropTypes.any,
-  //   authorization: PropTypes.string.isRequired,
+  authorization: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 export default SelectTypeShipmentArrival;

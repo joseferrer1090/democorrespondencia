@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import HeaderBox from "./../../../Header/HeaderInbox";
 import SideBar from "./../../../Sidebar/SidebarInboxComponent";
-import {
-  Card,
-  ButtonDropdown,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  CardHeader,
-  CardBody,
-} from "reactstrap";
+import { Card, CardHeader, CardBody } from "reactstrap";
 import PropTypes from "prop-types";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
 import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
@@ -58,6 +50,7 @@ class ViewCorrespondence extends Component {
       dataTipoLlegada: {},
       dataTipoDocumental: {},
       dataPlantilla: {},
+      dataAttachments: [],
       authToken: "",
     };
     this.myViewer = React.createRef();
@@ -98,7 +91,6 @@ class ViewCorrespondence extends Component {
 
   getInfoCorrespondencia = (id) => {
     const { authToken } = this.state;
-    console.log(authToken);
     fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}?username=ccuartas`, {
       method: "GET",
       headers: {
@@ -108,6 +100,7 @@ class ViewCorrespondence extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         this.setState({
           dataCorrespondencia: data,
           dataCiudad: data.city,
@@ -120,16 +113,13 @@ class ViewCorrespondence extends Component {
           dataTipoDocumental: data.typeDocumentary,
           dataInfoMetadatos: data.metadata,
           dataPlantilla: data.template,
-          // spinner: false,
+          dataAttachments: data.attachments,
         });
-        // this.getInfoCorrespondencia();
+
         this.getInfoUsuario(this.state.dataRemitente.id);
       })
       .catch((Error) => {
         console.log(" ", Error);
-        // this.setState({
-        //   spinner: false,
-        // });
       });
   };
 
@@ -150,9 +140,6 @@ class ViewCorrespondence extends Component {
       })
       .catch((Error) => {
         console.log(" ", Error);
-        // this.setState({
-        //   spinner: false,
-        // });
       });
   };
 
@@ -160,21 +147,18 @@ class ViewCorrespondence extends Component {
     let id = this.props.match.params.id;
     let path = `/correspondence/external/edit/${id}`;
     this.props.history.push(path);
-    // console.log(id);
   };
 
   OpenOnClickViewRelatedUsers = () => {
     let id = this.props.match.params.id;
     let path = `/correspondence/external/relatedusers/${id}`;
     this.props.history.push(path);
-    // console.log(id);
   };
 
   OpenClickHistorialCorrespondence = () => {
     let id = this.props.match.params.id;
     let path = `/correspondence/external/historial/${id}`;
     this.props.history.push(path);
-    // console.log(id);
   };
   FechaDocumento = (date) => {
     let documentDate;
@@ -195,18 +179,20 @@ class ViewCorrespondence extends Component {
       dataTipoDocumental,
       dataInfoMetadatos,
       dataPlantilla,
+      dataAttachments,
     } = this.state;
-    // const { dataCiudad } = this.state;
 
-    // console.log(dataCiudad);
-    // console.log(dataCorrespondencia);
-    // console.log(dataDestinatarios);
-    console.log(dataCorrespondencia);
-    console.log(this.state.authToken);
+    const urlViewFile = () => {
+      let url;
+      dataAttachments.map((aux, idx) => {
+        url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${aux.id}/${aux.fileName}`;
+      });
+      return url;
+    };
+
     const dataTableDestinatarios = () => {
       let tableDestinatarios;
       tableDestinatarios = dataDestinatarios.map((aux, idx) => {
-        // console.log(aux);
         return (
           <tr>
             <td>{aux.name}</td>
@@ -220,7 +206,6 @@ class ViewCorrespondence extends Component {
     const dataTableMetadatos = () => {
       let tableMetadatos;
       tableMetadatos = dataInfoMetadatos.map((aux, idx) => {
-        // console.log(aux);
         return (
           <tr>
             <td>{aux.name}</td>
@@ -638,13 +623,13 @@ class ViewCorrespondence extends Component {
                           className="card card-body"
                           style={{ height: "600px", padding: "0px" }}
                         >
-                          
-                          <PDFViewer
-                            ref={this.myViewer}
-                            backend={PDFJSBackend}
-                            src={"/assets/edok_word_excel.pdf"}
-                          />
-
+                          {dataAttachments.length > 0 ? (
+                            <PDFViewer
+                              ref={this.myViewer}
+                              backend={PDFJSBackend}
+                              src={urlViewFile()}
+                            />
+                          ) : null}
                         </div>
                         {/* Fin Cuarta seccion */}
 

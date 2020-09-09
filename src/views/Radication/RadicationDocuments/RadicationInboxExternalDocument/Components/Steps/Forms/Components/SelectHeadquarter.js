@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { HEADQUARTER_BY_COMPANY } from "../../../../../../../../services/EndPoints";
 
 const FieldHeadquarter = ({
@@ -57,7 +58,6 @@ const FieldHeadquarter = ({
 
   const PREValue = usePrevious(props.companyId);
   const PREValueConglomerate = usePrevious(props.conglomerateId);
-  const t = props.t;
   return (
     <div>
       {" "}
@@ -85,5 +85,11 @@ const FieldHeadquarter = ({
       </select>{" "}
     </div>
   );
+};
+
+FieldHeadquarter.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  conglomerateId: PropTypes.string.isRequired,
+  companyId: PropTypes.string.isRequired,
 };
 export default FieldHeadquarter;
