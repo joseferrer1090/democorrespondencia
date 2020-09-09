@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import {
   dataCorrespondence,
   filterData,
-  loadpaginationperpage,
+  loadPaginationReceived,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import InputSearch from "./InputSearch";
 import ReactPaginate from "react-paginate";
@@ -46,35 +46,26 @@ class ContentComponent extends Component {
       this.setState({
         data: this.props.datacorrespondence,
       });
-      // this.props.getData(currentPage);
     }
-    // console.log(this.props);
-
     return null;
   }
 
   componentDidMount() {
-    console.log(this.props.datacorrespondence);
+    const { currentPage } = this.state;
     this.props.getData();
-
-    // console.log(this.props);
+    this.props.pagination(currentPage);
   }
 
-  getPagination = (page) => {
-    this.props.pagination(page);
-  };
-
-  handlePageClick = (data) => {
-    let selected = data.selected;
-    console.log(selected);
-    this.props.pagination(selected);
-  };
+  // handlePageClick = (data) => {
+  //   let selected = data.selected;
+  //   console.log(selected);
+  //   this.props.pagination(selected);
+  // };
 
   /* PAGINACIÓN */
 
   handlePageChange = (event) => {
     let targetPage = parseInt(event.target.value);
-
     this.props.pagination(targetPage);
     this.setState({
       [event.target.value]: targetPage,
@@ -317,8 +308,8 @@ const mapDispatch = (dispatch) => {
     filter: (data) => {
       dispatch(filterData(data));
     },
-    pagination: (page) => {
-      dispatch(loadpaginationperpage(page));
+    pagination(page) {
+      dispatch(loadPaginationReceived(page));
     },
   };
 };
