@@ -58,6 +58,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         totalPages: action.payload.totalPages,
         totalElements: action.payload.totalElements,
         size: action.payload.size,
+        number: action.payload.number,
       };
 
     case DATA_ALL_CORRESPONDENCE:

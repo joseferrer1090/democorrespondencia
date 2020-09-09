@@ -33,12 +33,13 @@ export const startLoadDataCorrespondence = () => ({
 });
 
 export const loadDataCorrespondenceSuccess = (data) => ({
-  type: { OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO, DATA_ALL_CORRESPONDENCE },
+  type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
+
   payload: data,
 });
 
 export const loadDataAll = () => ({
-  type: DATA_ALL_CORRESPONDENCE_PENDING,
+  type: DATA_ALL_CORRESPONDENCE,
 });
 
 export const dataNumerReceived = () => {
