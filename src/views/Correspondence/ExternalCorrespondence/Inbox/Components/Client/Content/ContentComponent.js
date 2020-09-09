@@ -30,8 +30,6 @@ import {
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import InputSearch from "./InputSearch";
 import ReactPaginate from "react-paginate";
-import { number } from "prop-types";
-import { size } from "lodash";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -185,7 +183,7 @@ class ContentComponent extends Component {
                     ) : (
                       <tbody>
                         <tr>
-                          <td colSpan={6}>
+                          <td colSpan={7}>
                             <div className="jumbotron">
                               <h6 className="text-center">No hay datos</h6>
                             </div>
