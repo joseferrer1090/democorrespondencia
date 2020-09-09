@@ -42,7 +42,6 @@ const ModalPrintBarcode = forwardRef((props, ref) => {
     })
       .then((response) => response.json())
       .then((response) => {
-
         if (response.success === true) {
           props.nextStep(false);
           setAlertSuccess(true);
@@ -58,8 +57,8 @@ const ModalPrintBarcode = forwardRef((props, ref) => {
 
   const closeModal = () => {
     setModal(false);
-    // setToastSuccess(true);
   };
+
   return (
     <Fragment>
       <Modal isOpen={modal}>
@@ -149,6 +148,11 @@ const ModalPrintBarcode = forwardRef((props, ref) => {
 
 ModalPrintBarcode.propTypes = {
   modalprint: PropTypes.bool.isRequired,
+  ModalPrint: PropTypes.bool.isRequired,
+  confirm: PropTypes.func.isRequired,
+  nextStep: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  auth: PropTypes.string.isRequired,
 };
 
 export default ModalPrintBarcode;

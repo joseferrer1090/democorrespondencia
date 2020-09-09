@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "reactstrap";
+import PropTypes from "prop-types";
 import {
   agregarUsuarioOriginal,
   borrarUsuarioDiponible,
-  agregarUsuarioDisponible,
 } from "../../../../../../../../actions/step1ActionsReceiver";
 const UserListEnabled = (props) => {
   const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
   const dispatch = useDispatch();
   const users = props.data;
-  const t = props.t;
   const [state, setstate] = useState(aux);
 
   useEffect(() => {
@@ -19,13 +18,6 @@ const UserListEnabled = (props) => {
     } else if (props.aux === null) {
       setstate(null);
     }
-    // validateValues();
-    // if (usersAvailable.length !== 0) {
-    //   usersAvailable.map((aux, id) => {
-    //     setUsersAsigned({ id: aux.id, name: aux.name });
-    //     setagregaruser(true);
-    //   });
-    // }
   }, [state, users, props.aux]);
 
   return (
@@ -118,5 +110,9 @@ const UserListEnabled = (props) => {
       </div>
     </div>
   );
+};
+UserListEnabled.propTypes = {
+  data: PropTypes.object.isRequired,
+  aux: PropTypes.string.isRequired,
 };
 export default UserListEnabled;

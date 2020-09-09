@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { DEPARTMENTS_BY_COUNTRY } from "../../../../../../../../services/EndPoints";
 
 const FieldDepartment = ({
@@ -41,7 +42,6 @@ const FieldDepartment = ({
     validateValues();
   }, [props.newValueCountryId, props.countryId]);
 
-  const t = props.t;
   return (
     <div>
       {" "}
@@ -67,6 +67,13 @@ const FieldDepartment = ({
       </select>{" "}
     </div>
   );
+};
+
+FieldDepartment.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  newValueCountryId: PropTypes.string.isRequired,
+  oldValueCountryId: PropTypes.string.isRequired,
+  countryId: PropTypes.string.isRequired,
 };
 
 export default FieldDepartment;

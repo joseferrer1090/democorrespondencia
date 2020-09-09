@@ -2,6 +2,7 @@ import {
   DATA_DETAILS_STICKER,
   DATA_TITLE_STICKER,
   OBTENER_ID_RADICACION,
+  DATA_BARCODE_STICKER,
 } from "./../types";
 import { GENERATE_STICKER } from "./../services/EndPoints";
 
@@ -19,6 +20,7 @@ export function generarSticker(id) {
       .then((data) => {
         dispatch(dataDetailsSticker(data.details));
         dispatch(dataTitleSticker(data.title));
+        dispatch(valueBarcode(data.barcode));
       })
       .catch((error) => {
         console.log(`Error => ${error.message}`, error);
@@ -43,4 +45,8 @@ const dataDetailsSticker = (details) => ({
 const dataTitleSticker = (title) => ({
   type: DATA_TITLE_STICKER,
   payload: title,
+});
+const valueBarcode = (barcode) => ({
+  type: DATA_BARCODE_STICKER,
+  payload: barcode,
 });

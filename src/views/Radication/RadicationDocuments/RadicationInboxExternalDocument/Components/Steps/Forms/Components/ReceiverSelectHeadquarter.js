@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { HEADQUARTER_BY_COMPANY } from "../../../../../../../../services/EndPoints";
 
 const ReceiverFieldHeadquarter = ({
@@ -87,5 +88,10 @@ const ReceiverFieldHeadquarter = ({
       </select>{" "}
     </div>
   );
+};
+ReceiverFieldHeadquarter.propTypes = {
+  authorization: PropTypes.string.isRequired,
+  companyId: PropTypes.string.isRequired,
+  conglomerateId: PropTypes.string.isRequired,
 };
 export default ReceiverFieldHeadquarter;

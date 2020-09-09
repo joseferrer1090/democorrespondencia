@@ -81,7 +81,26 @@ class DefaultHeader extends Component {
             <NavLink href="#">Settings</NavLink>
           </NavItem>
         </Nav> */}
-        <Nav className="ml-auto" navbar style={{ marginRight: "31px" }}>
+        <Nav className="ml-auto" navbar style={{ marginRight: "40px" }}>
+          {/* <NavItem className="d-md-down-none">
+            <NavLink href="#">
+              <i className="icon-bell" />
+              <Badge pill color="danger">
+                5
+              </Badge>
+            </NavLink>
+          </NavItem> */}
+          {/* <NavItem className="d-md-down-none">
+            <NavLink href="#">
+              <i className="icon-list" />
+            </NavLink>
+          </NavItem> */}
+          {/* <NavItem className="d-md-down-none">
+            <NavLink href="#">
+              <i className="icon-location-pin" />
+            </NavLink>
+          </NavItem> */}
+          {/* <AppHeaderDropdown direction="down"> */}
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav style={{ marginRight: "4px !important" }}>
               {this.props.logged}
@@ -89,13 +108,17 @@ class DefaultHeader extends Component {
                 <img
                   src={this.props.imageprofile}
                   className="img-avatar"
-                  alt=""
+                  alt="administratos@image"
                 />
               ) : (
                 <i className="fa fa-spin fa-spinner" />
               )}
             </DropdownToggle>
-            <DropdownMenu right style={{ right: "auto" }}>
+            {/* <DropdownMenu right style={{ right: "auto" }}> */}
+            <DropdownMenu style={{ marginLeft: "-45px" }}>
+              <DropdownItem header tag="div" className="text-center">
+                <strong>Cuenta</strong>
+              </DropdownItem>
               <DropdownItem>
                 <Link
                   style={{
@@ -109,22 +132,24 @@ class DefaultHeader extends Component {
                   <i className="fa fa-user" /> Perfil{" "}
                 </Link>
               </DropdownItem>
-              <DropdownItem>
+              {/* <DropdownItem>
                 <i className="fa fa-wrench" /> Herramientas
-              </DropdownItem>
+              </DropdownItem> */}
               <DropdownItem
                 onClick={(e) => {
                   window.location = `${url.defaultLocal}3000/#/middleware`;
                   return null;
                 }}
               >
-                <i className="fa fa-refresh" /> cambiar de aplicacion
+                <i className="fa fa-refresh" />
+                Principal
               </DropdownItem>
               <DropdownItem onClick={() => this.logout()}>
-                <i className="fa fa-lock" /> cerrar sesion
+                <i className="fa fa-lock" /> Cerrar sesión
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
+          {/* </AppHeaderDropdown> */}
         </Nav>
         <div style={{ marginRight: 85 }}></div>
         {/* <AppAsideToggler className="d-md-down-none" /> */}

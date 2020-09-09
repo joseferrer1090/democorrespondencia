@@ -1,38 +1,14 @@
 import React, { Component } from "react";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Card,
-  CardHeader,
-  CardBody,
-  Container,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import Data2 from "./../../../../../../../services/data_inbox_extern.json";
+import Pagination from "react-js-pagination";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
-import moment from "moment";
-import {
-  EXTERNAL_CORRESPONDENCE_RECEIVED,
-  EXTERNAL_CORRESPONDENCE_PAGINATION,
-} from "../../../../../../../services/EndPoints";
 import { connect } from "react-redux";
 import {
   dataCorrespondence,
   filterData,
   loadpaginationperpage,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
-import IMGERROR from "./../../../../../../../assets/img/spam.png";
-import Pagination from "react-js-pagination";
 import InputSearch from "./InputSearch";
 
 class ContentComponent extends Component {
@@ -46,7 +22,6 @@ class ContentComponent extends Component {
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
-      dataInbox: [],
       auth: this.props.authorization,
       activePage: null,
     };
@@ -91,13 +66,8 @@ class ContentComponent extends Component {
 
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements, number, valuesearch } = this.props;
-    // console.log(pending);
-    // console.log(this.props);
-    // console.log(data);
-
+    const { allcontent, size, totalElements } = this.props;
     const aux = Object.keys(data).length ? "Datos" : "No datos";
-
     return (
       <div className="col-md-12 card">
         <div className="card-body">
