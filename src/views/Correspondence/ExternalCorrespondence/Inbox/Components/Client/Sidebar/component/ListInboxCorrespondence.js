@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ListGroup, ListGroupItem, Badge } from "reactstrap";
+import {
+  ListGroup,
+  ListGroupItem,
+  Badge,
+  Collapse,
+  UncontrolledCollapse,
+} from "reactstrap";
 import Tags from "./TagViewer";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -20,6 +26,7 @@ class ListInboxCorrespondence extends Component {
         active2: true,
         active3: false,
       },
+      collapse: true,
     };
   }
 
@@ -103,7 +110,23 @@ class ListInboxCorrespondence extends Component {
               {this.props.numeropendientes}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action>
+          <ListGroupItem
+            onClick={() =>
+              this.setState({
+                collapse: !this.state.collapse,
+              })
+            }
+          >
+            Novedades
+          </ListGroupItem>
+          <Collapse isOpen={this.state.collapse}>
+            <ListGroup>
+              <ListGroupItem className="" tag="button" action>
+                Probando
+              </ListGroupItem>
+            </ListGroup>
+          </Collapse>
+          {/* <ListGroupItem className="" tag="button" action>
             <Link to="/correspondence/external/consult">
               {" "}
               Consultar{" "}
@@ -112,7 +135,7 @@ class ListInboxCorrespondence extends Component {
                 <i className="fa fa-search" />{" "}
               </Badge>{" "}
             </Link>
-          </ListGroupItem>
+          </ListGroupItem> */}
           {/* <ListGroupItem>
             <Tags />
           </ListGroupItem> */}
