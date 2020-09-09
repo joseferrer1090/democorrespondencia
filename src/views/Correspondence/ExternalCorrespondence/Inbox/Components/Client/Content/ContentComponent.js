@@ -66,7 +66,7 @@ class ContentComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.getData();
+    // this.props.getData();
   }
 
   getInformation = () => {

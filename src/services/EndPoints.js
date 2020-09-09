@@ -8,9 +8,13 @@ export const PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED = `${config.IP}:${confi
 /* POST */
 export const EXTERNAL_CORRESPONDENCE_RECEIVED_POST = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing`;
 /* GET  */
-export const EXTERNAL_CORRESPONDENCE_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination?page=1&size=10`;
+export const EXTERNAL_CORRESPONDENCE_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination?page=0&size=10`;
 /* GET */
 export const EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=0&size=10`;
+/* GET */
+export const COUNT_RECEIVED_PENDING = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pending/to/do/count`;
+/* GET */
+export const COUNT_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/count`;
 
 //-------------------------- CONGLOMERADO -----------------------------------------//
 /* GET */
@@ -120,3 +124,14 @@ export const USER_PHOTO_UPDATE = `${config.IP}:${config.PORT}/api/sgdea/service/
 //-------------------------------- ADJUNTO CORRESPONDENCIA RECIBIDA -----------------------------------------//
 /* POST => idFiling */
 export const ATTACHED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing/attached/`;
+
+//-------------------------------- ANOTACIONES -----------------------------------------//
+
+/* POST*/
+export const ANOTATION_CREATE = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/annotations`;
+
+/* GET */
+export const COUNT_NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/novelties/annotations/user/count`;
+
+/* GET */
+export const NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/novelties/annotations/user`;
