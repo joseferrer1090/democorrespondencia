@@ -11,6 +11,10 @@ export const EXTERNAL_CORRESPONDENCE_RECEIVED_POST = `${config.IP}:${config.PORT
 export const EXTERNAL_CORRESPONDENCE_PAGINATION = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination?page=0&size=10`;
 /* GET */
 export const EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=0&size=10`;
+/* GET */
+export const COUNT_RECEIVED_PENDING = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pending/to/do/count`;
+/* GET */
+export const COUNT_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/count`;
 
 //-------------------------- CONGLOMERADO -----------------------------------------//
 /* GET */
