@@ -32,8 +32,10 @@ import {
   loadpaginationperpage,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import IMGERROR from "./../../../../../../../assets/img/spam.png";
-import Pagination from "react-js-pagination";
 import InputSearch from "./InputSearch";
+import ReactPaginate from "react-paginate";
+import { number } from "prop-types";
+import { size } from "lodash";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -48,7 +50,7 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       dataInbox: [],
       auth: this.props.authorization,
-      activePage: null,
+      activePage: 0,
     };
   }
 
@@ -78,20 +80,30 @@ class ContentComponent extends Component {
     this.props.getData();
   };
 
-  getPagination = (page, size) => {
-    this.props.pagination(page, size);
+  getPagination = (page) => {
+    this.props.pagination(page);
   };
 
-  handlePageChange(page, size) {
-    console.log(`active page is ${page}`);
-    this.setState({ activePage: this.props.number + 1 }, () => {
-      this.getPagination(page, (size = 10));
-    });
+  handlePageChange(page) {
+    console.log(page);
+    this.getPagination(page);
   }
-
+  handlePageClick = (data) => {
+    let selected = data.selected;
+    console.log(selected);
+    this.props.pagination(selected);
+  };
   render() {
     const { data } = this.state;
-    const { allcontent, size, totalElements, number, valuesearch } = this.props;
+    const {
+      allcontent,
+      size,
+      totalElements,
+      number,
+      valuesearch,
+      totalPages,
+    } = this.props;
+
     // console.log(pending);
     // console.log(this.props);
     // console.log(data);
@@ -109,13 +121,11 @@ class ContentComponent extends Component {
                 </div>
               </div>
               <div className="col-md-5">
-                <Pagination
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  activePage={1}
-                  itemsCountPerPage={10}
-                  totalItemsCount={30}
-                  onChange={this.handlePageChange.bind(this)}
+                <ReactPaginate
+                  pageCount={totalPages}
+                  pageRangeDisplayed={number}
+                  marginPagesDisplayed={totalElements}
+                  onPageChange={this.handlePageClick}
                 />
               </div>
             </div>
@@ -222,8 +232,8 @@ const mapDispatch = (dispatch) => {
     filter: (data) => {
       dispatch(filterData(data));
     },
-    pagination: (page, size) => {
-      dispatch(loadpaginationperpage(page, size));
+    pagination: (page) => {
+      dispatch(loadpaginationperpage(page));
     },
   };
 };

@@ -96,10 +96,10 @@ export const filterData = (data) => ({
   payload: data,
 });
 
-export const loadpaginationperpage = (page, size) => {
+export const loadpaginationperpage = (page) => {
   return async (dispatch, getState) => {
     const token = localStorage.getItem("auth_token");
-    const aux = await loadPagination(token, page, size);
+    const aux = await loadPagination(token, page);
     dispatch(loadDataCorrespondencePendingSuccess(aux));
     dispatch(loadDataAllPendong());
   };

@@ -45,7 +45,7 @@ export const loadCorrespondenceExternalPendingData = async (token) => {
 
 export const loadPagination = async (token, page, size) => {
   const responses = await fetch(
-    `http://localhost:8090/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=${page}&size=${size}`,
+    `http://localhost:8090/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=${page}&size=${10}`,
     {
       method: "GET",
       headers: {
