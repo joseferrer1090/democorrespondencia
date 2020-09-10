@@ -25,6 +25,7 @@ class ListInboxCorrespondence extends Component {
       active: {
         active2: true,
         active3: false,
+        active4: false,
       },
       collapse: true,
       currentPage: 1,
@@ -80,14 +81,14 @@ class ListInboxCorrespondence extends Component {
               />
             </form>
           </ListGroupItem> */}
-          <ListGroupItem className="" tag="button" action>
+          {/* <ListGroupItem className="" tag="button" action>
             {" "}
             Actualizar{" "}
             <Badge className="float-right" pill>
               {" "}
               <i className="fa fa-refresh" />{" "}
             </Badge>{" "}
-          </ListGroupItem>
+          </ListGroupItem> */}
           <ListGroupItem
             className=""
             tag="button"
@@ -120,13 +121,24 @@ class ListInboxCorrespondence extends Component {
                 collapse: !this.state.collapse,
               })
             }
+            style={{
+              background: "#e3e3e3",
+            }}
           >
             Novedades
           </ListGroupItem>
           <Collapse isOpen={this.state.collapse}>
             <ListGroup>
-              <ListGroupItem className="" tag="button" action>
-                Probando
+              <ListGroupItem
+                className=""
+                tag="button"
+                action
+                active={this.state.active.active4}
+              >
+                Anotaciones{" "}
+                <Badge pill className="float-right  badge-info  ">
+                  0
+                </Badge>{" "}
               </ListGroupItem>
             </ListGroup>
           </Collapse>

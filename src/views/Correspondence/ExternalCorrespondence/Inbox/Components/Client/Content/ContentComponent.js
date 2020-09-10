@@ -16,6 +16,7 @@ import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 class ContentComponent extends Component {
   constructor(props) {
     super(props);
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.state = {
       data: this.props.datacorrespondence,
       dropdownOpen: false,
@@ -157,6 +158,10 @@ class ContentComponent extends Component {
     return disabled;
   };
 
+  forceUpdateHandler() {
+    this.forceUpdate();
+  }
+
   render() {
     const { data } = this.state;
     const { allcontent, number, totalPages } = this.props;
@@ -255,6 +260,14 @@ class ContentComponent extends Component {
                   </InputGroupAddon>
                 </InputGroup>
               </div>
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                title="Actualizar"
+                onClick={this.forceUpdateHandler}
+              >
+                <i className="fa fa-refresh" />
+              </button>
             </div>
             <br />
             <div className="row">
@@ -361,7 +374,7 @@ class ContentComponent extends Component {
                     ) : (
                       <tbody>
                         <tr>
-                          <td colSpan={7}>
+                          <td colSpan={8}>
                             <div className="jumbotron">
                               <h6 className="text-center">No hay datos</h6>
                             </div>
