@@ -1,8 +1,9 @@
 import {
   EXTERNAL_CORRESPONDENCE_PAGINATION,
   EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO,
+  PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED,
+  PAGINATION_EXTERNAL_CORRESPONDENCE_PENDING,
 } from "./../../services/EndPoints";
-import { numberElementPending } from "../../actions/dataCorrespondenceExternalAction";
 
 // CARGAR LA DATA EN LOS DOS TIPOS DE CORRESPONDENCIAS
 
@@ -15,12 +16,9 @@ export const loadCorrespondenceData = async (token) => {
     },
   });
   const correspondences = await responses.json();
-  const { totalPages } = correspondences;
-  const { size } = correspondences;
-  const { totalElements } = correspondences;
+  const { totalPages, totalElements, size, number } = correspondences;
   const content = correspondences.content;
-  console.log(totalPages, totalElements, size, content);
-  return { correspondences, totalPages, totalElements, size, content };
+  return { totalElements, totalPages, size, number, content };
 };
 
 export const loadCorrespondenceExternalPendingData = async (token) => {
@@ -39,13 +37,15 @@ export const loadCorrespondenceExternalPendingData = async (token) => {
   const { size } = correspondencespending;
   const { totalElements } = correspondencespending;
   const content = correspondencespending.content;
-  console.log(totalPages);
   return { correspondencespending, totalPages, size, totalElements, content };
 };
+// FIN
 
-export const loadPagination = async (token, page, size) => {
+// PAGINACIÓN EN LOS TIPOS DE CORRESPONDENCIAS
+export const PaginationReceived = async (token, page) => {
+  page -= 1;
   const responses = await fetch(
-    `http://localhost:8090/api/sgdea/service/external/correspondence/received/pagination/pending/to/do?page=${page}&size=${10}`,
+    `${PAGINATION_EXTERNAL_CORRESPONDENCE_RECEIVED}?page=${page}&size=${10}`,
     {
       method: "GET",
       headers: {
@@ -54,13 +54,29 @@ export const loadPagination = async (token, page, size) => {
       },
     }
   );
-  const correspondencepeding = await responses.json();
-  const content = correspondencepeding.content;
-  console.log("desde loadPagination");
-  console.log(correspondencepeding);
-  return { correspondencepeding, content };
+  const correspondenceReceived = await responses.json();
+  const { totalPages, totalElements, size, number } = correspondenceReceived;
+  const content = correspondenceReceived.content;
+  return { totalElements, totalPages, size, number, content };
 };
 
+export const PaginationPending = async (token, page) => {
+  page -= 1;
+  const responses = await fetch(
+    `${PAGINATION_EXTERNAL_CORRESPONDENCE_PENDING}?page=${page}&size=${10}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  const correspondencePending = await responses.json();
+  const { totalPages, totalElements, size, number } = correspondencePending;
+  const content = correspondencePending.content;
+  return { totalElements, totalPages, size, number, content };
+};
 // FIN
 
 // MOSTRAR LOS NUMEROS DE ELEMENTOS RECIBIDA Y PENDIENTE
@@ -91,7 +107,6 @@ export const loadNumberElementsPending = async (token) => {
   );
   const numberelementpending = await responses.json();
   const { totalElements } = numberelementpending;
-  console.log(totalElements);
   return { numberelementpending, totalElements };
 };
 

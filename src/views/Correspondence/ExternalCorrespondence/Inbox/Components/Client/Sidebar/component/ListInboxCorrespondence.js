@@ -27,6 +27,7 @@ class ListInboxCorrespondence extends Component {
         active3: false,
       },
       collapse: true,
+      currentPage: 1,
     };
   }
 
@@ -44,6 +45,8 @@ class ListInboxCorrespondence extends Component {
   }
 
   render() {
+    const { currentPage } = this.state;
+    console.log(currentPage);
     const getDataP = () => {
       this.props.getDataPending();
       this.setState({
@@ -54,8 +57,9 @@ class ListInboxCorrespondence extends Component {
         },
       });
     };
+
     const getDataC = () => {
-      this.props.getDataCurrently();
+      this.props.getDataCurrently(currentPage);
       this.setState({
         ...this.state,
         active: {
@@ -175,4 +179,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(ListInboxCorrespondence);
+export default connect(mapState, mapDispatch, null)(ListInboxCorrespondence);

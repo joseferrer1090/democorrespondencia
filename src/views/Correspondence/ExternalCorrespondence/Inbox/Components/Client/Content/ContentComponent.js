@@ -1,23 +1,4 @@
 import React, { Component } from "react";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Card,
-  CardHeader,
-  CardBody,
-  Container,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  Pagination,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import Data2 from "./../../../../../../../services/data_inbox_extern.json";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
 import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
@@ -25,11 +6,12 @@ import { connect } from "react-redux";
 import {
   dataCorrespondence,
   filterData,
-  loadpaginationperpage,
+  loadPaginationReceived,
+  loadPaginationPending,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
-import IMGERROR from "./../../../../../../../assets/img/spam.png";
 import InputSearch from "./InputSearch";
-import ReactPaginate from "react-paginate";
+import moment from "moment";
+import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -44,6 +26,10 @@ class ContentComponent extends Component {
       idCorrespondenceSelected: null,
       auth: this.props.authorization,
       pageCount: null,
+      itemsCountPerPage: 5,
+      currentPage: 1,
+      totalPages: null,
+      totalElements: null,
     };
   }
 
@@ -66,90 +52,282 @@ class ContentComponent extends Component {
   }
 
   componentDidMount() {
-    // this.props.getData();
-  }
-
-  getInformation = () => {
     this.props.getData();
-  };
-
-  getPagination = (page) => {
-    this.props.pagination(page);
-  };
-
-  handlePageChange(page) {
-    console.log(page);
-    this.getPagination(page);
   }
-  handlePageClick = (data) => {
-    let selected = data.selected;
-    console.log(selected);
-    this.props.pagination(selected);
+
+  toggleCheckboxes = (source, cbName) => {
+    for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
+      document.getElementsByName(cbName)[i].checked = source;
+    }
   };
+
+  /* PAGINACIÓN */
+
+  validatePagination = (page) => {
+    let validationParameter;
+    let propsFunction;
+    if (this.props.allcontent.length !== 0) {
+      this.props.allcontent.map((status, id) => {
+        validationParameter = status.statusName;
+      });
+    }
+    if (validationParameter !== "APROBADA") {
+      propsFunction = this.props.paginationPending(page);
+    } else {
+      propsFunction = this.props.paginationReceived(page);
+    }
+    return propsFunction;
+  };
+
+  handlePageChange = (event) => {
+    const currentPage = this.props.number;
+    let targetPage = event.target.value;
+    if (targetPage !== "") {
+      this.validatePagination(targetPage);
+    } else {
+      this.validatePagination(currentPage);
+    }
+  };
+
+  firstPage = () => {
+    const currentPage = this.props.number;
+    let firstPage = 1;
+    if (currentPage > firstPage) {
+      this.validatePagination(firstPage);
+      // this.props.pagination(firstPage);
+    }
+  };
+
+  prevPage = () => {
+    const currentPage = this.props.number;
+    let prevPage = 1;
+
+    if (currentPage > prevPage) {
+      this.validatePagination(currentPage - prevPage);
+      // this.props.pagination(currentPage - prevPage);
+    }
+  };
+
+  lastPage = () => {
+    const itemsCountPerPage = this.props.size;
+    const totalElements = this.props.totalElements;
+    const currentPage = this.props.number;
+    let condition = Math.ceil(totalElements / itemsCountPerPage);
+    if (currentPage < condition) {
+      this.validatePagination(condition);
+      // this.props.pagination(condition);
+    }
+  };
+
+  nextPage = () => {
+    const itemsCountPerPage = this.props.size;
+    const totalElements = this.props.totalElements;
+    const currentPage = this.props.number;
+    if (currentPage < Math.ceil(totalElements / itemsCountPerPage)) {
+      // this.props.pagination(currentPage + 1);
+      this.validatePagination(currentPage + 1);
+    }
+  };
+
+  /* FIN */
+  DateFiling = (date) => {
+    return moment(date).format("DD-MM-YYYY");
+  };
+
+  colorStatusFiling = (state) => {
+    let status;
+    if (state === "APROBADA") {
+      status = <b style={{ color: "#39a84e" }}>{state}</b>;
+    } else if (state === "INICIADO") {
+      status = <b style={{ color: "#d6d914" }}>{state}</b>;
+    } else if (state === "POR ADJUNTAR") {
+      status = <b style={{ color: "#d91427" }}>{state}</b>;
+    } else {
+      return state;
+    }
+    return status;
+  };
+
+  disabledInput = () => {
+    const { number, totalPages } = this.props;
+    let disabled = false;
+    if (number === totalPages) {
+      disabled = true;
+    }
+    return disabled;
+  };
+
   render() {
     const { data } = this.state;
-    const {
-      allcontent,
-      size,
-      totalElements,
-      number,
-      valuesearch,
-      totalPages,
-    } = this.props;
-    const pageCount = totalElements / size;
-
-    // console.log(pending);
-    // console.log(this.props);
-    // console.log(data);
+    const { allcontent, number, totalPages } = this.props;
+    console.log(number);
+    const currentPage = this.props.number;
 
     const aux = Object.keys(data).length ? "Datos" : "No datos";
+
+    const pageNumCss = {
+      width: "45px",
+      boder: "1px solid #17A2B8",
+      color: "#17A2B8",
+      textAling: "center",
+      fontWeight: "bold",
+    };
+
     return (
       <div className="col-md-12 card">
         <div className="card-body">
           <React.Fragment>
             <div className="row">
-              <div className="col-md-7" style={{ padding: 0 }}>
+              <div
+                className="col-md-7"
+                style={{ padding: 0, marginTop: "20px" }}
+              >
                 <div className="form-group">
+                  {" "}
                   <InputSearch />
                 </div>
               </div>
-              <div className="col-md-5">
-                <ReactPaginate
-                  pageCount={totalPages}
-                  pageRangeDisplayed={number}
-                  marginPagesDisplayed={totalElements}
-                  onPageChange={this.handlePageClick}
-                />
+              <div className=" col-md-5 float-right">
+                <center>
+                  Página <b>{number}</b> de <b>{totalPages}</b>{" "}
+                </center>
+                <InputGroup size="sm">
+                  <InputGroupAddon addonType="prepend">
+                    <Button
+                      className="btn btn-sm btn-light"
+                      type="button"
+                      variant="outline-info"
+                      disabled={currentPage === 1 ? true : false}
+                      onClick={this.firstPage}
+                    >
+                      <i
+                        style={{ fontWeight: "bold" }}
+                        className="fa fa-angle-double-left"
+                      />
+                    </Button>
+                    <Button
+                      className="btn btn-sm btn-light"
+                      type="button"
+                      variant="outline-info"
+                      disabled={currentPage === 1 ? true : false}
+                      onClick={this.prevPage}
+                    >
+                      <i className="fa fa-chevron-left" />
+                    </Button>
+                  </InputGroupAddon>
+                  <Input
+                    // Validar que no entre en NaN
+                    type="number"
+                    min={1}
+                    max={totalPages}
+                    style={pageNumCss}
+                    className="bg-light"
+                    name="currentPage"
+                    placeholder="Buscar página"
+                    // value={number}
+                    // defaultValue={number + 1}
+                    disabled={this.disabledInput()}
+                    onChange={this.handlePageChange}
+                  />
+
+                  <InputGroupAddon addonType="append">
+                    <Button
+                      className="btn btn-sm btn-light"
+                      type="button"
+                      variant="outline-info"
+                      disabled={currentPage === totalPages ? true : false}
+                      onClick={this.nextPage}
+                    >
+                      <i className="fa fa-chevron-right" />
+                    </Button>
+                    <Button
+                      className="btn btn-sm btn-light"
+                      type="button"
+                      variant="outline-info"
+                      disabled={currentPage === totalPages ? true : false}
+                      onClick={this.lastPage}
+                    >
+                      <i
+                        style={{ fontWeight: "bold" }}
+                        className="fa fa-angle-double-right"
+                      />
+                    </Button>
+                  </InputGroupAddon>
+                </InputGroup>
               </div>
             </div>
+            <br />
             <div className="row">
               <div className="col-md-12" style={{ padding: 0 }}>
                 <div className="table">
                   <table className="table table-hover table-sm table-condensed">
                     <thead>
-                      <tr>
-                        <th style={{ width: "auto" }}>
-                          <input type="checkbox" />
+                      <tr
+                        className="text-center"
+                        style={{ background: "#45B254 !important" }}
+                      >
+                        <th style={{ width: "10px" }}>
+                          <input
+                            type="checkbox"
+                            onClick={() =>
+                              this.setState(
+                                {
+                                  checkall: !this.state.checkall,
+                                },
+                                () =>
+                                  this.toggleCheckboxes(
+                                    this.state.checkall,
+                                    "foo"
+                                  )
+                              )
+                            }
+                          />
                         </th>
-                        <th>Sede</th>
-                        <th>No.Radicacion</th>
-                        <th>Asunto</th>
-                        <th>Fecha de Radicacion</th>
-                        <th>Destinatarios</th>
-                        <th>Acciones</th>
+                        <th style={{ width: "150px" }}>Sede</th>
+                        <th style={{ width: "10px" }}>No.Radicación</th>
+                        <th style={{ width: "150px" }}>Asunto</th>
+                        <th style={{ width: "100px" }}>Fecha de radicación</th>
+                        <th style={{ width: "50px" }}>Destinatarios</th>
+                        <th style={{ width: "10px" }}>Estado</th>
+                        <th style={{ width: "100px" }}>Acciones</th>
                       </tr>
                     </thead>
                     {allcontent.length ? (
-                      <tbody>
+                      <tbody
+                        className="text-center"
+                        style={{
+                          height: "200px",
+                          overflowY: "auto",
+                          width: "100%",
+                        }}
+                      >
                         {allcontent.map((correspondence, id) => {
                           return (
                             <tr key={id}>
+                              <td className="inbox-small-cells">
+                                <input
+                                  name="foo"
+                                  type="checkbox"
+                                  className="mail-checkbox"
+                                  defaultChecked={this.state.chkrow}
+                                  onChange={(e) => {
+                                    this.setState({ chkrow: e.target.value });
+                                    // this.setState({ chkrow: !this.state.chkrow });
+                                  }}
+                                />
+                              </td>
+                              <td>{correspondence.headquarter}</td>
+                              <td>{correspondence.numFiling}</td>
                               <td>{correspondence.issue}</td>
-                              <td>{correspondence.documentDate}</td>
-                              <td>{correspondence.createdAt}</td>
-                              <td>{correspondence.validity}</td>
+                              <td>
+                                {this.DateFiling(correspondence.createdAt)}
+                              </td>
                               <td>{correspondence.guide}</td>
-                              <td>{correspondence.status}</td>
+                              <td>
+                                {this.colorStatusFiling(
+                                  correspondence.statusName
+                                )}
+                              </td>
                               <td>
                                 <div className="">
                                   <button
@@ -225,8 +403,11 @@ const mapDispatch = (dispatch) => {
     filter: (data) => {
       dispatch(filterData(data));
     },
-    pagination: (page) => {
-      dispatch(loadpaginationperpage(page));
+    paginationReceived(page) {
+      dispatch(loadPaginationReceived(page));
+    },
+    paginationPending(page) {
+      dispatch(loadPaginationPending(page));
     },
   };
 };
