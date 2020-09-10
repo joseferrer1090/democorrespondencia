@@ -53,15 +53,15 @@ class ContentComponent extends Component {
 
   componentDidMount() {
     this.props.getData();
-    // this.validatePagination();
-    // this.props.pagination(currentPage);
   }
 
-  // handlePageClick = (data) => {
-  //   let selected = data.selected;
-  //   console.log(selected);
-  //   this.props.pagination(selected);
-  // };
+  toggleCheckboxes = (source, cbName) => {
+    for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
+      document.getElementsByName(cbName)[i].checked = source;
+    }
+  };
+
+  /* PAGINACIÓN */
 
   validatePagination = (page) => {
     let validationParameter;
@@ -81,7 +81,6 @@ class ContentComponent extends Component {
     return propsFunction;
   };
 
-  /* PAGINACIÓN */
   handlePageChange = (event) => {
     const currentPage = this.props.number;
     let targetPage = event.target.value;
@@ -138,6 +137,7 @@ class ContentComponent extends Component {
       this.validatePagination(currentPage + 1);
     }
   };
+
   /* FIN */
 
   render() {
@@ -208,7 +208,9 @@ class ContentComponent extends Component {
                   </InputGroupAddon>
                   <Input
                     type="number"
-                    // min={1}
+                    // Validar que no entre en NaN
+                    min={1}
+                    max={totalPages}
                     style={pageNumCss}
                     className="bg-dark"
                     name="currentPage"
@@ -246,7 +248,21 @@ class ContentComponent extends Component {
                     <thead>
                       <tr>
                         <th style={{ width: "auto" }}>
-                          <input type="checkbox" />
+                          <input
+                            type="checkbox"
+                            onClick={() =>
+                              this.setState(
+                                {
+                                  checkall: !this.state.checkall,
+                                },
+                                () =>
+                                  this.toggleCheckboxes(
+                                    this.state.checkall,
+                                    "foo"
+                                  )
+                              )
+                            }
+                          />
                         </th>
                         <th>Sede</th>
                         <th>No.Radicacion</th>
@@ -261,6 +277,18 @@ class ContentComponent extends Component {
                         {allcontent.map((correspondence, id) => {
                           return (
                             <tr key={id}>
+                              <td className="inbox-small-cells">
+                                <input
+                                  name="foo"
+                                  type="checkbox"
+                                  className="mail-checkbox"
+                                  defaultChecked={this.state.chkrow}
+                                  onChange={(e) => {
+                                    this.setState({ chkrow: e.target.value });
+                                    // this.setState({ chkrow: !this.state.chkrow });
+                                  }}
+                                />
+                              </td>
                               <td>{correspondence.issue}</td>
                               <td>{correspondence.documentDate}</td>
                               <td>{correspondence.createdAt}</td>
