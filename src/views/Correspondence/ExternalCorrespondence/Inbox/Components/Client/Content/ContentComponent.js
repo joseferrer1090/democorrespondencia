@@ -148,16 +148,20 @@ class ContentComponent extends Component {
     return status;
   };
 
+  disabledInput = () => {
+    const { number, totalPages } = this.props;
+    let disabled = false;
+    if (number === totalPages) {
+      disabled = true;
+    }
+    return disabled;
+  };
+
   render() {
     const { data } = this.state;
-    const {
-      allcontent,
-      size,
-      totalElements,
-      number,
-      valuesearch,
-      totalPages,
-    } = this.props;
+    const { allcontent, number, totalPages } = this.props;
+    console.log(number);
+    const currentPage = this.props.number;
 
     const aux = Object.keys(data).length ? "Datos" : "No datos";
 
@@ -174,81 +178,85 @@ class ContentComponent extends Component {
         <div className="card-body">
           <React.Fragment>
             <div className="row">
-              <div className="col-md-7" style={{ padding: 0 }}>
+              <div
+                className="col-md-7"
+                style={{ padding: 0, marginTop: "20px" }}
+              >
                 <div className="form-group">
+                  {" "}
                   <InputSearch />
                 </div>
               </div>
-              {/* <div className="col-md-5">
-                <ReactPaginate
-                  pageCount={totalPages}
-                  pageRangeDisplayed={number}
-                  marginPagesDisplayed={totalElements}
-                  onPageChange={this.handlePageClick}
-                />
-              </div> */}
-              {/* <div className="float-left">
-              Showing Page {currentPage} of {totalPages}
-              </div> */}
-              <div className="float-right">
-                Showing Page {number} of {totalPages}
+              <div className=" col-md-5 float-right">
+                <center>
+                  Página <b>{number}</b> de <b>{totalPages}</b>{" "}
+                </center>
                 <InputGroup size="sm">
-                  {" "}
                   <InputGroupAddon addonType="prepend">
                     <Button
-                      className="btn btn-sm"
+                      className="btn btn-sm btn-light"
                       type="button"
                       variant="outline-info"
-                      // disabled={currentPage === 1 ? true : false}
+                      disabled={currentPage === 1 ? true : false}
                       onClick={this.firstPage}
                     >
-                      First
+                      <i
+                        style={{ fontWeight: "bold" }}
+                        className="fa fa-angle-double-left"
+                      />
                     </Button>
                     <Button
-                      className="btn btn-sm"
+                      className="btn btn-sm btn-light"
                       type="button"
                       variant="outline-info"
-                      // disabled={currentPage === 1 ? true : false}
+                      disabled={currentPage === 1 ? true : false}
                       onClick={this.prevPage}
                     >
-                      Prev
+                      <i className="fa fa-chevron-left" />
                     </Button>
                   </InputGroupAddon>
                   <Input
-                    type="number"
                     // Validar que no entre en NaN
+                    type="number"
                     min={1}
                     max={totalPages}
                     style={pageNumCss}
-                    className="bg-dark"
+                    className="bg-light"
                     name="currentPage"
+                    placeholder="Buscar página"
                     // value={number}
-                    defaultValue={number + 1}
+                    // defaultValue={number + 1}
+                    disabled={this.disabledInput()}
                     onChange={this.handlePageChange}
                   />
+
                   <InputGroupAddon addonType="append">
                     <Button
-                      className="btn btn-sm"
+                      className="btn btn-sm btn-light"
                       type="button"
                       variant="outline-info"
-                      // disabled={currentPage === totalPages ? true : false}
+                      disabled={currentPage === totalPages ? true : false}
                       onClick={this.nextPage}
                     >
-                      Next
+                      <i className="fa fa-chevron-right" />
                     </Button>
                     <Button
-                      className="btn btn-sm"
+                      className="btn btn-sm btn-light"
                       type="button"
                       variant="outline-info"
-                      // disabled={currentPage === totalPages ? true : false}
+                      disabled={currentPage === totalPages ? true : false}
                       onClick={this.lastPage}
                     >
-                      Last
+                      <i
+                        style={{ fontWeight: "bold" }}
+                        className="fa fa-angle-double-right"
+                      />
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
               </div>
             </div>
+            <br />
             <div className="row">
               <div className="col-md-12" style={{ padding: 0 }}>
                 <div className="table">

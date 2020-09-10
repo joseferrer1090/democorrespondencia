@@ -1124,7 +1124,7 @@ const FormStep1 = (props) => {
                 <div className="card">
                   <div className="card-footer">
                     <div className="pull-right">
-                      <button
+                      {/* <button
                         type="button"
                         className="btn btn-danger btn-sm"
                         disabled={isSubmitting}
@@ -1139,7 +1139,7 @@ const FormStep1 = (props) => {
                       >
                         metadatos
                       </button>
-                      &nbsp;
+                      &nbsp; */}
                       <button
                         type="submit"
                         className="btn btn-success btn-sm"
