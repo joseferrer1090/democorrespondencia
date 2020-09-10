@@ -30,6 +30,7 @@ export const dataCorrespondence = () => {
     const aux = await loadCorrespondenceData(token);
     dispatch(loadDataCorrespondenceSuccess(aux));
     dispatch(loadDataAll());
+    dispatch(loadPaginationReceived(1));
   };
 };
 
@@ -68,6 +69,7 @@ export const dataCorrespondencePending = () => {
     const aux = await loadCorrespondenceExternalPendingData(token);
     dispatch(loadDataCorrespondencePendingSuccess(aux));
     dispatch(loadDataAllPendong());
+    dispatch(loadPaginationPending(1));
   };
 };
 

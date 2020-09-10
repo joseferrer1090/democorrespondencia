@@ -7,6 +7,7 @@ import {
   dataCorrespondence,
   filterData,
   loadPaginationReceived,
+  loadPaginationPending,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import InputSearch from "./InputSearch";
 import ReactPaginate from "react-paginate";
@@ -51,9 +52,9 @@ class ContentComponent extends Component {
   }
 
   componentDidMount() {
-    const { currentPage } = this.state;
     this.props.getData();
-    this.props.pagination(currentPage);
+    // this.validatePagination();
+    // this.props.pagination(currentPage);
   }
 
   // handlePageClick = (data) => {
@@ -62,40 +63,69 @@ class ContentComponent extends Component {
   //   this.props.pagination(selected);
   // };
 
-  /* PAGINACIÓN */
+  validatePagination = (page) => {
+    let validationParameter;
+    let propsFunction;
+    if (this.props.allcontent.length !== 0) {
+      this.props.allcontent.map((status, id) => {
+        validationParameter = status.statusName;
+      });
+    }
+    if (validationParameter !== "APROBADA") {
+      // propsFunction = console.log(` page pending ${page}`);
+      propsFunction = this.props.paginationPending(page);
+    } else {
+      // propsFunction = console.log(` page received ${page}`);
+      propsFunction = this.props.paginationReceived(page);
+    }
+    return propsFunction;
+  };
 
+  /* PAGINACIÓN */
   handlePageChange = (event) => {
-    let targetPage = parseInt(event.target.value);
-    this.props.pagination(targetPage);
-    this.setState({
-      [event.target.value]: targetPage,
-    });
+    const currentPage = this.props.number;
+    let targetPage = event.target.value;
+    console.log(`currentPage ${currentPage}`);
+    console.log(`parseInt ${targetPage}`);
+    console.log(`event ${event.target.value}`);
+    if (targetPage !== "") {
+      this.validatePagination(targetPage);
+    } else {
+      this.validatePagination(currentPage);
+    }
+
+    // this.setState({
+    //   [event.target.value]: targetPage,
+    // });
   };
 
   firstPage = () => {
     const currentPage = this.props.number;
     let firstPage = 1;
     if (currentPage > firstPage) {
-      this.props.pagination(firstPage);
+      this.validatePagination(firstPage);
+      // this.props.pagination(firstPage);
     }
   };
 
   prevPage = () => {
     const currentPage = this.props.number;
     let prevPage = 1;
+
     if (currentPage > prevPage) {
-      this.props.pagination(currentPage - prevPage);
+      this.validatePagination(currentPage - prevPage);
+      // this.props.pagination(currentPage - prevPage);
     }
   };
 
   lastPage = () => {
     const itemsCountPerPage = this.props.size;
     const totalElements = this.props.totalElements;
-
     const currentPage = this.props.number;
     let condition = Math.ceil(totalElements / itemsCountPerPage);
     if (currentPage < condition) {
-      this.props.pagination(condition);
+      this.validatePagination(condition);
+      // this.props.pagination(condition);
     }
   };
 
@@ -104,7 +134,8 @@ class ContentComponent extends Component {
     const totalElements = this.props.totalElements;
     const currentPage = this.props.number;
     if (currentPage < Math.ceil(totalElements / itemsCountPerPage)) {
-      this.props.pagination(currentPage + 1);
+      // this.props.pagination(currentPage + 1);
+      this.validatePagination(currentPage + 1);
     }
   };
   /* FIN */
@@ -176,10 +207,13 @@ class ContentComponent extends Component {
                     </Button>
                   </InputGroupAddon>
                   <Input
+                    type="number"
+                    // min={1}
                     style={pageNumCss}
                     className="bg-dark"
                     name="currentPage"
-                    value={number}
+                    // value={number}
+                    defaultValue={number + 1}
                     onChange={this.handlePageChange}
                   />
                   <InputGroupAddon addonType="append">
@@ -232,7 +266,7 @@ class ContentComponent extends Component {
                               <td>{correspondence.createdAt}</td>
                               <td>{correspondence.validity}</td>
                               <td>{correspondence.guide}</td>
-                              <td>{correspondence.status}</td>
+                              <td>{correspondence.statusName}</td>
                               <td>
                                 <div className="">
                                   <button
@@ -308,8 +342,11 @@ const mapDispatch = (dispatch) => {
     filter: (data) => {
       dispatch(filterData(data));
     },
-    pagination(page) {
+    paginationReceived(page) {
       dispatch(loadPaginationReceived(page));
+    },
+    paginationPending(page) {
+      dispatch(loadPaginationPending(page));
     },
   };
 };
