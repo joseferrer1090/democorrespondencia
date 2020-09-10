@@ -22,6 +22,10 @@ import {
   NUMERO_ELEMENTOS_PENDIENTES,
   NUMERO_ELEMENTOS_RECIBIDOS,
   BUSCAR_CORRESPONDENCIA_PENDIENTE,
+  PAGINACION_BANDEJA_RECIBIDA,
+  PAGINACION_BANDEJA_PENDIENTE,
+  DATA_ALL_PAGINACION_PENDIENTE,
+  DATA_ALL_PAGINACION_RECIBIDA,
 } from "../types";
 
 const initalState = {
@@ -35,6 +39,8 @@ const initalState = {
   numerorecibidas: 0,
   numeropendientes: 0,
   valuesearch: null,
+  paginationReceived: [],
+  paginationPending: [],
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
@@ -58,6 +64,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         totalPages: action.payload.totalPages,
         totalElements: action.payload.totalElements,
         size: action.payload.size,
+        number: action.payload.number,
       };
 
     case DATA_ALL_CORRESPONDENCE:
@@ -137,7 +144,36 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
         ...state,
         alldata: [...state.pending].filter,
       };
+    case PAGINACION_BANDEJA_RECIBIDA:
+      return {
+        ...state,
+        paginationReceived: action.payload.content,
+        totalPages: action.payload.totalPages,
+        totalElements: action.payload.totalElements,
+        size: action.payload.size,
+        number: action.payload.number + 1,
+      };
+    case PAGINACION_BANDEJA_PENDIENTE:
+      return {
+        ...state,
+        paginationPending: action.payload.content,
+        totalPages: action.payload.totalPages,
+        totalElements: action.payload.totalElements,
+        size: action.payload.size,
+        number: action.payload.number + 1,
+      };
 
+    case DATA_ALL_PAGINACION_RECIBIDA:
+      return {
+        ...state,
+        alldata: [...state.paginationReceived],
+      };
+
+    case DATA_ALL_PAGINACION_PENDIENTE:
+      return {
+        ...state,
+        alldata: [...state.paginationPending],
+      };
     default:
       return state;
   }
