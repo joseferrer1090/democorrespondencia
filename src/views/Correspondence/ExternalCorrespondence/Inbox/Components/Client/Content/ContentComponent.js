@@ -10,7 +10,7 @@ import {
   loadPaginationPending,
 } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
 import InputSearch from "./InputSearch";
-import ReactPaginate from "react-paginate";
+import moment from "moment";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 
 class ContentComponent extends Component {
@@ -72,10 +72,8 @@ class ContentComponent extends Component {
       });
     }
     if (validationParameter !== "APROBADA") {
-      // propsFunction = console.log(` page pending ${page}`);
       propsFunction = this.props.paginationPending(page);
     } else {
-      // propsFunction = console.log(` page received ${page}`);
       propsFunction = this.props.paginationReceived(page);
     }
     return propsFunction;
@@ -84,18 +82,11 @@ class ContentComponent extends Component {
   handlePageChange = (event) => {
     const currentPage = this.props.number;
     let targetPage = event.target.value;
-    console.log(`currentPage ${currentPage}`);
-    console.log(`parseInt ${targetPage}`);
-    console.log(`event ${event.target.value}`);
     if (targetPage !== "") {
       this.validatePagination(targetPage);
     } else {
       this.validatePagination(currentPage);
     }
-
-    // this.setState({
-    //   [event.target.value]: targetPage,
-    // });
   };
 
   firstPage = () => {
@@ -139,6 +130,23 @@ class ContentComponent extends Component {
   };
 
   /* FIN */
+  DateFiling = (date) => {
+    return moment(date).format("DD-MM-YYYY");
+  };
+
+  colorStatusFiling = (state) => {
+    let status;
+    if (state === "APROBADA") {
+      status = <b style={{ color: "#39a84e" }}>{state}</b>;
+    } else if (state === "INICIADO") {
+      status = <b style={{ color: "#d6d914" }}>{state}</b>;
+    } else if (state === "POR ADJUNTAR") {
+      status = <b style={{ color: "#d91427" }}>{state}</b>;
+    } else {
+      return state;
+    }
+    return status;
+  };
 
   render() {
     const { data } = this.state;
@@ -150,7 +158,7 @@ class ContentComponent extends Component {
       valuesearch,
       totalPages,
     } = this.props;
-    // const pageCount = totalElements / size;
+
     const aux = Object.keys(data).length ? "Datos" : "No datos";
 
     const pageNumCss = {
@@ -246,8 +254,11 @@ class ContentComponent extends Component {
                 <div className="table">
                   <table className="table table-hover table-sm table-condensed">
                     <thead>
-                      <tr>
-                        <th style={{ width: "auto" }}>
+                      <tr
+                        className="text-center"
+                        style={{ background: "#45B254 !important" }}
+                      >
+                        <th style={{ width: "10px" }}>
                           <input
                             type="checkbox"
                             onClick={() =>
@@ -264,16 +275,24 @@ class ContentComponent extends Component {
                             }
                           />
                         </th>
-                        <th>Sede</th>
-                        <th>No.Radicacion</th>
-                        <th>Asunto</th>
-                        <th>Fecha de Radicacion</th>
-                        <th>Destinatarios</th>
-                        <th>Acciones</th>
+                        <th style={{ width: "150px" }}>Sede</th>
+                        <th style={{ width: "10px" }}>No.Radicación</th>
+                        <th style={{ width: "150px" }}>Asunto</th>
+                        <th style={{ width: "100px" }}>Fecha de radicación</th>
+                        <th style={{ width: "50px" }}>Destinatarios</th>
+                        <th style={{ width: "10px" }}>Estado</th>
+                        <th style={{ width: "100px" }}>Acciones</th>
                       </tr>
                     </thead>
                     {allcontent.length ? (
-                      <tbody>
+                      <tbody
+                        className="text-center"
+                        style={{
+                          height: "200px",
+                          overflowY: "auto",
+                          width: "100%",
+                        }}
+                      >
                         {allcontent.map((correspondence, id) => {
                           return (
                             <tr key={id}>
@@ -289,12 +308,18 @@ class ContentComponent extends Component {
                                   }}
                                 />
                               </td>
+                              <td>{correspondence.headquarter}</td>
+                              <td>{correspondence.numFiling}</td>
                               <td>{correspondence.issue}</td>
-                              <td>{correspondence.documentDate}</td>
-                              <td>{correspondence.createdAt}</td>
-                              <td>{correspondence.validity}</td>
+                              <td>
+                                {this.DateFiling(correspondence.createdAt)}
+                              </td>
                               <td>{correspondence.guide}</td>
-                              <td>{correspondence.statusName}</td>
+                              <td>
+                                {this.colorStatusFiling(
+                                  correspondence.statusName
+                                )}
+                              </td>
                               <td>
                                 <div className="">
                                   <button
