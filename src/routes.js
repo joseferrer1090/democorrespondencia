@@ -15,7 +15,7 @@ const RadicationDocumentCorrespondenceExternalInbox = React.lazy(() =>
 const RadicationDocumentCorrespondenceExternalInboxOneStopShop = React.lazy(
   () =>
     import(
-      "./views/Correspondence/one-stop shop/RadicationDocument/RadicationInboxExternalDocument"
+      "./views/Radication/RadicationDocuments/RadicationInboxExternalDocument/RadicationInboxExternalDocument"
     )
 );
 

@@ -15,14 +15,9 @@ class RadicationDocument extends Component {
   componentDidMount() {
     this.stepper = new Stepper(document.querySelector("#stepper"), {
       linear: false,
-      animation: true
+      animation: true,
     });
   }
-
-  // onSubmit(e) {
-  //   e.preventDefault();
-  //   alert("Probando apenas");
-  // }
 
   render() {
     return (
