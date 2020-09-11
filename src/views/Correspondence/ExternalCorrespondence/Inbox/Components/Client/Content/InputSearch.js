@@ -12,7 +12,7 @@ class InputSearch extends Component {
     return (
       <div>
         <input
-          type="text"
+          type="search"
           className="form-control form-control-sm"
           value={valuesearch}
           style={{

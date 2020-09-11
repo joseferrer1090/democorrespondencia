@@ -103,6 +103,10 @@ const EditSticker = React.lazy(() =>
   import("./views/Configuration/Sticker/EditSticker")
 );
 
+const Anotattions = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Annotations")
+);
+
 const routes = [
   { path: "/", exact: true, name: "Inicio", component: DefaultLayout },
   { path: "/inicio", name: "", component: Dashboard },
@@ -207,6 +211,12 @@ const routes = [
     exact: true,
     name: "Edit sticker",
     component: EditSticker,
+  },
+  {
+    path: "/correspondence/external/anottations/new/:id",
+    exact: true,
+    name: "Anottations",
+    component: Anotattions,
   },
 ];
 

@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ListGroup, ListGroupItem, Badge } from "reactstrap";
+import {
+  ListGroup,
+  ListGroupItem,
+  Badge,
+  Collapse,
+  UncontrolledCollapse,
+} from "reactstrap";
 import Tags from "./TagViewer";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -19,7 +25,9 @@ class ListInboxCorrespondence extends Component {
       active: {
         active2: true,
         active3: false,
+        active4: false,
       },
+      collapse: true,
       currentPage: 1,
     };
   }
@@ -73,14 +81,14 @@ class ListInboxCorrespondence extends Component {
               />
             </form>
           </ListGroupItem> */}
-          <ListGroupItem className="" tag="button" action>
+          {/* <ListGroupItem className="" tag="button" action>
             {" "}
             Actualizar{" "}
             <Badge className="float-right" pill>
               {" "}
               <i className="fa fa-refresh" />{" "}
             </Badge>{" "}
-          </ListGroupItem>
+          </ListGroupItem> */}
           <ListGroupItem
             className=""
             tag="button"
@@ -107,7 +115,34 @@ class ListInboxCorrespondence extends Component {
               {this.props.numeropendientes}
             </Badge>{" "}
           </ListGroupItem>
-          <ListGroupItem className="" tag="button" action>
+          <ListGroupItem
+            onClick={() =>
+              this.setState({
+                collapse: !this.state.collapse,
+              })
+            }
+            style={{
+              background: "#e3e3e3",
+            }}
+          >
+            Novedades
+          </ListGroupItem>
+          <Collapse isOpen={this.state.collapse}>
+            <ListGroup>
+              <ListGroupItem
+                className=""
+                tag="button"
+                action
+                active={this.state.active.active4}
+              >
+                Anotaciones{" "}
+                <Badge pill className="float-right  badge-info  ">
+                  0
+                </Badge>{" "}
+              </ListGroupItem>
+            </ListGroup>
+          </Collapse>
+          {/* <ListGroupItem className="" tag="button" action>
             <Link to="/correspondence/external/consult">
               {" "}
               Consultar{" "}
@@ -116,7 +151,7 @@ class ListInboxCorrespondence extends Component {
                 <i className="fa fa-search" />{" "}
               </Badge>{" "}
             </Link>
-          </ListGroupItem>
+          </ListGroupItem> */}
           {/* <ListGroupItem>
             <Tags />
           </ListGroupItem> */}
