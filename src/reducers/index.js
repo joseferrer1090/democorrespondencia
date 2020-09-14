@@ -11,6 +11,7 @@ import step3ReducerFiling from "./step3ReducerFiling";
 import controlFilingViews from "./controlFilingViewsReducer";
 import { dataCorrespondenceExternal } from "./dataCorrespondenceExternal";
 import chartsDashboard from "./chartsDashboardReducer";
+import { dataAnottationsReducers } from "./anottationsReducer";
 
 export default combineReducers({
   step2ReducerSticker,
@@ -25,4 +26,5 @@ export default combineReducers({
   controlFilingViews,
   dataCorrespondenceExternal,
   chartsDashboard,
+  dataAnottationsReducers,
 });
