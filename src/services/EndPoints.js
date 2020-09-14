@@ -136,4 +136,4 @@ export const ANOTATION_CREATE = `${config.IP}:${config.PORT}/api/sgdea/service/e
 export const COUNT_NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/novelties/annotations/user/count`;
 
 /* GET */
-export const NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/novelties/annotations/user`;
+export const NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/novelties/annotations/user?page=0&size=10`;

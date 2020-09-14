@@ -165,7 +165,6 @@ class ContentComponent extends Component {
   render() {
     const { data } = this.state;
     const { allcontent, number, totalPages } = this.props;
-    console.log(number);
     const currentPage = this.props.number;
 
     const aux = Object.keys(data).length ? "Datos" : "No datos";

@@ -18,6 +18,11 @@ import {
   dataNumberPending,
 } from "./../../../../../../../../actions/dataCorrespondenceExternalAction";
 
+import {
+  loadNumberAnottations,
+  loadDataAnottations,
+} from "./../../../../../../../../actions/anottationsActions";
+
 class ListInboxCorrespondence extends Component {
   constructor(props) {
     super(props);
@@ -40,14 +45,20 @@ class ListInboxCorrespondence extends Component {
     this.props.getNumberPending();
   };
 
+  getNunmerA = () => {
+    this.props.getNumberAnottation();
+  };
+
   componentDidMount() {
     this.getNumberR();
     this.getNumberP();
+    this.getNunmerA();
   }
 
   render() {
     const { currentPage } = this.state;
-    console.log(currentPage);
+    const { countanottations } = this.props;
+
     const getDataP = () => {
       this.props.getDataPending();
       this.setState({
@@ -66,6 +77,17 @@ class ListInboxCorrespondence extends Component {
         active: {
           ...this.state,
           active2: true,
+        },
+      });
+    };
+
+    const getDataA = () => {
+      this.props.getDataAnottations();
+      this.setState({
+        ...this.state,
+        active: {
+          ...this.state,
+          active4: true,
         },
       });
     };
@@ -134,10 +156,11 @@ class ListInboxCorrespondence extends Component {
                 tag="button"
                 action
                 active={this.state.active.active4}
+                onClick={getDataA}
               >
                 Anotaciones{" "}
                 <Badge pill className="float-right  badge-info  ">
-                  0
+                  {countanottations}
                 </Badge>{" "}
               </ListGroupItem>
             </ListGroup>
@@ -171,6 +194,7 @@ const mapState = (state) => {
     totalPendig: state.dataCorrespondenceExternal.totalElements,
     numerorecibidos: state.dataCorrespondenceExternal.numerorecibidas,
     numeropendientes: state.dataCorrespondenceExternal.numeropendientes,
+    countanottations: state.dataAnottationsReducers.countanotattions,
   };
 };
 
@@ -187,6 +211,12 @@ const mapDispatch = (dispatch) => {
     },
     getNumberPending: () => {
       dispatch(dataNumberPending());
+    },
+    getNumberAnottation: () => {
+      dispatch(loadNumberAnottations());
+    },
+    getDataAnottations: () => {
+      dispatch(loadDataAnottations());
     },
   };
 };

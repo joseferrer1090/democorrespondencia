@@ -24,6 +24,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         anottations: action.payload,
       };
 
+    case NUMERO_ANOTACIONES:
+      return {
+        ...state,
+        countanotattions: action.payload,
+      };
+
     default:
       return state;
   }
