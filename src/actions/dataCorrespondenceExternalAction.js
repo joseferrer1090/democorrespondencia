@@ -29,6 +29,7 @@ import {
   countDataCorrespondenceReceived,
   countDataCorrespondencePending,
 } from "./../utils/helpers/countcorrespondence";
+import { COUNT_RECEIVED } from "../services/EndPoints";
 
 // Funcion principal
 export const dataCorrespondence = () => {
@@ -158,16 +159,26 @@ export const loadcountcorrespondence = (token) => {
   return async (dispatch, getState) => {
     const token = localStorage.getItem("auth_token");
     const aux = await countDataCorrespondenceReceived(token);
-    console.log(`COUNT RECEIVED => ${aux}`);
+    dispatch(loadcountC(aux));
   };
 };
+
+export const loadcountC = (data) => ({
+  type: COUNT_CORRESPONDENCE,
+  payload: data,
+});
 
 export const loadcountpending = (token) => {
   return async (dispatch, getState) => {
     const token = localStorage.getItem("auth_token");
     const aux = await countDataCorrespondencePending(token);
-    console.log(`COUNT PENDING => ${aux}`);
+    dispatch(loadcountP(aux));
   };
 };
+
+export const loadcountP = (data) => ({
+  type: COUNT_PENDING,
+  payload: data,
+});
 
 // FIN

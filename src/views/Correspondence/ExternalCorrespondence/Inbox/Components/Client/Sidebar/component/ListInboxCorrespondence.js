@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  ListGroup,
-  ListGroupItem,
-  Badge,
-  Collapse,
-  UncontrolledCollapse,
-} from "reactstrap";
+import { ListGroup, ListGroupItem, Badge, Collapse } from "reactstrap";
 import Tags from "./TagViewer";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -16,6 +10,8 @@ import {
   dataCorrespondence,
   dataNumerReceived,
   dataNumberPending,
+  loadcountcorrespondence,
+  loadcountpending,
 } from "./../../../../../../../../actions/dataCorrespondenceExternalAction";
 
 import {
@@ -53,6 +49,8 @@ class ListInboxCorrespondence extends Component {
     this.getNumberR();
     this.getNumberP();
     this.getNunmerA();
+    this.props.getcount();
+    this.props.getcountp();
   }
 
   render() {
@@ -217,6 +215,12 @@ const mapDispatch = (dispatch) => {
     },
     getDataAnottations: () => {
       dispatch(loadDataAnottations());
+    },
+    getcount: () => {
+      dispatch(loadcountcorrespondence());
+    },
+    getcountp: () => {
+      dispatch(loadcountpending());
     },
   };
 };
