@@ -12,6 +12,9 @@ import {
   PAGINACION_BANDEJA_PENDIENTE,
   DATA_ALL_PAGINACION_RECIBIDA,
   DATA_ALL_PAGINACION_PENDIENTE,
+  COUNT_ANOTTATIONS,
+  COUNT_CORRESPONDENCE,
+  COUNT_PENDING,
 } from "./../types/index";
 import {
   loadCorrespondenceData,
@@ -21,6 +24,11 @@ import {
   PaginationReceived,
   PaginationPending,
 } from "./../utils/helpers/loadCorrespondenceExternal";
+
+import {
+  countDataCorrespondenceReceived,
+  countDataCorrespondencePending,
+} from "./../utils/helpers/countcorrespondence";
 
 // Funcion principal
 export const dataCorrespondence = () => {
@@ -143,3 +151,23 @@ export const loadDataAllPaginationPending = () => ({
 });
 
 //FIN
+
+// COUNT DE LOS NUEVO ENDPOINT
+
+export const loadcountcorrespondence = (token) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await countDataCorrespondenceReceived(token);
+    console.log(`COUNT RECEIVED => ${aux}`);
+  };
+};
+
+export const loadcountpending = (token) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await countDataCorrespondencePending(token);
+    console.log(`COUNT PENDING => ${aux}`);
+  };
+};
+
+// FIN
