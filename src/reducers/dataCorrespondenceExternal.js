@@ -28,6 +28,8 @@ import {
   PAGINACION_BANDEJA_PENDIENTE,
   DATA_ALL_PAGINACION_PENDIENTE,
   DATA_ALL_PAGINACION_RECIBIDA,
+  COUNT_PENDING,
+  COUNT_CORRESPONDENCE,
 } from "../types";
 
 const initalState = {
@@ -43,6 +45,8 @@ const initalState = {
   valuesearch: null,
   paginationReceived: [],
   paginationPending: [],
+  countreceived: null,
+  countpending: null,
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
@@ -161,6 +165,16 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         alldata: [...state.paginationPending],
+      };
+    case COUNT_CORRESPONDENCE:
+      return {
+        ...state,
+        countreceived: action.payload,
+      };
+    case COUNT_PENDING:
+      return {
+        ...state,
+        countpending: action.payload,
       };
     default:
       return state;
