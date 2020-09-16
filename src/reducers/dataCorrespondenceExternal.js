@@ -9,6 +9,8 @@ correspondeData {
     numerorecibidas: => numero de recibidas
     numeropendientes: => numero de pendientes
     valuesearch: => valor para realizar la busqueda
+    countreceived: => numero de correspondencia recibida con el endpoint
+    countpending: => numero de correspondencia pendiente con el endpoint
 }
 */
 
@@ -124,20 +126,6 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
             )
           : [...state.pending],
       };
-
-    // case BUSCAR_CORRESPONDENCIA_PENDIENTE:
-    //   return {
-    //     ...state,
-    //     valuesearch: action.payload,
-    //     alldata:
-    //       state.valuesearch === "" || state.valuesearch !== null
-    //         ? [
-    //             ...state.alldata.filter(
-    //               (val) => val.issue.indexOf(state.valuesearch) > -1
-    //             ),
-    //           ]
-    //         : [...state.pending],
-    //   };
 
     case "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE":
       return {
