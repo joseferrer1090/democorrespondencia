@@ -55,7 +55,7 @@ class ListInboxCorrespondence extends Component {
 
   render() {
     const { currentPage } = this.state;
-    const { countanottations } = this.props;
+    const { countanottations, countpending, countreceived } = this.props;
 
     const getDataP = () => {
       this.props.getDataPending();
@@ -119,20 +119,22 @@ class ListInboxCorrespondence extends Component {
             {" "}
             Entrada
             <Badge pill className="float-right  badge-info">
-              {this.props.numerorecibidos}
+              {countreceived}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem
             className=""
             tag="button"
-            action
-            onClick={getDataP}
+            onClick={(e) => {
+              e.preventDefault();
+              getDataP();
+            }}
             active={this.state.active.active3}
           >
             {" "}
             Pendiente{" "}
             <Badge pill className="float-right  badge-danger  ">
-              {this.props.numeropendientes}
+              {countpending}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem
@@ -193,6 +195,8 @@ const mapState = (state) => {
     numerorecibidos: state.dataCorrespondenceExternal.numerorecibidas,
     numeropendientes: state.dataCorrespondenceExternal.numeropendientes,
     countanottations: state.dataAnottationsReducers.countanotattions,
+    countreceived: state.dataCorrespondenceExternal.countreceived,
+    countpending: state.dataCorrespondenceExternal.countpending,
   };
 };
 
