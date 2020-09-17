@@ -125,15 +125,15 @@ class ListInboxCorrespondence extends Component {
           <ListGroupItem
             className=""
             tag="button"
+            action
             onClick={(e) => {
               e.preventDefault();
               getDataP();
             }}
             active={this.state.active.active3}
           >
-            {" "}
             Pendiente{" "}
-            <Badge pill className="float-right  badge-danger  ">
+            <Badge pill className="float-right  badge-danger">
               {countpending}
             </Badge>{" "}
           </ListGroupItem>
