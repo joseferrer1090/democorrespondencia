@@ -1,759 +1,1079 @@
-import React, { Component } from "react";
+import React, {useEffect, useState, useRef} from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { ErrorMessage, Field, Formik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import { css } from "glamor";
 import PropTypes from "prop-types";
-import Files from "react-files";
-import HeaderInbox from "./../../../Header/HeaderInbox";
-import SideBarInbox from "./../../../Sidebar/SidebarInboxComponent";
-import { Card, Collapse } from "reactstrap";
-import CardRemitente from "./components/CardUserRemitente";
-import dataform from "./../../../../../../../../../services/plantilla_data.json";
 import * as Yup from "yup";
-import { Formik, ErrorMessage, Field } from "formik";
-import "./../../../Content/components/css/reactfile.css";
-import { EXTERNAL_CORRESPONDENCE_RECEIVED } from "../../../../../../../../../services/EndPoints";
+import moment from "moment";
+import "react-toastify/dist/ReactToastify.css";
+import SelectConglomerado from "./Components/SelectConglomerado";
+import FieldCompany from "./Components/SelectCompany";
+import FieldHeadquarter from "./Components/SelectHeadquarter";
+import SelectTypeDocumentary from "./Components/SelectTypeDocumentary";
+import SelectCountry from "./Components/SelectCountry";
+import FieldDepartment from "./Components/SelectDepartment";
+import FieldCity from "./Components/SelectCity";
+import SelectTypeShipmentArrival from "./Components/SelectTypeShiptmentArrival";
+import SelectMessenger from "./Components/SelectMessenger";
+import SelectTemplate from "./Components/SelectTemplate";
+import ReceiverSelectConglomerado from "./Components/ReceiverSelectConglomerate";
+import ReceiverFieldCompany from "./Components/ReceiverSelectCompany";
+import ReceiverFieldHeadquarter from "./Components/ReceiverSelectHeadquarter";
+import ReceiverFieldDependence from "./Components/ReceiverSelectDependence";
+import UserList from "./Components/UserList";
+import UserListEnabled from "./Components/UserListEnabled";
+import ThirdParty from "./Components/SelectTercero";
+import FieldIssue from "./Components/FieldIssue";
+import PreviewTemplate from "./Components/PreviewTemplate";
 
-const dataExample = dataform;
 
-class EditCorrespondence extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapse: false,
-      collapse2: false,
-      collapse3: true,
-      getdata: [],
-      selectRemitente: null,
-      selectPlantilla: null,
-      dataForm: dataExample,
-      files: [],
-      idCorrespondence: "",
-      dataCorrespondencia: {},
-    };
-  }
+const EditCorrespondence = props => {
 
-  OpenCollapse = () => {
-    this.setState({
-      collapse: !this.state.collapse,
-    });
+  useEffect(() => {
+
+   console.log(props.match.params.id)
+   console.log(data);
+  }, [])
+  const data = {users:[]}
+  const [oldValueConglomerate, setOldValueConglomerate] = useState();
+  const [newValueConglomerate, setNewValueConglomerate] = useState();
+  const [oldValueTypeDocumentary, setOldValueTypeDocumentary] = useState();
+  const [newValueTypeDocumentary, setNewValueTypeDocumentary] = useState();
+  const [oldValueCountry, setOldValueCountry] = useState();
+  const [newValueCountry, setNewValueCountry] = useState();
+  const [
+    oldValueTypeShipmentArrival,
+    setOldValueTypeShipmentArrival,
+  ] = useState();
+  const [
+    newValueTypeShipmnetArrival,
+    setNewValueTypeShipmentArrival,
+  ] = useState();
+  const [oldValueMessenger, setOldValueMessenger] = useState();
+  const [newValueMessenger, setNewValueMessenger] = useState();
+  const [
+    oldValueConglomerateReceiver,
+    setOldValueConglomerateReceiver,
+  ] = useState();
+  const [
+    newValueConglomerateReceiver,
+    setNewValueConglomerateReceiver,
+  ] = useState();
+  const [StateChangeAlert, setAux] = useState(null);
+  const [valueIdentification, setValueIdentification] = useState(null);
+  const [cObjectPosition, setCObjectPosition] = useState();
+  const [cObjectId, setCObjectId] = useState();
+  const [cObjectValue, setCObjectValue] = useState();
+
+  const changeInValueConglomerate = (Old, New) => {
+    setOldValueConglomerate(Old);
+    setNewValueConglomerate(New);
   };
 
-  OpenCollapse2 = () => {
-    this.setState({
-      collapse2: !this.state.collapse2,
-    });
+  const changeInValueConglomerateReceiver = (Old, New) => {
+    setOldValueConglomerateReceiver(Old);
+    setNewValueConglomerateReceiver(New);
   };
 
-  onFilesChange = (files) => {
-    this.setState(
-      {
-        files,
-      },
-      () => {
-        console.log(this.state.files);
-      }
-    );
+  const changeInValueTypeDocumentary = (Old, New) => {
+    setOldValueTypeDocumentary(Old);
+    setNewValueTypeDocumentary(New);
   };
 
-  filesRemoveOne = (file) => {
-    this.refs.files.removeFile(file);
+  const changeInValueCountry = (Old, New) => {
+    setOldValueCountry(Old);
+    setNewValueCountry(New);
   };
 
-  filesRemoveAll = () => {
-    this.refs.files.removeFiles();
+  const changeInValueTypShipmentArrival = (Old, New) => {
+    setOldValueTypeShipmentArrival(Old);
+    setNewValueTypeShipmentArrival(New);
+  };
+  const changeInValueMessenger = (Old, New) => {
+    setOldValueMessenger(Old);
+    setNewValueMessenger(New);
   };
 
-  getDataApi = () => {
-    fetch(`https://jsonplaceholder.typicode.com/users/`) // peticion + url
-      .then((resp) => resp.json()) // Promisse => de lo que viene del server => retorna un json
-      .then((data) =>
-        this.setState({
-          getdata: data,
-        })
-      );
-  };
-
-  componentDidMount() {
-    // const { idCorrespondence } = this.state;
-    this.getDataApi();
-    // console.log(this.props.match.params);
-    this.setState(
-      {
-        idCorrespondence: this.props.match.params,
-      },
-      () => this.getInfoCorrespondencia(this.state.idCorrespondence.id)
-    );
-  }
-
-  getInfoCorrespondencia = (id) => {
-    // console.log(`${id}`);
-    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}?username=ccuartas`, {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Bearer " +
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjY3VhcnRhcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1OTIzNjU5NzQsImF1dGhvcml0aWVzIjpbIlJPTEVfY29uZ2xvbWVyYXRlcy5zaG93IiwiUk9MRV9jb21wYW55LmRlbGV0ZSIsIlJPTEVfY29uZ2xvbWVyYXRlcy5pbmRleCIsIlJPTEVfY29tcGFueS5zaG93Il0sImp0aSI6IjBiMzlhZDZhLTU3MGYtNGZiZC1hZjQ4LTI4ZTUwY2FhMWMxZSIsImVuYWJsZWQiOnRydWUsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.DTudaRDWfBiGAJxd7x_TR2CKqaSb1KzOePnS8e_aM6fi3doPnmdK3-YkvHPZ0QOo3fTEqzx6mKIl4o4MiqpHhU0ForGm1geUHZU3OZmGtm_LyaWe-aIPCsDXDEMNSVj_MT-n4Gveok8zHnJveFgNBNqke9dAlFyBCqDlPIx157X9SS_8FX5irKv6Ohkj5DqW_WRpdq1sGPxqZluLKz1NB-3W1ttIaRyFfs8UeSfGa8t5iJPKFU2IiQcW4WEvTWLHuvEt_tQHyjcc24ycwTqI401-JcJLUSGhrIZmLi5pgqkC-D13N_kEljjl5u0PhFU-4_UI1LL1wnBZkg9Sv_qXOA",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          dataCorrespondencia: {
-            correspondence_dateFiling: data.date_filing,
-            correspondence_timeFiling: data.time_filing,
-            correspondence_headquarter_name: data.headquarter.name,
-            correspondence_headquarter_id: data.headquarter.id,
-            correspondence_validity: data.validity,
-            correspondence_consecutive: data.num_filing,
-            correspondence_userFiling: data.userFiling.name,
-            correspondence_typeDocumentary: data.typeDocumentary.id,
-            correspondence_documentDate: data.documentDate,
-            correspondence_documentNum: data.documentNumber,
-            correspondence_city: data.city.id,
-            correspondence_typeArrival: data.typeShipmentArrival.id,
-            correspondence_guide: data.guide,
-            correspondence_issue: data.issue,
-            correspondence_messenger:data.messenger.id,
-            correspondence_template:data.template.id,
-          },
-          // dataCiudad: data.city,
-          // dataSede: data.headquarter,
-          // dataUserFiling: data.userFiling,
-          // dataMessenger: data.messenger,
-          // dataDestinatarios: data.usersAddresses,
-          // dataRemitente: data.userFiling,
-          // dataTipoLlegada: data.typeShipmentArrival,
-          // dataTipoDocumental: data.typeDocumentary,
-          // dataInfoMetadatos: data.metadata,
-          // spinner: false,
-        });
-
-        // this.getInfoUsuario(this.state.dataRemitente.id);
-      })
-      .catch((Error) => {
-        console.log(" ", Error);
-        // this.setState({
-        //   spinner: false,
-        // });
-      });
-  };
-  render() {
-    console.log(this.state.dataCorrespondencia);
-    const aux = this.state.getdata.map((aux, i) => {
-      return (
-        <option key={i} value={aux.id}>
-          {aux.name}
-        </option>
-      );
-    });
-    const selectAux = this.state.selectRemitente;
-    console.log(this.state.dataForm.form.button);
-    const auxForm = this.state.form;
-
-    const auxTableFiles = this.state.files;
-
-    auxTableFiles.map((file) => {
-      return (
-        <div key={file.id}>
-          <tr>
-            <td width="5%" className="text-center">
-              item
-            </td>
-            <td className="text-center">item</td>
-            <td width="10%" className="text-center">
-              <button className="btn btn-outline-danger  btn-sm float-center">
-                {" "}
-                Quitar
-              </button>
-            </td>
-          </tr>
-        </div>
-      );
-    });
-
-    return (
-      <div>
-        <HeaderInbox />
-        <div>
-          <div className="col-md-12">
-            <div
-              style={{
-                minHeight: "600px",
-                marginTop: "0px",
-              }}
-            >
-              <div className="row">
-                <SideBarInbox />
-                <div className="col-md-10" style={{ padding: "0px" }}>
-                  <Card body>
-                    <div>
-                      <h3 className="card-title">
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          onClick={() => {
-                            this.props.history.goBack();
-                          }}
-                          title="atras"
-                        >
-                          {" "}
-                          <i className="fa fa-arrow-left" />{" "}
-                        </button>{" "}
-                        Modificar correspondencia recibida - Titulo de
-                        correspondencia
-                        <div className="float-right">
-                          <div
-                            className="btn-group btn-group-sm"
-                            role="group"
-                            aria-label="..."
-                          >
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                              title="Adjuntar"
-                              onClick={() => {
-                                this.OpenCollapse();
-                              }}
-                            >
-                              <i className="fa fa-upload" />
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                              title="Cancelar"
-                            >
-                              <i className="fa fa-times" />
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                              title="Guardar cambios"
-                            >
-                              <i className="fa fa-floppy-o" />
-                            </button>
-                          </div>
-                        </div>
-                      </h3>
-                    </div>
-                    <hr style={{ marginTop: "0px" }} />
-                    <form>
-                      <div className="card card-body">
+  return (
+<Formik
+      initialValues={{
+        correspondence_dateFiling: "",
+        correspondence_timeFiling: "",
+        correspondence_guide: "",
+        correspondence_issue: "",
+        correspondence_userFiling: "",
+        correspondence_folios: "",
+        correspondence_consecutive: "",
+        correspondence_documentDate: "",
+        correspondence_documentNum: "",
+        correspondence_headquarter: "" /* S */,
+        correspondence_validity: "" /* S */,
+        correspondence_conglomerate: "" /* S */,
+        correspondence_company: "" /* S */,
+        correspondence_dependence: "" /* S */,
+        correspondence_country: "" /* S */,
+        correspondence_department: "" /* S */,
+        correspondence_criterion: "" /* S */,
+        correspondence_thirdParty: "" /* S */,
+        correspondence_group: "" /* S */,
+        correspondence_typeDocumentary: "" /* S */,
+        correspondence_city: "" /* S */,
+        correspondence_typeArrival: "" /* S */,
+        correspondence_messenger: "" /* S */,
+        correspondence_template: "" /* S */,
+        correspondence_conglomerate_receiver: "" /* S */,
+        correspondence_company_receiver: "" /* S */,
+        correspondence_headquarter_receiver: "" /* S */,
+        correspondence_dependence_receiver: "" /* S */,
+      }}
+      validationSchema={Yup.object().shape({
+        correspondence_conglomerate: Yup.string()
+          .required(" Por favor seleccione un conglomerado.")
+          .ensure(),
+        correspondence_company: Yup.string()
+          .required(" Por favor seleccione una empresa.")
+          .ensure(),
+        correspondence_headquarter: Yup.string()
+          .required(" Por favor seleccione una sede.")
+          .ensure(),
+        correspondence_typeDocumentary: Yup.string()
+          .required(" Por favor seleccione un tipo de documento.")
+          .ensure(),
+        correspondence_documentDate: Yup.date().required(
+          " Por favor introduzca la fecha del documento."
+        ),
+        correspondence_documentNum: Yup.string().required(
+          " Por favor intruduzca el número del documento."
+        ),
+        correspondence_country: Yup.string()
+          .required(" Por favor seleccione un país.")
+          .ensure(),
+        correspondence_department: Yup.string()
+          .required(" Por favor seleccione un departamento. ")
+          .ensure(),
+        correspondence_city: Yup.string()
+          .required(" Por favor seleccione una ciudad.")
+          .ensure(),
+        correspondence_typeArrival: Yup.string()
+          .required(" Por favor introduzca un tipo de llegada.")
+          .ensure(),
+        correspondence_guide: Yup.string().required(
+          " Por favor introduzca la guía."
+        ),
+        correspondence_folios: Yup.string().required(
+          " Por favor intruduzca los folios."
+        ),
+        correspondence_issue: Yup.string().required(
+          " Por favor introduzca el asunto."
+        ),
+        correspondence_messenger: Yup.string()
+          .required(" Por favor seleccione un mensajero.")
+          .ensure(),
+        correspondence_template: Yup.string()
+          .required(" Por favor seleccione una plantilla")
+          .ensure(),
+        correspondence_conglomerate_receiver: Yup.string().nullable().ensure(),
+        correspondence_company_receiver: Yup.string().nullable().ensure(),
+        correspondence_headquarter_receiver: Yup.string().nullable().ensure(),
+        correspondence_thirdParty: Yup.string().required(
+          " Por favor asigne un tercero."
+        ),
+      })}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setTimeout(() => {
+          const auth = props.authorization;
+          fetch("url PUT", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + auth,
+            },
+            body: JSON.stringify({}),
+          })
+            .then((response) =>
+              response.json().then((data) => {
+                if (response.status === 201) {
+                  toast.success("Se registro la radicación con éxito.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                    className: css({
+                      marginTop: "60px",
+                    }),
+                  });
+                  setTimeout(() => toast.dismiss(), 5000);
+                } else if (response.status === 400) {
+                  toast.error(
+                    "Error al registrar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
+              
+                  setTimeout(() => toast.dismiss(), 5000);
+                
+                } else if (response.status === 404) {
+                  toast.error(
+                    "Error al registrar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
+            
+                  setTimeout(() => toast.dismiss(), 5000);
+               
+                } else if (response.status === 500) {
+                  toast.error(
+                    "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
+                  
+                  setTimeout(() => toast.dismiss(), 5000);
+                 
+                }
+              })
+            )
+            .catch((error) => {
+              toast.error(`Error ${error} `, {
+                position: toast.POSITION.TOP_RIGHT,
+                className: css({
+                  marginTop: "60px",
+                }),
+              });
+              
+              setTimeout(() => toast.dismiss(), 5000);
+              
+            });
+          setSubmitting(false);
+          
+        }, 1000);
+        toast.dismiss();
+      }}
+      render={({
+        values,
+        touched,
+        errors,
+        handleChange,
+        setFieldValue,
+        handleBlur,
+        setFieldTouched,
+        isSubmitting,
+        handleSubmit,
+      }) => (
+        <div className="animated fadeIn">
+          <ToastContainer autoClose={5000} />
+          <div className="">
+            <p />
+            <div className="col-md-10 offset-1">
+              <form className="form">
+                <div className="card">
+                  <div className="p-2 mb-1 bg-secondary text-dark">
+                    Información básica
+                  </div>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-md-12">
                         <div className="row">
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt> Fecha de radicación </dt>
-                              <dd> 1/06/2020 </dd>
+                          <div className="col-md-2 offset-1">
+                            <div className="form-group text-center">
+                              <label className="">
+                                <strong> Fecha de radicación</strong>{" "}
+                              </label>
+                              <dd className=""></dd>
                             </div>
                           </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>Hora de radicación </dt>
-                              <dd> 5:17 PM </dd>
+                          <div className="col-md-2">
+                            <div className="form-group text-center">
+                              <label>
+                                {" "}
+                                <strong>Hora de radicación</strong>{" "}
+                              </label>
+                              <dd className=""></dd>
                             </div>
                           </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt> Sede </dt>
-                              <dd> Sede 1 </dd>
+                          <div className="col-md-2 ">
+                            <div className="form-group text-center">
+                              <label>
+                                {" "}
+                                <strong>Sede</strong>{" "}
+                              </label>
+                              <dd></dd>
                             </div>
                           </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt> Vigencia </dt>
-                              <dd>2020</dd>
+                          <div className="col-md-2  ">
+                            <div className="form-group text-center">
+                              <label>
+                                {" "}
+                                <strong>Vigencia</strong>{" "}
+                              </label>
+                              <dd></dd>
                             </div>
                           </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt> Consecutivo </dt>
-                              <dd> 06 </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt> Usuario radicador </dt>
-                              <dd> Cristian Cuartas </dd>
+                          <div className="col-md-2">
+                            <div className="form-group text-center">
+                              <label>
+                                {" "}
+                                <strong>Usuario radicador</strong>{" "}
+                              </label>
+                              <dd></dd>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </form>
-                    <Card body>
-                      <form>
-                        <div className="row">
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Tipo documental{" "}
-                                <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <select className="form-control form-control-sm">
-                                  <option>-- Seleccione -- </option>
-                                </select>
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Fecha del documento{" "}
-                                <span className="text-danger">*</span>{" "}
-                              </dt>
-                              <dd>
-                                <input
-                                  type="date"
-                                  className="form-control form-control-sm"
-                                />
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Nro. del documento{" "}
-                                <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <input
-                                  type="text"
-                                  className="form-control form-control-sm"
-                                />
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Ciudad <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <select className="form-control form-control-sm">
-                                  <option>-- Seleccione --</option>
-                                </select>
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Tipo de llegada{" "}
-                                <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <select className="form-control form-control-sm">
-                                  <option>-- Seleccione --</option>
-                                </select>
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Guía <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <input
-                                  type="text"
-                                  className="form-control form-control-sm"
-                                />
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <dt>
-                                Asunto <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <textarea className="form-control form-control-sm" />
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>
-                                Folios <span className="text-danger">*</span>
-                              </dt>
-                              <dd>
-                                <input
-                                  type="text"
-                                  className="form-control form-control-sm"
-                                />
-                              </dd>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <dt>Mensajero</dt>
-                              <dt>
-                                <select className="form-control form-control-sm">
-                                  <option>-- Seleccione --</option>
-                                </select>
-                              </dt>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </Card>
-                    <Collapse isOpen={this.state.collapse}>
-                      <Card>
-                        <div className="p-2 mb-1 bg-secondary text-dark">
-                          Adjuntar Documentos
-                        </div>
-                        <div className="card-body">
-                          <Files
-                            ref="files"
-                            className="files-dropzone-list"
-                            onChange={this.onFilesChange}
-                            multiple
-                            clickable
-                            style={{ width: "1000px" }}
-                          >
-                            Coloque los archivos aquí o haga click para subir
-                          </Files>
-
-                          <br />
-                          <div className="row">
-                            <div className="col-md-6">
-                              <button
-                                className="btn btn-danger btn-sm"
-                                onClick={this.filesRemoveAll}
-                              >
-                                <i className="fa fa-trash" /> Quitar todos los
-                                archivos adjuntos
-                              </button>
-                              &nbsp;
-                              {/* <button
-                              className="btn btn-secondary btn-sm"
-                              onClick={() => {
-                                alert("Se Cargaron los datos");
+                    </div>
+                    <div className="col-md-12">
+                      <hr />
+                    </div>
+                    <div className="col-md-12">
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label> Conglomerado</label>
+                            <SelectConglomerado
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name={"correspondence_conglomerate"}
+                              onChange={(e) => {
+                                setFieldValue(
+                                  "correspondence_conglomerate",
+                                  e.target.value
+                                );
+                                changeInValueConglomerate(
+                                  values.correspondence_conglomerate,
+                                  e.target.value
+                                );
                               }}
-                            >
-                              Upload <i className="fa fa-upload" />
-                            </button> */}
+                              onBlur={() =>
+                                setFieldTouched(
+                                  "correspondence_conglomerate",
+                                  true
+                                )
+                              }
+                              value={values.correspondence_conglomerate}
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_conglomerate &&
+                                touched.correspondence_conglomerate &&
+                                "is-invalid"
+                              }`}
+                            />
+
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_conglomerate &&
+                              touched.correspondence_conglomerate ? (
+                                <i class="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_conglomerate" />
                             </div>
                           </div>
-                          <br />
-                          {this.state.files.length > 0 ? (
-                            <div>
-                              <table className="table table-bordered table-hover table-sm">
-                                <tbody>
-                                  {this.state.files.map((file) => (
-                                    <tr key={file.id}>
-                                      <td
-                                        width="5%"
-                                        height="5%"
-                                        className="text-center"
-                                      >
-                                        <div className="files-list-item-preview">
-                                          {file.preview.type === "image" ? (
-                                            <img
-                                              className="files-list-item-preview-image"
-                                              src={file.preview.url}
-                                            />
-                                          ) : (
-                                            <div className="files-list-item-preview-extension">
-                                              {file.extension}
-                                            </div>
-                                          )}
-                                        </div>
-                                      </td>
-                                      <td className="text-center">
-                                        <div style={{ marginTop: "3%" }}>
-                                          {file.name} - {file.sizeReadable}
-                                        </div>
-                                      </td>
-                                      <td width="10%" className="text-center">
-                                        <div style={{ marginTop: "16px" }}>
-                                          <button
-                                            id={file.id}
-                                            className="btn btn-outline-danger  btn-sm float-center"
-                                            onClick={this.filesRemoveOne.bind(
-                                              this,
-                                              file
-                                            )}
-                                          >
-                                            <i className="fa fa-trash" /> Quitar
-                                          </button>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label> Empresa </label>
+                            <Field
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name="correspondence_company"
+                              component={FieldCompany}
+                              oldValueConglomerateId={oldValueConglomerate}
+                              newValueConglomerateId={newValueConglomerate}
+                              conglomerateId={
+                                values.correspondence_conglomerate
+                              }
+                            ></Field>
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_company &&
+                              touched.correspondence_company ? (
+                                <i class="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_company" />
                             </div>
-                          ) : null}
+                          </div>
                         </div>
-                        <div className="card-footer">
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm float-right"
-                            onClick={() => {
-                              this.setState({
-                                collapse: false,
-                              });
-                            }}
-                          >
-                            <i className="fa fa-times" /> Cancelar
-                          </button>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>Sede</label>
+                            <Field
+                              authorization={props.authorization}
+                              //   t={props.t}
+                              name="correspondence_headquarter"
+                              component={FieldHeadquarter}
+                              companyId={values.correspondence_company}
+                              conglomerateId={
+                                values.correspondence_conglomerate
+                              }
+                            ></Field>
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_headquarter &&
+                              touched.correspondence_headquarter ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_headquarter" />
+                            </div>
+                          </div>
                         </div>
-                      </Card>
-                    </Collapse>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Tipo de documento{" "}
+                              <span className="text-danger">*</span>
+                            </label>
+                            <SelectTypeDocumentary
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name={"correspondence_typeDocumentary"}
+                              onChange={(e) => {
+                                setFieldValue(
+                                  "correspondence_typeDocumentary",
+                                  e.target.value
+                                );
+
+                                changeInValueTypeDocumentary(
+                                  values.correspondence_typeDocumentary,
+                                  e.target.value
+                                );
+
+                                // dispatch(
+                                //   obtenerDataTipoDocumental(e.target.value)
+                                // );
+                              }}
+                              onBlur={() =>
+                                setFieldTouched(
+                                  "correspondence_typeDocumentary",
+                                  true
+                                )
+                              }
+                              value={values.correspondence_typeDocumentary}
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_typeDocumentary &&
+                                touched.correspondence_typeDocumentary &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_typeDocumentary &&
+                              touched.correspondence_typeDocumentary ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_typeDocumentary" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Fecha del documento{" "}
+                              <span className="text-danger">*</span>
+                            </label>
+
+                            <input
+                              name={"correspondence_documentDate"}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.correspondence_documentDate}
+                              type="date"
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_documentDate &&
+                                touched.correspondence_documentDate &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_documentDate &&
+                              touched.correspondence_documentDate ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_documentDate" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Nro. del documento{" "}
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name={"correspondence_documentNum"}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.correspondence_documentNum}
+                              type="text"
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_documentNum &&
+                                touched.correspondence_documentNum &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_documentNum &&
+                              touched.correspondence_documentNum ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_documentNum" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>País</label>
+                            <SelectCountry
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name={"correspondence_country"}
+                              onChange={(e) => {
+                                setFieldValue(
+                                  "correspondence_country",
+                                  e.target.value
+                                );
+                                changeInValueCountry(
+                                  values.correspondence_country,
+                                  e.target.value
+                                );
+                              }}
+                              onBlur={() => {
+                                setFieldTouched("correspondence_country", true);
+                              }}
+                              value={values.correspondence_country}
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_country &&
+                                touched.correspondence_country &&
+                                "is-invalid"
+                              }`}
+                            />
+
+                            {touched ? (
+                              <div style={{ color: "#D54B4B" }}>
+                                {errors.correspondence_country &&
+                                touched.correspondence_country ? (
+                                  <i class="fa fa-exclamation-triangle" />
+                                ) : null}
+                                <ErrorMessage name="correspondence_country" />
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>Departamento</label>
+                            <Field
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name="correspondence_department"
+                              component={FieldDepartment}
+                              oldValueCountryId={oldValueCountry}
+                              newValueCountryId={newValueCountry}
+                              countryId={values.correspondence_country}
+                            ></Field>
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_department &&
+                              touched.correspondence_department ? (
+                                <i class="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_department" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Ciudad <span className="text-danger">*</span>
+                            </label>
+                            <Field
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name="correspondence_city"
+                              component={FieldCity}
+                              departmentId={values.correspondence_department}
+                              oldValueCountryId={oldValueCountry}
+                              newValueCountryId={newValueCountry}
+                            ></Field>
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_city &&
+                              touched.correspondence_city ? (
+                                <i class="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_city" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Tipo de llegada{" "}
+                              <span className="text-danger">*</span>
+                            </label>
+                            <SelectTypeShipmentArrival
+                              authorization={props.authorization}
+                              name={"correspondence_typeArrival"}
+                              onChange={(e) => {
+                                setFieldValue(
+                                  "correspondence_typeArrival",
+                                  e.target.value
+                                );
+                                changeInValueTypShipmentArrival(
+                                  values.correspondence_typeArrival,
+                                  e.target.value
+                                );
+                              }}
+                              onBlur={() =>
+                                setFieldTouched(
+                                  "correspondence_typeArrival",
+                                  true
+                                )
+                              }
+                              value={values.correspondence_typeArrival}
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_typeArrival &&
+                                touched.correspondence_typeArrival &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_typeArrival &&
+                              touched.correspondence_typeArrival ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_typeArrival" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Guía <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name={"correspondence_guide"}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.correspondence_guide}
+                              type="text"
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_guide &&
+                                touched.correspondence_guide &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_guide &&
+                              touched.correspondence_guide ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_guide" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Folios <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name={"correspondence_folios"}
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.correspondence_folios}
+                              type="text"
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_folios &&
+                                touched.correspondence_folios &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_folios &&
+                              touched.correspondence_folios ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_folios" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label>
+                              Asunto <span className="text-danger">*</span>
+                            </label>
+                            <Field
+                              name={"correspondence_issue"}
+                              component={FieldIssue}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_issue &&
+                              touched.correspondence_issue ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_issue" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label>
+                              Mensajero <span className="text-danger">*</span>
+                            </label>
+                            <SelectMessenger
+                              authorization={props.authorization}
+                              // t={props.t}
+                              name={"correspondence_messenger"}
+                              onChange={(e) => {
+                                setFieldValue(
+                                  "correspondence_messenger",
+                                  e.target.value
+                                );
+                                changeInValueMessenger(
+                                  values.correspondence_messenger,
+                                  e.target.value
+                                );
+                              }}
+                              onBlur={() =>
+                                setFieldTouched(
+                                  "correspondence_messenger",
+                                  true
+                                )
+                              }
+                              value={values.correspondence_messenger}
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_messenger &&
+                                touched.correspondence_messenger &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_messenger &&
+                              touched.correspondence_messenger ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_messenger" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="card">
+                  <div className="p-2 mb-1 bg-secondary text-dark">
+                    Asignar tercero
+                  </div>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-md-8">
+                        <div className="form-group">
+                          <label>
+                            Buscar tercero:{" "}
+                            <span className="text-danger">*</span>{" "}
+                          </label>
+                          <div>
+                            <label>
+                              • Por favor introduzca el número de documento:{" "}
+                            </label>{" "}
+                          </div>
+                          <div className="input-group input-group-sm mb-3">
+                            &nbsp;
+                            <input
+                              name={"correspondence_thirdParty"}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.correspondence_thirdParty}
+                              type="text"
+                              className={`form-control form-control-sm ${
+                                errors.correspondence_thirdParty &&
+                                touched.correspondence_thirdParty &&
+                                "is-invalid"
+                              }`}
+                            />
+                            <div className="input-group-prepend">
+                              <button
+                                className="btn btn-secondary"
+                                type="button"
+                                id="button-addon2"
+                                onClick={() => {
+                                  setValueIdentification(
+                                    values.correspondence_thirdParty
+                                  );
+                                }}
+                              >
+                                <i className="fa fa-search" />
+                              </button>
+                            </div>
+                            &nbsp;
+                            <div style={{ color: "#D54B4B" }}>
+                              {errors.correspondence_thirdParty &&
+                              touched.correspondence_thirdParty ? (
+                                <i className="fa fa-exclamation-triangle" />
+                              ) : null}
+                              <ErrorMessage name="correspondence_thirdParty" />
+                            </div>
+                          </div>
+
+                          <ThirdParty
+                            id={valueIdentification}
+                            valueInput={values.correspondence_thirdParty}
+                            authorization={props.authorization}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-12"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="card">
+                  <div className="p-2 mb-1 bg-secondary text-dark">
+                    Busqueda de destinatarios
+                  </div>
+                  <div className="card-body">
                     <div className="row">
                       <div className="col-md-6">
-                        <Card>
-                          <div className="p-2 mb-1 bg-secondary text-dark">
-                            Remitente
+                        <div className="form-group">
+                          <label>Conglomerado</label>
+                          <ReceiverSelectConglomerado
+                            authorization={props.authorization}
+                            name={"correspondence_conglomerate_receiver"}
+                            onChange={(e) => {
+                              setFieldValue(
+                                "correspondence_conglomerate_receiver",
+                                e.target.value
+                              );
+                              changeInValueConglomerateReceiver(
+                                values.correspondence_conglomerate_receiver,
+                                e.target.value
+                              );
+                            }}
+                            onBlur={() =>
+                              setFieldTouched(
+                                "correspondence_conglomerate_receiver",
+                                true
+                              )
+                            }
+                            value={values.correspondence_conglomerate_receiver}
+                            className={`form-control form-control-sm ${
+                              errors.correspondence_conglomerate_receiver &&
+                              touched.correspondence_conglomerate_receiver &&
+                              "is-invalid"
+                            }`}
+                          />
+
+                          <div style={{ color: "#D54B4B" }}>
+                            {errors.correspondence_conglomerate_receiver &&
+                            touched.correspondence_conglomerate_receiver ? (
+                              <i class="fa fa-exclamation-triangle" />
+                            ) : null}
+                            <ErrorMessage name="correspondence_conglomerate_receiver" />
                           </div>
-                          <div className="card-body">
-                            <form>
-                              <div className="row">
-                                <div className="col-md-12">
-                                  <div className="form-group">
-                                    <dt>
-                                      Buscar remitente{" "}
-                                      <span className="text-danger">*</span>
-                                    </dt>
-                                    <select
-                                      className="form-control form-control-sm"
-                                      name="selectRemitente"
-                                      onChange={(e) => {
-                                        this.setState({
-                                          selectRemitente: e.target.value,
-                                        });
-                                      }}
-                                      value={this.state.selectRemitente}
-                                    >
-                                      <option value="0" defaultValue="0">
-                                        --Seleccione remitente--
-                                      </option>
-                                      {aux}
-                                    </select>
-                                  </div>
-                                  {/* Aqui va el resultado de pasar el props al otro component */}
-                                  {selectAux ? (
-                                    <CardRemitente
-                                      selectedItem={this.state.selectRemitente}
-                                      collapse={this.state.collapse3}
-                                    />
-                                  ) : null}
-                                  {/* Fin */}
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </Card>
+                        </div>
                       </div>
                       <div className="col-md-6">
-                        <Card>
-                          <div className="p-2 mb-1 bg-secondary text-dark">
-                            Busqueda de destinatario
-                          </div>
-                          <div className="card-body">
-                            <form>
-                              <div className="row">
-                                <div className="col-md-12">
-                                  <div className="form-group">
-                                    <dt>
-                                      Buscar destinatario{" "}
-                                      <span className="text-danger">*</span>{" "}
-                                      <sub>
-                                        <a
-                                          href="#"
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            this.OpenCollapse2();
-                                          }}
-                                        >
-                                          | <i className="fa fa-filter" />{" "}
-                                          Filtrar
-                                        </a>
-                                      </sub>
-                                    </dt>
-                                    <input
-                                      type="text"
-                                      className="form-control form-control-sm"
-                                    />
-                                  </div>
-                                  <Collapse isOpen={this.state.collapse2}>
-                                    <div className="row">
-                                      <div className="col-md-6">
-                                        <div className="form-group">
-                                          <label>Conglomerado</label>
-                                          <select className="form-control form-control-sm">
-                                            <option> -- Seleccione --</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                        <div className="form-group">
-                                          <label>Empresa</label>
-                                          <select className="form-control form-control-sm">
-                                            <option>-- Seleccione --</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                        <div className="form-group">
-                                          <label>Sede</label>
-                                          <select className="form-control form-control-sm">
-                                            <option>-- Seleccione --</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                        <div className="form-group">
-                                          <label>Dependencia</label>
-                                          <select className="form-control form-control-sm">
-                                            <option>-- Seleccione --</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div className="col-md-12">
-                                        <div className="form-group">
-                                          <label>Grupo</label>
-                                          <select className="form-control form-control-sm">
-                                            <option>-- Seleccione --</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </Collapse>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </Card>
-                      </div>
-                    </div>
-                    <Card>
-                      <div className="p-2 mb-1 bg-secondary text-dark">
-                        Asignacion de destinatarios
-                      </div>
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <dt>Destinatarios disponible</dt>
-                              <textarea
-                                className="form-control form-control-sm"
-                                disabled
-                                style={{ height: "100px" }}
-                              />
-                            </div>
-                            <input type="checkbox" checked /> Original
-                            <div className="float-right">
-                              <button
-                                type="button"
-                                className="btn btn-secondary btn-sm"
-                              >
-                                Todos <i className="fa fa-angle-double-right" />
-                              </button>
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <dt>
-                                Destinatarios asignados{" "}
-                                <span className="text-danger">*</span>
-                              </dt>
-                              <textarea
-                                className="form-control form-control-sm"
-                                disabled
-                                style={{ height: "100px" }}
-                              />
-                            </div>
-                            <div className="float-right">
-                              <button
-                                type="button"
-                                className="btn btn-secondary btn-sm"
-                              >
-                                <i className="fa fa-angle-double-left" /> Todos
-                              </button>
-                            </div>
+                        <div className="form-group">
+                          <label>Empresa</label>
+                          <Field
+                            authorization={props.authorization}
+                            name="correspondence_company_receiver"
+                            component={ReceiverFieldCompany}
+                            oldValueConglomerateId={
+                              oldValueConglomerateReceiver
+                            }
+                            newValueConglomerateId={
+                              newValueConglomerateReceiver
+                            }
+                            conglomerateId={
+                              values.correspondence_conglomerate_receiver
+                            }
+                          ></Field>
+                          <div style={{ color: "#D54B4B" }}>
+                            {errors.correspondence_company_receiver &&
+                            touched.correspondence_company_receiver ? (
+                              <i class="fa fa-exclamation-triangle" />
+                            ) : null}
+                            <ErrorMessage name="correspondence_company_receiver" />
                           </div>
                         </div>
                       </div>
-                    </Card>
-                    <Card>
-                      <div className="p-2 mb-1 bg-secondary text-dark">
-                        Campos adiconales
-                      </div>
-                      <div className="card-body">
-                        <form>
-                          <div className="row">
-                            <div className="col-md-5">
-                              <div className="form-group">
-                                <dt>
-                                  Plantilla{" "}
-                                  <span className="text-danger">*</span>
-                                </dt>
-                                <select
-                                  name="selectPlantilla"
-                                  className="form-control form-control-sm"
-                                  onChange={(e) => {
-                                    this.setState({
-                                      selectPlantilla: e.target.value,
-                                    });
-                                  }}
-                                  value={this.state.selectPlantilla}
-                                >
-                                  <option value="0"> --Seleccione-- </option>
-                                  <option value="1"> Factura </option>
-                                  <option value="2">
-                                    {" "}
-                                    Factura eletronica{" "}
-                                  </option>
-                                  <option value="3"> Validacion </option>
-                                  <option value="4"> Prueba </option>
-                                </select>
-                                {<p>{this.state.selectPlantilla}</p>}
-                              </div>
-                            </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Sede</label>
+                          <Field
+                            authorization={props.authorization}
+                            //   t={props.t}
+                            name="correspondence_headquarter_receiver"
+                            component={ReceiverFieldHeadquarter}
+                            companyId={values.correspondence_company_receiver}
+                            conglomerateId={
+                              values.correspondence_conglomerate_receiver
+                            }
+                          ></Field>
+                          <div style={{ color: "#D54B4B" }}>
+                            {errors.correspondence_headquarter_receiver &&
+                            touched.correspondence_headquarter_receiver ? (
+                              <i className="fa fa-exclamation-triangle" />
+                            ) : null}
+                            <ErrorMessage name="correspondence_headquarter_receiver" />
                           </div>
-                        </form>
+                        </div>
                       </div>
-                    </Card>
-                    <div className="card-footer">
-                      <div className="float-right">
-                        <div
-                          className="btn-group btn-group-sm"
-                          role="group"
-                          aria-label="..."
-                        >
-                          <button
-                            type="button"
-                            className="btn btn-success btn-sm "
-                          >
-                            {" "}
-                            <i className="fa fa-floppy-o" /> Guardar cambios
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            onClick={() => {
-                              this.props.history.goBack();
-                            }}
-                          >
-                            {" "}
-                            <i className="fa fa-times" /> Cerrar{" "}
-                          </button>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Dependencia</label>
+                          <Field
+                            authorization={props.authorization}
+                            // t={props.t}
+                            name="correspondence_dependence_receiver"
+                            component={ReceiverFieldDependence}
+                            sedeId={values.correspondence_headquarter_receiver}
+                            companyId={values.correspondence_company_receiver}
+                            conglomerateId={
+                              values.correspondence_conglomerate_receiver
+                            }
+                          ></Field>
+                          <div style={{ color: "#D54B4B" }}>
+                            {errors.correspondence_dependence_receiver &&
+                            touched.correspondence_dependence_receiver ? (
+                              <i className="fa fa-exclamation-triangle" />
+                            ) : null}
+                            <ErrorMessage name="correspondence_dependence_receiver" />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </Card>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <label>Destinatarios disponibles</label>
+                          <UserList
+                            authorization={props.authorization}
+                            id={values.correspondence_dependence_receiver}
+                          />
+                        </div>
+                      </div>
+                      <UserListEnabled data={data} aux={StateChangeAlert} />
+                    </div>
+                  </div>
                 </div>
-              </div>
+                <div className="card">
+                  <div className="p-2 mb-1 bg-secondary text-dark">
+                    Campo adicionales
+                  </div>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-md-7">
+                        <div className="form-group">
+                          <label>Plantilla</label>
+                          <Field
+                            name={"correspondence_template"}
+                            component={SelectTemplate}
+                          />
+                          <div style={{ color: "#D54B4B" }}>
+                            {errors.correspondence_template &&
+                            touched.correspondence_template ? (
+                              <i class="fa fa-exclamation-triangle" />
+                            ) : null}
+                            <ErrorMessage name="correspondence_template" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Field
+                          authorization={props.authorization}
+                          component={PreviewTemplate}
+                          id={values.correspondence_template}
+                          infoMetadataPosition={(cObjectPosition) => {
+                            setCObjectPosition(cObjectPosition);
+                          }}
+                          infoMetadataId={(cObjectId) => {
+                            setCObjectId(cObjectId);
+                          }}
+                          infoMetadataValue={(cObjectValue) => {
+                            setCObjectValue(cObjectValue);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="card">
+                  <div className="card-footer">
+                    <div className="pull-right">
+                
+                      <button
+                        type="submit"
+                        className="btn btn-success btn-sm"
+                        disabled={isSubmitting}
+                        onClick={(e) => {
+                          handleSubmit();
+                          e.preventDefault();
+                        }}
+                      >
+                        {isSubmitting ? (
+                          <i className=" fa fa-spinner fa-spin" />
+                        ) : (
+                          <div>
+                            <i className="fa fa-save" /> Editar
+                          </div>
+                        )}
+                      </button>
+                      &nbsp;
+                      <button
+                        type="submit"
+                        className="btn btn-success btn-sm"
+                        disabled={isSubmitting}
+                        onClick={(e) => {
+                          handleSubmit();
+                          
+                          e.preventDefault();
+                        }}
+                      >
+                        {isSubmitting ? (
+                          <i className=" fa fa-spinner fa-spin" />
+                        ) : (
+                          <div>
+                            <i className="fa fa-check" /> Continuar
+                          </div>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      )}
+    />
+  )
 }
 
-EditCorrespondence.propTypes = {};
+EditCorrespondence.propTypes = {
+
+}
 
 export default EditCorrespondence;
+// <div className="animated fadeIn">
+// <div className="col-md-12">
+//   <div
+//     className=""
+//     style={{
+//       minHeight: "600px",
+//       marginTop: "0px",
+//     }}
+//   >
+//     <div className="row" style={{}}>
+//       <div className="col-md-10" style={{ padding: "0px" }}>
+//       </div>
+//         </div>
+//       </div>
+//     </div>
+//     {/* </div> */}
+//   </div>
