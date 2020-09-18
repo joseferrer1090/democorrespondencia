@@ -28,12 +28,16 @@ import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
 import { obtenerDataTemplate } from '../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate';
 import { obtenerDataTipoDocumental } from '../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary';
-
+import {obtenerDataCorrespondenciaExterna} from '../../../../../../../../../actions/editCorrespondenceExternal';
 
 const EditCorrespondence = props => {
 const dispatch = useDispatch()
   useEffect(() => {
     dispatch(obtenerDataTemplate());
+    if(props.idCorrespondence !== ""){
+      dispatch(obtenerDataCorrespondenciaExterna(props.idCorrespondence));
+    }
+ 
     console.log(props.authorization);
     console.log(props.idCorrespondence);
   }, [props.authorization, props.idCorrespondence]);
