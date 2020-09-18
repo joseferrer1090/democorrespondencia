@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-// import { obtenerMetadatos } from "../../../../../../../../actions/step1ActionsPreviewTemplate";
+import { obtenerMetadatos } from "../../../../../../../../../../actions/editCorrespondenceExternalPreviewTemplate";
 // import { obtenerMetadatosByTypeDocumentary } from "../../../../../../../../actions/step1ActionsInfoTypeDocumentary";
 
 const SelectTemplate = ({
@@ -13,7 +13,7 @@ const SelectTemplate = ({
   const [valueTemplate, setValueTemplate] = useState("");
 
   const dataTemplate = useSelector(
-    (state) => state.step1ReducerDataTemplate.dataTemplate
+    (state) => state.editCorrespondeceExternalSelectTemplate.dataTemplate
   );
 
   const idTemplateByTypeDocumentary = useSelector(
@@ -33,7 +33,7 @@ const SelectTemplate = ({
       values.correspondence_template = idTemplateByTypeDocumentary.id;
       setTimeout(() => {
         setValueTemplate(values.correspondence_template);
-        // dispatch(obtenerMetadatos(values.correspondence_template));
+        dispatch(obtenerMetadatos(values.correspondence_template));
         // dispatch(obtenerMetadatosByTypeDocumentary(idTypeDocumentary));
       }, 100);
     } else {
@@ -48,7 +48,7 @@ const SelectTemplate = ({
         onChange={(e) => {
           setFieldValue("correspondence_template", e.target.value);
           setValueTemplate(e.target.value);
-          // dispatch(obtenerMetadatos(e.target.value));
+          dispatch(obtenerMetadatos(e.target.value));
         }}
         onBlur={(e) => setFieldTouched("correspondence_template", true)}
         className={`form-control form-control-sm ${

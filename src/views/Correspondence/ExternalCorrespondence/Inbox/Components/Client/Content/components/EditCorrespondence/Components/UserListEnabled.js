@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "reactstrap";
 import PropTypes from "prop-types";
-// import {
-//   agregarUsuarioOriginal,
-//   borrarUsuarioDiponible,
-// } from "../../../../../../../../actions/step1ActionsReceiver";
+import { borrarUsuarioDiponible, agregarUsuarioOriginal } from "../../../../../../../../../../actions/editCorrespondenceExternalReceiver";
 const UserListEnabled = (props) => {
   const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
   const dispatch = useDispatch();
@@ -66,7 +63,7 @@ const UserListEnabled = (props) => {
                               <button
                                 type="button"
                                 onClick={() => {
-                                  // dispatch(agregarUsuarioOriginal(aux.id));
+                                  dispatch(agregarUsuarioOriginal(aux.id));
                                   setstate(true);
                                   if (state === true || state === false) {
                                     setstate(null);
@@ -85,7 +82,7 @@ const UserListEnabled = (props) => {
                                 type="button"
                                 className="btn btn-sm btn-outline-danger"
                                 onClick={() => {
-                                  // dispatch(borrarUsuarioDiponible(aux.id));
+                                  dispatch(borrarUsuarioDiponible(aux.id));
                                   setstate(false);
                                   if (state === true || state === false) {
                                     setstate(null);

@@ -11,6 +11,10 @@ import step3ReducerFiling from "./step3ReducerFiling";
 import controlFilingViews from "./controlFilingViewsReducer";
 import { dataCorrespondenceExternal } from "./dataCorrespondenceExternal";
 import chartsDashboard from "./chartsDashboardReducer";
+import editCorrespondeceExternalThirdParty from "./reducerEditCorrespondenceExternalThirdParty";
+import editCorrespondeceExternalReceiver from "./reducerEditCorrespondenceExternalReceiver";
+import editCorrespondeceExternalPreviewTemplate from "./reducerEditCorrespondenceExternalPreviewTemplate";
+import editCorrespondeceExternalSelectTemplate from "./reducerEditCorrespondenceExternalSelectTemplate";
 
 export default combineReducers({
   step2ReducerSticker,
@@ -25,4 +29,8 @@ export default combineReducers({
   controlFilingViews,
   dataCorrespondenceExternal,
   chartsDashboard,
+  editCorrespondeceExternalThirdParty,
+  editCorrespondeceExternalReceiver,
+  editCorrespondeceExternalPreviewTemplate,
+  editCorrespondeceExternalSelectTemplate
 });

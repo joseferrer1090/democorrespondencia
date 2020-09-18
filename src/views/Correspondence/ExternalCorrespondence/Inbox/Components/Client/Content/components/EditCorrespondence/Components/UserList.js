@@ -3,16 +3,15 @@ import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
 import PropTypes from "prop-types";
 import { USERS_BY_DEPENDENCE } from "../../../../../../../../../../services/EndPoints";
-// import { agregarUsuarioDisponible } from "../../../../../../../../actions/step1ActionsReceiver";
+import { agregarUsuarioDisponible } from "../../../../../../../../../../actions/editCorrespondenceExternalReceiver";
 
 const UserList = (props) => {
-  // const t = props.t;
   let id = props.id;
   const [data, setdata] = useState([]);
   const firstUpdate = useRef(true);
 
   const dispatch = useDispatch();
-  // const AgregarUsuario = (user) => dispatch(agregarUsuarioDisponible(user));
+  const AgregarUsuario = (user) => dispatch(agregarUsuarioDisponible(user));
 
   const fetchNewValues = (id) => {
     const auth = props.authorization;
@@ -38,7 +37,7 @@ const UserList = (props) => {
       firstUpdate.current = false;
       return;
     }
-    // fetchNewValues(id);
+    fetchNewValues(id);
   };
 
   useEffect(() => {
@@ -72,9 +71,8 @@ const UserList = (props) => {
                     <Button
                       style={{ marginTop: "-13px", marginLeft: "-12px" }}
                       color={"link"}
-                      onClick={() =>
-                        console.log("click")
-                        // AgregarUsuario({ id: aux.id, name: aux.name })
+                      onClick={() => 
+                        AgregarUsuario({ id: aux.id, name: aux.name })
                       }
                     >
                       <h6 className="badge badge-secondary">Agregar</h6>

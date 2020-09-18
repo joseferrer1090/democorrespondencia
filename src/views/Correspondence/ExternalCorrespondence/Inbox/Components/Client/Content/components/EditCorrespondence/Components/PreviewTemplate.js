@@ -8,7 +8,7 @@ const PreviewTemplate = ({ field, ...props }) => {
   const dataInputsRef = useRef();
 
   const template = useSelector(
-    (state) => state.step1ReducerPreviewTemplate.template
+    (state) => state.editCorrespondeceExternalPreviewTemplate.template
   );
 
   useEffect(() => {}, [props.id, template]);

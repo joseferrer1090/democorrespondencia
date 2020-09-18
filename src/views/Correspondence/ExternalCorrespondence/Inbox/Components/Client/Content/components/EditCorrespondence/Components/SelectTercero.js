@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { Button, Alert } from "reactstrap";
 import PropTypes from "prop-types";
 import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../../../services/EndPoints";
+import {agregarTerceroDisponible} from "../../../../../../../../../../actions/editCorrespondenceExternalThirdParty";
 
-// import { agregarTerceroDisponible } from "../../../../../../../../actions/step1ActionsThirdParty";
 
 const ThirdParty = (props) => {
   let id = props.id;
@@ -15,7 +15,7 @@ const ThirdParty = (props) => {
   const [spinner, setSpinner] = useState(false);
   const [alertAsignacion, setAlertAsignacion] = useState(false);
   const dispatch = useDispatch();
-  // const AgregarTercero = (user) => dispatch(agregarTerceroDisponible(user));
+  const AgregarTercero = (user) => dispatch(agregarTerceroDisponible(user));
 
   const fetchNewValues = (id) => {
     const auth = props.authorization;
@@ -110,8 +110,7 @@ const ThirdParty = (props) => {
                   style={{ marginTop: "-13px", marginLeft: "-12px" }}
                   color={"link"}
                   onClick={() => {
-                    console.log("click")
-                    // AgregarTercero(IdThirdParty);
+                    AgregarTercero(IdThirdParty);
                     spinnerAsignacion();
                     alertAsignacionTercero();
                   }}

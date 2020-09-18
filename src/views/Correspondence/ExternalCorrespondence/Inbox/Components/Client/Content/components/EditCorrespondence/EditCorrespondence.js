@@ -26,16 +26,19 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
+import { obtenerDataTemplate } from '../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate';
 
 
 const EditCorrespondence = props => {
-
+const dispatch = useDispatch()
   useEffect(() => {
+    dispatch(obtenerDataTemplate());
+    console.log(props.authorization);
+    console.log(props.idCorrespondence);
+  }, [props.authorization, props.idCorrespondence]);
 
-   console.log(props.match.params.id)
-   console.log(data);
-  }, [])
-  const data = {users:[]}
+ 
+  const userData = useSelector((state) => state.editCorrespondeceExternalReceiver);
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
   const [oldValueTypeDocumentary, setOldValueTypeDocumentary] = useState();
@@ -956,7 +959,7 @@ const EditCorrespondence = props => {
                           />
                         </div>
                       </div>
-                      <UserListEnabled data={data} aux={StateChangeAlert} />
+                      <UserListEnabled data={userData} aux={StateChangeAlert} />
                     </div>
                   </div>
                 </div>
