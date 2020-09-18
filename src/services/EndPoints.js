@@ -17,7 +17,8 @@ export const EXTERNAL_CORRESPONDENCE_PAGINATION_PENDING_TO_DO = `${config.IP}:${
 export const COUNT_RECEIVED_PENDING = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/pending/to/do/count`;
 /* GET */
 export const COUNT_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/count`;
-
+/* PUT */
+export const EXTERNAL_CORRESPONDENCE_RECEIVED_PUT = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/`;
 //-------------------------- CONGLOMERADO -----------------------------------------//
 /* GET */
 export const CONGLOMERATES_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/conglomerates/active`;
