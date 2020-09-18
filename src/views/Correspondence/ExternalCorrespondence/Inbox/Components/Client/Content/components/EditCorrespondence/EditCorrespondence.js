@@ -27,6 +27,7 @@ import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
 import { obtenerDataTemplate } from '../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate';
+import { obtenerDataTipoDocumental } from '../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary';
 
 
 const EditCorrespondence = props => {
@@ -446,9 +447,9 @@ const dispatch = useDispatch()
                                   e.target.value
                                 );
 
-                                // dispatch(
-                                //   obtenerDataTipoDocumental(e.target.value)
-                                // );
+                                dispatch(
+                                  obtenerDataTipoDocumental(e.target.value)
+                                );
                               }}
                               onBlur={() =>
                                 setFieldTouched(
