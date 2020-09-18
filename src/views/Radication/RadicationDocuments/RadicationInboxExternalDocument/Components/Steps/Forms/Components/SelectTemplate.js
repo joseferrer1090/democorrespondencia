@@ -29,8 +29,12 @@ const SelectTemplate = ({
   }, [idTemplateByTypeDocumentary, idTypeDocumentary]);
 
   const validateValues = () => {
-    if (idTemplateByTypeDocumentary !== undefined) {
-      values.correspondence_template = idTemplateByTypeDocumentary.id;
+    if (idTemplateByTypeDocumentary !== undefined ) {
+      if(idTemplateByTypeDocumentary !== null){
+values.correspondence_template = idTemplateByTypeDocumentary.id;
+      }
+      // console.log(idTemplateByTypeDocumentary);
+      
       setTimeout(() => {
         setValueTemplate(values.correspondence_template);
         dispatch(obtenerMetadatos(values.correspondence_template));

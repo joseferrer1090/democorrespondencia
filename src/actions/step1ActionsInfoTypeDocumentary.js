@@ -9,7 +9,6 @@ import {
 } from "./../types";
 import {
   TYPE_DOCUMENTARIES_BY_ID,
-  GET_METADATA_FOR_TYPE_DOCUMENTARY,
 } from "./../services/EndPoints";
 
 export function obtenerDataTipoDocumental(id) {
