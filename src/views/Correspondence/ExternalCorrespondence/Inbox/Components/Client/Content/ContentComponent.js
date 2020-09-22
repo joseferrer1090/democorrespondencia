@@ -12,7 +12,6 @@ import {
 import InputSearch from "./InputSearch";
 import moment from "moment";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
-import Anottations from "./components/Anottations";
 
 class ContentComponent extends Component {
   constructor(props) {

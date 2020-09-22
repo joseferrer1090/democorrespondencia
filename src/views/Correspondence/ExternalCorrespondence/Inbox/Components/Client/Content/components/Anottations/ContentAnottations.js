@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 
 */
 
-class Anottations extends Component {
+class ContentAnottations extends Component {
   constructor(props) {
     super();
   }
@@ -21,4 +21,4 @@ class Anottations extends Component {
   }
 }
 
-export default Anottations;
+export default ContentAnottations;
