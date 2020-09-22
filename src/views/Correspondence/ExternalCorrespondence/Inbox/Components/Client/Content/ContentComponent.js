@@ -19,14 +19,14 @@ class ContentComponent extends Component {
     super();
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.state = {
-      data: this.props.datacorrespondence,
+      data: props.datacorrespondence,
       dropdownOpen: false,
       term: "",
       tblData: "",
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
-      auth: this.props.authorization,
+      auth: props.authorization,
       pageCount: null,
       itemsCountPerPage: 5,
       currentPage: 1,
