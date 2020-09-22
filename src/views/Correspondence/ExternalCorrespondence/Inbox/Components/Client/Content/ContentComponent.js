@@ -12,26 +12,26 @@ import {
 import InputSearch from "./InputSearch";
 import moment from "moment";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
+import Anottations from "./components/Anottations";
 
 class ContentComponent extends Component {
   constructor(props) {
     super();
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.state = {
-      data: props.datacorrespondence,
+      data: this.props.datacorrespondence,
       dropdownOpen: false,
       term: "",
       tblData: "",
       chkrow: false,
       checkall: false,
       idCorrespondenceSelected: null,
-      auth: props.authorization,
+      auth: this.props.authorization,
       pageCount: null,
       itemsCountPerPage: 5,
       currentPage: 1,
       totalPages: null,
       totalElements: null,
-      switchtype: 3,
     };
   }
 
@@ -178,9 +178,6 @@ class ContentComponent extends Component {
       fontWeight: "bold",
     };
 
-    const aux2 = [...this.state.data];
-    //console.log(aux2.filter((aux) => aux.statusName === "APROBADA"));
-
     return (
       <div className="col-md-12 card">
         <div className="card-body">
@@ -273,7 +270,122 @@ class ContentComponent extends Component {
               </button> */}
             </div>
             <br />
-            {(() => {})()}
+            <div className="row">
+              <div className="col-md-12" style={{ padding: 0 }}>
+                <div className="table">
+                  <table className="table table-hover table-sm table-condensed">
+                    <thead>
+                      <tr
+                        className="text-center"
+                        style={{ background: "#45B254 !important" }}
+                      >
+                        <th style={{ width: "10px" }}>
+                          <input
+                            type="checkbox"
+                            onClick={() =>
+                              this.setState(
+                                {
+                                  checkall: !this.state.checkall,
+                                },
+                                () =>
+                                  this.toggleCheckboxes(
+                                    this.state.checkall,
+                                    "foo"
+                                  )
+                              )
+                            }
+                          />
+                        </th>
+                        <th style={{ width: "150px" }}>Sede</th>
+                        <th style={{ width: "10px" }}>No.Radicación</th>
+                        <th style={{ width: "150px" }}>Asunto</th>
+                        <th style={{ width: "100px" }}>Fecha de radicación</th>
+                        <th style={{ width: "50px" }}>Destinatarios</th>
+                        <th style={{ width: "10px" }}>Estado</th>
+                        <th style={{ width: "100px" }}>Acciones</th>
+                      </tr>
+                    </thead>
+                    {allcontent.length ? (
+                      <tbody
+                        className="text-center"
+                        style={{
+                          height: "200px",
+                          overflowY: "auto",
+                          width: "100%",
+                        }}
+                      >
+                        {allcontent.map((correspondence, id) => {
+                          return (
+                            <tr key={id}>
+                              <td className="inbox-small-cells">
+                                <input
+                                  name="foo"
+                                  type="checkbox"
+                                  className="mail-checkbox"
+                                  defaultChecked={this.state.chkrow}
+                                  onChange={(e) => {
+                                    this.setState({ chkrow: e.target.value });
+                                    // this.setState({ chkrow: !this.state.chkrow });
+                                  }}
+                                />
+                              </td>
+                              <td>{correspondence.headquarter}</td>
+                              <td>{correspondence.numFiling}</td>
+                              <td>{correspondence.issue}</td>
+                              <td>
+                                {this.DateFiling(correspondence.createdAt)}
+                              </td>
+                              <td>{correspondence.guide}</td>
+                              <td>
+                                {this.colorStatusFiling(
+                                  correspondence.statusName
+                                )}
+                              </td>
+                              <td>
+                                <div className="">
+                                  <button
+                                    title="Ver correspondencia"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
+                                  >
+                                    <i className="fa fa-eye" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    title="editar y/o completar correspondencia"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
+                                  >
+                                    <i className="fa fa-pencil" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    className="btn btn-secondary btn-sm"
+                                    title="agregar nota"
+                                  >
+                                    <i className="fa fa-sticky-note" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    ) : (
+                      <tbody>
+                        <tr>
+                          <td colSpan={8}>
+                            <div className="jumbotron">
+                              <h6 className="text-center">No hay datos</h6>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    )}
+                  </table>
+                </div>
+              </div>
+            </div>
           </React.Fragment>
         </div>
       </div>
