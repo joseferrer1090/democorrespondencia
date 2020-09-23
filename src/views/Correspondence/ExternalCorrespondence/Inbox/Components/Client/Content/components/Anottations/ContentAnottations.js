@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import InputSearch from "./../../InputSearch";
@@ -19,7 +19,21 @@ class ContentAnottations extends Component {
   }
   render() {
     console.log(this.props);
-    return <div>Probando apenas el componente</div>;
+    return (
+      <Fragment>
+        <div className="row">
+          <div className="col-md-7" style={{ border: "1px solid red" }}></div>
+          <div className="col-md-5" style={{ border: "1px solid blue" }}></div>
+        </div>
+        <br />
+        <div className="row">
+          <div
+            className="col-md-12"
+            style={{ border: "1px solid black" }}
+          ></div>
+        </div>
+      </Fragment>
+    );
   }
 }
 
