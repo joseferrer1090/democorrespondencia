@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class ContentReceived extends Component {
   constructor(props) {
@@ -11,4 +12,10 @@ class ContentReceived extends Component {
   }
 }
 
-export default ContentReceived;
+const mapStateToProps = (state) => {
+  return { state };
+};
+
+const mapDispatchTopProps = (dispatch) => {};
+
+export default connect(mapStateToProps, mapDispatchTopProps)(ContentReceived);

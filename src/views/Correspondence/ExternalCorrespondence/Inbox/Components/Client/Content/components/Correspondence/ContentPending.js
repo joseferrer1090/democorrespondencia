@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class ContentPending extends Component {
   constructor(props) {
@@ -10,4 +11,11 @@ class ContentPending extends Component {
     return <div>probando apenas</div>;
   }
 }
-export default ContentPending;
+
+const mapStateToProps = (state) => {
+  return { state };
+};
+
+const mapDispatchToProps = (dispatch) => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentPending);
