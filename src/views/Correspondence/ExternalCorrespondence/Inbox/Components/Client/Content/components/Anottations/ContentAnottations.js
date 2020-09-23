@@ -23,4 +23,10 @@ class ContentAnottations extends Component {
   }
 }
 
-export default ContentAnottations;
+const mapStateToProps = (state) => {
+  return { state };
+};
+
+const mapDispatchToProps = () => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentAnottations);
