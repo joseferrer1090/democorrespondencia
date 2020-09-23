@@ -205,12 +205,11 @@ class ContentComponent extends Component {
             <div className="row">
               <div
                 className="col-md-7"
-                style={{ padding: 0, marginTop: "20px" }}
+                style={{ padding: 0, marginTop: "1px" }}
               >
                 <div className="form-group"> </div>
               </div>
-            </div>
-            <br />
+            </div>{" "}
             <div className="row">
               <div className="col-md-12" style={{ padding: 0 }}>
                 {this.renderSwitch(this.props.status)}
