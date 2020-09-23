@@ -38,7 +38,7 @@ export const dataAnottationsReducers = (state = initialState, action) => {
     case DATA_ALL_ANOTTATIONS:
       return {
         ...state,
-        alldata: state.anottations,
+        alldata: [...state.anottations],
         active: "ANOTTATIONS",
       };
 

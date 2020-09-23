@@ -45,6 +45,7 @@ class ContentAnottations extends Component {
 
   render() {
     console.log(this.props);
+    const { alldata } = this.props;
     return (
       <Fragment>
         <div className="row">
@@ -104,7 +105,7 @@ class ContentAnottations extends Component {
                   className="text-center"
                   style={{ background: "#45B254 !important" }}
                 >
-                  <th style={{ width: "10px" }}>
+                  {/* <th style={{ width: "10px" }}>
                     <input
                       type="checkbox"
                       onClick={() =>
@@ -117,26 +118,26 @@ class ContentAnottations extends Component {
                         )
                       }
                     />
-                  </th>
-                  <th style={{ width: "150px" }}>Sede</th>
-                  <th style={{ width: "10px" }}>No.Radicación</th>
-                  <th style={{ width: "150px" }}>Asunto</th>
-                  <th style={{ width: "100px" }}>Fecha de radicación</th>
-                  <th style={{ width: "50px" }}>Destinatarios</th>
-                  <th style={{ width: "10px" }}>Estado</th>
+                  </th> */}
+                  <th style={{ width: "150px" }}>Fecha de creacion</th>
+                  <th style={{ width: "10px" }}>Usuario creador</th>
+                  <th style={{ width: "150px" }}>Anotacion</th>
+                  <th style={{ width: "50px" }}>Pagina</th>
                   <th style={{ width: "100px" }}>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
+              {alldata.map((aux, id) => {
+                return (
+                  <tbody className="text-center">
+                    <tr>
+                      <td>{aux.createdAt}</td>
+                      <td>{aux.creatorUser}</td>
+                      <td>{aux.annotation}</td>
+                      <td>{aux.page}</td>
+                    </tr>
+                  </tbody>
+                );
+              })}
             </table>
           </div>
         </div>
@@ -146,7 +147,10 @@ class ContentAnottations extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { state };
+  return {
+    alldata: state.dataAnottationsReducers.alldata,
+    anottations: state.dataAnottationsReducers.anottations,
+  };
 };
 
 const mapDispatchToProps = () => {};
