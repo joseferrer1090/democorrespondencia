@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import moment from "moment";
+import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
+import InputSearch from "./../../InputSearch";
 
 class ContentPending extends Component {
   constructor(props) {
@@ -8,6 +11,7 @@ class ContentPending extends Component {
     this.state = {};
   }
   render() {
+    console.log(this.props);
     return <div>probando apenas</div>;
   }
 }

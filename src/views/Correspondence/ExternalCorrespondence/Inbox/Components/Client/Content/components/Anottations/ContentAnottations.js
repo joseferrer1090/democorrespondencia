@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import InputSearch from "./../../InputSearch";
 
 /* Componente que va tener la informacion de las anotaciones y demas funcionalidades relacionadas con ella
  1- Maquetar el componete
@@ -17,6 +18,7 @@ class ContentAnottations extends Component {
     super();
   }
   render() {
+    console.log(this.props);
     return <div>Probando apenas el componente</div>;
   }
 }
