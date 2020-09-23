@@ -168,13 +168,13 @@ class ContentComponent extends Component {
   renderSwitch(param) {
     switch (param) {
       case "RECEIVED":
-        return <ContentReceived />;
+        return <ContentReceived status={param} />;
       case "PENDING":
-        return <ContentPending />;
+        return <ContentPending status={param} />;
       case "ANOTTATIONS":
-        return <ContentAnottations />;
+        return <ContentAnottations status={param} />;
       default:
-        return <ContentReceived />;
+        return <ContentReceived status={param} />;
     }
   }
 
