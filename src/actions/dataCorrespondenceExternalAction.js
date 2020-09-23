@@ -15,6 +15,9 @@ import {
   COUNT_ANOTTATIONS,
   COUNT_CORRESPONDENCE,
   COUNT_PENDING,
+  ACTIVE_CORRESPONDENCE_RECEIVED,
+  ACTIVE_CORRESPONDENCE_PENDING,
+  ACTIVE_ANOTTATIONS,
 } from "./../types/index";
 import {
   loadCorrespondenceData,
@@ -31,6 +34,11 @@ import {
 } from "./../utils/helpers/countcorrespondence";
 import { COUNT_RECEIVED } from "../services/EndPoints";
 
+import {
+  setActiveCorrespondenceReceived,
+  setActiveCorrespondencePending,
+} from "./sidebarStatusAction";
+
 // Funcion principal
 export const dataCorrespondence = () => {
   return async (dispatch, getState) => {
@@ -39,6 +47,7 @@ export const dataCorrespondence = () => {
     const aux = await loadCorrespondenceData(token);
     dispatch(loadDataCorrespondenceSuccess(aux));
     dispatch(loadDataAll());
+    dispatch(setActiveCorrespondenceReceived());
     dispatch(loadPaginationReceived(1));
   };
 };
@@ -49,7 +58,6 @@ export const startLoadDataCorrespondence = () => ({
 
 export const loadDataCorrespondenceSuccess = (data) => ({
   type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
-
   payload: data,
 });
 
@@ -78,6 +86,7 @@ export const dataCorrespondencePending = () => {
     const aux = await loadCorrespondenceExternalPendingData(token);
     dispatch(loadDataCorrespondencePendingSuccess(aux));
     dispatch(loadDataAllPendong());
+    dispatch(setActiveCorrespondencePending());
     dispatch(loadPaginationPending(1));
   };
 };

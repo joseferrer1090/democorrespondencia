@@ -3,6 +3,7 @@
         alldata: [] => estado para generar una copia del estado origina y poder realizar operaciones
         anotattions: [] => lista de anotaciones
         countanotattions: 0 => numero de anotaciones   
+        active: => Si el usuario activa en el sidebar
     }
 */
 
@@ -17,6 +18,7 @@ const initialState = {
   alldata: [],
   anottations: [],
   countanotattions: null,
+  active: null,
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -37,6 +39,7 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         alldata: state.anottations,
+        active: "ANOTTATIONS",
       };
 
     default:

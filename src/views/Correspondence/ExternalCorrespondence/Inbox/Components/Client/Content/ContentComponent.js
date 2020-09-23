@@ -12,6 +12,9 @@ import {
 import InputSearch from "./InputSearch";
 import moment from "moment";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
+import ContentReceived from "./components/Correspondence/ContentReceived";
+import ContentPending from "./components/Correspondence/ContentPending";
+import ContentAnottations from "./components/Anottations/ContentAnottations";
 
 class ContentComponent extends Component {
   constructor(props) {
@@ -162,7 +165,21 @@ class ContentComponent extends Component {
     this.forceUpdate();
   }
 
+  renderSwitch(param) {
+    switch (param) {
+      case "RECEIVED":
+        return <ContentReceived />;
+      case "PENDING":
+        return <ContentPending />;
+      case "ANOTTATIONS":
+        return <ContentAnottations />;
+      default:
+        return <ContentReceived />;
+    }
+  }
+
   render() {
+    const example = 8;
     const { data } = this.state;
     const { allcontent, number, totalPages } = this.props;
     const currentPage = this.props.number;
@@ -177,6 +194,10 @@ class ContentComponent extends Component {
       fontWeight: "bold",
     };
 
+    const switchCase = () => {
+      console.log(this.state.data);
+    };
+
     return (
       <div className="col-md-12 card">
         <div className="card-body">
@@ -186,203 +207,13 @@ class ContentComponent extends Component {
                 className="col-md-7"
                 style={{ padding: 0, marginTop: "20px" }}
               >
-                <div className="form-group">
-                  {" "}
-                  <InputSearch />
-                </div>
+                <div className="form-group"> </div>
               </div>
-              <div className=" col-md-5 float-right">
-                <center>
-                  Página <b>{number}</b> de <b>{totalPages}</b>{" "}
-                </center>
-                <InputGroup size="sm">
-                  <InputGroupAddon addonType="prepend">
-                    <Button
-                      className="btn btn-sm btn-light"
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === 1 ? true : false}
-                      onClick={this.firstPage}
-                    >
-                      <i
-                        style={{ fontWeight: "bold" }}
-                        className="fa fa-angle-double-left"
-                      />
-                    </Button>
-                    <Button
-                      className="btn btn-sm btn-light"
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === 1 ? true : false}
-                      onClick={this.prevPage}
-                    >
-                      <i className="fa fa-chevron-left" />
-                    </Button>
-                  </InputGroupAddon>
-                  <Input
-                    // Validar que no entre en NaN
-                    type="number"
-                    min={1}
-                    max={totalPages}
-                    style={pageNumCss}
-                    className="bg-light"
-                    name="currentPage"
-                    placeholder="Buscar página"
-                    // value={number}
-                    // defaultValue={number + 1}
-                    disabled={this.disabledInput()}
-                    onChange={this.handlePageChange}
-                  />
-
-                  <InputGroupAddon addonType="append">
-                    <Button
-                      className="btn btn-sm btn-light"
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === totalPages ? true : false}
-                      onClick={this.nextPage}
-                    >
-                      <i className="fa fa-chevron-right" />
-                    </Button>
-                    <Button
-                      className="btn btn-sm btn-light"
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === totalPages ? true : false}
-                      onClick={this.lastPage}
-                    >
-                      <i
-                        style={{ fontWeight: "bold" }}
-                        className="fa fa-angle-double-right"
-                      />
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
-              </div>
-              {/* <button
-                type="button"
-                className="btn btn-secondary btn-sm"
-                title="Actualizar"
-                onClick={this.forceUpdateHandler}
-              >
-                <i className="fa fa-refresh" />
-              </button> */}
             </div>
             <br />
             <div className="row">
               <div className="col-md-12" style={{ padding: 0 }}>
-                <div className="table">
-                  <table className="table table-hover table-sm table-condensed">
-                    <thead>
-                      <tr
-                        className="text-center"
-                        style={{ background: "#45B254 !important" }}
-                      >
-                        <th style={{ width: "10px" }}>
-                          <input
-                            type="checkbox"
-                            onClick={() =>
-                              this.setState(
-                                {
-                                  checkall: !this.state.checkall,
-                                },
-                                () =>
-                                  this.toggleCheckboxes(
-                                    this.state.checkall,
-                                    "foo"
-                                  )
-                              )
-                            }
-                          />
-                        </th>
-                        <th style={{ width: "150px" }}>Sede</th>
-                        <th style={{ width: "10px" }}>No.Radicación</th>
-                        <th style={{ width: "150px" }}>Asunto</th>
-                        <th style={{ width: "100px" }}>Fecha de radicación</th>
-                        <th style={{ width: "50px" }}>Destinatarios</th>
-                        <th style={{ width: "10px" }}>Estado</th>
-                        <th style={{ width: "100px" }}>Acciones</th>
-                      </tr>
-                    </thead>
-                    {allcontent.length ? (
-                      <tbody
-                        className="text-center"
-                        style={{
-                          height: "200px",
-                          overflowY: "auto",
-                          width: "100%",
-                        }}
-                      >
-                        {allcontent.map((correspondence, id) => {
-                          return (
-                            <tr key={id}>
-                              <td className="inbox-small-cells">
-                                <input
-                                  name="foo"
-                                  type="checkbox"
-                                  className="mail-checkbox"
-                                  defaultChecked={this.state.chkrow}
-                                  onChange={(e) => {
-                                    this.setState({ chkrow: e.target.value });
-                                    // this.setState({ chkrow: !this.state.chkrow });
-                                  }}
-                                />
-                              </td>
-                              <td>{correspondence.headquarter}</td>
-                              <td>{correspondence.numFiling}</td>
-                              <td>{correspondence.issue}</td>
-                              <td>
-                                {this.DateFiling(correspondence.createdAt)}
-                              </td>
-                              <td>{correspondence.guide}</td>
-                              <td>
-                                {this.colorStatusFiling(
-                                  correspondence.statusName
-                                )}
-                              </td>
-                              <td>
-                                <div className="">
-                                  <button
-                                    title="Ver correspondencia"
-                                    type="button"
-                                    className="btn btn-secondary btn-sm"
-                                  >
-                                    <i className="fa fa-eye" />
-                                  </button>
-                                  &nbsp;
-                                  <button
-                                    title="editar y/o completar correspondencia"
-                                    type="button"
-                                    className="btn btn-secondary btn-sm"
-                                  >
-                                    <i className="fa fa-pencil" />
-                                  </button>
-                                  &nbsp;
-                                  <button
-                                    className="btn btn-secondary btn-sm"
-                                    title="agregar nota"
-                                  >
-                                    <i className="fa fa-sticky-note" />
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    ) : (
-                      <tbody>
-                        <tr>
-                          <td colSpan={8}>
-                            <div className="jumbotron">
-                              <h6 className="text-center">No hay datos</h6>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    )}
-                  </table>
-                </div>
+                {this.renderSwitch(this.props.status)}
               </div>
             </div>
           </React.Fragment>

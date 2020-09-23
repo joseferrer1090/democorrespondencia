@@ -2,12 +2,15 @@ import {
   AGREGAR_ANOTACION_CORRESPONDENCIA,
   LISTA_ANOTACIONES,
   NUMERO_ANOTACIONES,
+  ACTIVE_ANOTTATIONS,
 } from "./../types/index";
 
 import {
   loadCountNumberAnottations,
   loadDataNoveltiesAnottations,
 } from "./../utils/helpers/anottations";
+
+import { setActiveAnottations } from "./sidebarStatusAction";
 
 // FUNCION PRINCIPAL DE ANOTACIONES
 export const loadNumberAnottations = () => {
@@ -28,6 +31,7 @@ export const loadDataAnottations = () => {
     const token = localStorage.getItem("auth_token");
     const aux = await loadDataNoveltiesAnottations(token);
     dispatch(setAnottations(aux.content));
+    dispatch(setActiveAnottations());
   };
 };
 

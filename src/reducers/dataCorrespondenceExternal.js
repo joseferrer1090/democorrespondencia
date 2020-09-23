@@ -11,7 +11,8 @@ correspondeData {
     valuesearch: => valor para realizar la busqueda
     countreceived: => numero de correspondencia recibida con el endpoint
     countpending: => numero de correspondencia pendiente con el endpoint
-}
+    active: => este es el valor del click
+  }
 */
 
 import {
@@ -30,6 +31,8 @@ import {
   DATA_ALL_PAGINACION_RECIBIDA,
   COUNT_PENDING,
   COUNT_CORRESPONDENCE,
+  ACTIVE_CORRESPONDENCE_PENDING,
+  ACTIVE_CORRESPONDENCE_RECEIVED,
 } from "../types";
 
 const initalState = {
@@ -47,6 +50,7 @@ const initalState = {
   paginationPending: [],
   countreceived: null,
   countpending: null,
+  active: "",
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
@@ -77,6 +81,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         alldata: state.received,
+        active: "RECEIVED",
       };
 
     case NUMERO_ELEMENTOS_RECIBIDOS: {
@@ -110,6 +115,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         alldata: [...state.pending],
+        active: "PENDING",
       };
 
     case NUMERO_ELEMENTOS_PENDIENTES:

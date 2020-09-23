@@ -21,7 +21,7 @@ import {
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       active: {
         active2: true,
@@ -30,6 +30,7 @@ class ListInboxCorrespondence extends Component {
       },
       collapse: true,
       currentPage: 1,
+      userselect: 0,
     };
   }
 
@@ -68,7 +69,7 @@ class ListInboxCorrespondence extends Component {
       });
     };
 
-    const getDataC = () => {
+    const getDataC = (props) => {
       this.props.getDataCurrently(currentPage);
       this.setState({
         ...this.state,
@@ -79,7 +80,7 @@ class ListInboxCorrespondence extends Component {
       });
     };
 
-    const getDataA = () => {
+    const getDataA = (props) => {
       this.props.getDataAnottations();
       this.setState({
         ...this.state,

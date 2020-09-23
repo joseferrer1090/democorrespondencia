@@ -26,6 +26,6 @@ export const loadDataNoveltiesAnottations = async (token) => {
   });
   const anottations = await responsesanottations.json();
   const { content } = anottations;
-  console.log(content);
+  //console.log(content);
   return { anottations, content };
 };
