@@ -4,11 +4,27 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 import InputSearch from "./../../InputSearch";
+import {
+  dataCorrespondence,
+  filterData,
+  loadPaginationReceived,
+  loadPaginationPending,
+} from "./../../../../../../../../../actions/dataCorrespondenceExternalAction";
 
 class ContentPending extends Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      chkrow: false,
+      checkall: false,
+      idCorrespondenceSelected: null,
+      auth: props.authorization,
+      pageCount: null,
+      itemsCountPerPage: 5,
+      currentPage: 1,
+      totalPages: null,
+      totalElements: null,
+    };
   }
 
   toggleCheckboxes = (source, cbName) => {
@@ -328,6 +344,21 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getData: () => {
+      dispatch(dataCorrespondence());
+    },
+    filter: (data) => {
+      dispatch(filterData(data));
+    },
+    paginationReceived(page) {
+      dispatch(loadPaginationReceived(page));
+    },
+    paginationPending(page) {
+      dispatch(loadPaginationPending(page));
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentPending);
