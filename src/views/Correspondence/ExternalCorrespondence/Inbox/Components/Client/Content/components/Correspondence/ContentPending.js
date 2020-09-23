@@ -284,11 +284,11 @@ class ContentPending extends Component {
                           <td>
                             <div className="">
                               <button
-                                title="Ver correspondencia"
+                                title="Contuniar correspondencia"
                                 type="button"
                                 className="btn btn-secondary btn-sm"
                               >
-                                <i className="fa fa-eye" />
+                                <i className="fa fa-play" />
                               </button>
                               &nbsp;
                               <button
@@ -297,13 +297,6 @@ class ContentPending extends Component {
                                 className="btn btn-secondary btn-sm"
                               >
                                 <i className="fa fa-pencil" />
-                              </button>
-                              &nbsp;
-                              <button
-                                className="btn btn-secondary btn-sm"
-                                title="agregar nota"
-                              >
-                                <i className="fa fa-sticky-note" />
                               </button>
                             </div>
                           </td>

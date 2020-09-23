@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import InputSearch from "./../../InputSearch";
 import classnames from "classnames";
+import moment from "moment";
 
 /* Componente que va tener la informacion de las anotaciones y demas funcionalidades relacionadas con ella
  1- Maquetar el componete
@@ -41,6 +42,10 @@ class ContentAnottations extends Component {
         activeTab: tab,
       });
     }
+  };
+
+  DateFiling = (date) => {
+    return moment(date).format("DD-MM-YYYY");
   };
 
   render() {
@@ -81,7 +86,7 @@ class ContentAnottations extends Component {
               <TabPane tabId="1">
                 <Row>
                   <Col sm="10">
-                    <div>Probando</div>
+                    <InputSearch />
                   </Col>
                 </Row>
               </TabPane>
@@ -129,11 +134,20 @@ class ContentAnottations extends Component {
               {alldata.map((aux, id) => {
                 return (
                   <tbody className="text-center">
-                    <tr>
-                      <td>{aux.createdAt}</td>
+                    <tr key={id}>
+                      <td>{this.DateFiling(aux.createdAt)}</td>
                       <td>{aux.creatorUser}</td>
                       <td>{aux.annotation}</td>
                       <td>{aux.page}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Ver anotacion"
+                        >
+                          <i className="fa fa-eye" />
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 );

@@ -229,7 +229,7 @@ class ContentReceived extends Component {
                     <th style={{ width: "150px" }}>Asunto</th>
                     <th style={{ width: "100px" }}>Fecha de radicación</th>
                     <th style={{ width: "50px" }}>Destinatarios</th>
-                    <th style={{ width: "10px" }}>Estado</th>
+                    {/* <th style={{ width: "10px" }}>Estado</th> */}
                     <th style={{ width: "100px" }}>Acciones</th>
                   </tr>
                 </thead>
@@ -262,9 +262,9 @@ class ContentReceived extends Component {
                           <td>{correspondence.issue}</td>
                           <td>{this.DateFiling(correspondence.createdAt)}</td>
                           <td>{correspondence.guide}</td>
-                          <td>
+                          {/* <td>
                             {this.colorStatusFiling(correspondence.statusName)}
-                          </td>
+                          </td> */}
                           <td>
                             <div className="">
                               <button
@@ -276,16 +276,8 @@ class ContentReceived extends Component {
                               </button>
                               &nbsp;
                               <button
-                                title="editar y/o completar correspondencia"
-                                type="button"
                                 className="btn btn-secondary btn-sm"
-                              >
-                                <i className="fa fa-pencil" />
-                              </button>
-                              &nbsp;
-                              <button
-                                className="btn btn-secondary btn-sm"
-                                title="agregar nota"
+                                title="agregar anotacion"
                               >
                                 <i className="fa fa-sticky-note" />
                               </button>
