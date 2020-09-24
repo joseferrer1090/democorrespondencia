@@ -4,6 +4,7 @@ import {
   NUMERO_ANOTACIONES,
   ACTIVE_ANOTTATIONS,
   DATA_ALL_ANOTTATIONS,
+  BUSCAR_ANOTACION,
 } from "./../types/index";
 
 import {
@@ -46,5 +47,9 @@ const dataallanottations = (data) => ({
   type: DATA_ALL_ANOTTATIONS,
   payload: data,
 });
-
 //FIN
+
+export const filterDataAnottation = (data) => ({
+  type: BUSCAR_ANOTACION,
+  payload: data,
+});

@@ -4,6 +4,8 @@
         anotattions: [] => lista de anotaciones
         countanotattions: 0 => numero de anotaciones   
         active: => Si el usuario activa en el sidebar
+        valuesearch: => valor que se captura en un input para realizar la busqueda. 
+
     }
 */
 
@@ -12,6 +14,7 @@ import {
   LISTA_ANOTACIONES,
   NUMERO_ANOTACIONES,
   DATA_ALL_ANOTTATIONS,
+  BUSCAR_ANOTACION,
 } from "./../types/index";
 
 const initialState = {
@@ -19,6 +22,7 @@ const initialState = {
   anottations: [],
   countanotattions: null,
   active: null,
+  valuesearch: null,
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -40,6 +44,19 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         ...state,
         alldata: [...state.anottations],
         active: "ANOTTATIONS",
+      };
+
+    case BUSCAR_ANOTACION:
+      return {
+        ...state,
+        valuesearch: action.payload,
+        alldata: !!action.payload
+          ? state.alldata.filter((item) =>
+              JSON.stringify(item)
+                .toLowerCase()
+                .includes(`${action.payload}`.toLowerCase())
+            )
+          : [...state.anottations],
       };
 
     default:
