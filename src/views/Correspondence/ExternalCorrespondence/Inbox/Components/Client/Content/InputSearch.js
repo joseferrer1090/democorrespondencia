@@ -4,7 +4,7 @@ import { filterData } from "./../../../../../../../actions/dataCorrespondenceExt
 
 class InputSearch extends Component {
   constructor(props) {
-    super(props);
+    super();
   }
   render() {
     const { valuesearch } = this.props;
