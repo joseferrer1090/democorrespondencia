@@ -14,7 +14,7 @@ const asyncLocalStorage = {
 
 class EditCorrespondenceExternalCorrespondence extends Component {
     constructor(props){
-        super(props);
+        super();
         this.state = {
             authToken:"",
             idCorrespondence:""
