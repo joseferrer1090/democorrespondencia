@@ -49,8 +49,8 @@ class ContentAnottations extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { alldata } = this.props;
+    const { activeTab } = this.state;
     return (
       <Fragment>
         <div className="row">
@@ -59,30 +59,31 @@ class ContentAnottations extends Component {
               <NavItem>
                 <NavLink
                   className={classnames({
-                    active: this.state.activeTab === "1",
+                    active: activeTab === "1",
                   })}
                   onClick={() => {
                     this.toggle("1");
                   }}
                 >
-                  <i className="fa fa-search" /> Busqueda simple
+                  <i className="fa fa-search" /> Busqueda de anotacion en la
+                  correspondencia recibida
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
                   className={classnames({
-                    active: this.state.activeTab === "2",
+                    active: activeTab === "2",
                   })}
                   onClick={() => {
                     this.toggle("2");
                   }}
                 >
                   {" "}
-                  <i className="fa fa-search-plus" /> Busqueda avanzada
+                  <i className="fa fa-search-plus" /> Busuqueda avanzada
                 </NavLink>
               </NavItem>
             </Nav>
-            <TabContent activeTab={this.state.activeTab}>
+            <TabContent activeTab={activeTab}>
               <TabPane tabId="1">
                 <Row>
                   <Col sm="10">
