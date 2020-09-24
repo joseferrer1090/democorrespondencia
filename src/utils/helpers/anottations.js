@@ -29,3 +29,23 @@ export const loadDataNoveltiesAnottations = async (token) => {
   //console.log(content);
   return { anottations, content };
 };
+
+// PAGINACION EN LA ANOTACION
+export const PaginationAnottations = async (token, page) => {
+  page -= 1;
+  const responses = await fetch(
+    `${NOVELTIES_ANNOTATIONS}?page=${page}&size=${10}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  const anottations = await responses.json();
+  const { totalPages, totalElements, size, number } = anottations;
+  const content = anottations.content;
+  return { totalElements, totalPages, size, number, content };
+};
+// FIN
