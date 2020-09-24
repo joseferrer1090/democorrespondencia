@@ -8,7 +8,24 @@ class InputSearchAnottations extends Component {
     this.state = {};
   }
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <input
+          type="search"
+          className="form-control form-control-sm"
+          //value={}
+          style={{
+            borderRadius: "10px",
+            textDecoration: "inherit",
+            fontFamily: "FontAwesome, Helvetica Neue",
+            fontStyle: "normal",
+            fontWeight: "normal",
+          }}
+          placeholder="&#xF002; Buscar correspondencia"
+          //onChange={(e) => this.props.filterdata(e.target.value)}
+        />
+      </div>
+    );
   }
 }
 

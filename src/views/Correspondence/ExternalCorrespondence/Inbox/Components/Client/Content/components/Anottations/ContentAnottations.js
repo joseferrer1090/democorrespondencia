@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import InputSearch from "./../../InputSearch";
+import InputSearchAnottations from "./InputSearchAnottations";
 import classnames from "classnames";
 import moment from "moment";
 
@@ -86,7 +86,7 @@ class ContentAnottations extends Component {
               <TabPane tabId="1">
                 <Row>
                   <Col sm="10">
-                    <InputSearch />
+                    <InputSearchAnottations />
                   </Col>
                 </Row>
               </TabPane>
