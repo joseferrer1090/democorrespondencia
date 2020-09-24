@@ -2,10 +2,14 @@
     anottationsReducer: {
         alldata: [] => estado para generar una copia del estado origina y poder realizar operaciones
         anotattions: [] => lista de anotaciones
-        countanotattions: 0 => numero de anotaciones   
+        totalPages: => numero total de paginas
+        totalElements: => numero total de elementos
+        countanotattions: 0 => numero de anotaciones
+        size: => tamaño por pagina
         active: => Si el usuario activa en el sidebar
         valuesearch: => valor que se captura en un input para realizar la busqueda. 
-
+        paginationAnottation: => paginacion de anotaciones
+        number: => numero
     }
 */
 
@@ -23,6 +27,11 @@ const initialState = {
   countanotattions: null,
   active: null,
   valuesearch: null,
+  totalElements: 0,
+  totalPages: 0,
+  size: 0,
+  paginationAnottation: [],
+  number: 0,
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -57,6 +66,16 @@ export const dataAnottationsReducers = (state = initialState, action) => {
                 .includes(`${action.payload}`.toLowerCase())
             )
           : [...state.anottations],
+      };
+
+    case "PAGINACION_BANDEJA_ANOTACIONES":
+      return {
+        ...state,
+        paginationAnottation: action.payload.content,
+        totalPages: action.payload.totalPages,
+        totalElements: action.payload.totalElements,
+        size: action.payload.size,
+        number: action.payload.number + 1,
       };
 
     default:
