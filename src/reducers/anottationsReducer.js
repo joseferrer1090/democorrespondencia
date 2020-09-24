@@ -78,6 +78,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         number: action.payload.number + 1,
       };
 
+    case "DATA_ALL_PAGINACION_ANOTACIONES":
+      return {
+        ...state,
+        alldata: [...state.paginationAnottation],
+      };
+
     default:
       return state;
   }
