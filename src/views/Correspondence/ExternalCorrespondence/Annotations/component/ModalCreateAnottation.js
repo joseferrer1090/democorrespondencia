@@ -18,7 +18,10 @@ class ModalCreateAnottation extends Component {
   render() {
     return (
       <Modal className="modal-lg" isOpen={this.state.modal}>
-        <ModalHeader>Probnado</ModalHeader>
+        <ModalHeader>
+          {" "}
+          <i className="fa fa-sticky-note" /> Anotacion
+        </ModalHeader>
         <ModalBody>Probnado</ModalBody>
         <ModalFooter>
           <div className="float-right">
@@ -32,6 +35,10 @@ class ModalCreateAnottation extends Component {
               }}
             >
               <i className="fa fa-times" /> Cerrer
+            </button>
+            &nbsp;
+            <button type="button" className="btn btn-success btn-sm">
+              <i className="fa fa-check" /> Crear anotacion
             </button>
           </div>
         </ModalFooter>

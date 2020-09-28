@@ -120,6 +120,10 @@ class ContentReceived extends Component {
     window.location.replace(path);
   };
 
+  openModalNew() {
+    this.ModalNewAnottation.toggle();
+  }
+
   render() {
     console.log(this.props);
     const { allcontent, number, totalPages } = this.props;
@@ -289,6 +293,7 @@ class ContentReceived extends Component {
                               <button
                                 className="btn btn-secondary btn-sm"
                                 title="agregar anotacion"
+                                onClick={() => this.openModalNew()}
                               >
                                 <i className="fa fa-sticky-note" />
                               </button>
@@ -313,7 +318,10 @@ class ContentReceived extends Component {
             </div>
           </div>
         </div>
-        <ModalCreateAnottation />
+        <ModalCreateAnottation
+          modalnewanottation={this.state.modalview}
+          ref={(mo) => (this.ModalNewAnottation = mo)}
+        />
       </Fragment>
     );
   }
