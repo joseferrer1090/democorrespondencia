@@ -140,7 +140,7 @@ class ContentAnottations extends Component {
       <Fragment>
         <div className="row">
           <div className="col-md-7">
-            <Nav tabs>
+            {/* <Nav tabs>
               <NavItem>
                 <NavLink
                   className={classnames({
@@ -166,8 +166,8 @@ class ContentAnottations extends Component {
                   <i className="fa fa-search-plus" /> Busuqueda avanzada
                 </NavLink>
               </NavItem>
-            </Nav>
-            <TabContent activeTab={activeTab}>
+            </Nav> */}
+            {/* <TabContent activeTab={activeTab}>
               <TabPane tabId="1">
                 <div className="alert alert-info">
                   <i className="fa fa-exclamation-triangle" />
@@ -182,7 +182,7 @@ class ContentAnottations extends Component {
                 </div>
                 <div> Probnado</div>
               </TabPane>
-            </TabContent>
+            </TabContent> */}
           </div>
           <div className="col-md-5" style={{ marginTop: "2%" }}>
             <center>
