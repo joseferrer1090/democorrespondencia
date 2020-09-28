@@ -12,6 +12,12 @@ import {
   PAGINACION_BANDEJA_PENDIENTE,
   DATA_ALL_PAGINACION_RECIBIDA,
   DATA_ALL_PAGINACION_PENDIENTE,
+  COUNT_ANOTTATIONS,
+  COUNT_CORRESPONDENCE,
+  COUNT_PENDING,
+  ACTIVE_CORRESPONDENCE_RECEIVED,
+  ACTIVE_CORRESPONDENCE_PENDING,
+  ACTIVE_ANOTTATIONS,
 } from "./../types/index";
 import {
   loadCorrespondenceData,
@@ -22,6 +28,17 @@ import {
   PaginationPending,
 } from "./../utils/helpers/loadCorrespondenceExternal";
 
+import {
+  countDataCorrespondenceReceived,
+  countDataCorrespondencePending,
+} from "./../utils/helpers/countcorrespondence";
+import { COUNT_RECEIVED } from "../services/EndPoints";
+
+import {
+  setActiveCorrespondenceReceived,
+  setActiveCorrespondencePending,
+} from "./sidebarStatusAction";
+
 // Funcion principal
 export const dataCorrespondence = () => {
   return async (dispatch, getState) => {
@@ -30,6 +47,7 @@ export const dataCorrespondence = () => {
     const aux = await loadCorrespondenceData(token);
     dispatch(loadDataCorrespondenceSuccess(aux));
     dispatch(loadDataAll());
+    dispatch(setActiveCorrespondenceReceived());
     dispatch(loadPaginationReceived(1));
   };
 };
@@ -40,7 +58,6 @@ export const startLoadDataCorrespondence = () => ({
 
 export const loadDataCorrespondenceSuccess = (data) => ({
   type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
-
   payload: data,
 });
 
@@ -69,6 +86,7 @@ export const dataCorrespondencePending = () => {
     const aux = await loadCorrespondenceExternalPendingData(token);
     dispatch(loadDataCorrespondencePendingSuccess(aux));
     dispatch(loadDataAllPendong());
+    dispatch(setActiveCorrespondencePending());
     dispatch(loadPaginationPending(1));
   };
 };
@@ -143,3 +161,33 @@ export const loadDataAllPaginationPending = () => ({
 });
 
 //FIN
+
+// COUNT DE LOS NUEVO ENDPOINT
+
+export const loadcountcorrespondence = (token) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await countDataCorrespondenceReceived(token);
+    dispatch(loadcountC(aux));
+  };
+};
+
+export const loadcountC = (data) => ({
+  type: COUNT_CORRESPONDENCE,
+  payload: data,
+});
+
+export const loadcountpending = (token) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await countDataCorrespondencePending(token);
+    dispatch(loadcountP(aux));
+  };
+};
+
+export const loadcountP = (data) => ({
+  type: COUNT_PENDING,
+  payload: data,
+});
+
+// FIN

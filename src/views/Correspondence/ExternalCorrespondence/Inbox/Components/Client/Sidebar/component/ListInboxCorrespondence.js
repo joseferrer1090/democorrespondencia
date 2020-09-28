@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  ListGroup,
-  ListGroupItem,
-  Badge,
-  Collapse,
-  UncontrolledCollapse,
-} from "reactstrap";
+import { ListGroup, ListGroupItem, Badge, Collapse } from "reactstrap";
 import Tags from "./TagViewer";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -16,11 +10,18 @@ import {
   dataCorrespondence,
   dataNumerReceived,
   dataNumberPending,
+  loadcountcorrespondence,
+  loadcountpending,
 } from "./../../../../../../../../actions/dataCorrespondenceExternalAction";
+
+import {
+  loadNumberAnottations,
+  loadDataAnottations,
+} from "./../../../../../../../../actions/anottationsActions";
 
 class ListInboxCorrespondence extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       active: {
         active2: true,
@@ -29,6 +30,7 @@ class ListInboxCorrespondence extends Component {
       },
       collapse: true,
       currentPage: 1,
+      userselect: 0,
     };
   }
 
@@ -40,14 +42,22 @@ class ListInboxCorrespondence extends Component {
     this.props.getNumberPending();
   };
 
+  getNunmerA = () => {
+    this.props.getNumberAnottation();
+  };
+
   componentDidMount() {
     this.getNumberR();
     this.getNumberP();
+    this.getNunmerA();
+    this.props.getcount();
+    this.props.getcountp();
   }
 
   render() {
     const { currentPage } = this.state;
-    console.log(currentPage);
+    const { countanottations, countpending, countreceived } = this.props;
+
     const getDataP = () => {
       this.props.getDataPending();
       this.setState({
@@ -59,13 +69,24 @@ class ListInboxCorrespondence extends Component {
       });
     };
 
-    const getDataC = () => {
+    const getDataC = (props) => {
       this.props.getDataCurrently(currentPage);
       this.setState({
         ...this.state,
         active: {
           ...this.state,
           active2: true,
+        },
+      });
+    };
+
+    const getDataA = (props) => {
+      this.props.getDataAnottations();
+      this.setState({
+        ...this.state,
+        active: {
+          ...this.state,
+          active4: true,
         },
       });
     };
@@ -99,20 +120,22 @@ class ListInboxCorrespondence extends Component {
             {" "}
             Entrada
             <Badge pill className="float-right  badge-info">
-              {this.props.numerorecibidos}
+              {countreceived}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem
             className=""
             tag="button"
             action
-            onClick={getDataP}
+            onClick={(e) => {
+              e.preventDefault();
+              getDataP();
+            }}
             active={this.state.active.active3}
           >
-            {" "}
             Pendiente{" "}
-            <Badge pill className="float-right  badge-danger  ">
-              {this.props.numeropendientes}
+            <Badge pill className="float-right  badge-danger">
+              {countpending}
             </Badge>{" "}
           </ListGroupItem>
           <ListGroupItem
@@ -134,10 +157,11 @@ class ListInboxCorrespondence extends Component {
                 tag="button"
                 action
                 active={this.state.active.active4}
+                onClick={getDataA}
               >
                 Anotaciones{" "}
                 <Badge pill className="float-right  badge-info  ">
-                  0
+                  {countanottations}
                 </Badge>{" "}
               </ListGroupItem>
             </ListGroup>
@@ -171,6 +195,9 @@ const mapState = (state) => {
     totalPendig: state.dataCorrespondenceExternal.totalElements,
     numerorecibidos: state.dataCorrespondenceExternal.numerorecibidas,
     numeropendientes: state.dataCorrespondenceExternal.numeropendientes,
+    countanottations: state.dataAnottationsReducers.countanotattions,
+    countreceived: state.dataCorrespondenceExternal.countreceived,
+    countpending: state.dataCorrespondenceExternal.countpending,
   };
 };
 
@@ -187,6 +214,18 @@ const mapDispatch = (dispatch) => {
     },
     getNumberPending: () => {
       dispatch(dataNumberPending());
+    },
+    getNumberAnottation: () => {
+      dispatch(loadNumberAnottations());
+    },
+    getDataAnottations: () => {
+      dispatch(loadDataAnottations());
+    },
+    getcount: () => {
+      dispatch(loadcountcorrespondence());
+    },
+    getcountp: () => {
+      dispatch(loadcountpending());
     },
   };
 };
