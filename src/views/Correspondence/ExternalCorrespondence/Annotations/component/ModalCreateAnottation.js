@@ -13,13 +13,17 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  TabPane,
+  TabContent,
 } from "reactstrap";
+import classnames from "classnames";
 
 class ModalCreateAnottation extends Component {
   constructor(props) {
     super();
     this.state = {
       modal: props.modalnewanottation,
+      activeTab: 1,
     };
   }
   toggle = () => {
@@ -28,7 +32,14 @@ class ModalCreateAnottation extends Component {
     });
   };
 
+  toggleTab = (tab) => {
+    if (this.state.activeTab !== tab) {
+      this.setState({ activeTab: tab });
+    }
+  };
+
   render() {
+    const { activeTab } = this.state;
     return (
       <Modal className="modal-xl" isOpen={this.state.modal}>
         <ModalHeader>
@@ -40,17 +51,41 @@ class ModalCreateAnottation extends Component {
             <div className="col-md-12">
               <Nav tabs>
                 <NavItem>
-                  <NavLink href="#" active>
+                  <NavLink
+                    className={classnames({ active: activeTab === 1 })}
+                    onClick={() => {
+                      this.toggleTab(1);
+                    }}
+                  >
                     Busqueda por dependencia
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">Busqueda por grupo </NavLink>
+                  <NavLink
+                    className={classnames({ active: activeTab === 2 })}
+                    onClick={() => {
+                      this.toggleTab(2);
+                    }}
+                  >
+                    Busqueda por grupo{" "}
+                  </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">Buscar por nombre de usuario</NavLink>
+                  <NavLink
+                    className={classnames({ active: activeTab === 3 })}
+                    onClick={() => {
+                      this.toggleTab(3);
+                    }}
+                  >
+                    Buscar por nombre de usuario
+                  </NavLink>
                 </NavItem>
               </Nav>
+              <TabContent activeTab={activeTab}>
+                <TabPane tabId={1}>filtro uno</TabPane>
+                <TabPane tabId={2}>filtro dos</TabPane>
+                <TabPane tabId={3}>filtro tres</TabPane>
+              </TabContent>
             </div>
           </div>
         </ModalBody>
