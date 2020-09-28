@@ -4,11 +4,14 @@ import { connect } from "react-redux";
 import InputSearch from "./../../InputSearch";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 import moment from "moment";
+import ModalCreateAnottation from "./../../../../../../Annotations/component/ModalCreateAnottation";
 
 class ContentReceived extends Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      modalview: false,
+    };
   }
 
   toggleCheckboxes = (source, cbName) => {
@@ -110,6 +113,11 @@ class ContentReceived extends Component {
       disabled = true;
     }
     return disabled;
+  };
+
+  viewcorrespondence = (id) => {
+    const path = `/#/correspondence/external/view/${id}`;
+    window.location.replace(path);
   };
 
   render() {
@@ -271,6 +279,9 @@ class ContentReceived extends Component {
                                 title="Ver correspondencia"
                                 type="button"
                                 className="btn btn-secondary btn-sm"
+                                onClick={() =>
+                                  this.viewcorrespondence(correspondence.id)
+                                }
                               >
                                 <i className="fa fa-eye" />
                               </button>
@@ -302,6 +313,7 @@ class ContentReceived extends Component {
             </div>
           </div>
         </div>
+        <ModalCreateAnottation />
       </Fragment>
     );
   }
