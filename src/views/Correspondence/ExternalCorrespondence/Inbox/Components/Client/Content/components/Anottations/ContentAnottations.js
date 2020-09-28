@@ -12,6 +12,9 @@ import {
   CardText,
   Row,
   Col,
+  InputGroup,
+  InputGroupAddon,
+  Input,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -54,9 +57,80 @@ class ContentAnottations extends Component {
     window.location.replace(path);
   };
 
+  /* PAGINACIÓN */
+
+  handlePageChange = (event) => {
+    const currentPage = this.props.number;
+    let targetPage = event.target.value;
+    if (targetPage !== "") {
+      this.validatePagination(targetPage);
+    } else {
+      this.validatePagination(currentPage);
+    }
+  };
+
+  firstPage = () => {
+    const currentPage = this.props.number;
+    let firstPage = 1;
+    if (currentPage > firstPage) {
+      this.validatePagination(firstPage);
+      // this.props.pagination(firstPage);
+    }
+  };
+
+  prevPage = () => {
+    const currentPage = this.props.number;
+    let prevPage = 1;
+
+    if (currentPage > prevPage) {
+      this.validatePagination(currentPage - prevPage);
+      // this.props.pagination(currentPage - prevPage);
+    }
+  };
+
+  lastPage = () => {
+    const itemsCountPerPage = this.props.size;
+    const totalElements = this.props.totalElements;
+    const currentPage = this.props.number;
+    let condition = Math.ceil(totalElements / itemsCountPerPage);
+    if (currentPage < condition) {
+      this.validatePagination(condition);
+      // this.props.pagination(condition);
+    }
+  };
+
+  nextPage = () => {
+    const itemsCountPerPage = this.props.size;
+    const totalElements = this.props.totalElements;
+    const currentPage = this.props.number;
+    if (currentPage < Math.ceil(totalElements / itemsCountPerPage)) {
+      // this.props.pagination(currentPage + 1);
+      this.validatePagination(currentPage + 1);
+    }
+  };
+
+  /* FIN */
+
+  disabledInput = () => {
+    const { number, totalPages } = this.props;
+    let disabled = false;
+    if (number === totalPages) {
+      disabled = true;
+    }
+    return disabled;
+  };
+
   render() {
-    const { alldata } = this.props;
+    const { alldata, totalPages } = this.props;
     const { activeTab } = this.state;
+    const currentPage = this.props.number;
+    const pageNumCss = {
+      width: "45px",
+      boder: "1px solid #17A2B8",
+      color: "#17A2B8",
+      textAling: "center",
+      fontWeight: "bold",
+    };
     return (
       <Fragment>
         <div className="row">
@@ -106,7 +180,71 @@ class ContentAnottations extends Component {
               </TabPane>
             </TabContent>
           </div>
-          <div className="col-md-5">Paginacion de la tabla</div>
+          <div className="col-md-5">
+            <InputGroup size="sm">
+              <InputGroupAddon addonType="prepend">
+                <Button
+                  className="btn btn-sm btn-light"
+                  type="button"
+                  variant="outline-info"
+                  disabled={currentPage === 1 ? true : false}
+                  onClick={this.firstPage}
+                >
+                  <i
+                    style={{ fontWeight: "bold" }}
+                    className="fa fa-angle-double-left"
+                  />
+                </Button>
+                <Button
+                  className="btn btn-sm btn-light"
+                  type="button"
+                  variant="outline-info"
+                  disabled={currentPage === 1 ? true : false}
+                  onClick={this.prevPage}
+                >
+                  <i className="fa fa-chevron-left" />
+                </Button>
+              </InputGroupAddon>
+              <Input
+                // Validar que no entre en NaN
+                type="number"
+                min={1}
+                max={totalPages}
+                style={pageNumCss}
+                className="bg-light"
+                name="currentPage"
+                placeholder="Buscar página"
+                // value={number}
+                // defaultValue={number + 1}
+                disabled={this.disabledInput()}
+                onChange={this.handlePageChange}
+              />
+
+              <InputGroupAddon addonType="append">
+                <Button
+                  className="btn btn-sm btn-light"
+                  type="button"
+                  variant="outline-info"
+                  disabled={currentPage === totalPages ? true : false}
+                  onClick={this.nextPage}
+                >
+                  <i className="fa fa-chevron-right" />
+                </Button>
+                <Button
+                  className="btn btn-sm btn-light"
+                  type="button"
+                  variant="outline-info"
+                  disabled={currentPage === totalPages ? true : false}
+                  onClick={this.lastPage}
+                >
+                  <i
+                    style={{ fontWeight: "bold" }}
+                    className="fa fa-angle-double-right"
+                  />
+                </Button>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
         </div>
         <br />
         <div className="">
@@ -176,6 +314,8 @@ const mapStateToProps = (state) => {
   return {
     alldata: state.dataAnottationsReducers.alldata,
     anottations: state.dataAnottationsReducers.anottations,
+    currentPage: state.dataAnottationsReducers.currentPage,
+    totalPages: state.dataAnottationsReducers.totalPages,
   };
 };
 

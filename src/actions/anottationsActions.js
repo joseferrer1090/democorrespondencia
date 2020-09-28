@@ -10,6 +10,7 @@ import {
 import {
   loadCountNumberAnottations,
   loadDataNoveltiesAnottations,
+  PaginationAnottations,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -52,4 +53,21 @@ const dataallanottations = (data) => ({
 export const filterDataAnottation = (data) => ({
   type: BUSCAR_ANOTACION,
   payload: data,
+});
+
+export const loadPaginationAnottations = (page) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await PaginationAnottations(token, page);
+    dispatch(loadDataPaginationAnottations(aux));
+  };
+};
+
+export const loadDataPaginationAnottations = (data) => ({
+  type: "PAGINACION_BANDEJA_ANOTACIONES",
+  payload: data,
+});
+
+export const loadDataAllPaginationAnottation = () => ({
+  type: "DATA_ALL_PAGINACION_ANOTACIONES",
 });
