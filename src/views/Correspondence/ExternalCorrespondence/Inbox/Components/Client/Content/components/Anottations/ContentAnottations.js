@@ -21,6 +21,7 @@ import { connect } from "react-redux";
 import InputSearchAnottations from "./InputSearchAnottations";
 import classnames from "classnames";
 import moment from "moment";
+import { loadPaginationAnottations } from "./../../../../../../../../../actions/anottationsActions";
 
 /* Componente que va tener la informacion de las anotaciones y demas funcionalidades relacionadas con ella
  1- Maquetar el componete
@@ -38,6 +39,10 @@ class ContentAnottations extends Component {
     this.state = {
       activeTab: "1",
     };
+  }
+
+  componentDidMount() {
+    this.props.paginationAnottations(1);
   }
 
   toggle = (tab) => {
@@ -121,7 +126,7 @@ class ContentAnottations extends Component {
   };
 
   render() {
-    const { alldata, totalPages } = this.props;
+    const { alldata, totalPages, number } = this.props;
     const { activeTab } = this.state;
     const currentPage = this.props.number;
     const pageNumCss = {
@@ -145,8 +150,7 @@ class ContentAnottations extends Component {
                     this.toggle("1");
                   }}
                 >
-                  <i className="fa fa-search" /> Busqueda de anotacion en la
-                  correspondencia recibida
+                  <i className="fa fa-search" /> Busqueda simple
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -165,22 +169,25 @@ class ContentAnottations extends Component {
             </Nav>
             <TabContent activeTab={activeTab}>
               <TabPane tabId="1">
-                <Row>
-                  <Col sm="10">
-                    <InputSearchAnottations />
-                  </Col>
-                </Row>
+                <div className="alert alert-info">
+                  <i className="fa fa-exclamation-triangle" />
+                  Esta es la informacion de la busqueda 1
+                </div>
+                <InputSearchAnottations />
               </TabPane>
               <TabPane tabId="2">
-                <Row>
-                  <Col md="12">
-                    <div> Probnado</div>
-                  </Col>
-                </Row>
+                <div className="alert alert-info">
+                  <i className="fa fa-exclamation-triangle" />
+                  Esta es la informacion de la busqueda 2
+                </div>
+                <div> Probnado</div>
               </TabPane>
             </TabContent>
           </div>
-          <div className="col-md-5">
+          <div className="col-md-5" style={{ marginTop: "2%" }}>
+            <center>
+              Página <b>{number}</b> de <b>{totalPages}</b>{" "}
+            </center>
             <InputGroup size="sm">
               <InputGroupAddon addonType="prepend">
                 <Button
@@ -314,11 +321,17 @@ const mapStateToProps = (state) => {
   return {
     alldata: state.dataAnottationsReducers.alldata,
     anottations: state.dataAnottationsReducers.anottations,
-    currentPage: state.dataAnottationsReducers.currentPage,
     totalPages: state.dataAnottationsReducers.totalPages,
+    number: state.dataAnottationsReducers.number,
   };
 };
 
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    paginationAnottations(page) {
+      dispatch(loadPaginationAnottations(page));
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentAnottations);

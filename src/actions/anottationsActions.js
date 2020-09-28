@@ -60,6 +60,7 @@ export const loadPaginationAnottations = (page) => {
     const token = localStorage.getItem("auth_token");
     const aux = await PaginationAnottations(token, page);
     dispatch(loadDataPaginationAnottations(aux));
+    dispatch(loadDataAllPaginationAnottation());
   };
 };
 

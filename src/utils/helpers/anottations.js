@@ -17,13 +17,16 @@ export const loadCountNumberAnottations = async (token) => {
 };
 
 export const loadDataNoveltiesAnottations = async (token) => {
-  const responsesanottations = await fetch(`${NOVELTIES_ANNOTATIONS}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer" + token,
-    },
-  });
+  const responsesanottations = await fetch(
+    `${NOVELTIES_ANNOTATIONS}?page=0&size=10`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer" + token,
+      },
+    }
+  );
   const anottations = await responsesanottations.json();
   const { content } = anottations;
   //console.log(content);
@@ -34,7 +37,7 @@ export const loadDataNoveltiesAnottations = async (token) => {
 export const PaginationAnottations = async (token, page) => {
   page -= 1;
   const responses = await fetch(
-    `${NOVELTIES_ANNOTATIONS}?page=${page}&size=${10}`,
+    `${NOVELTIES_ANNOTATIONS}?page=${page}&size=10`,
     {
       method: "GET",
       headers: {
@@ -46,6 +49,6 @@ export const PaginationAnottations = async (token, page) => {
   const anottations = await responses.json();
   const { totalPages, totalElements, size, number } = anottations;
   const content = anottations.content;
-  return { totalElements, totalPages, size, number, content };
+  return { anottations, totalElements, totalPages, size, number, content };
 };
 // FIN
