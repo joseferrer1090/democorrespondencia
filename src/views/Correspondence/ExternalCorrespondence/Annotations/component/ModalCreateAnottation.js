@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Nav,
+  NavItem,
+  NavLink,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle,
+} from "reactstrap";
 
 class ModalCreateAnottation extends Component {
   constructor(props) {
@@ -15,14 +27,33 @@ class ModalCreateAnottation extends Component {
       modal: !this.props.modalnewanottation,
     });
   };
+
   render() {
     return (
-      <Modal className="modal-lg" isOpen={this.state.modal}>
+      <Modal className="modal-xl" isOpen={this.state.modal}>
         <ModalHeader>
           {" "}
           <i className="fa fa-sticky-note" /> Anotacion
         </ModalHeader>
-        <ModalBody>Probnado</ModalBody>
+        <ModalBody>
+          <div className="row">
+            <div className="col-md-12">
+              <Nav tabs>
+                <NavItem>
+                  <NavLink href="#" active>
+                    Busqueda por dependencia
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="#">Busqueda por grupo </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="#">Buscar por nombre de usuario</NavLink>
+                </NavItem>
+              </Nav>
+            </div>
+          </div>
+        </ModalBody>
         <ModalFooter>
           <div className="float-right">
             <button
