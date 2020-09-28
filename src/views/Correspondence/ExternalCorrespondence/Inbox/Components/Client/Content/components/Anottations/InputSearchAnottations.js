@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { filterData } from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import { filterDataAnottation } from "./../../../../../../../../../actions/anottationsActions";
 
-class InputSearch extends Component {
+class InputSearchAnottations extends Component {
   constructor(props) {
     super();
+    this.state = {};
   }
+
   render() {
     const { valuesearch } = this.props;
-    console.log(this.props);
     return (
       <div>
         <input
@@ -22,8 +24,8 @@ class InputSearch extends Component {
             fontStyle: "normal",
             fontWeight: "normal",
           }}
-          placeholder="&#xF002; Buscar correspondencia"
-          onChange={(e) => this.props.filterdata(e.target.value)}
+          placeholder="&#xF002; Buscar Anotacion"
+          onChange={(e) => this.props.filterData(e.target.value)}
         />
       </div>
     );
@@ -31,15 +33,18 @@ class InputSearch extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { valuesearch: state.dataCorrespondenceExternal.valuesearch };
+  return { valuesearch: state.dataAnottationsReducers.valuesearch };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    filterdata: (data) => {
-      dispatch(filterData(data));
+    filterData: (data) => {
+      dispatch(filterDataAnottation(data));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InputSearch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(InputSearchAnottations);

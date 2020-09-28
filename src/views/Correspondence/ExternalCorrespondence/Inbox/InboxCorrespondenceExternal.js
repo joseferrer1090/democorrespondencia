@@ -18,7 +18,7 @@ const asyncLocalStorage = {
 
 class InboxCorrespondenceExternal extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       authToken: "",
     };
@@ -55,6 +55,7 @@ class InboxCorrespondenceExternal extends Component {
                 <ContentInbox
                   authorization={authToken}
                   datacorrespondence={this.props.alldata}
+                  status={this.props.status}
                 />
               </div>
             </div>
@@ -71,7 +72,10 @@ class InboxCorrespondenceExternal extends Component {
 InboxCorrespondenceExternal.propTypes = {};
 
 const mapStateToProps = (state) => {
-  return { alldata: state.dataCorrespondenceExternal.alldata };
+  return {
+    alldata: state.dataCorrespondenceExternal.alldata,
+    status: state.sidebarStatus.status,
+  };
 };
 
 export default connect(mapStateToProps, null)(InboxCorrespondenceExternal);

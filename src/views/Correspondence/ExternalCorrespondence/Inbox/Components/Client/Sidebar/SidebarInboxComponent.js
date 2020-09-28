@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import ListComponent from "./component/ListInboxCorrespondence";
 import Tags from "./component/TagViewer";
+
 class SidebarInboxComponent extends Component {
   constructor(props) {
-    super(props);
-    this.state = {};
+    super();
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="col-md-2" style={{ height: "auto ", padding: "0px" }}>
         {/* <div className="" style={{ width: "108%" }}>
@@ -25,4 +27,8 @@ class SidebarInboxComponent extends Component {
 
 SidebarInboxComponent.propTypes = {};
 
-export default SidebarInboxComponent;
+const mapStateToProps = (state) => {
+  return { state };
+};
+
+export default connect(mapStateToProps, null)(SidebarInboxComponent);

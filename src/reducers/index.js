@@ -11,12 +11,15 @@ import step3ReducerFiling from "./step3ReducerFiling";
 import controlFilingViews from "./controlFilingViewsReducer";
 import { dataCorrespondenceExternal } from "./dataCorrespondenceExternal";
 import chartsDashboard from "./chartsDashboardReducer";
+import { dataAnottationsReducers } from "./anottationsReducer";
+import { sidebarStatus } from "./sidebarReducer";
 import editCorrespondeceExternalThirdParty from "./reducerEditCorrespondenceExternalThirdParty";
 import editCorrespondeceExternalReceiver from "./reducerEditCorrespondenceExternalReceiver";
 import editCorrespondeceExternalPreviewTemplate from "./reducerEditCorrespondenceExternalPreviewTemplate";
 import editCorrespondeceExternalSelectTemplate from "./reducerEditCorrespondenceExternalSelectTemplate";
-import editCorrespondenceExternalTypeDocumentary from "./reducerEditCorrespondenceExternalTypeDocumentary"
+import editCorrespondenceExternalTypeDocumentary from "./reducerEditCorrespondenceExternalTypeDocumentary";
 import editCorrepondenceExternal from "./reducerEditCorrespondenceExternal";
+
 export default combineReducers({
   step2ReducerSticker,
   step1ReducerReceiver,
@@ -30,10 +33,12 @@ export default combineReducers({
   controlFilingViews,
   dataCorrespondenceExternal,
   chartsDashboard,
+  dataAnottationsReducers,
+  sidebarStatus,
   editCorrespondeceExternalThirdParty,
   editCorrespondeceExternalReceiver,
   editCorrespondeceExternalPreviewTemplate,
   editCorrespondeceExternalSelectTemplate,
   editCorrespondenceExternalTypeDocumentary,
-  editCorrepondenceExternal
+  editCorrepondenceExternal,
 });

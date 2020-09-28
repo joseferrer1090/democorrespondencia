@@ -9,7 +9,10 @@ correspondeData {
     numerorecibidas: => numero de recibidas
     numeropendientes: => numero de pendientes
     valuesearch: => valor para realizar la busqueda
-}
+    countreceived: => numero de correspondencia recibida con el endpoint
+    countpending: => numero de correspondencia pendiente con el endpoint
+    active: => este es el valor del click
+  }
 */
 
 import {
@@ -26,6 +29,10 @@ import {
   PAGINACION_BANDEJA_PENDIENTE,
   DATA_ALL_PAGINACION_PENDIENTE,
   DATA_ALL_PAGINACION_RECIBIDA,
+  COUNT_PENDING,
+  COUNT_CORRESPONDENCE,
+  ACTIVE_CORRESPONDENCE_PENDING,
+  ACTIVE_CORRESPONDENCE_RECEIVED,
 } from "../types";
 
 const initalState = {
@@ -41,6 +48,9 @@ const initalState = {
   valuesearch: null,
   paginationReceived: [],
   paginationPending: [],
+  countreceived: null,
+  countpending: null,
+  active: "",
 };
 
 export const dataCorrespondenceExternal = (state = initalState, action) => {
@@ -71,6 +81,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         alldata: state.received,
+        active: "RECEIVED",
       };
 
     case NUMERO_ELEMENTOS_RECIBIDOS: {
@@ -104,6 +115,7 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         alldata: [...state.pending],
+        active: "PENDING",
       };
 
     case NUMERO_ELEMENTOS_PENDIENTES:
@@ -124,20 +136,6 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
             )
           : [...state.pending],
       };
-
-    // case BUSCAR_CORRESPONDENCIA_PENDIENTE:
-    //   return {
-    //     ...state,
-    //     valuesearch: action.payload,
-    //     alldata:
-    //       state.valuesearch === "" || state.valuesearch !== null
-    //         ? [
-    //             ...state.alldata.filter(
-    //               (val) => val.issue.indexOf(state.valuesearch) > -1
-    //             ),
-    //           ]
-    //         : [...state.pending],
-    //   };
 
     case "RESET_BUSQUEDA_CORRESPONDENCIA_PENDIENTE":
       return {
@@ -173,6 +171,16 @@ export const dataCorrespondenceExternal = (state = initalState, action) => {
       return {
         ...state,
         alldata: [...state.paginationPending],
+      };
+    case COUNT_CORRESPONDENCE:
+      return {
+        ...state,
+        countreceived: action.payload,
+      };
+    case COUNT_PENDING:
+      return {
+        ...state,
+        countpending: action.payload,
       };
     default:
       return state;
