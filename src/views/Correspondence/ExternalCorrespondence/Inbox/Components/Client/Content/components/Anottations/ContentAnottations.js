@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Redirect from "react-router-dom";
 import {
   TabContent,
   TabPane,
@@ -46,6 +47,11 @@ class ContentAnottations extends Component {
 
   DateFiling = (date) => {
     return moment(date).format("DD-MM-YYYY");
+  };
+
+  viewcorrespondence = (id) => {
+    const path = `/#/correspondence/external/view/${id}`;
+    window.location.replace(path);
   };
 
   render() {
@@ -145,6 +151,11 @@ class ContentAnottations extends Component {
                           type="button"
                           className="btn btn-secondary btn-sm"
                           title="Ver anotacion"
+                          onClick={() =>
+                            this.viewcorrespondence(
+                              aux.externalCorrespondenceReceivedId
+                            )
+                          }
                         >
                           <i className="fa fa-eye" />
                         </button>
