@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { obtenerMetadatos } from "../../../../../../../../actions/step1ActionsPreviewTemplate";
-import { obtenerMetadatosByTypeDocumentary } from "../../../../../../../../actions/step1ActionsInfoTypeDocumentary";
+import { obtenerMetadatos } from "../../../../../../../../../../actions/editCorrespondenceExternalPreviewTemplate";
+
+import { obtenerMetadatosByTypeDocumentary } from "../../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary";
 
 const SelectTemplate = ({
   field,
@@ -13,15 +14,15 @@ const SelectTemplate = ({
   const [valueTemplate, setValueTemplate] = useState("");
 
   const dataTemplate = useSelector(
-    (state) => state.step1ReducerDataTemplate.dataTemplate
+    (state) => state.editCorrespondeceExternalSelectTemplate.dataTemplate
   );
 
   const idTemplateByTypeDocumentary = useSelector(
-    (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.template
+    (state) => state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.template
   );
 
   const idTypeDocumentary = useSelector(
-    (state) => state.step1ReducerInfoTypeDocumentary.infoAdditional.id
+    (state) => state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.id
   );
 
   useEffect(() => {
@@ -29,11 +30,10 @@ const SelectTemplate = ({
   }, [idTemplateByTypeDocumentary, idTypeDocumentary]);
 
   const validateValues = () => {
-    if (idTemplateByTypeDocumentary !== undefined ) {
+    if (idTemplateByTypeDocumentary !== undefined) {
       if(idTemplateByTypeDocumentary !== null){
-values.correspondence_template = idTemplateByTypeDocumentary.id;
-      }
-      // console.log(idTemplateByTypeDocumentary);
+        values.correspondence_template = idTemplateByTypeDocumentary.id;
+              }
       
       setTimeout(() => {
         setValueTemplate(values.correspondence_template);

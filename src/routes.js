@@ -49,7 +49,7 @@ const ViewCorrespondence = React.lazy(() =>
 
 const EditCorrespondence = React.lazy(() =>
   import(
-    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/EditCorrespondence"
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/index"
   )
 );
 
