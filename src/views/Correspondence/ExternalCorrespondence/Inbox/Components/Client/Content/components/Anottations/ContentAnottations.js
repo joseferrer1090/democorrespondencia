@@ -298,7 +298,7 @@ class ContentAnottations extends Component {
                           title="Ver anotacion"
                           onClick={() =>
                             this.viewcorrespondence(
-                              aux.externalCorrespondenceReceivedId
+                              aux.externalCorrespondenceReceived.id
                             )
                           }
                         >
