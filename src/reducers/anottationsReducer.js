@@ -13,7 +13,9 @@
         dataConglomerado: [] => data de conglomerado
         valueconglomerado: "" => valor seleccionado con el onChange
         dataEmpresa: [] => data de la empresa dependiendo al conglomerado que se seleccione
-        valueempresa: "" => valor seleccionado con el  onChange
+        valueempresa: "" => valor seleccionado con el onChange
+        dataSede: [] => data de la sede dependediendo de la empersa que se seleccione
+        valuesede: "" => valor con el onChange
     }
 */
 
@@ -40,6 +42,8 @@ const initialState = {
   valueconglomerado: "",
   dataEmpresa: [],
   valueempresa: "",
+  dataSede: [],
+  valuesede: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -119,6 +123,18 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         valueempresa: action.payload,
+      };
+
+    case "DATA_SEDE":
+      return {
+        ...state,
+        dataSede: action.payload,
+      };
+
+    case "DATA_SEDE_VALUE":
+      return {
+        ...state,
+        valuesede: action.payload,
       };
 
     default:
