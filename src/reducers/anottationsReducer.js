@@ -10,8 +10,10 @@
         valuesearch: => valor que se captura en un input para realizar la busqueda. 
         paginationAnottation: => paginacion de anotaciones
         number: => numero
-        dataConglomerado: [] => siempre esta lleno de informacion
+        dataConglomerado: [] => data de conglomerado
         valueconglomerado: "" => valor seleccionado con el onChange
+        dataEmpresa: [] => data de la empresa dependiendo al conglomerado que se seleccione
+        valueempresa: "" => valor seleccionado con el  onChange
     }
 */
 
@@ -36,6 +38,8 @@ const initialState = {
   number: 0,
   dataConglomerado: [],
   valueconglomerado: "",
+  dataEmpresa: [],
+  valueempresa: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -98,6 +102,23 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         valueconglomerado: action.payload,
+      };
+
+    case "DATA_EMPRESA":
+      return {
+        ...state,
+        dataEmpresa: action.payload,
+        // dataEmpresa:
+        //   state.valueconglomerado !== null ||
+        //   state.valueconglomerado !== undefined
+        //     ? action.payload
+        //     : [],
+      };
+
+    case "DATA_EMPRESA_VALUE":
+      return {
+        ...state,
+        valueempresa: action.payload,
       };
 
     default:

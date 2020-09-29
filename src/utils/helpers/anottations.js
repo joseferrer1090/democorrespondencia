@@ -2,6 +2,7 @@ import {
   COUNT_NOVELTIES_ANNOTATIONS,
   NOVELTIES_ANNOTATIONS,
   CONGLOMERATES_STATUS,
+  COMPANY_BY_CONGLOMERATE,
 } from "./../../services/EndPoints";
 
 export const loadCountNumberAnottations = async (token) => {
@@ -55,7 +56,6 @@ export const PaginationAnottations = async (token, page) => {
 // FIN
 
 // SELECT DE CONGLOMERADO FILTRO
-
 export const dataSelectConglomerado = async (token) => {
   const responses = await fetch(`${CONGLOMERATES_STATUS}`, {
     method: "GET",
@@ -64,8 +64,30 @@ export const dataSelectConglomerado = async (token) => {
       Authorization: "Bearer " + token,
     },
   });
-  //const dataconglomerate = await responses.json();
   return await responses.json();
 };
+//FIN
 
+// SELECT DE EMPRESA FILTRO
+export const dataSelectEmpresa = async (token, idconglomerado) => {
+  let responses;
+  if (idconglomerado === null || idconglomerado === undefined) {
+    return (responses = []);
+  } else {
+    return (responses = await fetch(
+      `${COMPANY_BY_CONGLOMERATE}${idconglomerado}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+      .then((responses) => responses.json())
+      .catch((error) => {
+        return [];
+      }));
+  }
+};
 //FIN

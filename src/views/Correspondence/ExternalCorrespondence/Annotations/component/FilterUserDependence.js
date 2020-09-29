@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import {
   loadDataConglomeradoSelect,
   dataSelectedConglomerado,
+  loadDataEmpresa,
+  dataSelectedEmpresaValue,
 } from "./../../../../../actions/anottationsActions";
 
 class FilterUserDependence extends Component {
@@ -17,8 +19,14 @@ class FilterUserDependence extends Component {
   }
 
   render() {
-    const { dataconglomerado, valueconglomerado } = this.props;
-    console.log(dataconglomerado);
+    const {
+      dataconglomerado,
+      valueconglomerado,
+      dataempresa,
+      valueempresa,
+    } = this.props;
+    //console.log(dataconglomerado);
+    console.log(dataempresa);
     return (
       <div>
         <div className="row">
@@ -28,11 +36,16 @@ class FilterUserDependence extends Component {
               <select
                 className="form-control form-control-sm"
                 value={valueconglomerado}
-                onChange={(e) => this.props.onchangeselect(e.target.value)}
+                onChange={(e) => {
+                  this.props.onchangeselect(e.target.value);
+                  this.props.dataEmpresa(e.target.value);
+                }}
               >
                 <option value="">Seleccione ...</option>
                 {dataconglomerado.map((aux, id) => (
-                  <option value={aux.id}>{aux.name}</option>
+                  <option key={id} value={aux.id}>
+                    {aux.name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -40,8 +53,19 @@ class FilterUserDependence extends Component {
           <div className="col-md-6">
             <div className="form-group">
               <label>Empresa</label>
-              <select className="form-control form-control-sm">
-                <option>Seleccione</option>
+              <select
+                className="form-control form-control-sm"
+                value={valueempresa}
+                onChange={(e) => {
+                  this.props.onChangeselectectempresa(e.target.value);
+                }}
+              >
+                <option value="">Seleccione...</option>
+                {dataempresa.map((aux, id) => (
+                  <option key={id} value={aux.id}>
+                    {aux.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -71,6 +95,8 @@ const mapStateToProps = (state) => {
   return {
     dataconglomerado: state.dataAnottationsReducers.dataConglomerado,
     valueconglomerado: state.dataAnottationsReducers.valueconglomerado,
+    dataempresa: state.dataAnottationsReducers.dataEmpresa,
+    valueempresa: state.dataAnottationsReducers.valueempresa,
   };
 };
 
@@ -81,6 +107,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onchangeselect: (data) => {
       dispatch(dataSelectedConglomerado(data));
+    },
+    dataEmpresa: (id) => {
+      dispatch(loadDataEmpresa(id));
+    },
+    onChangeselectectempresa: (data) => {
+      dispatch(dataSelectedEmpresaValue(data));
     },
   };
 };

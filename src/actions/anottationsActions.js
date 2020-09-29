@@ -1,3 +1,4 @@
+import { identity } from "lodash";
 import {
   AGREGAR_ANOTACION_CORRESPONDENCIA,
   LISTA_ANOTACIONES,
@@ -12,6 +13,7 @@ import {
   loadDataNoveltiesAnottations,
   PaginationAnottations,
   dataSelectConglomerado,
+  dataSelectEmpresa,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -92,5 +94,25 @@ export const dataSelectedConglomerado = (data) => ({
   type: "DATA_CONGLOMERATE_VALUE",
   payload: data,
 });
-
 //FIN
+
+// SELECT EMPRESA
+export const loadDataEmpresa = (idconglomerado) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await dataSelectEmpresa(token, idconglomerado);
+    dispatch(dataSelectedEmpresa(aux));
+  };
+};
+
+export const dataSelectedEmpresa = (data) => ({
+  type: "DATA_EMPRESA",
+  payload: data,
+});
+
+export const dataSelectedEmpresaValue = (data) => ({
+  type: "DATA_EMPRESA_VALUE",
+  payload: data,
+});
+
+// FIN
