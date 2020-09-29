@@ -4,11 +4,14 @@ import { connect } from "react-redux";
 import InputSearch from "./../../InputSearch";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 import moment from "moment";
+import ModalCreateAnottation from "./../../../../../../Annotations/component/ModalCreateAnottation";
 
 class ContentReceived extends Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      modalview: false,
+    };
   }
 
   toggleCheckboxes = (source, cbName) => {
@@ -111,6 +114,15 @@ class ContentReceived extends Component {
     }
     return disabled;
   };
+
+  viewcorrespondence = (id) => {
+    const path = `/#/correspondence/external/view/${id}`;
+    window.location.replace(path);
+  };
+
+  openModalNew() {
+    this.ModalNewAnottation.toggle();
+  }
 
   render() {
     console.log(this.props);
@@ -271,6 +283,9 @@ class ContentReceived extends Component {
                                 title="Ver correspondencia"
                                 type="button"
                                 className="btn btn-secondary btn-sm"
+                                onClick={() =>
+                                  this.viewcorrespondence(correspondence.id)
+                                }
                               >
                                 <i className="fa fa-eye" />
                               </button>
@@ -278,6 +293,7 @@ class ContentReceived extends Component {
                               <button
                                 className="btn btn-secondary btn-sm"
                                 title="agregar anotacion"
+                                onClick={() => this.openModalNew()}
                               >
                                 <i className="fa fa-sticky-note" />
                               </button>
@@ -302,6 +318,10 @@ class ContentReceived extends Component {
             </div>
           </div>
         </div>
+        <ModalCreateAnottation
+          modalnewanottation={this.state.modalview}
+          ref={(mo) => (this.ModalNewAnottation = mo)}
+        />
       </Fragment>
     );
   }
