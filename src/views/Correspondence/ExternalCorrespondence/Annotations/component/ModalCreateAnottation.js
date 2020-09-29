@@ -87,6 +87,44 @@ class ModalCreateAnottation extends Component {
                 <TabPane tabId={3}>filtro tres</TabPane>
               </TabContent>
             </div>
+            <div className="col-md-6">
+              <br />
+              <div className="card card-body">
+                Lista de usuarios disponibles
+              </div>
+            </div>
+            <div className="col-md-6">
+              <br />
+              <div className="card card-body">
+                Lista de usuarios disponibles
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label>Anotacion</label>
+                <textarea className="form-control form-control-sm"></textarea>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Tip de anotacion</label>
+                <select className="form-control form-control-sm">
+                  <option>Seleccione</option>
+                  <option>Pagina</option>
+                  <option>Documento</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>pagina</label>
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Condicional en caso que se selecciones la opcion pagina"
+                />
+              </div>
+            </div>
           </div>
         </ModalBody>
         <ModalFooter>
