@@ -17,7 +17,7 @@ import {
   TabContent,
 } from "reactstrap";
 import classnames from "classnames";
-
+import FilterUserDependence from "./FilterUserDependence";
 class ModalCreateAnottation extends Component {
   constructor(props) {
     super();
@@ -40,11 +40,13 @@ class ModalCreateAnottation extends Component {
 
   render() {
     const { activeTab } = this.state;
+    const { alldatacorrespondence, namecorrespondence } = this.props;
     return (
       <Modal className="modal-xl" isOpen={this.state.modal}>
         <ModalHeader>
           {" "}
-          <i className="fa fa-sticky-note" /> Anotacion
+          <i className="fa fa-sticky-note" /> Agregar Anotacion -{" "}
+          {namecorrespondence}
         </ModalHeader>
         <ModalBody>
           <div className="row">
@@ -82,7 +84,9 @@ class ModalCreateAnottation extends Component {
                 </NavItem>
               </Nav>
               <TabContent activeTab={activeTab}>
-                <TabPane tabId={1}>filtro uno</TabPane>
+                <TabPane tabId={1}>
+                  <FilterUserDependence />
+                </TabPane>
                 <TabPane tabId={2}>filtro dos</TabPane>
                 <TabPane tabId={3}>filtro tres</TabPane>
               </TabContent>
@@ -152,7 +156,12 @@ class ModalCreateAnottation extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { state };
+  return {
+    alldatacorrespondence: state.dataCorrespondenceExternal.alldata,
+    namecorrespondence: state.dataCorrespondenceExternal.alldata.map(
+      (aux) => aux.issue
+    ),
+  };
 };
 
 const mapDispatchToProps = () => {};
