@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-class FilterUserGroup extends Component {
+class FilterUserName extends Component {
   constructor(props) {
     super();
     this.state = {};
@@ -11,10 +11,12 @@ class FilterUserGroup extends Component {
     return (
       <div>
         <div className="form-group">
-          <label>Grupo de usuario</label>
-          <select className="form-control form-control-sm">
-            <option>Seleccione el grupo</option>
-          </select>
+          <label>Nombre del usuario</label>
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            placeholder="nombre del usuario"
+          />
         </div>
       </div>
     );
@@ -27,4 +29,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = () => {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterUserGroup);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterUserName);

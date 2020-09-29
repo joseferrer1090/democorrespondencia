@@ -18,6 +18,8 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import FilterUserDependence from "./FilterUserDependence";
+import FilterUserGroup from "./FilterUserGroup";
+import FilterUserName from "./FilterUserName";
 class ModalCreateAnottation extends Component {
   constructor(props) {
     super();
@@ -87,8 +89,12 @@ class ModalCreateAnottation extends Component {
                 <TabPane tabId={1}>
                   <FilterUserDependence />
                 </TabPane>
-                <TabPane tabId={2}>filtro dos</TabPane>
-                <TabPane tabId={3}>filtro tres</TabPane>
+                <TabPane tabId={2}>
+                  <FilterUserGroup />
+                </TabPane>
+                <TabPane tabId={3}>
+                  <FilterUserName />
+                </TabPane>
               </TabContent>
             </div>
             <div className="col-md-6">
