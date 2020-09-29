@@ -51,6 +51,7 @@ class ViewCorrespondence extends Component {
       dataTipoDocumental: {},
       dataPlantilla: {},
       dataAttachments: [],
+      dataAnnotations: [],
       authToken: "",
     };
     this.myViewer = React.createRef();
@@ -114,6 +115,7 @@ class ViewCorrespondence extends Component {
           dataInfoMetadatos: data.metadata,
           dataPlantilla: data.template,
           dataAttachments: data.attachments,
+          dataAnnotations: data.annotations,
         });
 
         this.getInfoUsuario(this.state.dataRemitente.id);
@@ -160,7 +162,8 @@ class ViewCorrespondence extends Component {
     let path = `/correspondence/external/historial/${id}`;
     this.props.history.push(path);
   };
-  FechaDocumento = (date) => {
+
+  renderDate = (date) => {
     let documentDate;
     documentDate = new Date(date);
     return moment(documentDate).format("DD-MM-YYYY");
@@ -180,6 +183,7 @@ class ViewCorrespondence extends Component {
       dataInfoMetadatos,
       dataPlantilla,
       dataAttachments,
+      dataAnnotations,
     } = this.state;
 
     const urlViewFile = () => {
@@ -214,6 +218,32 @@ class ViewCorrespondence extends Component {
         );
       });
       return tableMetadatos;
+    };
+
+    const dataTableAnnotations = () => {
+      let tableAnnotations;
+      if (dataAnnotations.length > 0) {
+        tableAnnotations = dataAnnotations.map((aux, idx) => {
+          return (
+            <tr>
+              <td>{this.renderDate(aux.createdAt)}</td>
+              <td>{aux.annotation}</td>
+            </tr>
+          );
+        });
+      } else {
+        tableAnnotations = (
+          <tr>
+            <td colSpan={8}>
+              <div className="jumbotron">
+                <h6 className="text-center">No hay datos</h6>
+              </div>
+            </td>
+          </tr>
+        );
+      }
+
+      return tableAnnotations;
     };
 
     return (
@@ -418,7 +448,7 @@ class ViewCorrespondence extends Component {
                                       <strong> Fecha del documento </strong>
                                       <dd>
                                         {" "}
-                                        {this.FechaDocumento(
+                                        {this.renderDate(
                                           dataCorrespondencia.documentDate
                                         )}{" "}
                                       </dd>
@@ -646,7 +676,7 @@ class ViewCorrespondence extends Component {
                                   <th scope="col" className="text-center">
                                     Fecha
                                   </th>
-                                  <th scope="col" className="text-center">
+                                  {/* <th scope="col" className="text-center">
                                     Origen
                                   </th>
                                   <th scope="col" className="text-center">
@@ -654,33 +684,13 @@ class ViewCorrespondence extends Component {
                                   </th>
                                   <th scope="col" className="text-center">
                                     Página
-                                  </th>
+                                  </th> */}
                                   <th scope="col" className="text-center">
                                     Anotación
                                   </th>
                                 </tr>
                               </thead>
-                              <tbody>
-                                <tr>
-                                  <td className="text-center" nowrap>
-                                    04/10/2018 - 09:10:16
-                                  </td>
-                                  <td className="text-center">
-                                    Dependencia I Pedro
-                                  </td>
-                                  <td className="text-center">
-                                    (Dependencia I - Carlos Borré)
-                                  </td>
-                                  <td className="text-center">2</td>
-                                  <td
-                                    className="text-center"
-                                    width="40%"
-                                    nowrap
-                                  >
-                                    Esto es una prueba
-                                  </td>
-                                </tr>
-                              </tbody>
+                              <tbody>{dataTableAnnotations()}</tbody>
                             </table>
                           </div>
                         </div>
