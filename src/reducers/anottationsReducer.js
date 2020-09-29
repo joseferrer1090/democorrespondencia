@@ -10,6 +10,7 @@
         valuesearch: => valor que se captura en un input para realizar la busqueda. 
         paginationAnottation: => paginacion de anotaciones
         number: => numero
+        dataConglomerado: [] => siempre esta lleno de informacion
     }
 */
 
@@ -32,6 +33,7 @@ const initialState = {
   size: 0,
   paginationAnottation: [],
   number: 0,
+  dataConglomerado: [],
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -82,6 +84,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         alldata: [...state.paginationAnottation],
+      };
+
+    case "DATA_CONGLOMERADO":
+      return {
+        ...state,
+        dataConglomerado: action.payload,
       };
 
     default:

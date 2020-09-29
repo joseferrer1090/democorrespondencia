@@ -11,6 +11,7 @@ import {
   loadCountNumberAnottations,
   loadDataNoveltiesAnottations,
   PaginationAnottations,
+  dataSelectConglomerado,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -72,3 +73,19 @@ export const loadDataPaginationAnottations = (data) => ({
 export const loadDataAllPaginationAnottation = () => ({
   type: "DATA_ALL_PAGINACION_ANOTACIONES",
 });
+
+// SELECT CONGLOMERADO
+export const loadDataConglomeradoSelect = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await dataSelectConglomerado(token);
+    dispatch(loadDataConglomerado(aux));
+  };
+};
+
+const loadDataConglomerado = (data) => ({
+  type: "DATA_CONGLOMERADO",
+  payload: data,
+});
+
+//FIN
