@@ -88,4 +88,9 @@ const loadDataConglomerado = (data) => ({
   payload: data,
 });
 
+export const dataSelectedConglomerado = (data) => ({
+  type: "DATA_CONGLOMERATE_VALUE",
+  payload: data,
+});
+
 //FIN

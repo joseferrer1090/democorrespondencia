@@ -11,6 +11,7 @@
         paginationAnottation: => paginacion de anotaciones
         number: => numero
         dataConglomerado: [] => siempre esta lleno de informacion
+        valueconglomerado: "" => valor seleccionado con el onChange
     }
 */
 
@@ -34,6 +35,7 @@ const initialState = {
   paginationAnottation: [],
   number: 0,
   dataConglomerado: [],
+  valueconglomerado: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -90,6 +92,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         dataConglomerado: action.payload,
+      };
+
+    case "DATA_CONGLOMERATE_VALUE":
+      return {
+        ...state,
+        valueconglomerado: action.payload,
       };
 
     default:

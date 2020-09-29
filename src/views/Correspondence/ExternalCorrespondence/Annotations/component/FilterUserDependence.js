@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadDataConglomeradoSelect } from "./../../../../../actions/anottationsActions";
+import {
+  loadDataConglomeradoSelect,
+  dataSelectedConglomerado,
+} from "./../../../../../actions/anottationsActions";
 
 class FilterUserDependence extends Component {
   constructor(props) {
@@ -14,7 +17,7 @@ class FilterUserDependence extends Component {
   }
 
   render() {
-    const { dataconglomerado } = this.props;
+    const { dataconglomerado, valueconglomerado } = this.props;
     console.log(dataconglomerado);
     return (
       <div>
@@ -22,8 +25,12 @@ class FilterUserDependence extends Component {
           <div className="col-md-6">
             <div className="form-group">
               <label>Conglomerado</label>
-              <select className="form-control form-control-sm">
-                <option>Seleccione ...</option>
+              <select
+                className="form-control form-control-sm"
+                value={valueconglomerado}
+                onChange={(e) => this.props.onchangeselect(e.target.value)}
+              >
+                <option value="">Seleccione ...</option>
                 {dataconglomerado.map((aux, id) => (
                   <option value={aux.id}>{aux.name}</option>
                 ))}
@@ -63,6 +70,7 @@ class FilterUserDependence extends Component {
 const mapStateToProps = (state) => {
   return {
     dataconglomerado: state.dataAnottationsReducers.dataConglomerado,
+    valueconglomerado: state.dataAnottationsReducers.valueconglomerado,
   };
 };
 
@@ -70,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dataConglomerado: () => {
       dispatch(loadDataConglomeradoSelect());
+    },
+    onchangeselect: (data) => {
+      dispatch(dataSelectedConglomerado(data));
     },
   };
 };
