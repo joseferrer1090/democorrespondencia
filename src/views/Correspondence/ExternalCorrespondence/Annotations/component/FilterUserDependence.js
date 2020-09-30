@@ -9,6 +9,7 @@ import {
   loadDataSede,
   dataSelectedSede,
   dataSelectedSedeValue,
+  loadDataDependencia,
 } from "./../../../../../actions/anottationsActions";
 
 class FilterUserDependence extends Component {
@@ -29,9 +30,10 @@ class FilterUserDependence extends Component {
       valueempresa,
       datasede,
       valuesede,
+      datadependencia,
     } = this.props;
     //console.log(dataconglomerado);
-    console.log(datasede);
+    console.log(datadependencia);
     return (
       <div>
         <div className="row">
@@ -83,6 +85,7 @@ class FilterUserDependence extends Component {
                 value={valuesede}
                 onChange={(e) => {
                   this.props.onChangeselectedsede(e.target.value);
+                  this.props.dataDependencia(e.target.value);
                 }}
               >
                 <option value="">Seleccione...</option>
@@ -116,6 +119,7 @@ const mapStateToProps = (state) => {
     valueempresa: state.dataAnottationsReducers.valueempresa,
     datasede: state.dataAnottationsReducers.dataSede,
     valuesede: state.dataAnottationsReducers.valuesede,
+    datadependencia: state.dataAnottationsReducers.dataDependencia,
   };
 };
 
@@ -138,6 +142,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onChangeselectedsede: (data) => {
       dispatch(dataSelectedSedeValue(data));
+    },
+    dataDependencia: (id) => {
+      dispatch(loadDataDependencia(id));
     },
   };
 };

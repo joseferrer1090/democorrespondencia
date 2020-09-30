@@ -15,6 +15,7 @@ import {
   dataSelectConglomerado,
   dataSelectEmpresa,
   dataSelectSede,
+  dataSelectDependencia,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -135,4 +136,21 @@ export const dataSelectedSedeValue = (data) => ({
   type: "DATA_SEDE_VALUE",
   payload: data,
 });
+// FIN
+
+// SELECT DE DEPENDENCIA
+
+export const loadDataDependencia = (idesede) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await dataSelectDependencia(token, idesede);
+    dispatch(dataSelectedDependencia(aux));
+  };
+};
+
+export const dataSelectedDependencia = (data) => ({
+  type: "DATA_DEPENDENCIA",
+  payload: data,
+});
+
 // FIN
