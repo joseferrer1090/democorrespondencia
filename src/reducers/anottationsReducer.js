@@ -16,6 +16,8 @@
         valueempresa: "" => valor seleccionado con el onChange
         dataSede: [] => data de la sede dependediendo de la empersa que se seleccione
         valuesede: "" => valor con el onChange
+        dataDependencia: [] => data de la dependencia
+        valuedependencia: "" => valor seleccionado con el onChange
     }
 */
 
@@ -44,6 +46,8 @@ const initialState = {
   valueempresa: "",
   dataSede: [],
   valuesede: "",
+  dataDependencia: [],
+  valuedependencia: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
