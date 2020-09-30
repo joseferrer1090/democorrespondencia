@@ -227,8 +227,8 @@ class ViewCorrespondence extends Component {
         tableAnnotations = dataAnnotations.map((aux, idx) => {
           return (
             <tr>
-              <td>{this.renderDate(aux.createdAt)}</td>
-              <td>{aux.creatorUser}</td>
+              <td width={"90"}>{this.renderDate(aux.createdAt)}</td>
+              <td width={"150"}>{aux.creatorUser}</td>
               <td>{aux.annotation}</td>
               <td>{aux.page}</td>
             </tr>
