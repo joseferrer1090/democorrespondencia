@@ -5,6 +5,7 @@ import {
   COMPANY_BY_CONGLOMERATE,
   HEADQUARTER_BY_COMPANY,
   DEPENDENCIES_BY_HEADQUARTER,
+  GROUP_USERS_ACTIVE,
 } from "./../../services/EndPoints";
 
 export const loadCountNumberAnottations = async (token) => {
@@ -134,4 +135,19 @@ export const dataSelectDependencia = async (token, idsede) => {
       }));
   }
 };
+// FIN
+
+// FILTRO DE USUARIOS POR GRUPO
+
+export const dataGroupUsers = async (token) => {
+  const responses = await fetch(`${GROUP_USERS_ACTIVE}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  return await responses.json();
+};
+
 // FIN

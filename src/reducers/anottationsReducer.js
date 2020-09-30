@@ -18,6 +18,8 @@
         valuesede: "" => valor con el onChange
         dataDependencia: [] => data de la dependencia
         valuedependencia: "" => valor seleccionado con el onChange
+        dataGroupUsers: [] => data los grupos de usuarios existentes
+        datagroupuserselected: "" => onChange de la seleccion del grupo
     }
 */
 
@@ -48,6 +50,8 @@ const initialState = {
   valuesede: "",
   dataDependencia: [],
   valuedependencia: "",
+  dataGroupUsers: [],
+  datagroupuserselected: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -151,6 +155,18 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         valuedependencia: action.payload,
+      };
+
+    case "DATA_GROUP_USER_FILTER":
+      return {
+        ...state,
+        dataGroupUsers: action.payload,
+      };
+
+    case "DATA_GROUP_USER_VALUE":
+      return {
+        ...state,
+        datagroupuserselected: action.payload,
       };
 
     default:

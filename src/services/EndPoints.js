@@ -45,6 +45,8 @@ export const SEARCH_BY_USERNAME = `${config.IP}:${config.PORT}/api/sgdea/service
 /* GET params => idDependence */
 export const USERS_BY_DEPENDENCE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/users/dependence/`;
 
+/* GET  */
+
 //-------------------------- TIPO DOCUMENTAL -----------------------------------------//
 export const TYPE_DOCUMENTARIES_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/type/documentaries/active`;
 export const TYPE_DOCUMENTARIES_BY_ID = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/type/documentaries/find/id/`;
@@ -138,3 +140,9 @@ export const COUNT_NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgde
 
 /* GET */
 export const NOVELTIES_ANNOTATIONS = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/novelties/annotations/user`;
+
+/* GET */
+export const GROUP_USERS_ACTIVE = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/group/users/active`;
+
+//URL dependencia => http://localhost:8090/api/sgdea/service/configuration/users/dependence/a113c47b-e30c-49e8-987d-c178b429b302
+//URL Grupo => http://localhost:8090/api/sgdea/service/configuration/group/users/find/users/6ffbdfec-8d1c-4ca6-a930-ab52bf1e402a

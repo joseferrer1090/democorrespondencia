@@ -16,6 +16,7 @@ import {
   dataSelectEmpresa,
   dataSelectSede,
   dataSelectDependencia,
+  dataGroupUsers,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -77,6 +78,8 @@ export const loadDataPaginationAnottations = (data) => ({
 export const loadDataAllPaginationAnottation = () => ({
   type: "DATA_ALL_PAGINACION_ANOTACIONES",
 });
+
+// TAB 1
 
 // SELECT CONGLOMERADO
 export const loadDataConglomeradoSelect = () => {
@@ -159,3 +162,22 @@ export const dataSelectedDependenciaValue = (data) => ({
 });
 
 // FIN
+
+// FIN TAB 1
+
+// TAB 2
+
+export const loadDataSelectGroupUsers = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await dataGroupUsers(token);
+    dispatch(setDataGroupUsers(aux));
+  };
+};
+
+export const setDataGroupUsers = (data) => ({
+  type: "DATA_GROUP_USER_FILTER",
+  payload: data,
+});
+
+// FIN TAB 2
