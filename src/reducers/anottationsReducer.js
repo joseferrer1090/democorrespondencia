@@ -20,6 +20,8 @@
         valuedependencia: "" => valor seleccionado con el onChange
         dataGroupUsers: [] => data los grupos de usuarios existentes
         datagroupuserselected: "" => onChange de la seleccion del grupo
+        dataUserSearch: [] => resultado de la busqueda por el endpoint
+
     }
 */
 
@@ -167,6 +169,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         datagroupuserselected: action.payload,
+      };
+
+    case "DATA_RESULT_SEARCH_USER":
+      return {
+        ...state,
+        dataUserSearch: action.payload,
       };
 
     default:
