@@ -61,7 +61,7 @@ class ModalCreateAnottation extends Component {
                       this.toggleTab(1);
                     }}
                   >
-                    Busqueda por dependencia
+                    <i className="fa fa-university" /> Busqueda por dependencia
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -71,7 +71,7 @@ class ModalCreateAnottation extends Component {
                       this.toggleTab(2);
                     }}
                   >
-                    Busqueda por grupo{" "}
+                    <i className="fa fa-users" /> Busqueda por grupo{" "}
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -81,7 +81,7 @@ class ModalCreateAnottation extends Component {
                       this.toggleTab(3);
                     }}
                   >
-                    Buscar por nombre de usuario
+                    <i className="fa fa-male" /> Buscar por nombre de usuario
                   </NavLink>
                 </NavItem>
               </Nav>
