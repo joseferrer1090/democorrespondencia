@@ -153,4 +153,9 @@ export const dataSelectedDependencia = (data) => ({
   payload: data,
 });
 
+export const dataSelectedDependenciaValue = (data) => ({
+  type: "DATA_DEPENDENCIA_VALUE",
+  payload: data,
+});
+
 // FIN

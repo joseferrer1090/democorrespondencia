@@ -10,6 +10,7 @@ import {
   dataSelectedSede,
   dataSelectedSedeValue,
   loadDataDependencia,
+  dataSelectedDependenciaValue,
 } from "./../../../../../actions/anottationsActions";
 
 class FilterUserDependence extends Component {
@@ -31,6 +32,7 @@ class FilterUserDependence extends Component {
       datasede,
       valuesede,
       datadependencia,
+      valuedependencia,
     } = this.props;
     //console.log(dataconglomerado);
     console.log(datadependencia);
@@ -100,8 +102,19 @@ class FilterUserDependence extends Component {
           <div className="col-md-6">
             <div className="form-group">
               <label>Dependencia</label>
-              <select className="form-control form-control-sm">
-                <option>Seleccione</option>
+              <select
+                className="form-control form-control-sm"
+                value={valuedependencia}
+                onChange={(e) => {
+                  this.props.onChangeselecteddependencia(e.target.value);
+                }}
+              >
+                <option value="">Seleccione...</option>
+                {datadependencia.map((aux, id) => (
+                  <option key={id} value={aux.id}>
+                    {aux.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -120,6 +133,7 @@ const mapStateToProps = (state) => {
     datasede: state.dataAnottationsReducers.dataSede,
     valuesede: state.dataAnottationsReducers.valuesede,
     datadependencia: state.dataAnottationsReducers.dataDependencia,
+    valuedependencia: state.dataAnottationsReducers.valuedependencia,
   };
 };
 
@@ -145,6 +159,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     dataDependencia: (id) => {
       dispatch(loadDataDependencia(id));
+    },
+    onChangeselecteddependencia: (data) => {
+      dispatch(dataSelectedDependenciaValue(data));
     },
   };
 };
