@@ -228,7 +228,9 @@ class ViewCorrespondence extends Component {
           return (
             <tr>
               <td>{this.renderDate(aux.createdAt)}</td>
+              <td>{aux.creatorUser}</td>
               <td>{aux.annotation}</td>
+              <td>{aux.page}</td>
             </tr>
           );
         });
@@ -677,17 +679,14 @@ class ViewCorrespondence extends Component {
                                   <th scope="col" className="text-center">
                                     Fecha
                                   </th>
-                                  {/* <th scope="col" className="text-center">
-                                    Origen
+                                  <th scope="col" className="text-center">
+                                    Usuario
                                   </th>
                                   <th scope="col" className="text-center">
-                                    Destinatario
+                                    Anotación
                                   </th>
                                   <th scope="col" className="text-center">
                                     Página
-                                  </th> */}
-                                  <th scope="col" className="text-center">
-                                    Anotación
                                   </th>
                                 </tr>
                               </thead>
