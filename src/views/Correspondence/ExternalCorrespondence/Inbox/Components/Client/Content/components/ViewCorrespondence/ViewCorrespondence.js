@@ -210,6 +210,7 @@ class ViewCorrespondence extends Component {
     const dataTableMetadatos = () => {
       let tableMetadatos;
       tableMetadatos = dataInfoMetadatos.map((aux, idx) => {
+        console.log(aux);
         return (
           <tr>
             <td>{aux.name}</td>

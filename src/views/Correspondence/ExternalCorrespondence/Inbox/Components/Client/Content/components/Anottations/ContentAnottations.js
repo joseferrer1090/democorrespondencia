@@ -296,11 +296,12 @@ class ContentAnottations extends Component {
                           type="button"
                           className="btn btn-secondary btn-sm"
                           title="Ver anotacion"
-                          onClick={() =>
+                          onClick={() => {
+                            console.log(aux);
                             this.viewcorrespondence(
-                              aux.externalCorrespondenceReceived.id
-                            )
-                          }
+                              aux.externalCorrespondenceReceivedId
+                            );
+                          }}
                         >
                           <i className="fa fa-eye" />
                         </button>
