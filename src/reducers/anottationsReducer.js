@@ -141,6 +141,18 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         valuesede: action.payload,
       };
 
+    case "DATA_DEPENDENCIA":
+      return {
+        ...state,
+        dataDependencia: action.payload,
+      };
+
+    case "DATA_DEPENDENCIA_VALUE":
+      return {
+        ...state,
+        valuedependencia: action.payload,
+      };
+
     default:
       return state;
   }
