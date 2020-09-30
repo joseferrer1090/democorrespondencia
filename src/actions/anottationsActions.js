@@ -14,6 +14,7 @@ import {
   PaginationAnottations,
   dataSelectConglomerado,
   dataSelectEmpresa,
+  dataSelectSede,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -114,5 +115,20 @@ export const dataSelectedEmpresaValue = (data) => ({
   type: "DATA_EMPRESA_VALUE",
   payload: data,
 });
+// FIN
 
+// SELECT DE SEDE
+export const loadDataSede = (idempresa) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await dataSelectSede(token, idempresa);
+    dispatch(dataSelectedSede(aux));
+    // console.log(aux);
+  };
+};
+
+export const dataSelectedSede = (data) => ({
+  type: "DATA_SEDE",
+  payload: data,
+});
 // FIN

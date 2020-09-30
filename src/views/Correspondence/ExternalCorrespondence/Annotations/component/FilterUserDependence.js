@@ -6,7 +6,9 @@ import {
   dataSelectedConglomerado,
   loadDataEmpresa,
   dataSelectedEmpresaValue,
+  loadDataSede,
 } from "./../../../../../actions/anottationsActions";
+import { dataSelectSede } from "../../../../../utils/helpers/anottations";
 
 class FilterUserDependence extends Component {
   constructor(props) {
@@ -24,9 +26,10 @@ class FilterUserDependence extends Component {
       valueconglomerado,
       dataempresa,
       valueempresa,
+      datasede,
     } = this.props;
     //console.log(dataconglomerado);
-    console.log(dataempresa);
+    console.log(datasede);
     return (
       <div>
         <div className="row">
@@ -58,6 +61,7 @@ class FilterUserDependence extends Component {
                 value={valueempresa}
                 onChange={(e) => {
                   this.props.onChangeselectectempresa(e.target.value);
+                  this.props.dataSede(e.target.value);
                 }}
               >
                 <option value="">Seleccione...</option>
@@ -73,7 +77,12 @@ class FilterUserDependence extends Component {
             <div className="form-group">
               <label>Sede</label>
               <select className="form-control form-control-sm">
-                <option>Seleccione</option>
+                <option>Seleccione...</option>
+                {datasede.map((aux, id) => (
+                  <option key={id} value={aux.id}>
+                    {aux.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -97,6 +106,8 @@ const mapStateToProps = (state) => {
     valueconglomerado: state.dataAnottationsReducers.valueconglomerado,
     dataempresa: state.dataAnottationsReducers.dataEmpresa,
     valueempresa: state.dataAnottationsReducers.valueempresa,
+    datasede: state.dataAnottationsReducers.dataSede,
+    valuesede: state.dataAnottationsReducers.valuesede,
   };
 };
 
@@ -113,6 +124,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onChangeselectectempresa: (data) => {
       dispatch(dataSelectedEmpresaValue(data));
+    },
+    dataSede: (id) => {
+      dispatch(loadDataSede(id));
     },
   };
 };
