@@ -123,12 +123,16 @@ export const loadDataSede = (idempresa) => {
     const token = localStorage.getItem("auth_token");
     const aux = await dataSelectSede(token, idempresa);
     dispatch(dataSelectedSede(aux));
-    // console.log(aux);
   };
 };
 
 export const dataSelectedSede = (data) => ({
   type: "DATA_SEDE",
+  payload: data,
+});
+
+export const dataSelectedSedeValue = (data) => ({
+  type: "DATA_SEDE_VALUE",
   payload: data,
 });
 // FIN
