@@ -180,4 +180,9 @@ export const setDataGroupUsers = (data) => ({
   payload: data,
 });
 
+export const selectedGroupUser = (data) => ({
+  type: "DATA_GROUP_USER_VALUE",
+  payload: data,
+});
+
 // FIN TAB 2
