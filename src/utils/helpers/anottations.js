@@ -3,6 +3,8 @@ import {
   NOVELTIES_ANNOTATIONS,
   CONGLOMERATES_STATUS,
   COMPANY_BY_CONGLOMERATE,
+  HEADQUARTER_BY_COMPANY,
+  DEPENDENCIES_BY_HEADQUARTER,
 } from "./../../services/EndPoints";
 
 export const loadCountNumberAnottations = async (token) => {
@@ -91,3 +93,45 @@ export const dataSelectEmpresa = async (token, idconglomerado) => {
   }
 };
 //FIN
+
+// SELECT DE SEDE FILTRO
+export const dataSelectSede = async (token, idempresa) => {
+  let responses;
+  if (idempresa === null || idempresa === undefined) {
+    return (responses = []);
+  } else {
+    return (responses = await fetch(`${HEADQUARTER_BY_COMPANY}${idempresa}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((responses) => responses.json())
+      .catch((error) => {
+        return [];
+      }));
+  }
+};
+//FIN
+
+// SELECT DE DEPENDENCIA FILTRO
+export const dataSelectDependencia = async (token, idsede) => {
+  let responses;
+  if (idsede === null || idsede === undefined) {
+    return (responses = []);
+  } else {
+    return (responses = await fetch(`${DEPENDENCIES_BY_HEADQUARTER}${idsede}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((responses) => responses.json())
+      .catch((error) => {
+        return [];
+      }));
+  }
+};
+// FIN
