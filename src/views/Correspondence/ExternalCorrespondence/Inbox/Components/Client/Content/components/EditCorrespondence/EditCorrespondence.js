@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ErrorMessage, Field, Formik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
@@ -26,24 +26,27 @@ import UserListEnabled from "./Components/UserListEnabled";
 import ThirdParty from "./Components/SelectTercero";
 import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
-import { obtenerDataTemplate } from '../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate';
-import { obtenerDataTipoDocumental } from '../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary';
-import {obtenerDataCorrespondenciaExterna} from '../../../../../../../../../actions/editCorrespondenceExternal';
+import { obtenerDataTemplate } from "../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate";
+import { obtenerDataTipoDocumental } from "../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary";
+import { obtenerDataCorrespondenciaExterna } from "../../../../../../../../../actions/editCorrespondenceExternal";
 
-const EditCorrespondence = props => {
-const dispatch = useDispatch()
+const EditCorrespondence = (props) => {
+  const dataCorrespondenceReceived = props.dataInitialValues;
+
+  const validateValues = () => {};
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(obtenerDataTemplate());
-    if(props.idCorrespondence !== ""){
-      dispatch(obtenerDataCorrespondenciaExterna(props.idCorrespondence));
-    }
- 
-    console.log(props.authorization);
-    console.log(props.idCorrespondence);
-  }, [props.authorization, props.idCorrespondence]);
+    validateValues();
+    console.log(props.object);
+  }, [props.authorization, props.dataInitialValues, props.object]);
 
- 
-  const userData = useSelector((state) => state.editCorrespondeceExternalReceiver);
+  const userDataReceivers = useSelector(
+    (state) => state.editCorrespondeceExternalReceiver
+  );
+
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
   const [oldValueTypeDocumentary, setOldValueTypeDocumentary] = useState();
@@ -70,6 +73,7 @@ const dispatch = useDispatch()
   ] = useState();
   const [StateChangeAlert, setAux] = useState(null);
   const [valueIdentification, setValueIdentification] = useState(null);
+
   const [cObjectPosition, setCObjectPosition] = useState();
   const [cObjectId, setCObjectId] = useState();
   const [cObjectValue, setCObjectValue] = useState();
@@ -104,37 +108,40 @@ const dispatch = useDispatch()
   };
 
   return (
-<Formik
-      initialValues={{
-        correspondence_dateFiling: "",
-        correspondence_timeFiling: "",
-        correspondence_guide: "",
-        correspondence_issue: "",
-        correspondence_userFiling: "",
-        correspondence_folios: "",
-        correspondence_consecutive: "",
-        correspondence_documentDate: "",
-        correspondence_documentNum: "",
-        correspondence_headquarter: "" /* S */,
-        correspondence_validity: "" /* S */,
-        correspondence_conglomerate: "" /* S */,
-        correspondence_company: "" /* S */,
-        correspondence_dependence: "" /* S */,
-        correspondence_country: "" /* S */,
-        correspondence_department: "" /* S */,
-        correspondence_criterion: "" /* S */,
-        correspondence_thirdParty: "" /* S */,
-        correspondence_group: "" /* S */,
-        correspondence_typeDocumentary: "" /* S */,
-        correspondence_city: "" /* S */,
-        correspondence_typeArrival: "" /* S */,
-        correspondence_messenger: "" /* S */,
-        correspondence_template: "" /* S */,
-        correspondence_conglomerate_receiver: "" /* S */,
-        correspondence_company_receiver: "" /* S */,
-        correspondence_headquarter_receiver: "" /* S */,
-        correspondence_dependence_receiver: "" /* S */,
-      }}
+    <Formik
+      enableReinitialize={true}
+      initialValues={props.object}
+      // initialValues={{
+      //   correspondence_dateFiling: dataCorrespondenceReceived.date_filing,
+      //   correspondence_timeFiling: "",
+      //   correspondence_guide: "",
+      //   correspondence_issue: "",
+      //   correspondence_userFiling: "",
+      //   correspondence_folios: "",
+      //   correspondence_consecutive: "",
+      //   correspondence_documentDate: "",
+      //   correspondence_documentNum: "",
+      //   correspondence_headquarter: "" /* S */,
+      //   correspondence_validity: "" /* S */,
+      //   correspondence_conglomerate: "",
+      //   /* S */
+      //   correspondence_company: "" /* S */,
+      //   correspondence_dependence: "" /* S */,
+      //   correspondence_country: "" /* S */,
+      //   correspondence_department: "" /* S */,
+      //   correspondence_criterion: "" /* S */,
+      //   correspondence_thirdParty: "" /* S */,
+      //   correspondence_group: "" /* S */,
+      //   correspondence_typeDocumentary: "" /* S */,
+      //   correspondence_city: "" /* S */,
+      //   correspondence_typeArrival: "" /* S */,
+      //   correspondence_messenger: "" /* S */,
+      //   correspondence_template: "" /* S */,
+      //   correspondence_conglomerate_receiver: "" /* S */,
+      //   correspondence_company_receiver: "" /* S */,
+      //   correspondence_headquarter_receiver: "" /* S */,
+      //   correspondence_dependence_receiver: "" /* S */,
+      // }}
       validationSchema={Yup.object().shape({
         correspondence_conglomerate: Yup.string()
           .required(" Por favor seleccione un conglomerado.")
@@ -220,9 +227,8 @@ const dispatch = useDispatch()
                       }),
                     }
                   );
-              
+
                   setTimeout(() => toast.dismiss(), 5000);
-                
                 } else if (response.status === 404) {
                   toast.error(
                     "Error al registrar la radicación. Inténtelo nuevamente.",
@@ -233,9 +239,8 @@ const dispatch = useDispatch()
                       }),
                     }
                   );
-            
+
                   setTimeout(() => toast.dismiss(), 5000);
-               
                 } else if (response.status === 500) {
                   toast.error(
                     "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
@@ -246,9 +251,8 @@ const dispatch = useDispatch()
                       }),
                     }
                   );
-                  
+
                   setTimeout(() => toast.dismiss(), 5000);
-                 
                 }
               })
             )
@@ -259,12 +263,10 @@ const dispatch = useDispatch()
                   marginTop: "60px",
                 }),
               });
-              
+
               setTimeout(() => toast.dismiss(), 5000);
-              
             });
           setSubmitting(false);
-          
         }, 1000);
         toast.dismiss();
       }}
@@ -298,7 +300,9 @@ const dispatch = useDispatch()
                               <label className="">
                                 <strong> Fecha de radicación</strong>{" "}
                               </label>
-                              <dd className=""></dd>
+                              <dd className="">
+                                {props.object.correspondence_dateFiling}
+                              </dd>
                             </div>
                           </div>
                           <div className="col-md-2">
@@ -964,7 +968,10 @@ const dispatch = useDispatch()
                           />
                         </div>
                       </div>
-                      <UserListEnabled data={userData} aux={StateChangeAlert} />
+                      <UserListEnabled
+                        data={userDataReceivers}
+                        aux={StateChangeAlert}
+                      />
                     </div>
                   </div>
                 </div>
@@ -1014,7 +1021,6 @@ const dispatch = useDispatch()
                 <div className="card">
                   <div className="card-footer">
                     <div className="pull-right">
-                
                       <button
                         type="submit"
                         className="btn btn-success btn-sm"
@@ -1038,8 +1044,8 @@ const dispatch = useDispatch()
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
                         onClick={(e) => {
-                          handleSubmit();
-                          
+                          console.log(values);
+
                           e.preventDefault();
                         }}
                       >
@@ -1060,28 +1066,9 @@ const dispatch = useDispatch()
         </div>
       )}
     />
-  )
-}
+  );
+};
 
-EditCorrespondence.propTypes = {
-
-}
+EditCorrespondence.propTypes = {};
 
 export default EditCorrespondence;
-// <div className="animated fadeIn">
-// <div className="col-md-12">
-//   <div
-//     className=""
-//     style={{
-//       minHeight: "600px",
-//       marginTop: "0px",
-//     }}
-//   >
-//     <div className="row" style={{}}>
-//       <div className="col-md-10" style={{ padding: "0px" }}>
-//       </div>
-//         </div>
-//       </div>
-//     </div>
-//     {/* </div> */}
-//   </div>

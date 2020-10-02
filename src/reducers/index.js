@@ -18,7 +18,7 @@ import editCorrespondeceExternalReceiver from "./reducerEditCorrespondenceExtern
 import editCorrespondeceExternalPreviewTemplate from "./reducerEditCorrespondenceExternalPreviewTemplate";
 import editCorrespondeceExternalSelectTemplate from "./reducerEditCorrespondenceExternalSelectTemplate";
 import editCorrespondenceExternalTypeDocumentary from "./reducerEditCorrespondenceExternalTypeDocumentary";
-import editCorrepondenceExternal from "./reducerEditCorrespondenceExternal";
+import editCorrespondenceExternal from "./reducerEditCorrespondenceExternal";
 
 export default combineReducers({
   step2ReducerSticker,
@@ -40,5 +40,5 @@ export default combineReducers({
   editCorrespondeceExternalPreviewTemplate,
   editCorrespondeceExternalSelectTemplate,
   editCorrespondenceExternalTypeDocumentary,
-  editCorrepondenceExternal,
+  editCorrespondenceExternal,
 });
