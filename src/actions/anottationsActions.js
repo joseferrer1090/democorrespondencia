@@ -18,6 +18,7 @@ import {
   dataSelectDependencia,
   dataGroupUsers,
   userListDependence,
+  userListByGroup,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -196,7 +197,24 @@ export const loadUserListDependence = (id) => {
 };
 
 export const setDataUserListDependence = (data) => ({
-  type: "DATA_USER_LIST_DEPENDENCE",
+  type: "DATA_USER_LIST",
   payload: data,
 });
+// FIN
+
+//LISTA DE USUARIOS POR GRUPO SELECCIONADO
+
+export const loadUserListByGroup = (id) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await userListByGroup(token, id);
+    dispatch(setDataUserListByGroup(aux));
+  };
+};
+
+export const setDataUserListByGroup = (data) => ({
+  type: "DATA_USER_LIST",
+  payload: data,
+});
+
 // FIN

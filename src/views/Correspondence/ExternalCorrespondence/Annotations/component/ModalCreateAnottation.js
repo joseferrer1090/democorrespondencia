@@ -47,8 +47,10 @@ class ModalCreateAnottation extends Component {
       alldatacorrespondence,
       namecorrespondence,
       valuedependencia,
+      datagroupuserselected,
     } = this.props;
     console.log("Valor dependencia => ", valuedependencia);
+    console.log("Valor grupo seleccionado => ", datagroupuserselected);
     return (
       <Modal className="modal-xl" isOpen={this.state.modal}>
         <ModalHeader>
@@ -106,7 +108,10 @@ class ModalCreateAnottation extends Component {
             <div className="col-md-6">
               <br />
               <div className="card card-body">
-                <ListUserEnabled dependencia={valuedependencia} />
+                <ListUserEnabled
+                  dependencia={valuedependencia}
+                  grupo={datagroupuserselected}
+                />
               </div>
             </div>
             <div className="col-md-6">
@@ -172,6 +177,7 @@ const mapStateToProps = (state) => {
       (aux) => aux.issue
     ),
     valuedependencia: state.dataAnottationsReducers.valuedependencia,
+    datagroupuserselected: state.dataAnottationsReducers.datagroupuserselected,
   };
 };
 

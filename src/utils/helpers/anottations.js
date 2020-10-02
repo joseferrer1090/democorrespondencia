@@ -184,3 +184,19 @@ export const userListDependence = async (token, iddependencia) => {
   return await responses.json();
 };
 // FIN
+
+// LISTA DE USUARIOS POR GRUPO DE USUARIOS FILTRO 2
+export const userListByGroup = async (token, idgroup) => {
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/configuration/group/users/find/users/${idgroup}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return await responses.json();
+};
+// FIN

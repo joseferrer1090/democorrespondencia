@@ -179,7 +179,7 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         dataUserSearch: action.payload,
       };
 
-    case "DATA_USER_LIST_DEPENDENCE":
+    case "DATA_USER_LIST":
       return {
         ...state,
         dataUserList: action.payload,

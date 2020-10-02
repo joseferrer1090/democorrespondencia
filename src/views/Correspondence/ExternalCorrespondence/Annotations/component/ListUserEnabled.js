@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadUserListDependence } from "./../../../../../actions/anottationsActions";
+import {
+  loadUserListDependence,
+  loadUserListByGroup,
+} from "./../../../../../actions/anottationsActions";
 
 class ListUserEnabled extends Component {
   constructor(props) {
     super();
     this.state = {
       iddependencia: props.dependencia,
+      idgroup: props.grupo,
     };
   }
 
@@ -16,6 +20,10 @@ class ListUserEnabled extends Component {
       return {
         iddependencia: props.dependencia,
       };
+    } else if (props.grupo !== state.idgroup) {
+      return {
+        idgroup: props.grupo,
+      };
     }
     return null;
   }
@@ -23,12 +31,18 @@ class ListUserEnabled extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.dependencia !== prevProps.dependencia) {
       this.getDataListDependence(this.props.dependencia);
+    } else if (this.props.grupo !== prevProps.grupo) {
+      this.getDataListaByGroup(this.props.grupo);
     }
     return null;
   }
 
   getDataListDependence = (id) => {
     this.props.getDataUserDependence(id);
+  };
+
+  getDataListaByGroup = (id) => {
+    this.props.getDataUserByGroup(id);
   };
 
   render() {
@@ -86,6 +100,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getDataUserDependence: (id) => {
       dispatch(loadUserListDependence(id));
+    },
+    getDataUserByGroup: (id) => {
+      dispatch(loadUserListByGroup(id));
     },
   };
 };
