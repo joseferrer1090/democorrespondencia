@@ -151,3 +151,7 @@ export const dataGroupUsers = async (token) => {
 };
 
 // FIN
+
+// BUSCADOR POR NOMBRE DE USUARIO
+
+// FIN
