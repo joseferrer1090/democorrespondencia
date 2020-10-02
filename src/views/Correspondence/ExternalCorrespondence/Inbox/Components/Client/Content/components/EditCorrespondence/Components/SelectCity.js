@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { CITIES_BY_DEPARTMENT } from "../../../../../../../../../../services/EndPoints";
 
-
 const FieldCity = ({
   field,
   form: { errors, touched, setFieldTouched, setFieldValue, values },
@@ -34,7 +33,9 @@ const FieldCity = ({
     }
     if (PREValue !== props.departmentId) {
       setDataCity([]);
-      values.correspondence_city = "";
+      if (PREValue !== "") {
+        values.correspondence_city = "";
+      }
       fetchNewValues(props.departmentId);
     }
   };
@@ -62,6 +63,7 @@ const FieldCity = ({
     <div>
       {" "}
       <select
+        value={values.correspondence_city}
         onChange={(e) => setFieldValue("correspondence_city", e.target.value)}
         onBlur={(e) => setFieldTouched("correspondence_city", true)}
         className={`form-control form-control-sm ${
