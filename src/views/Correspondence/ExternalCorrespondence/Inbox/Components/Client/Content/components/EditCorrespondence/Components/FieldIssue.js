@@ -26,6 +26,7 @@ const FieldIssue = ({
     }
     return valueInput;
   };
+
   return (
     <Fragment>
       <textarea
@@ -39,7 +40,8 @@ const FieldIssue = ({
           touched.correspondence_issue &&
           "is-invalid"
         }`}
-        value={valueInput}
+        value={values.correspondence_issue}
+        // value={valueInput}
       />
     </Fragment>
   );

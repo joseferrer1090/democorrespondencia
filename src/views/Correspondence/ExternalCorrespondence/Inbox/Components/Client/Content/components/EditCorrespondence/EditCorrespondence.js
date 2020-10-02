@@ -311,7 +311,9 @@ const EditCorrespondence = (props) => {
                                 {" "}
                                 <strong>Hora de radicación</strong>{" "}
                               </label>
-                              <dd className=""></dd>
+                              <dd className="">
+                                {props.object.correspondence_timeFiling}
+                              </dd>
                             </div>
                           </div>
                           <div className="col-md-2 ">
@@ -320,7 +322,9 @@ const EditCorrespondence = (props) => {
                                 {" "}
                                 <strong>Sede</strong>{" "}
                               </label>
-                              <dd></dd>
+                              <dd>
+                                {props.object.correspondence_headquarter_name}
+                              </dd>
                             </div>
                           </div>
                           <div className="col-md-2  ">
@@ -329,7 +333,7 @@ const EditCorrespondence = (props) => {
                                 {" "}
                                 <strong>Vigencia</strong>{" "}
                               </label>
-                              <dd></dd>
+                              <dd>{props.object.correspondence_validity}</dd>
                             </div>
                           </div>
                           <div className="col-md-2">
@@ -338,7 +342,9 @@ const EditCorrespondence = (props) => {
                                 {" "}
                                 <strong>Usuario radicador</strong>{" "}
                               </label>
-                              <dd></dd>
+                              <dd>
+                                {props.object.correspondence_userFiling_name}
+                              </dd>
                             </div>
                           </div>
                         </div>
