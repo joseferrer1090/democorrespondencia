@@ -17,6 +17,7 @@ import {
   dataSelectSede,
   dataSelectDependencia,
   dataGroupUsers,
+  userListDependence,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -166,7 +167,6 @@ export const dataSelectedDependenciaValue = (data) => ({
 // FIN TAB 1
 
 // TAB 2
-
 export const loadDataSelectGroupUsers = () => {
   return async (dispatch, getState) => {
     const token = localStorage.getItem("auth_token");
@@ -184,5 +184,19 @@ export const selectedGroupUser = (data) => ({
   type: "DATA_GROUP_USER_VALUE",
   payload: data,
 });
-
 // FIN TAB 2
+
+// LISTA DE USUARIO ACTIVOS POR FILTRO
+export const loadUserListDependence = (id) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await userListDependence(token, id);
+    dispatch(setDataUserListDependence(aux));
+  };
+};
+
+export const setDataUserListDependence = (data) => ({
+  type: "DATA_USER_LIST_DEPENDENCE",
+  payload: data,
+});
+// FIN

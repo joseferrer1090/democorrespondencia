@@ -21,6 +21,7 @@
         dataGroupUsers: [] => data los grupos de usuarios existentes
         datagroupuserselected: "" => onChange de la seleccion del grupo
         dataUserSearch: [] => resultado de la busqueda por el endpoint
+        dataUserList: [] => Lista de usuarios activos
 
     }
 */
@@ -54,6 +55,7 @@ const initialState = {
   valuedependencia: "",
   dataGroupUsers: [],
   datagroupuserselected: "",
+  dataUserList: [],
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -175,6 +177,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         dataUserSearch: action.payload,
+      };
+
+    case "DATA_USER_LIST_DEPENDENCE":
+      return {
+        ...state,
+        dataUserList: action.payload,
       };
 
     default:

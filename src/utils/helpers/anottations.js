@@ -168,3 +168,19 @@ export const searchUserbyName = async (token, name) => {
   return await responses.json();
 };
 // FIN
+
+// LISTA DE USUARIOS POR DEPENDENCIA FILTRO 1
+export const userListDependence = async (token, iddependencia) => {
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/configuration/users/dependence/${iddependencia}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return await responses.json();
+};
+// FIN

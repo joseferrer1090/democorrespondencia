@@ -43,7 +43,12 @@ class ModalCreateAnottation extends Component {
 
   render() {
     const { activeTab } = this.state;
-    const { alldatacorrespondence, namecorrespondence } = this.props;
+    const {
+      alldatacorrespondence,
+      namecorrespondence,
+      valuedependencia,
+    } = this.props;
+    console.log("Valor dependencia => ", valuedependencia);
     return (
       <Modal className="modal-xl" isOpen={this.state.modal}>
         <ModalHeader>
@@ -101,14 +106,12 @@ class ModalCreateAnottation extends Component {
             <div className="col-md-6">
               <br />
               <div className="card card-body">
-                <ListUserEnabled />
+                <ListUserEnabled dependencia={valuedependencia} />
               </div>
             </div>
             <div className="col-md-6">
               <br />
-              <div className="card card-body">
-                Lista de usuarios disponibles
-              </div>
+              <div className="card card-body">Lista de usuario agregados</div>
             </div>
             <div className="col-md-12">
               <div className="form-group">
@@ -168,6 +171,7 @@ const mapStateToProps = (state) => {
     namecorrespondence: state.dataCorrespondenceExternal.alldata.map(
       (aux) => aux.issue
     ),
+    valuedependencia: state.dataAnottationsReducers.valuedependencia,
   };
 };
 
