@@ -49,7 +49,6 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         original: aux.original,
       });
     });
-    console.log(setStateAssignedUsers);
     this.changeStateCorrespondenceExternalReceiver(setStateAssignedUsers);
   };
   changeStateCorrespondenceExternalReceiver = (data) => {

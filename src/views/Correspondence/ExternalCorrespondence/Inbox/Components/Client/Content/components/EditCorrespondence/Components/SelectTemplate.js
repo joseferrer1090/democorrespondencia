@@ -63,7 +63,8 @@ const SelectTemplate = ({
           touched.correspondence_template &&
           "is-invalid"
         }`}
-        value={valueTemplate}
+        // value={valueTemplate}
+        value={values.correspondence_template}
       >
         <option value={""}>-- Seleccione --</option>
         {dataTemplate !== undefined
