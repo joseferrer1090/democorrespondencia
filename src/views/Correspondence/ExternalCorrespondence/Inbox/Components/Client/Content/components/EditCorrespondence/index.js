@@ -67,6 +67,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
       correspondence_dependence_receiver: "" /* S */,
     };
     if (Object.entries(data).length !== 0) {
+      console.log(data.headquarter.id);
       dataResult = {
         correspondence_dateFiling: data.date_filing,
         correspondence_timeFiling: "",

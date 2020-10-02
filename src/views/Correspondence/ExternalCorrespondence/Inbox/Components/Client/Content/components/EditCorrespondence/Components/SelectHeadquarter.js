@@ -34,7 +34,9 @@ const FieldHeadquarter = ({
     }
     if (PREValue !== props.companyId) {
       setDataHeadquarter([]);
-      values.correspondence_headquarter = "";
+      if (PREValue !== "") {
+        values.correspondence_headquarter = "";
+      }
       fetchNewValues(props.companyId);
     }
   };
@@ -63,6 +65,7 @@ const FieldHeadquarter = ({
     <div>
       {" "}
       <select
+        value={values.correspondence_headquarter}
         onChange={(e) =>
           setFieldValue("correspondence_headquarter", e.target.value)
         }
