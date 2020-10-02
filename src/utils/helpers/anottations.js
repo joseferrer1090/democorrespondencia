@@ -6,6 +6,7 @@ import {
   HEADQUARTER_BY_COMPANY,
   DEPENDENCIES_BY_HEADQUARTER,
   GROUP_USERS_ACTIVE,
+  SEARCH_BY_USERNAME,
 } from "./../../services/EndPoints";
 
 export const loadCountNumberAnottations = async (token) => {
@@ -153,5 +154,17 @@ export const dataGroupUsers = async (token) => {
 // FIN
 
 // BUSCADOR POR NOMBRE DE USUARIO
-
+export const searchUserbyName = async (token, name) => {
+  const responses = await fetch(`${SEARCH_BY_USERNAME}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      name: name,
+    }),
+  });
+  return await responses.json();
+};
 // FIN
