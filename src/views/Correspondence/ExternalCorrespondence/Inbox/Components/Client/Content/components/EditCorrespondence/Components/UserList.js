@@ -71,7 +71,7 @@ const UserList = (props) => {
                     <Button
                       style={{ marginTop: "-13px", marginLeft: "-12px" }}
                       color={"link"}
-                      onClick={() => 
+                      onClick={() =>
                         AgregarUsuario({ id: aux.id, name: aux.name })
                       }
                     >

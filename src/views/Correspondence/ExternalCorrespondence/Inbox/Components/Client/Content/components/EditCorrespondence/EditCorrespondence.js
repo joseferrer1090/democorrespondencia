@@ -44,7 +44,7 @@ const EditCorrespondence = (props) => {
   }, [props.authorization, props.dataInitialValues, props.object]);
 
   const userDataReceivers = useSelector(
-    (state) => state.editCorrespondeceExternalReceiver
+    (state) => state.editCorrespondenceExternalReceiver
   );
 
   const [oldValueConglomerate, setOldValueConglomerate] = useState();

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import EditCorrespondence from "./EditCorrespondence";
 import { obtenerDataCorrespondenciaExterna } from "../../../../../../../../../actions/editCorrespondenceExternal";
+import {
+  agregarUsuarioDisponible,
+  agregarUsuarioOriginal,
+} from "../../../../../../../../../actions/editCorrespondenceExternalReceiver";
 import { connect } from "react-redux";
 import moment from "moment";
 
@@ -34,12 +38,36 @@ class EditCorrespondenceExternalCorrespondence extends Component {
       });
     });
   };
+
+  assignedUsers = () => {
+    const { data } = this.props;
+    let setStateAssignedUsers = [];
+    data.usersAddresses.map((aux, idx) => {
+      setStateAssignedUsers.push({
+        name: aux.name,
+        id: aux.id,
+        original: aux.original,
+      });
+    });
+    console.log(setStateAssignedUsers);
+    this.changeStateCorrespondenceExternalReceiver(setStateAssignedUsers);
+  };
+  changeStateCorrespondenceExternalReceiver = (data) => {
+    data.map((aux, idx) => {
+      this.props.AgregarUsuario({ id: aux.id, name: aux.name });
+      if (aux.original === true) {
+        this.props.AgregarUsuarioOriginal(aux.id);
+      }
+    });
+  };
+
   render() {
     const birthDate = (data) => {
       let birthDate;
       birthDate = new Date(data);
       return moment(birthDate).format("YYYY-MM-DD");
     };
+
     const { authToken } = this.state;
     const { data } = this.props;
     let dataResult = {
@@ -54,6 +82,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
       correspondence_documentDate: "",
       correspondence_documentNum: "",
       correspondence_userFiling_name: "",
+
       correspondence_headquarter: "" /* S */,
       correspondence_validity: "" /* S */,
       correspondence_conglomerate: "" /* S */,
@@ -75,6 +104,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
       correspondence_dependence_receiver: "" /* S */,
     };
     if (Object.entries(data).length !== 0) {
+      this.assignedUsers();
       dataResult = {
         correspondence_dateFiling: data.date_filing,
         correspondence_timeFiling: data.time_filing,
@@ -95,7 +125,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         correspondence_country: data.country.id /* S */,
         correspondence_department: data.department.id /* S */,
         correspondence_criterion: "" /* S */,
-        correspondence_thirdParty: data.thirdPartyr.id /* S */,
+        correspondence_thirdParty: data.thirdPartyr.identification /* S */,
         correspondence_group: "" /* S */,
         correspondence_typeDocumentary: data.typeDocumentary.id /* S */,
         correspondence_city: data.city.id /* S */,
@@ -106,6 +136,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         correspondence_company_receiver: "" /* S */,
         correspondence_headquarter_receiver: "" /* S */,
         correspondence_dependence_receiver: "" /* S */,
+        correspondence_usersAddresses: data.usersAddresses,
       };
     }
     return (
@@ -127,6 +158,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dataCorrespondence(id) {
       dispatch(obtenerDataCorrespondenciaExterna(id));
+    },
+    AgregarUsuario(user) {
+      dispatch(agregarUsuarioDisponible(user));
+    },
+    AgregarUsuarioOriginal(id) {
+      dispatch(agregarUsuarioOriginal(id));
     },
   };
 };

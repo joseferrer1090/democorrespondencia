@@ -14,9 +14,9 @@ import chartsDashboard from "./chartsDashboardReducer";
 import { dataAnottationsReducers } from "./anottationsReducer";
 import { sidebarStatus } from "./sidebarReducer";
 import editCorrespondeceExternalThirdParty from "./reducerEditCorrespondenceExternalThirdParty";
-import editCorrespondeceExternalReceiver from "./reducerEditCorrespondenceExternalReceiver";
-import editCorrespondeceExternalPreviewTemplate from "./reducerEditCorrespondenceExternalPreviewTemplate";
-import editCorrespondeceExternalSelectTemplate from "./reducerEditCorrespondenceExternalSelectTemplate";
+import editCorrespondenceExternalReceiver from "./reducerEditCorrespondenceExternalReceiver";
+import editCorrespondenceExternalPreviewTemplate from "./reducerEditCorrespondenceExternalPreviewTemplate";
+import editCorrespondenceExternalSelectTemplate from "./reducerEditCorrespondenceExternalSelectTemplate";
 import editCorrespondenceExternalTypeDocumentary from "./reducerEditCorrespondenceExternalTypeDocumentary";
 import editCorrespondenceExternal from "./reducerEditCorrespondenceExternal";
 
@@ -36,9 +36,9 @@ export default combineReducers({
   dataAnottationsReducers,
   sidebarStatus,
   editCorrespondeceExternalThirdParty,
-  editCorrespondeceExternalReceiver,
-  editCorrespondeceExternalPreviewTemplate,
-  editCorrespondeceExternalSelectTemplate,
+  editCorrespondenceExternalReceiver,
+  editCorrespondenceExternalPreviewTemplate,
+  editCorrespondenceExternalSelectTemplate,
   editCorrespondenceExternalTypeDocumentary,
   editCorrespondenceExternal,
 });

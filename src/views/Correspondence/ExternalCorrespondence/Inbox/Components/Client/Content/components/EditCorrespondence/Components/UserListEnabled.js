@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "reactstrap";
 import PropTypes from "prop-types";
-import { borrarUsuarioDiponible, agregarUsuarioOriginal } from "../../../../../../../../../../actions/editCorrespondenceExternalReceiver";
+import {
+  borrarUsuarioDiponible,
+  agregarUsuarioOriginal,
+} from "../../../../../../../../../../actions/editCorrespondenceExternalReceiver";
 const UserListEnabled = (props) => {
   const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
   const dispatch = useDispatch();
@@ -10,11 +13,13 @@ const UserListEnabled = (props) => {
   const [state, setstate] = useState(aux);
 
   useEffect(() => {
+    console.log(users);
+
     if (users.users.length === 0) {
       setstate(null);
     } else if (props.aux === null) {
       setstate(null);
-    } 
+    }
   }, [state, users, props.aux]);
 
   return (
@@ -36,7 +41,6 @@ const UserListEnabled = (props) => {
           <div>
             <div className="row">
               <div className="col-md-12">
-
                 {Object.keys(users.users).length === 0 ? (
                   <span className="text-center">
                     <i className="fa fa-info-circle" />{" "}

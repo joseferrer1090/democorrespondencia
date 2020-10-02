@@ -1,15 +1,15 @@
-import { AGREGAR_TERCERO_DISPONIBLE } from "../types";
+import { AGREGAR_TERCERO_DISPONIBLE_EDIT } from "../types";
 const initialState = {
   thirdParty: {},
-  error: false
+  error: false,
 };
 export default function (state = initialState, action) {
   switch (action.type) {
-    case AGREGAR_TERCERO_DISPONIBLE:
+    case AGREGAR_TERCERO_DISPONIBLE_EDIT:
       return {
         ...state,
         thirdParty: action.payload,
-        error:false
+        error: false,
       };
     default:
       return state;

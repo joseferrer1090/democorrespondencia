@@ -14,15 +14,18 @@ const SelectTemplate = ({
   const [valueTemplate, setValueTemplate] = useState("");
 
   const dataTemplate = useSelector(
-    (state) => state.editCorrespondeceExternalSelectTemplate.dataTemplate
+    (state) => state.editCorrespondenceExternalSelectTemplate.dataTemplate
   );
 
   const idTemplateByTypeDocumentary = useSelector(
-    (state) => state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.template
+    (state) =>
+      state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary
+        .template
   );
 
   const idTypeDocumentary = useSelector(
-    (state) => state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.id
+    (state) =>
+      state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.id
   );
 
   useEffect(() => {
@@ -31,10 +34,10 @@ const SelectTemplate = ({
 
   const validateValues = () => {
     if (idTemplateByTypeDocumentary !== undefined) {
-      if(idTemplateByTypeDocumentary !== null){
+      if (idTemplateByTypeDocumentary !== null) {
         values.correspondence_template = idTemplateByTypeDocumentary.id;
-              }
-      
+      }
+
       setTimeout(() => {
         setValueTemplate(values.correspondence_template);
         dispatch(obtenerMetadatos(values.correspondence_template));
