@@ -28,7 +28,6 @@ export function obtenerMetadatos(id) {
           )
         );
         dispatch(obtenerInfoTemplate(data));
-        console.log(data);
       })
       .catch((error) => {
         console.log(`Error => ${error.message}`, error);
@@ -38,14 +37,12 @@ export function obtenerMetadatos(id) {
 }
 
 export const obtenerDataMetadatos = (metadata) => {
-  console.log("por acá metdata");
   return {
     type: OBTENER_METADATOS_PLANTILLA_EDIT,
     payload: metadata,
   };
 };
 export const obtenerInfoTemplate = (data) => {
-  console.log("por acá plantilla");
   return {
     type: OBTENER_INFO_PLANTILLA_EDIT,
     payload: data,

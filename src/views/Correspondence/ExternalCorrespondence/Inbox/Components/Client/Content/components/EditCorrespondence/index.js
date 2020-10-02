@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import moment from "moment";
 import EditCorrespondence from "./EditCorrespondence";
 import { obtenerDataCorrespondenciaExterna } from "../../../../../../../../../actions/editCorrespondenceExternal";
 import {
@@ -9,8 +11,6 @@ import {
   obtenerDataMetadatos,
   obtenerInfoTemplate,
 } from "../../../../../../../../../actions/editCorrespondenceExternalPreviewTemplate";
-import { connect } from "react-redux";
-import moment from "moment";
 
 const asyncLocalStorage = {
   setItem: async function (key, value) {
@@ -152,13 +152,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         correspondence_dependence_receiver: "" /* S */,
       };
     }
-    return (
-      <EditCorrespondence
-        authorization={authToken}
-        dataInitialValues={data}
-        object={dataResult}
-      />
-    );
+    return <EditCorrespondence authorization={authToken} object={dataResult} />;
   }
 }
 const mapStateToProps = (state) => {

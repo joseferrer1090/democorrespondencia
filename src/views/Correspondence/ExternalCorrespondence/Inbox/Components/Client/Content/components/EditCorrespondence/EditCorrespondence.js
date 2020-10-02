@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { css } from "glamor";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
 import SelectConglomerado from "./Components/SelectConglomerado";
 import FieldCompany from "./Components/SelectCompany";
@@ -28,23 +27,17 @@ import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
 import { obtenerDataTemplate } from "../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate";
 import { obtenerDataTipoDocumental } from "../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary";
-import { obtenerDataCorrespondenciaExterna } from "../../../../../../../../../actions/editCorrespondenceExternal";
 
 const EditCorrespondence = (props) => {
-  const dataCorrespondenceReceived = props.dataInitialValues;
-
-  const validateValues = () => {};
-
+  const dataResult = props.object;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(obtenerDataTemplate());
-    validateValues();
-  }, [props.authorization, props.dataInitialValues, props.object]);
-
   const userDataReceivers = useSelector(
     (state) => state.editCorrespondenceExternalReceiver
   );
+
+  useEffect(() => {
+    dispatch(obtenerDataTemplate());
+  }, [props.authorization, props.object]);
 
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
@@ -70,6 +63,7 @@ const EditCorrespondence = (props) => {
     newValueConglomerateReceiver,
     setNewValueConglomerateReceiver,
   ] = useState();
+
   const [StateChangeAlert, setAux] = useState(null);
   const [valueIdentification, setValueIdentification] = useState(null);
 
@@ -109,38 +103,7 @@ const EditCorrespondence = (props) => {
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={props.object}
-      // initialValues={{
-      //   correspondence_dateFiling: dataCorrespondenceReceived.date_filing,
-      //   correspondence_timeFiling: "",
-      //   correspondence_guide: "",
-      //   correspondence_issue: "",
-      //   correspondence_userFiling: "",
-      //   correspondence_folios: "",
-      //   correspondence_consecutive: "",
-      //   correspondence_documentDate: "",
-      //   correspondence_documentNum: "",
-      //   correspondence_headquarter: "" /* S */,
-      //   correspondence_validity: "" /* S */,
-      //   correspondence_conglomerate: "",
-      //   /* S */
-      //   correspondence_company: "" /* S */,
-      //   correspondence_dependence: "" /* S */,
-      //   correspondence_country: "" /* S */,
-      //   correspondence_department: "" /* S */,
-      //   correspondence_criterion: "" /* S */,
-      //   correspondence_thirdParty: "" /* S */,
-      //   correspondence_group: "" /* S */,
-      //   correspondence_typeDocumentary: "" /* S */,
-      //   correspondence_city: "" /* S */,
-      //   correspondence_typeArrival: "" /* S */,
-      //   correspondence_messenger: "" /* S */,
-      //   correspondence_template: "" /* S */,
-      //   correspondence_conglomerate_receiver: "" /* S */,
-      //   correspondence_company_receiver: "" /* S */,
-      //   correspondence_headquarter_receiver: "" /* S */,
-      //   correspondence_dependence_receiver: "" /* S */,
-      // }}
+      initialValues={dataResult}
       validationSchema={Yup.object().shape({
         correspondence_conglomerate: Yup.string()
           .required(" Por favor seleccione un conglomerado.")
