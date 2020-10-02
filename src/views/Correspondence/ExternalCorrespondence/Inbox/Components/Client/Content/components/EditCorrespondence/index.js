@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import EditCorrespondence from "./EditCorrespondence";
 import { obtenerDataCorrespondenciaExterna } from "../../../../../../../../../actions/editCorrespondenceExternal";
 import { connect } from "react-redux";
+import moment from "moment";
 
 const asyncLocalStorage = {
   setItem: async function (key, value) {
@@ -34,6 +35,11 @@ class EditCorrespondenceExternalCorrespondence extends Component {
     });
   };
   render() {
+    const birthDate = (data) => {
+      let birthDate;
+      birthDate = new Date(data);
+      return moment(birthDate).format("YYYY-MM-DD");
+    };
     const { authToken } = this.state;
     const { data } = this.props;
     let dataResult = {
@@ -67,7 +73,6 @@ class EditCorrespondenceExternalCorrespondence extends Component {
       correspondence_dependence_receiver: "" /* S */,
     };
     if (Object.entries(data).length !== 0) {
-      console.log(data.headquarter.id);
       dataResult = {
         correspondence_dateFiling: data.date_filing,
         correspondence_timeFiling: "",
@@ -76,8 +81,8 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         correspondence_userFiling: "",
         correspondence_folios: "",
         correspondence_consecutive: "",
-        correspondence_documentDate: "",
-        correspondence_documentNum: "",
+        correspondence_documentDate: birthDate(data.documentDate),
+        correspondence_documentNum: data.documentNumber,
         correspondence_headquarter: data.headquarter.id /* S */,
         correspondence_validity: "",
         correspondence_conglomerate: data.conglomerate.id /* S */,
