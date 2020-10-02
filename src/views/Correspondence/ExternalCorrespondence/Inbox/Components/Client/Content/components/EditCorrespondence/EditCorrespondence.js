@@ -40,7 +40,6 @@ const EditCorrespondence = (props) => {
   useEffect(() => {
     dispatch(obtenerDataTemplate());
     validateValues();
-    console.log(props.object);
   }, [props.authorization, props.dataInitialValues, props.object]);
 
   const userDataReceivers = useSelector(

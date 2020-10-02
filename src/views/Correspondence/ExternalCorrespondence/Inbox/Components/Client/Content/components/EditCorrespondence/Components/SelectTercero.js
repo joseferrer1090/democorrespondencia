@@ -47,7 +47,6 @@ const ThirdParty = (props) => {
     } else if (valueInput !== "") {
       fetchNewValues(valueInput);
       if (IdThirdParty !== null) {
-        console.log(alertAsignacion);
         AgregarTercero(IdThirdParty);
         spinnerAsignacion();
         setTimeout(() => {

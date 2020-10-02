@@ -5,6 +5,10 @@ import {
   agregarUsuarioDisponible,
   agregarUsuarioOriginal,
 } from "../../../../../../../../../actions/editCorrespondenceExternalReceiver";
+import {
+  obtenerDataMetadatos,
+  obtenerInfoTemplate,
+} from "../../../../../../../../../actions/editCorrespondenceExternalPreviewTemplate";
 import { connect } from "react-redux";
 import moment from "moment";
 
@@ -51,6 +55,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
     });
     this.changeStateCorrespondenceExternalReceiver(setStateAssignedUsers);
   };
+
   changeStateCorrespondenceExternalReceiver = (data) => {
     data.map((aux, idx) => {
       this.props.AgregarUsuario({ id: aux.id, name: aux.name });
@@ -58,6 +63,23 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         this.props.AgregarUsuarioOriginal(aux.id);
       }
     });
+  };
+
+  assignedMetadata = () => {
+    const { data } = this.props;
+    let setStateMetadata = [];
+    data.metadata.map((aux, id) => {
+      setStateMetadata.push({
+        id: aux.idMetadata,
+        defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+      });
+    });
+    this.changeStateCorrespondenceExternalPreviewTemplate(setStateMetadata);
+  };
+  changeStateCorrespondenceExternalPreviewTemplate = (idMetadata) => {
+    const { data } = this.props;
+    this.props.AgregarPlantilla(data.metadata);
+    this.props.AgregarMetadatos(idMetadata);
   };
 
   render() {
@@ -81,7 +103,6 @@ class EditCorrespondenceExternalCorrespondence extends Component {
       correspondence_documentDate: "",
       correspondence_documentNum: "",
       correspondence_userFiling_name: "",
-
       correspondence_headquarter: "" /* S */,
       correspondence_validity: "" /* S */,
       correspondence_conglomerate: "" /* S */,
@@ -104,6 +125,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
     };
     if (Object.entries(data).length !== 0) {
       this.assignedUsers();
+      this.assignedMetadata();
       dataResult = {
         correspondence_dateFiling: data.date_filing,
         correspondence_timeFiling: data.time_filing,
@@ -163,6 +185,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     AgregarUsuarioOriginal(id) {
       dispatch(agregarUsuarioOriginal(id));
+    },
+    AgregarMetadatos(data) {
+      dispatch(obtenerDataMetadatos(data));
+    },
+    AgregarPlantilla(data) {
+      dispatch(obtenerInfoTemplate(data));
     },
   };
 };

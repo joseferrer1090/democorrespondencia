@@ -30,9 +30,17 @@ const SelectTemplate = ({
 
   useEffect(() => {
     validateValues();
-  }, [idTemplateByTypeDocumentary, idTypeDocumentary]);
+  }, [
+    idTemplateByTypeDocumentary,
+    idTypeDocumentary,
+    values.correspondence_template,
+  ]);
 
   const validateValues = () => {
+    console.log(values.correspondence_template);
+    // if (values.correspondence_template !== "") {
+    //   dispatch(obtenerMetadatos(values.correspondence_template));
+    // }
     if (idTemplateByTypeDocumentary !== undefined) {
       if (idTemplateByTypeDocumentary !== null) {
         values.correspondence_template = idTemplateByTypeDocumentary.id;

@@ -5,7 +5,6 @@ import {
 } from "../types/index";
 
 export const agregarUsuarioDisponible = (user) => {
-  console.log("paso por aca agregar ");
   return { type: AGREGAR_USUARIO_DISPONIBLE_EDIT, payload: user };
 };
 
@@ -17,7 +16,6 @@ export const borrarUsuarioDiponible = (id) => {
 };
 
 export const agregarUsuarioOriginal = (id) => {
-  console.log("paso por aca origianl ");
   return {
     type: AGREGAR_USUARIO_ORIGINAL_EDIT,
     payload: id,
