@@ -22,6 +22,7 @@
         datagroupuserselected: "" => onChange de la seleccion del grupo
         dataUserSearch: [] => resultado de la busqueda por el endpoint
         dataUserList: [] => Lista de usuarios activos
+      dataUserListSelect: [] => Lista de usuarios seleccionados como destinatario
 
     }
 */
@@ -56,6 +57,7 @@ const initialState = {
   dataGroupUsers: [],
   datagroupuserselected: "",
   dataUserList: [],
+  dataUserListSelect: [],
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -183,6 +185,20 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         dataUserList: action.payload,
+      };
+
+    case "ADD_USER_LIST_ENABLED":
+      return {
+        ...state,
+        dataUserListSelect: [...state, action.payload],
+      };
+
+    case "DELETE_USER_LIST_ENABLED":
+      return {
+        ...state,
+        dataUserListSelect: state.dataUserListSelect.filter(
+          (user) => user.id !== action.payload
+        ),
       };
 
     default:
