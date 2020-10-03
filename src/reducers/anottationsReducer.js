@@ -190,7 +190,7 @@ export const dataAnottationsReducers = (state = initialState, action) => {
     case "ADD_USER_LIST_ENABLED":
       return {
         ...state,
-        dataUserListSelect: [...state, action.payload],
+        dataUserListSelect: [...state.dataUserListSelect, action.payload],
       };
 
     case "DELETE_USER_LIST_ENABLED":

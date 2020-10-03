@@ -216,5 +216,18 @@ export const setDataUserListByGroup = (data) => ({
   type: "DATA_USER_LIST",
   payload: data,
 });
-
 // FIN
+
+//FUNCION PARA AGREGAR USUARIO A LISTA DESTINATARIOS
+export const addUserListDestination = (data) => ({
+  type: "ADD_USER_LIST_ENABLED",
+  payload: data,
+});
+// FIN
+
+//FUNCION PARA ELIMINAR USUARIO DE LA LISTA DE DESTINATARIOS
+export const deleteUserListDestination = (id) => ({
+  type: "DELETE_USER_LIST_ENABLED",
+  payload: id,
+});
+//FIN

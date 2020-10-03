@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import {
   loadUserListDependence,
   loadUserListByGroup,
+  addUserListDestination,
 } from "./../../../../../actions/anottationsActions";
 
 class ListUserEnabled extends Component {
@@ -45,6 +46,10 @@ class ListUserEnabled extends Component {
     this.props.getDataUserByGroup(id);
   };
 
+  adduserlist = (id) => {
+    this.props.adduser(id);
+  };
+
   render() {
     const { datauserlist } = this.props;
     const datalist = (data) => {
@@ -66,6 +71,7 @@ class ListUserEnabled extends Component {
                         title="Agregar a la lista"
                         type="button"
                         className="btn btn-secondary btn-sm"
+                        onClick={() => this.adduserlist(aux)}
                       >
                         <i className="fa fa-plus" />
                       </button>
@@ -103,6 +109,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getDataUserByGroup: (id) => {
       dispatch(loadUserListByGroup(id));
+    },
+    adduser: (data) => {
+      dispatch(addUserListDestination(data));
     },
   };
 };

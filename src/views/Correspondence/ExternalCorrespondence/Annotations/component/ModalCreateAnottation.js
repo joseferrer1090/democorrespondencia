@@ -21,6 +21,7 @@ import FilterUserDependence from "./FilterUserDependence";
 import FilterUserGroup from "./FilterUserGroup";
 import FilterUserName from "./FilterUserName";
 import ListUserEnabled from "./ListUserEnabled";
+import ListUserDestination from "./ListUserDestination";
 class ModalCreateAnottation extends Component {
   constructor(props) {
     super();
@@ -115,8 +116,7 @@ class ModalCreateAnottation extends Component {
               </div>
             </div>
             <div className="col-md-6">
-              <br />
-              <div className="card card-body">Lista de usuario agregados</div>
+              <ListUserDestination />
             </div>
             <div className="col-md-12">
               <div className="form-group">
