@@ -22,6 +22,7 @@ import FilterUserGroup from "./FilterUserGroup";
 import FilterUserName from "./FilterUserName";
 import ListUserEnabled from "./ListUserEnabled";
 import ListUserDestination from "./ListUserDestination";
+import { addDescriptionAnottation } from "./../../../../../actions/anottationsActions";
 class ModalCreateAnottation extends Component {
   constructor(props) {
     super();
@@ -49,9 +50,9 @@ class ModalCreateAnottation extends Component {
       namecorrespondence,
       valuedependencia,
       datagroupuserselected,
+      descriptionanottation,
     } = this.props;
-    console.log("Valor dependencia => ", valuedependencia);
-    console.log("Valor grupo seleccionado => ", datagroupuserselected);
+
     return (
       <Modal className="modal-xl" isOpen={this.state.modal}>
         <ModalHeader>
@@ -124,7 +125,13 @@ class ModalCreateAnottation extends Component {
             <div className="col-md-12">
               <div className="form-group">
                 <label>Anotacion</label>
-                <textarea className="form-control form-control-sm"></textarea>
+                <textarea
+                  className="form-control form-control-sm"
+                  onChange={(e) => {
+                    this.props.onChangeDescription(e.target.value);
+                  }}
+                  value={descriptionanottation}
+                ></textarea>
               </div>
             </div>
             <div className="col-md-6">
@@ -181,10 +188,17 @@ const mapStateToProps = (state) => {
     ),
     valuedependencia: state.dataAnottationsReducers.valuedependencia,
     datagroupuserselected: state.dataAnottationsReducers.datagroupuserselected,
+    descriptionanottation: state.dataAnottationsReducers.descriptionanottation,
   };
 };
 
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeDescription: (data) => {
+      dispatch(addDescriptionAnottation(data));
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps, null, {
   forwardRef: true,

@@ -24,6 +24,7 @@
         dataUserList: [] => Lista de usuarios activos
         dataUserListSelect: [] => Lista de usuarios seleccionados como destinatario
         alertadduser: => alert para cuando se agrega el mismo user 
+        descriptionanottation: ""
 
     }
 */
@@ -60,6 +61,7 @@ const initialState = {
   dataUserList: [],
   dataUserListSelect: [],
   alertadduser: false,
+  descriptionanottation: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -204,6 +206,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         dataUserListSelect: state.dataUserListSelect.filter(
           (user) => user.id !== action.payload
         ),
+      };
+
+    case "DESCRIPTION_ANOTTATION":
+      return {
+        ...state,
+        descriptionanottation: action.payload,
       };
 
     default:

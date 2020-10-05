@@ -231,3 +231,10 @@ export const deleteUserListDestination = (id) => ({
   payload: id,
 });
 //FIN
+
+// DESCRIPCION PARA LA ANOTACIONES
+export const addDescriptionAnottation = (data) => ({
+  type: "DESCRIPTION_ANOTTATION",
+  payload: data,
+});
+// FIN
