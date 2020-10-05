@@ -116,7 +116,10 @@ class ModalCreateAnottation extends Component {
               </div>
             </div>
             <div className="col-md-6">
-              <ListUserDestination />
+              <br />
+              <div className="card card-body">
+                <ListUserDestination />
+              </div>
             </div>
             <div className="col-md-12">
               <div className="form-group">

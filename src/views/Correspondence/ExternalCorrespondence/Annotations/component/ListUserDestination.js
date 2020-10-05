@@ -17,22 +17,28 @@ class ListUserDestination extends Component {
     const { listuserdestination } = this.props;
     return (
       <div>
-        {Object.keys(listuserdestination).length ? (
-          listuserdestination.map((aux, id) => {
-            return (
-              <div>
-                {aux.id} - {aux.name}{" "}
-                <i
-                  className="fa fa-times"
-                  onClick={() => this.delUserlist(aux.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-            );
-          })
-        ) : (
-          <div>No hay usuario agregados</div>
-        )}
+        <table className="table table-sm">
+          <tbody>
+            {Object.keys(listuserdestination).length ? (
+              listuserdestination.map((aux, id) => {
+                return (
+                  <tr key={id}>
+                    <td>{aux.name}</td>
+                    <td>
+                      <i
+                        className="fa fa-times"
+                        style={{ color: "red", cursor: "pointer" }}
+                        onClick={() => this.delUserlist(aux.id)}
+                      />
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <div>No hay usuario agregados</div>
+            )}
+          </tbody>
+        </table>
       </div>
     );
   }

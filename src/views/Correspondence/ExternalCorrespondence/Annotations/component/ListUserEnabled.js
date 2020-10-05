@@ -56,25 +56,25 @@ class ListUserEnabled extends Component {
       return (
         <div>
           <table className="table table-sm">
-            <thead>
-              {/* <tr>
-                <th>Nombre</th>
-              </tr> */}
-            </thead>
             <tbody>
               {data.map((aux, id) => {
                 return (
                   <tr key={id}>
                     <td>{aux.name}</td>
                     <td>
-                      <button
+                      <i
+                        className="fa fa-plus"
+                        style={{ color: "green", cursor: "pointer" }}
+                        onClick={() => this.adduserlist(aux)}
+                      />
+                      {/* <button
                         title="Agregar a la lista"
                         type="button"
                         className="btn btn-secondary btn-sm"
                         onClick={() => this.adduserlist(aux)}
                       >
                         <i className="fa fa-plus" />
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 );
