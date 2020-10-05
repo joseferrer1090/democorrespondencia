@@ -55,7 +55,7 @@ class ListUserEnabled extends Component {
     const datalist = (data) => {
       return (
         <div>
-          <table className="table table-stripped table-hover">
+          <table className="table table-sm">
             <thead>
               {/* <tr>
                 <th>Nombre</th>
