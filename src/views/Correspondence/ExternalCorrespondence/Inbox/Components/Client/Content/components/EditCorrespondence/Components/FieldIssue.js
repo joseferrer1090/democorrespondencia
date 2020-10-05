@@ -17,6 +17,8 @@ const FieldIssue = ({
   const validateValues = () => {
     if (issueValue !== null) {
       values.correspondence_issue = issueValue;
+    } else {
+      values.correspondence_issue = "";
     }
   };
 
