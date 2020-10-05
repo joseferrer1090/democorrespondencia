@@ -21,20 +21,30 @@ class ListUserEnabled extends Component {
       return {
         iddependencia: props.dependencia,
       };
-    } else if (props.grupo !== state.idgroup) {
+    }
+
+    if (props.grupo !== state.idgroup) {
       return {
         idgroup: props.grupo,
       };
     }
+
     return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.dependencia !== prevProps.dependencia) {
       this.getDataListDependence(this.props.dependencia);
-    } else if (this.props.grupo !== prevProps.grupo) {
-      this.getDataListaByGroup(this.props.grupo);
+    } else {
+      return null;
     }
+
+    if (this.props.grupo !== prevProps.grupo) {
+      this.getDataListaByGroup(this.props.grupo);
+    } else {
+      return null;
+    }
+
     return null;
   }
 

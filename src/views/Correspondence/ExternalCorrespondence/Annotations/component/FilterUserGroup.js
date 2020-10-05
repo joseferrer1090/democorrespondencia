@@ -18,6 +18,7 @@ class FilterUserGroup extends Component {
 
   render() {
     const { dataGroupUsers, datagroupuserselected } = this.props;
+
     return (
       <div>
         <div className="form-group">
