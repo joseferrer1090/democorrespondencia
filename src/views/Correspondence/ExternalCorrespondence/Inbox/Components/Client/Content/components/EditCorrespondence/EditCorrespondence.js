@@ -417,12 +417,6 @@ const EditCorrespondence = (props) => {
                                   "correspondence_typeDocumentary",
                                   e.target.value
                                 );
-
-                                changeInValueTypeDocumentary(
-                                  values.correspondence_typeDocumentary,
-                                  e.target.value
-                                );
-
                                 dispatch(
                                   obtenerDataTipoDocumental(e.target.value)
                                 );
