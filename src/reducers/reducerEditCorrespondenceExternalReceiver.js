@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   users: [],
-  original: {},
+  original: "",
   assigned: null,
   error: false,
 };
@@ -16,7 +16,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         users: [...state.users, action.payload],
-        assigned: null,
+        assigned: state.original !== "" ? true : false,
         error: false,
       };
 
@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         users: state.users.filter((user) => user.id !== action.payload),
+        original: "",
         assigned: false,
         error: false,
       };

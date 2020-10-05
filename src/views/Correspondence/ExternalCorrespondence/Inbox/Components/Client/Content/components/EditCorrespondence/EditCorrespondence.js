@@ -30,8 +30,6 @@ import { obtenerDataTipoDocumental } from "../../../../../../../../../actions/ed
 import { EXTERNAL_CORRESPONDENCE_RECEIVED_PUT } from "../../../../../../../../../services/EndPoints";
 
 const EditCorrespondence = (props) => {
-  const dataResult = props.object;
-  const idCorrespondence = props.idCorrespondence;
   const dispatch = useDispatch();
   const userDataReceivers = useSelector(
     (state) => state.editCorrespondenceExternalReceiver
@@ -39,22 +37,14 @@ const EditCorrespondence = (props) => {
   const idMetadata = useSelector(
     (state) => state.editCorrespondenceExternalPreviewTemplate.idMetadata
   );
+
+  const dataResult = props.object;
+  const idCorrespondence = props.idCorrespondence;
   let correspondenceMetadata = idMetadata;
 
   const [cObjectPosition, setCObjectPosition] = useState();
   const [cObjectId, setCObjectId] = useState();
   const [cObjectValue, setCObjectValue] = useState();
-  useEffect(() => {
-    dispatch(obtenerDataTemplate());
-    contrusctorObjectMetadata(cObjectPosition, cObjectId, cObjectValue);
-  }, [
-    props.authorization,
-    props.object,
-    props.idCorrespondence,
-    cObjectPosition,
-    cObjectId,
-    cObjectValue,
-  ]);
 
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
@@ -120,6 +110,18 @@ const EditCorrespondence = (props) => {
       correspondenceMetadata.forEach(logArrayElements);
     }
   };
+
+  useEffect(() => {
+    dispatch(obtenerDataTemplate());
+    contrusctorObjectMetadata(cObjectPosition, cObjectId, cObjectValue);
+  }, [
+    props.authorization,
+    props.object,
+    props.idCorrespondence,
+    cObjectPosition,
+    cObjectId,
+    cObjectValue,
+  ]);
 
   return (
     <Formik
