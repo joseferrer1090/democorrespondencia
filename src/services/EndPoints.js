@@ -18,7 +18,7 @@ export const COUNT_RECEIVED_PENDING = `${config.IP}:${config.PORT}/api/sgdea/ser
 /* GET */
 export const COUNT_RECEIVED = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/count`;
 /* PUT */
-export const EXTERNAL_CORRESPONDENCE_RECEIVED_PUT = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/`;
+export const EXTERNAL_CORRESPONDENCE_RECEIVED_PUT = `${config.IP}:${config.PORT}/api/sgdea/service/external/correspondence/received/filing`;
 //-------------------------- CONGLOMERADO -----------------------------------------//
 /* GET */
 export const CONGLOMERATES_STATUS = `${config.IP}:${config.PORT}/api/sgdea/service/configuration/conglomerates/active`;

@@ -35,6 +35,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
     this.getDataLocal();
     this.props.dataCorrespondence(this.props.match.params.id);
   }
+
   getDataLocal = () => {
     asyncLocalStorage.getItem("auth_token").then((resp) => {
       this.setState({
@@ -152,7 +153,13 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         correspondence_dependence_receiver: "" /* S */,
       };
     }
-    return <EditCorrespondence authorization={authToken} object={dataResult} />;
+    return (
+      <EditCorrespondence
+        authorization={authToken}
+        object={dataResult}
+        idCorrespondence={this.props.match.params.id}
+      />
+    );
   }
 }
 const mapStateToProps = (state) => {

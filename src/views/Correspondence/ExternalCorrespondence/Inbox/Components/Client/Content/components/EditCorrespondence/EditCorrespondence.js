@@ -27,22 +27,37 @@ import FieldIssue from "./Components/FieldIssue";
 import PreviewTemplate from "./Components/PreviewTemplate";
 import { obtenerDataTemplate } from "../../../../../../../../../actions/editCorrespondenceExternalSelectTemplate";
 import { obtenerDataTipoDocumental } from "../../../../../../../../../actions/editCorrespondenceExternalTypeDocumentary";
+import { EXTERNAL_CORRESPONDENCE_RECEIVED_PUT } from "../../../../../../../../../services/EndPoints";
 
 const EditCorrespondence = (props) => {
   const dataResult = props.object;
+  const idCorrespondence = props.idCorrespondence;
   const dispatch = useDispatch();
   const userDataReceivers = useSelector(
     (state) => state.editCorrespondenceExternalReceiver
   );
+  const idMetadata = useSelector(
+    (state) => state.editCorrespondenceExternalPreviewTemplate.idMetadata
+  );
+  let correspondenceMetadata = idMetadata;
 
+  const [cObjectPosition, setCObjectPosition] = useState();
+  const [cObjectId, setCObjectId] = useState();
+  const [cObjectValue, setCObjectValue] = useState();
   useEffect(() => {
     dispatch(obtenerDataTemplate());
-  }, [props.authorization, props.object]);
+    contrusctorObjectMetadata(cObjectPosition, cObjectId, cObjectValue);
+  }, [
+    props.authorization,
+    props.object,
+    props.idCorrespondence,
+    cObjectPosition,
+    cObjectId,
+    cObjectValue,
+  ]);
 
   const [oldValueConglomerate, setOldValueConglomerate] = useState();
   const [newValueConglomerate, setNewValueConglomerate] = useState();
-  const [oldValueTypeDocumentary, setOldValueTypeDocumentary] = useState();
-  const [newValueTypeDocumentary, setNewValueTypeDocumentary] = useState();
   const [oldValueCountry, setOldValueCountry] = useState();
   const [newValueCountry, setNewValueCountry] = useState();
   const [
@@ -67,10 +82,6 @@ const EditCorrespondence = (props) => {
   const [StateChangeAlert, setAux] = useState(null);
   const [valueIdentification, setValueIdentification] = useState(null);
 
-  const [cObjectPosition, setCObjectPosition] = useState();
-  const [cObjectId, setCObjectId] = useState();
-  const [cObjectValue, setCObjectValue] = useState();
-
   const changeInValueConglomerate = (Old, New) => {
     setOldValueConglomerate(Old);
     setNewValueConglomerate(New);
@@ -79,11 +90,6 @@ const EditCorrespondence = (props) => {
   const changeInValueConglomerateReceiver = (Old, New) => {
     setOldValueConglomerateReceiver(Old);
     setNewValueConglomerateReceiver(New);
-  };
-
-  const changeInValueTypeDocumentary = (Old, New) => {
-    setOldValueTypeDocumentary(Old);
-    setNewValueTypeDocumentary(New);
   };
 
   const changeInValueCountry = (Old, New) => {
@@ -98,6 +104,21 @@ const EditCorrespondence = (props) => {
   const changeInValueMessenger = (Old, New) => {
     setOldValueMessenger(Old);
     setNewValueMessenger(New);
+  };
+
+  const contrusctorObjectMetadata = (
+    cObjectPosition,
+    cObjectId,
+    cObjectValue
+  ) => {
+    const logArrayElements = (element, index, array) => {
+      if (element.id === cObjectId) {
+        element.defaultValue = cObjectValue;
+      }
+    };
+    if (cObjectPosition && cObjectId && cObjectValue !== undefined) {
+      correspondenceMetadata.forEach(logArrayElements);
+    }
   };
 
   return (
@@ -160,62 +181,80 @@ const EditCorrespondence = (props) => {
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setTimeout(() => {
           const auth = props.authorization;
-          fetch("url PUT", {
+          fetch(EXTERNAL_CORRESPONDENCE_RECEIVED_PUT, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + auth,
             },
-            body: JSON.stringify({}),
+            body: JSON.stringify({
+              id: idCorrespondence,
+              documentDate: values.correspondence_documentDate,
+              documentNumber: values.correspondence_documentNum,
+              issue: values.correspondence_issue,
+              guide: values.correspondence_guide,
+              numFolio: values.correspondence_folios,
+              headquarterId: values.correspondence_headquarter,
+              typeDocumentaryId: values.correspondence_typeDocumentary,
+              cityId: values.correspondence_city,
+              typeShipmentArrivalId: values.correspondence_typeArrival,
+              messengerId: values.correspondence_messenger,
+              thirdPartyId: values.correspondence_thirdParty,
+              templateId: values.correspondence_template,
+              original: userDataReceivers.original,
+              usersAddressees: userDataReceivers.users,
+              metadata: correspondenceMetadata,
+            }),
           })
             .then((response) =>
               response.json().then((data) => {
-                if (response.status === 201) {
-                  toast.success("Se registro la radicación con éxito.", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 5000,
-                    className: css({
-                      marginTop: "60px",
-                    }),
-                  });
-                  setTimeout(() => toast.dismiss(), 5000);
-                } else if (response.status === 400) {
-                  toast.error(
-                    "Error al registrar la radicación. Inténtelo nuevamente.",
-                    {
-                      position: toast.POSITION.TOP_RIGHT,
-                      className: css({
-                        marginTop: "60px",
-                      }),
-                    }
-                  );
+                console.log(response);
+                // if (response.status === 201) {
+                //   toast.success("Se registro la radicación con éxito.", {
+                //     position: toast.POSITION.TOP_RIGHT,
+                //     autoClose: 5000,
+                //     className: css({
+                //       marginTop: "60px",
+                //     }),
+                //   });
+                //   setTimeout(() => toast.dismiss(), 5000);
+                // } else if (response.status === 400) {
+                //   toast.error(
+                //     "Error al registrar la radicación. Inténtelo nuevamente.",
+                //     {
+                //       position: toast.POSITION.TOP_RIGHT,
+                //       className: css({
+                //         marginTop: "60px",
+                //       }),
+                //     }
+                //   );
 
-                  setTimeout(() => toast.dismiss(), 5000);
-                } else if (response.status === 404) {
-                  toast.error(
-                    "Error al registrar la radicación. Inténtelo nuevamente.",
-                    {
-                      position: toast.POSITION.TOP_RIGHT,
-                      className: css({
-                        marginTop: "60px",
-                      }),
-                    }
-                  );
+                //   setTimeout(() => toast.dismiss(), 5000);
+                // } else if (response.status === 404) {
+                //   toast.error(
+                //     "Error al registrar la radicación. Inténtelo nuevamente.",
+                //     {
+                //       position: toast.POSITION.TOP_RIGHT,
+                //       className: css({
+                //         marginTop: "60px",
+                //       }),
+                //     }
+                //   );
 
-                  setTimeout(() => toast.dismiss(), 5000);
-                } else if (response.status === 500) {
-                  toast.error(
-                    "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
-                    {
-                      position: toast.POSITION.TOP_RIGHT,
-                      className: css({
-                        marginTop: "60px",
-                      }),
-                    }
-                  );
+                //   setTimeout(() => toast.dismiss(), 5000);
+                // } else if (response.status === 500) {
+                //   toast.error(
+                //     "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
+                //     {
+                //       position: toast.POSITION.TOP_RIGHT,
+                //       className: css({
+                //         marginTop: "60px",
+                //       }),
+                //     }
+                //   );
 
-                  setTimeout(() => toast.dismiss(), 5000);
-                }
+                //   setTimeout(() => toast.dismiss(), 5000);
+                // }
               })
             )
             .catch((error) => {
@@ -1006,8 +1045,26 @@ const EditCorrespondence = (props) => {
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
                         onClick={(e) => {
-                          console.log(values);
-
+                          console.log({
+                            id: idCorrespondence,
+                            documentDate: values.correspondence_documentDate,
+                            documentNumber: values.correspondence_documentNum,
+                            issue: values.correspondence_issue,
+                            guide: values.correspondence_guide,
+                            numFolio: values.correspondence_folios,
+                            headquarterId: values.correspondence_headquarter,
+                            typeDocumentaryId:
+                              values.correspondence_typeDocumentary,
+                            cityId: values.correspondence_city,
+                            typeShipmentArrivalId:
+                              values.correspondence_typeArrival,
+                            messengerId: values.correspondence_messenger,
+                            thirdPartyId: values.correspondence_thirdParty,
+                            templateId: values.correspondence_template,
+                            original: userDataReceivers.original,
+                            usersAddressees: userDataReceivers.users,
+                            metadata: correspondenceMetadata,
+                          });
                           e.preventDefault();
                         }}
                       >

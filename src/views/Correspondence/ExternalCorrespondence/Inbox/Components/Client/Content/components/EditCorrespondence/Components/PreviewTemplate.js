@@ -38,6 +38,11 @@ const PreviewTemplate = ({ field, ...props }) => {
                       props.infoMetadataId(aux.idMetadata);
                       props.infoMetadataValue(e.target.value);
                     }}
+                    onBlur={(e) => {
+                      props.infoMetadataPosition([id]);
+                      props.infoMetadataId(aux.idMetadata);
+                      props.infoMetadataValue(e.target.value);
+                    }}
                   />
                 ))
               ) : (
