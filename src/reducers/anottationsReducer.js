@@ -24,7 +24,9 @@
         dataUserList: [] => Lista de usuarios activos
         dataUserListSelect: [] => Lista de usuarios seleccionados como destinatario
         alertadduser: => alert para cuando se agrega el mismo user 
-        descriptionanottation: ""
+        descriptionanottation: "", 
+        typesanottation: "" => tipo de anotacion que seleccione el usuario
+        page: "" la pagina que selecciona el usuario en caso que la anotacion sea por pagina
 
     }
 */
@@ -62,6 +64,8 @@ const initialState = {
   dataUserListSelect: [],
   alertadduser: false,
   descriptionanottation: "",
+  typeanottation: "",
+  page: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -212,6 +216,18 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         descriptionanottation: action.payload,
+      };
+
+    case "SELECT_TYPE_ANOTTATION":
+      return {
+        ...state,
+        typeanottation: action.payload,
+      };
+
+    case "PAGE_ANOTTATION":
+      return {
+        ...state,
+        page: action.payload,
       };
 
     default:

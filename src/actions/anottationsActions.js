@@ -238,3 +238,17 @@ export const addDescriptionAnottation = (data) => ({
   payload: data,
 });
 // FIN
+
+// SELECT DE TIPO DE ANOTACION
+export const selectTypeAnottation = (data) => ({
+  type: "SELECT_TYPE_ANOTTATION",
+  payload: data,
+});
+// FIN
+
+// PAGE FOR ANOTTATION
+export const selectPageAnottation = (data) => ({
+  type: "PAGE_ANOTTATION",
+  payload: data,
+});
+// FIN

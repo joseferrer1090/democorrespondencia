@@ -22,13 +22,18 @@ import FilterUserGroup from "./FilterUserGroup";
 import FilterUserName from "./FilterUserName";
 import ListUserEnabled from "./ListUserEnabled";
 import ListUserDestination from "./ListUserDestination";
-import { addDescriptionAnottation } from "./../../../../../actions/anottationsActions";
+import {
+  addDescriptionAnottation,
+  selectTypeAnottation,
+  selectPageAnottation,
+} from "./../../../../../actions/anottationsActions";
 class ModalCreateAnottation extends Component {
   constructor(props) {
     super();
     this.state = {
       modal: props.modalnewanottation,
       activeTab: 1,
+      typeanottation: "",
     };
   }
   toggle = () => {
@@ -51,6 +56,7 @@ class ModalCreateAnottation extends Component {
       valuedependencia,
       datagroupuserselected,
       descriptionanottation,
+      typeanottation,
     } = this.props;
 
     return (
@@ -137,22 +143,30 @@ class ModalCreateAnottation extends Component {
             <div className="col-md-6">
               <div className="form-group">
                 <label>Tip de anotacion</label>
-                <select className="form-control form-control-sm">
-                  <option>Seleccione</option>
-                  <option>Pagina</option>
-                  <option>Documento</option>
+                <select
+                  value={typeanottation}
+                  className="form-control form-control-sm"
+                  onChange={(e) =>
+                    this.props.onChangeTypeAnottation(e.target.value)
+                  }
+                >
+                  <option value="">Seleccione</option>
+                  <option value="1">Documento</option>
+                  <option value="2">Pagina</option>
                 </select>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="form-group">
-                <label>pagina</label>
-                <input
-                  type="text"
-                  className="form-control form-control-sm"
-                  placeholder="Condicional en caso que se selecciones la opcion pagina"
-                />
-              </div>
+              {typeanottation === "2" ? (
+                <div className="form-group">
+                  <label>pagina</label>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    placeholder="Condicional en caso que se selecciones la opcion pagina"
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </ModalBody>
@@ -189,6 +203,8 @@ const mapStateToProps = (state) => {
     valuedependencia: state.dataAnottationsReducers.valuedependencia,
     datagroupuserselected: state.dataAnottationsReducers.datagroupuserselected,
     descriptionanottation: state.dataAnottationsReducers.descriptionanottation,
+    typeanottation: state.dataAnottationsReducers.typeanottation,
+    page: state.dataAnottationsReducers.page,
   };
 };
 
@@ -196,6 +212,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChangeDescription: (data) => {
       dispatch(addDescriptionAnottation(data));
+    },
+    onChangeTypeAnottation: (data) => {
+      dispatch(selectTypeAnottation(data));
+    },
+    onChangeSelectPageAnottation: (data) => {
+      dispatch(selectPageAnottation(data));
     },
   };
 };
