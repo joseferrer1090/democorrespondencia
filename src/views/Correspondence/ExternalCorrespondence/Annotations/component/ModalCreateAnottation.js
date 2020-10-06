@@ -59,19 +59,20 @@ class ModalCreateAnottation extends Component {
       datagroupuserselected,
       descriptionanottation,
       typeanottation,
+      dataUserListSelect,
     } = this.props;
 
     const createAnottations = (
       e,
       descriptionanottation,
-      datagroupuserselected
+      dataUserListSelect
     ) => {
       e.preventDefault();
       console.log(
         JSON.stringify({
           receivedId: "f80bdd3f-8d48-4536-b292-9025df48f53e",
           anottation: descriptionanottation,
-          users: datagroupuserselected,
+          users: dataUserListSelect,
         })
       );
     };
@@ -81,7 +82,9 @@ class ModalCreateAnottation extends Component {
         <Modal className="modal-xl" isOpen={this.state.modal}>
           <form
             className="form"
-            onSubmit={(e) => createAnottations(e, descriptionanottation)}
+            onSubmit={(e) =>
+              createAnottations(e, descriptionanottation, dataUserListSelect)
+            }
           >
             <ModalHeader>
               {" "}
@@ -231,6 +234,7 @@ const mapStateToProps = (state) => {
     descriptionanottation: state.dataAnottationsReducers.descriptionanottation,
     typeanottation: state.dataAnottationsReducers.typeanottation,
     page: state.dataAnottationsReducers.page,
+    dataUserListSelect: state.dataAnottationsReducers.dataUserListSelect,
   };
 };
 
