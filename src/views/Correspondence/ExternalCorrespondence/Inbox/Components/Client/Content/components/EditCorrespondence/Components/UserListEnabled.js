@@ -34,10 +34,6 @@ const UserListEnabled = (props) => {
       setstate(null);
     }
     setstate(aux);
-
-    console.log(aux);
-
-    console.log(state);
   }, [state, users, props.aux]);
 
   return (

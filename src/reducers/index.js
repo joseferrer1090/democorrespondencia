@@ -13,7 +13,7 @@ import { dataCorrespondenceExternal } from "./dataCorrespondenceExternal";
 import chartsDashboard from "./chartsDashboardReducer";
 import { dataAnottationsReducers } from "./anottationsReducer";
 import { sidebarStatus } from "./sidebarReducer";
-import editCorrespondeceExternalThirdParty from "./reducerEditCorrespondenceExternalThirdParty";
+import editCorrespondenceExternalThirdParty from "./reducerEditCorrespondenceExternalThirdParty";
 import editCorrespondenceExternalReceiver from "./reducerEditCorrespondenceExternalReceiver";
 import editCorrespondenceExternalPreviewTemplate from "./reducerEditCorrespondenceExternalPreviewTemplate";
 import editCorrespondenceExternalSelectTemplate from "./reducerEditCorrespondenceExternalSelectTemplate";
@@ -35,7 +35,7 @@ export default combineReducers({
   chartsDashboard,
   dataAnottationsReducers,
   sidebarStatus,
-  editCorrespondeceExternalThirdParty,
+  editCorrespondenceExternalThirdParty,
   editCorrespondenceExternalReceiver,
   editCorrespondenceExternalPreviewTemplate,
   editCorrespondenceExternalSelectTemplate,

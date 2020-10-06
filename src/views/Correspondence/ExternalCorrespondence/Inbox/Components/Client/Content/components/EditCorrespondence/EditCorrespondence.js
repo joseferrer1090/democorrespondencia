@@ -37,6 +37,9 @@ const EditCorrespondence = (props) => {
   const idMetadata = useSelector(
     (state) => state.editCorrespondenceExternalPreviewTemplate.idMetadata
   );
+  const idThirdParty = useSelector(
+    (state) => state.editCorrespondenceExternalThirdParty.thirdParty
+  );
 
   const dataResult = props.object;
   const idCorrespondence = props.idCorrespondence;
@@ -121,6 +124,7 @@ const EditCorrespondence = (props) => {
     cObjectPosition,
     cObjectId,
     cObjectValue,
+    idThirdParty,
   ]);
 
   return (
@@ -201,7 +205,7 @@ const EditCorrespondence = (props) => {
               cityId: values.correspondence_city,
               typeShipmentArrivalId: values.correspondence_typeArrival,
               messengerId: values.correspondence_messenger,
-              thirdPartyId: values.correspondence_thirdParty,
+              thirdPartyId: idThirdParty,
               templateId: values.correspondence_template,
               original: userDataReceivers.original,
               usersAddressees: userDataReceivers.users,
