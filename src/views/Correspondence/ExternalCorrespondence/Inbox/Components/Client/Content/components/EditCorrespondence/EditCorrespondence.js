@@ -214,53 +214,52 @@ const EditCorrespondence = (props) => {
           })
             .then((response) =>
               response.json().then((data) => {
-                console.log(response);
-                // if (response.status === 201) {
-                //   toast.success("Se registro la radicación con éxito.", {
-                //     position: toast.POSITION.TOP_RIGHT,
-                //     autoClose: 5000,
-                //     className: css({
-                //       marginTop: "60px",
-                //     }),
-                //   });
-                //   setTimeout(() => toast.dismiss(), 5000);
-                // } else if (response.status === 400) {
-                //   toast.error(
-                //     "Error al registrar la radicación. Inténtelo nuevamente.",
-                //     {
-                //       position: toast.POSITION.TOP_RIGHT,
-                //       className: css({
-                //         marginTop: "60px",
-                //       }),
-                //     }
-                //   );
+                if (response.status === 200) {
+                  toast.success("Se edito la radicación con éxito.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                    className: css({
+                      marginTop: "60px",
+                    }),
+                  });
+                  setTimeout(() => toast.dismiss(), 5000);
+                } else if (response.status === 400) {
+                  toast.error(
+                    "Error al editar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
 
-                //   setTimeout(() => toast.dismiss(), 5000);
-                // } else if (response.status === 404) {
-                //   toast.error(
-                //     "Error al registrar la radicación. Inténtelo nuevamente.",
-                //     {
-                //       position: toast.POSITION.TOP_RIGHT,
-                //       className: css({
-                //         marginTop: "60px",
-                //       }),
-                //     }
-                //   );
+                  setTimeout(() => toast.dismiss(), 5000);
+                } else if (response.status === 404) {
+                  toast.error(
+                    "Error al editar la radicación. Inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
 
-                //   setTimeout(() => toast.dismiss(), 5000);
-                // } else if (response.status === 500) {
-                //   toast.error(
-                //     "Ocurrio un problema interno al registrar la radicación por favor inténtelo nuevamente.",
-                //     {
-                //       position: toast.POSITION.TOP_RIGHT,
-                //       className: css({
-                //         marginTop: "60px",
-                //       }),
-                //     }
-                //   );
+                  setTimeout(() => toast.dismiss(), 5000);
+                } else if (response.status === 500) {
+                  toast.error(
+                    "Ocurrio un problema interno al editar la radicación por favor inténtelo nuevamente.",
+                    {
+                      position: toast.POSITION.TOP_RIGHT,
+                      className: css({
+                        marginTop: "60px",
+                      }),
+                    }
+                  );
 
-                //   setTimeout(() => toast.dismiss(), 5000);
-                // }
+                  setTimeout(() => toast.dismiss(), 5000);
+                }
               })
             )
             .catch((error) => {
@@ -302,7 +301,7 @@ const EditCorrespondence = (props) => {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="row">
-                          <div className="col-md-2 offset-1">
+                          <div className="col-md-2">
                             <div className="form-group text-center">
                               <label className="">
                                 <strong> Fecha de radicación</strong>{" "}
@@ -1051,26 +1050,7 @@ const EditCorrespondence = (props) => {
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
                         onClick={(e) => {
-                          console.log({
-                            id: idCorrespondence,
-                            documentDate: values.correspondence_documentDate,
-                            documentNumber: values.correspondence_documentNum,
-                            issue: values.correspondence_issue,
-                            guide: values.correspondence_guide,
-                            numFolio: values.correspondence_folios,
-                            headquarterId: values.correspondence_headquarter,
-                            typeDocumentaryId:
-                              values.correspondence_typeDocumentary,
-                            cityId: values.correspondence_city,
-                            typeShipmentArrivalId:
-                              values.correspondence_typeArrival,
-                            messengerId: values.correspondence_messenger,
-                            thirdPartyId: values.correspondence_thirdParty,
-                            templateId: values.correspondence_template,
-                            original: userDataReceivers.original,
-                            usersAddressees: userDataReceivers.users,
-                            metadata: correspondenceMetadata,
-                          });
+                          console.log("Cambio de vista");
                           e.preventDefault();
                         }}
                       >
