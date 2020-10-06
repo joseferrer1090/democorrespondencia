@@ -44,7 +44,11 @@ class ListUserEnabled extends Component {
   }
 
   getDataListDependence = (id) => {
-    this.props.getDataUserDependence(id);
+    if (id === undefined || id === "") {
+      return null;
+    } else {
+      this.props.getDataUserDependence(id);
+    }
   };
 
   getDataListaByGroup = (id) => {
