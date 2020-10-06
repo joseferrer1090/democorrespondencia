@@ -1044,7 +1044,7 @@ const EditCorrespondence = (props) => {
                           </div>
                         )}
                       </button>
-                      &nbsp;
+                      {/* &nbsp;
                       <button
                         type="submit"
                         className="btn btn-success btn-sm"
@@ -1061,7 +1061,7 @@ const EditCorrespondence = (props) => {
                             <i className="fa fa-check" /> Continuar
                           </div>
                         )}
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

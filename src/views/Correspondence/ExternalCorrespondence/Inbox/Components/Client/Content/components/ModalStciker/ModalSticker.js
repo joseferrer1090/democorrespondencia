@@ -19,7 +19,6 @@ class ModalSticker extends Component {
   };
 
   render() {
-    console.log(this.state.valuebarcode);
     return (
       <Modal className="modal-lg" isOpen={this.state.modal} fade={false}>
         <ModalHeader>Ver radicado </ModalHeader>

@@ -243,7 +243,8 @@ const FormStep1 = (props) => {
           .required(" Por favor seleccione un mensajero.")
           .ensure(),
         correspondence_template: Yup.string()
-          .required(" Por favor seleccione una plantilla")
+          // .required(" Por favor seleccione una plantilla")
+          .nullable()
           .ensure(),
         correspondence_conglomerate_receiver: Yup.string().nullable().ensure(),
         correspondence_company_receiver: Yup.string().nullable().ensure(),

@@ -146,7 +146,8 @@ class EditCorrespondenceExternalCorrespondence extends Component {
         correspondence_city: data.city.id /* S */,
         correspondence_typeArrival: data.typeShipmentArrival.id /* S */,
         correspondence_messenger: data.messenger.id /* S */,
-        correspondence_template: data.template.id /* S */,
+        correspondence_template:
+          data.template !== null ? data.template.id : "" /* S */,
         correspondence_conglomerate_receiver: "" /* S */,
         correspondence_company_receiver: "" /* S */,
         correspondence_headquarter_receiver: "" /* S */,
