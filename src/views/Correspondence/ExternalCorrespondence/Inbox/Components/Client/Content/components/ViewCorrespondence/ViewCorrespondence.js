@@ -74,11 +74,9 @@ class ViewCorrespondence extends Component {
 
   componentDidMount() {
     this.getDataLocal();
-    this.setState(
-      {
-        id: this.props.match.params,
-      }
-    );
+    this.setState({
+      id: this.props.match.params,
+    });
   }
 
   getDataLocal = () => {
@@ -215,15 +213,27 @@ class ViewCorrespondence extends Component {
     const dataTableMetadatos = () => {
       let tableMetadatos;
       tableMetadatos = dataInfoMetadatos.map((aux, idx) => {
-        // console.log(aux);
         return (
           <tr>
-            <td>{aux.name}</td>
-            <td>{aux.value}</td>
+            <td>{aux.metadata.elementConfig.labeltext}</td>
+            <td>{showDisplayValue(aux.metadata.type, aux)}</td>
           </tr>
         );
       });
       return tableMetadatos;
+    };
+
+    const showDisplayValue = (type, data) => {
+      if (type === "select") {
+        data.metadata.elementConfig.options.map((aux, idx) => {
+          if (aux.selected === "selected") {
+            data.defaultValue = aux.displayValue;
+          }
+        });
+        return data.defaultValue;
+      } else {
+        return data.defaultValue;
+      }
     };
 
     const dataTableFiles = () => {
@@ -271,20 +281,15 @@ class ViewCorrespondence extends Component {
           style={{ height: "600px", padding: "0px" }}
         >
           {viewPDFid && viewPDFfileName !== "" ? (
-            <PDFViewer
-              ref={this.myViewer}
-              backend={PDFJSBackend}
-              src={url}
-            />
+            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
           ) : (
             <div className="jumbotron">
-            <h6 className="text-center">No hay datos</h6>
-          </div>
+              <h6 className="text-center">No hay datos</h6>
+            </div>
           )}
         </div>
       );
     };
-
 
     const dataTableAnnotations = () => {
       let tableAnnotations;
@@ -381,7 +386,6 @@ class ViewCorrespondence extends Component {
                           <i className="fa fa-print" />
                         </button>
                         &nbsp;
-            
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"
