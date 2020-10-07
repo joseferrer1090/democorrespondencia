@@ -11,6 +11,7 @@ class ContentReceived extends Component {
     super();
     this.state = {
       modalview: false,
+      id: "",
     };
   }
 
@@ -120,8 +121,9 @@ class ContentReceived extends Component {
     window.location.replace(path);
   };
 
-  openModalNew() {
-    this.ModalNewAnottation.toggle();
+  openModalNew(id) {
+    this.ModalNewAnottation.toggle(id);
+    console.log(id);
   }
 
   render() {
@@ -293,7 +295,10 @@ class ContentReceived extends Component {
                               <button
                                 className="btn btn-secondary btn-sm"
                                 title="agregar anotacion"
-                                onClick={() => this.openModalNew()}
+                                onClick={(id) => {
+                                  this.openModalNew(correspondence.id);
+                                  this.setState({ id: correspondence.id });
+                                }}
                               >
                                 <i className="fa fa-sticky-note" />
                               </button>
@@ -319,6 +324,7 @@ class ContentReceived extends Component {
           </div>
         </div>
         <ModalCreateAnottation
+          id={this.state.id}
           modalnewanottation={this.state.modalview}
           ref={(mo) => (this.ModalNewAnottation = mo)}
         />

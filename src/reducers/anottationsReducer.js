@@ -2,6 +2,7 @@
     anottationsReducer: {
         alldata: [] => estado para generar una copia del estado origina y poder realizar operaciones
         anotattions: [] => lista de anotaciones
+        datacorrespondence: {} => Es la informacion general de la correspondencia, para los valores de la pagina y la informacion del documento
         totalPages: => numero total de paginas
         totalElements: => numero total de elementos
         countanotattions: 0 => numero de anotaciones
@@ -16,6 +17,19 @@
         valueempresa: "" => valor seleccionado con el onChange
         dataSede: [] => data de la sede dependediendo de la empersa que se seleccione
         valuesede: "" => valor con el onChange
+        dataDependencia: [] => data de la dependencia
+        valuedependencia: "" => valor seleccionado con el onChange
+        dataGroupUsers: [] => data los grupos de usuarios existentes
+        datagroupuserselected: "" => onChange de la seleccion del grupo
+        dataUserSearch: [] => resultado de la busqueda por el endpoint
+        searchusername: "" => nombre digitador para buscar
+        dataUserList: [] => Lista de usuarios activos
+        dataUserListSelect: [] => Lista de usuarios seleccionados como destinatario
+        alertadduser: => alert para cuando se agrega el mismo user 
+        descriptionanottation: "", 
+        typesanottation: "" => tipo de anotacion que seleccione el usuario
+        page: "" la pagina que selecciona el usuario en caso que la anotacion sea por pagina
+
     }
 */
 
@@ -30,6 +44,7 @@ import {
 const initialState = {
   alldata: [],
   anottations: [],
+  datacorrespondence: {},
   countanotattions: null,
   active: null,
   valuesearch: null,
@@ -44,6 +59,18 @@ const initialState = {
   valueempresa: "",
   dataSede: [],
   valuesede: "",
+  dataDependencia: [],
+  valuedependencia: "",
+  dataGroupUsers: [],
+  datagroupuserselected: "",
+  dataUserSearch: [],
+  searchusername: "",
+  dataUserList: [],
+  dataUserListSelect: [],
+  alertadduser: false,
+  descriptionanottation: "",
+  typeanottation: "",
+  page: "",
 };
 
 export const dataAnottationsReducers = (state = initialState, action) => {
@@ -135,6 +162,89 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         valuesede: action.payload,
+      };
+
+    case "DATA_DEPENDENCIA":
+      return {
+        ...state,
+        dataDependencia: action.payload,
+      };
+
+    case "DATA_DEPENDENCIA_VALUE":
+      return {
+        ...state,
+        valuedependencia: action.payload,
+      };
+
+    case "DATA_GROUP_USER_FILTER":
+      return {
+        ...state,
+        dataGroupUsers: action.payload,
+      };
+
+    case "DATA_GROUP_USER_VALUE":
+      return {
+        ...state,
+        datagroupuserselected: action.payload,
+      };
+
+    case "DATA_RESULT_SEARCH_USER":
+      return {
+        ...state,
+        dataUserSearch: action.payload,
+      };
+
+    case "SEARCH_USER_BY_NAME":
+      return {
+        ...state,
+        searchusername: action.payload,
+      };
+
+    case "DATA_USER_LIST":
+      return {
+        ...state,
+        dataUserList: action.payload,
+      };
+
+    case "ADD_USER_LIST_ENABLED":
+      return {
+        ...state,
+        dataUserListSelect:
+          state.dataUserListSelect.indexOf(action.payload) === -1
+            ? state.dataUserListSelect.concat([action.payload])
+            : state.dataUserListSelect,
+      };
+
+    case "DELETE_USER_LIST_ENABLED":
+      return {
+        ...state,
+        dataUserListSelect: state.dataUserListSelect.filter(
+          (user) => user.id !== action.payload
+        ),
+      };
+
+    case "DESCRIPTION_ANOTTATION":
+      return {
+        ...state,
+        descriptionanottation: action.payload,
+      };
+
+    case "SELECT_TYPE_ANOTTATION":
+      return {
+        ...state,
+        typeanottation: action.payload,
+      };
+
+    case "PAGE_ANOTTATION":
+      return {
+        ...state,
+        page: action.payload,
+      };
+
+    case "SET_DATA_CORRESPONDENCE":
+      return {
+        ...state,
+        datacorrespondence: action.payload,
       };
 
     default:

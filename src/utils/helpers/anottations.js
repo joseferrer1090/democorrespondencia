@@ -3,6 +3,10 @@ import {
   NOVELTIES_ANNOTATIONS,
   CONGLOMERATES_STATUS,
   COMPANY_BY_CONGLOMERATE,
+  HEADQUARTER_BY_COMPANY,
+  DEPENDENCIES_BY_HEADQUARTER,
+  GROUP_USERS_ACTIVE,
+  SEARCH_BY_USERNAME,
 } from "./../../services/EndPoints";
 
 export const loadCountNumberAnottations = async (token) => {
@@ -91,3 +95,122 @@ export const dataSelectEmpresa = async (token, idconglomerado) => {
   }
 };
 //FIN
+
+// SELECT DE SEDE FILTRO
+export const dataSelectSede = async (token, idempresa) => {
+  let responses;
+  if (idempresa === null || idempresa === undefined) {
+    return (responses = []);
+  } else {
+    return (responses = await fetch(`${HEADQUARTER_BY_COMPANY}${idempresa}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((responses) => responses.json())
+      .catch((error) => {
+        return [];
+      }));
+  }
+};
+//FIN
+
+// SELECT DE DEPENDENCIA FILTRO
+export const dataSelectDependencia = async (token, idsede) => {
+  let responses;
+  if (idsede === null || idsede === undefined) {
+    return (responses = []);
+  } else {
+    return (responses = await fetch(`${DEPENDENCIES_BY_HEADQUARTER}${idsede}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((responses) => responses.json())
+      .catch((error) => {
+        return [];
+      }));
+  }
+};
+// FIN
+
+// FILTRO DE USUARIOS POR GRUPO
+
+export const dataGroupUsers = async (token) => {
+  const responses = await fetch(`${GROUP_USERS_ACTIVE}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  return await responses.json();
+};
+
+// FIN
+
+// BUSCADOR POR NOMBRE DE USUARIO
+export const searchUserbyName = async (token, name) => {
+  let aux = new FormData();
+  aux.append("name", name);
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/configuration/users/search/name`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer" + token,
+      },
+      body: aux,
+    }
+  );
+  return await responses.json();
+};
+// FIN
+
+// LISTA DE USUARIOS POR DEPENDENCIA FILTRO 1
+export const userListDependence = async (token, iddependencia) => {
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/configuration/users/dependence/${iddependencia}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return await responses.json();
+};
+// FIN
+
+// LISTA DE USUARIOS POR GRUPO DE USUARIOS FILTRO 2
+export const userListByGroup = async (token, idgroup) => {
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/configuration/group/users/find/users/${idgroup}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return await responses.json();
+};
+// FIN
+
+// INFORMACION DEL CORRESPONDENCIA
+export const getInformationCorrespondence = async (token, id) => {
+  const responses = await fetch(``, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+// FIN
