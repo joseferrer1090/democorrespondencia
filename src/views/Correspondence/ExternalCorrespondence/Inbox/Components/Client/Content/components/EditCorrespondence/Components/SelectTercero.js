@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button, Alert } from "reactstrap";
 import PropTypes from "prop-types";
 import { THIRDPARTIES_BY_IDENTIFICATION } from "../../../../../../../../../../services/EndPoints";
-import {agregarTerceroDisponible} from "../../../../../../../../../../actions/editCorrespondenceExternalThirdParty";
-
+import { agregarTerceroDisponible } from "../../../../../../../../../../actions/editCorrespondenceExternalThirdParty";
 
 const ThirdParty = (props) => {
   let id = props.id;
@@ -45,6 +44,15 @@ const ThirdParty = (props) => {
   const validateValues = () => {
     if (id !== null) {
       fetchNewValues(id);
+    } else if (valueInput !== "") {
+      fetchNewValues(valueInput);
+      if (IdThirdParty !== null) {
+        AgregarTercero(IdThirdParty);
+        spinnerAsignacion();
+        setTimeout(() => {
+          setAlertAsignacion(true);
+        }, 500);
+      }
     } else {
       setAlertAsignacion(false);
       setIdThirdParty(null);
@@ -62,7 +70,7 @@ const ThirdParty = (props) => {
     } else {
       validateValues();
     }
-  }, [props.id, valueInput]);
+  }, [props.id, valueInput, IdThirdParty]);
 
   const spinnerAsignacion = () => {
     setSpinner(true);

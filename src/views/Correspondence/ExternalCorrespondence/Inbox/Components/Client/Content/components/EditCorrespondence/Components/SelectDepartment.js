@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { DEPARTMENTS_BY_COUNTRY } from "../../../../../../../../../../services/EndPoints";
 
-
 const FieldDepartment = ({
   field,
   form: { errors, touched, setFieldTouched, setFieldValue, values },
@@ -33,6 +32,8 @@ const FieldDepartment = ({
       setDataDepartment([]);
       values.correspondence_department = "";
       fetchNewValues(props.newValueCountryId);
+    } else if (props.countryId !== "") {
+      fetchNewValues(props.countryId);
     } else if (props.countryId === "") {
       setDataDepartment([]);
       values.correspondence_department = "";
@@ -47,6 +48,7 @@ const FieldDepartment = ({
     <div>
       {" "}
       <select
+        value={values.correspondence_department}
         onChange={(e) =>
           setFieldValue("correspondence_department", e.target.value)
         }

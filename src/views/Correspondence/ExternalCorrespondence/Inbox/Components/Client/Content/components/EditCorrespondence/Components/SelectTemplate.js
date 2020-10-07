@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { obtenerMetadatos } from "../../../../../../../../../../actions/editCorrespondenceExternalPreviewTemplate";
@@ -11,18 +11,20 @@ const SelectTemplate = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  const [valueTemplate, setValueTemplate] = useState("");
 
   const dataTemplate = useSelector(
-    (state) => state.editCorrespondeceExternalSelectTemplate.dataTemplate
+    (state) => state.editCorrespondenceExternalSelectTemplate.dataTemplate
   );
 
   const idTemplateByTypeDocumentary = useSelector(
-    (state) => state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.template
+    (state) =>
+      state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary
+        .template
   );
 
   const idTypeDocumentary = useSelector(
-    (state) => state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.id
+    (state) =>
+      state.editCorrespondenceExternalTypeDocumentary.dataTypeDocumentary.id
   );
 
   useEffect(() => {
@@ -31,19 +33,14 @@ const SelectTemplate = ({
 
   const validateValues = () => {
     if (idTemplateByTypeDocumentary !== undefined) {
-      if(idTemplateByTypeDocumentary !== null){
+      if (idTemplateByTypeDocumentary !== null) {
         values.correspondence_template = idTemplateByTypeDocumentary.id;
-              }
-      
+      }
       setTimeout(() => {
-        setValueTemplate(values.correspondence_template);
         dispatch(obtenerMetadatos(values.correspondence_template));
         dispatch(obtenerMetadatosByTypeDocumentary(idTypeDocumentary));
       }, 100);
-    } else {
-      setValueTemplate(values.correspondence_template);
     }
-    return valueTemplate;
   };
 
   return (
@@ -51,7 +48,6 @@ const SelectTemplate = ({
       <select
         onChange={(e) => {
           setFieldValue("correspondence_template", e.target.value);
-          setValueTemplate(e.target.value);
           dispatch(obtenerMetadatos(e.target.value));
         }}
         onBlur={(e) => setFieldTouched("correspondence_template", true)}
@@ -60,7 +56,7 @@ const SelectTemplate = ({
           touched.correspondence_template &&
           "is-invalid"
         }`}
-        value={valueTemplate}
+        value={values.correspondence_template}
       >
         <option value={""}>-- Seleccione --</option>
         {dataTemplate !== undefined

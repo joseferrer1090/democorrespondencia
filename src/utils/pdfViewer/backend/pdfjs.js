@@ -6,6 +6,6 @@ export default class PDFJs {
     iframe.height = "600px";
 
     element.appendChild(iframe);
-    console.log(iframe.src);
+    // console.log(iframe.src);
   };
 }
