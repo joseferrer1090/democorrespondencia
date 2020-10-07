@@ -203,5 +203,14 @@ export const userListByGroup = async (token, idgroup) => {
 };
 // FIN
 
-// BUSCAR USUARIO POR NOMBRE
+// INFORMACION DEL CORRESPONDENCIA
+export const getInformationCorrespondence = async (token, id) => {
+  const responses = await fetch(``, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+};
 // FIN

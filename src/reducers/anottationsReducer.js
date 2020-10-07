@@ -2,6 +2,7 @@
     anottationsReducer: {
         alldata: [] => estado para generar una copia del estado origina y poder realizar operaciones
         anotattions: [] => lista de anotaciones
+        datacorrespondence: {} => Es la informacion general de la correspondencia, para los valores de la pagina y la informacion del documento
         totalPages: => numero total de paginas
         totalElements: => numero total de elementos
         countanotattions: 0 => numero de anotaciones
@@ -43,6 +44,7 @@ import {
 const initialState = {
   alldata: [],
   anottations: [],
+  datacorrespondence: {},
   countanotattions: null,
   active: null,
   valuesearch: null,
@@ -237,6 +239,12 @@ export const dataAnottationsReducers = (state = initialState, action) => {
       return {
         ...state,
         page: action.payload,
+      };
+
+    case "SET_DATA_CORRESPONDENCE":
+      return {
+        ...state,
+        datacorrespondence: action.payload,
       };
 
     default:
