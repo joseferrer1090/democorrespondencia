@@ -72,7 +72,7 @@ class EditCorrespondenceExternalCorrespondence extends Component {
     data.metadata.map((aux, id) => {
       setStateMetadata.push({
         id: aux.idMetadata,
-        defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+        value: aux.defaultValue !== null ? aux.defaultValue : "",
       });
     });
     this.changeStateCorrespondenceExternalPreviewTemplate(setStateMetadata);

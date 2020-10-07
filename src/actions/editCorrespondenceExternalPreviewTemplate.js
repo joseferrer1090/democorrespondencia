@@ -22,7 +22,7 @@ export function obtenerMetadatos(id) {
             data.map((aux, id) => {
               return {
                 id: aux.idMetadata,
-                defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+                value: aux.defaultValue !== null ? aux.defaultValue : "",
               };
             })
           )

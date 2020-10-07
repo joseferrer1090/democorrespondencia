@@ -106,7 +106,7 @@ const EditCorrespondence = (props) => {
   ) => {
     const logArrayElements = (element, index, array) => {
       if (element.id === cObjectId) {
-        element.defaultValue = cObjectValue;
+        element.value = cObjectValue;
       }
     };
     if (cObjectPosition && cObjectId && cObjectValue !== undefined) {
