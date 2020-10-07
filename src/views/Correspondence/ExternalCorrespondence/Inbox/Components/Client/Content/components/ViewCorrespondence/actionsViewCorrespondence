@@ -1,0 +1,88 @@
+<button
+                          title="Editar correspondencia"
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => {
+                            this.OpenOnClickEdit();
+                          }}
+                        >
+                          <i className="fa fa-edit" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          title="Marcar como no leida"
+                          className="btn btn-secondary btn-sm"
+                        >
+                          <i className="fa fa-envelope-o" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Archivar"
+                        >
+                          <i className="fa fa-floppy-o" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          title="Imprimir"
+                          className="btn btn-secondary btn-sm"
+                        >
+                          {" "}
+                          <i className="fa fa-print" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Agregar anotación"
+                          onClick={() => {
+                            this.OpenModalAddanotation();
+                          }}
+                        >
+                          <i className="fa fa-comment" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          title="Anotaciones"
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => this.OpenModalAnotation()}
+                        >
+                          {" "}
+                          <i className="fa fa-comments" aria-hidden="true" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Usuarios relacionados"
+                          onClick={() => {
+                            this.OpenOnClickViewRelatedUsers();
+                          }}
+                        >
+                          {" "}
+                          <i className="fa fa-users" />{" "}
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Historial"
+                          onClick={() => {
+                            this.OpenClickHistorialCorrespondence();
+                          }}
+                        >
+                          <i className="fa fa-history" />
+                        </button>
+                        &nbsp;
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          title="Ver radicado"
+                          onClick={() => this.OpenModalSticker()}
+                        >
+                          <i className="fa fa-file-text-o" />
+                        </button>
