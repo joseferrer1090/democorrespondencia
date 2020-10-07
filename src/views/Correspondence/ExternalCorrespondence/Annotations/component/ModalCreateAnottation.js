@@ -15,6 +15,7 @@ import {
   DropdownToggle,
   TabPane,
   TabContent,
+  Collapse,
 } from "reactstrap";
 import classnames from "classnames";
 import FilterUserDependence from "./FilterUserDependence";
@@ -28,6 +29,8 @@ import {
   selectPageAnottation,
   setDataCorrespondence,
 } from "./../../../../../actions/anottationsActions";
+import PDFViewer from "./../../../../../utils/pdfViewer/components/PDFViewer";
+import PDFJSBackend from "./../../../../../utils/pdfViewer/backend/pdfjs";
 import { Formik } from "formik";
 import * as Yup from "yup";
 class ModalCreateAnottation extends Component {
@@ -38,6 +41,9 @@ class ModalCreateAnottation extends Component {
       activeTab: 1,
       typeanottation: "",
       id: props.id,
+      collapse: false,
+      fileName: "",
+      idFile: "",
     };
   }
 
@@ -70,6 +76,12 @@ class ModalCreateAnottation extends Component {
     }
   };
 
+  toggleCollapse = () => {
+    this.setState({
+      collapse: !this.state.collapse,
+    });
+  };
+
   render() {
     const { activeTab } = this.state;
     const {
@@ -98,7 +110,21 @@ class ModalCreateAnottation extends Component {
       );
     };
 
-    console.log(datacorrespondence);
+    const collapseViewFile = () => {
+      let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${this.state.idFile}/${this.state.fileName}`;
+      return (
+        <div className=" card card-body">
+          {this.state.idFile && this.state.fileName !== "" ? (
+            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
+          ) : (
+            <div className="jumbotron">
+              <h6 className="text-center">No hay datos</h6>
+            </div>
+          )}
+        </div>
+      );
+    };
+
     return (
       <React.Fragment>
         <Modal className="modal-xl" isOpen={this.state.modal}>
@@ -183,7 +209,7 @@ class ModalCreateAnottation extends Component {
                       {" "}
                       <i className="fa fa-paperclip" /> Documento adjunto
                     </div>
-                    <div className="">
+                    <div className="card-body">
                       <table className="table table-sm table-bordered">
                         <thead>
                           <tr>
@@ -201,16 +227,18 @@ class ModalCreateAnottation extends Component {
                                   <td>{aux.filenameOriginal}</td>
                                   <td>{aux.numImages}</td>
                                   <td>{aux.size}</td>
-                                  <td className="text-center">
+                                  <td className="">
                                     <button
                                       title="Ver adjunto"
                                       className="btn btn-secondary btn-sm"
                                       type="button"
-                                      onClick={() =>
-                                        alert(
-                                          "Toggle para ver el documento adjunto"
-                                        )
-                                      }
+                                      onClick={() => {
+                                        this.toggleCollapse();
+                                        this.setState({
+                                          idFile: aux.id,
+                                          fileName: aux.fileName,
+                                        });
+                                      }}
                                     >
                                       <i className="fa fa-eye" />
                                     </button>
@@ -226,6 +254,9 @@ class ModalCreateAnottation extends Component {
                     </div>
                   </div>
                 </div>
+                <Collapse isOpen={this.state.collapse}>
+                  <div className="col-md-12">{collapseViewFile()}</div>
+                </Collapse>
                 <div className="col-md-12">
                   <div className="form-group">
                     <label>Anotacion</label>
@@ -279,7 +310,7 @@ class ModalCreateAnottation extends Component {
                     });
                   }}
                 >
-                  <i className="fa fa-times" /> Cerrer
+                  <i className="fa fa-times" /> Cerrar
                 </button>
                 &nbsp;
                 <button type="submit" className="btn btn-success btn-sm">
