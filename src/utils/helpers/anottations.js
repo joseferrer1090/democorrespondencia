@@ -1,3 +1,4 @@
+import { ACTIVE_ANOTTATIONS } from "../../types";
 import {
   COUNT_NOVELTIES_ANNOTATIONS,
   NOVELTIES_ANNOTATIONS,
@@ -205,12 +206,19 @@ export const userListByGroup = async (token, idgroup) => {
 
 // INFORMACION DEL CORRESPONDENCIA
 export const getInformationCorrespondence = async (token, id) => {
-  const responses = await fetch(``, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/external/correspondence/received/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  const correspondenceid = await responses.json();
+  const { attachments } = correspondenceid;
+  const { annotations } = correspondenceid;
+  return await { correspondenceid, attachments, annotations };
 };
 // FIN

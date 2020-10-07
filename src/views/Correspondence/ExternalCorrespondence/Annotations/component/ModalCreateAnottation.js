@@ -15,6 +15,7 @@ import {
   DropdownToggle,
   TabPane,
   TabContent,
+  Collapse,
 } from "reactstrap";
 import classnames from "classnames";
 import FilterUserDependence from "./FilterUserDependence";
@@ -26,7 +27,10 @@ import {
   addDescriptionAnottation,
   selectTypeAnottation,
   selectPageAnottation,
+  setDataCorrespondence,
 } from "./../../../../../actions/anottationsActions";
+import PDFViewer from "./../../../../../utils/pdfViewer/components/PDFViewer";
+import PDFJSBackend from "./../../../../../utils/pdfViewer/backend/pdfjs";
 import { Formik } from "formik";
 import * as Yup from "yup";
 class ModalCreateAnottation extends Component {
@@ -37,8 +41,28 @@ class ModalCreateAnottation extends Component {
       activeTab: 1,
       typeanottation: "",
       id: props.id,
+      collapse: false,
+      fileName: "",
+      idFile: "",
     };
   }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.id !== state.id) {
+      return {
+        id: props.id,
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.id !== prevProps.id) {
+      this.props.getDataCorrespondence(this.props.id);
+    }
+    return null;
+  }
+
   toggle = (id) => {
     this.setState({
       modal: !this.props.modalnewanottation,
@@ -52,6 +76,12 @@ class ModalCreateAnottation extends Component {
     }
   };
 
+  toggleCollapse = () => {
+    this.setState({
+      collapse: !this.state.collapse,
+    });
+  };
+
   render() {
     const { activeTab } = this.state;
     const {
@@ -62,6 +92,7 @@ class ModalCreateAnottation extends Component {
       descriptionanottation,
       typeanottation,
       dataUserListSelect,
+      datacorrespondence,
     } = this.props;
 
     const createAnottations = (
@@ -76,6 +107,21 @@ class ModalCreateAnottation extends Component {
           anottation: descriptionanottation,
           users: dataUserListSelect,
         })
+      );
+    };
+
+    const collapseViewFile = () => {
+      let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${this.state.idFile}/${this.state.fileName}`;
+      return (
+        <div className=" card card-body">
+          {this.state.idFile && this.state.fileName !== "" ? (
+            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
+          ) : (
+            <div className="jumbotron">
+              <h6 className="text-center">No hay datos</h6>
+            </div>
+          )}
+        </div>
       );
     };
 
@@ -158,6 +204,60 @@ class ModalCreateAnottation extends Component {
                   </div>
                 </div>
                 <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      {" "}
+                      <i className="fa fa-paperclip" /> Documento adjunto
+                    </div>
+                    <div className="card-body">
+                      <table className="table table-sm table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Nombre del archivo</th>
+                            <th>Paginas</th>
+                            <th>Tamaño</th>
+                            <th>Visualizar</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.keys(datacorrespondence) ? (
+                            datacorrespondence.map((aux, id) => {
+                              return (
+                                <tr key={id}>
+                                  <td>{aux.filenameOriginal}</td>
+                                  <td>{aux.numImages}</td>
+                                  <td>{aux.size}</td>
+                                  <td className="">
+                                    <button
+                                      title="Ver adjunto"
+                                      className="btn btn-secondary btn-sm"
+                                      type="button"
+                                      onClick={() => {
+                                        this.toggleCollapse();
+                                        this.setState({
+                                          idFile: aux.id,
+                                          fileName: aux.fileName,
+                                        });
+                                      }}
+                                    >
+                                      <i className="fa fa-eye" />
+                                    </button>
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <tr>No hay documentos adjuntos</tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <Collapse isOpen={this.state.collapse}>
+                  <div className="col-md-12">{collapseViewFile()}</div>
+                </Collapse>
+                <div className="col-md-12">
                   <div className="form-group">
                     <label>Anotacion</label>
                     <textarea
@@ -210,7 +310,7 @@ class ModalCreateAnottation extends Component {
                     });
                   }}
                 >
-                  <i className="fa fa-times" /> Cerrer
+                  <i className="fa fa-times" /> Cerrar
                 </button>
                 &nbsp;
                 <button type="submit" className="btn btn-success btn-sm">
@@ -237,6 +337,8 @@ const mapStateToProps = (state) => {
     typeanottation: state.dataAnottationsReducers.typeanottation,
     page: state.dataAnottationsReducers.page,
     dataUserListSelect: state.dataAnottationsReducers.dataUserListSelect,
+    datacorrespondence:
+      state.dataAnottationsReducers.datacorrespondence.attachments || [],
   };
 };
 
@@ -250,6 +352,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onChangeSelectPageAnottation: (data) => {
       dispatch(selectPageAnottation(data));
+    },
+    getDataCorrespondence: (id) => {
+      dispatch(setDataCorrespondence(id));
     },
   };
 };
