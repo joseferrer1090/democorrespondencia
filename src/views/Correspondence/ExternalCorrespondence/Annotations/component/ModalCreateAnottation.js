@@ -26,6 +26,7 @@ import {
   addDescriptionAnottation,
   selectTypeAnottation,
   selectPageAnottation,
+  setDataCorrespondence,
 } from "./../../../../../actions/anottationsActions";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -39,6 +40,23 @@ class ModalCreateAnottation extends Component {
       id: props.id,
     };
   }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.id !== state.id) {
+      return {
+        id: props.id,
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.id !== prevProps.id) {
+      this.props.getDataCorrespondence(this.props.id);
+    }
+    return null;
+  }
+
   toggle = (id) => {
     this.setState({
       modal: !this.props.modalnewanottation,
@@ -62,6 +80,7 @@ class ModalCreateAnottation extends Component {
       descriptionanottation,
       typeanottation,
       dataUserListSelect,
+      datacorrespondence,
     } = this.props;
 
     const createAnottations = (
@@ -79,6 +98,7 @@ class ModalCreateAnottation extends Component {
       );
     };
 
+    console.log(datacorrespondence);
     return (
       <React.Fragment>
         <Modal className="modal-xl" isOpen={this.state.modal}>
@@ -155,6 +175,55 @@ class ModalCreateAnottation extends Component {
                   <br />
                   <div className="card card-body">
                     <ListUserDestination />
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      {" "}
+                      <i className="fa fa-paperclip" /> Documento adjunto
+                    </div>
+                    <div className="">
+                      <table className="table table-sm table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Nombre del archivo</th>
+                            <th>Paginas</th>
+                            <th>Tamaño</th>
+                            <th>Visualizar</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.keys(datacorrespondence) ? (
+                            datacorrespondence.map((aux, id) => {
+                              return (
+                                <tr key={id}>
+                                  <td>{aux.filenameOriginal}</td>
+                                  <td>{aux.numImages}</td>
+                                  <td>{aux.size}</td>
+                                  <td className="text-center">
+                                    <button
+                                      title="Ver adjunto"
+                                      className="btn btn-secondary btn-sm"
+                                      type="button"
+                                      onClick={() =>
+                                        alert(
+                                          "Toggle para ver el documento adjunto"
+                                        )
+                                      }
+                                    >
+                                      <i className="fa fa-eye" />
+                                    </button>
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <tr>No hay documentos adjuntos</tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -237,6 +306,8 @@ const mapStateToProps = (state) => {
     typeanottation: state.dataAnottationsReducers.typeanottation,
     page: state.dataAnottationsReducers.page,
     dataUserListSelect: state.dataAnottationsReducers.dataUserListSelect,
+    datacorrespondence:
+      state.dataAnottationsReducers.datacorrespondence.attachments || [],
   };
 };
 
@@ -250,6 +321,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onChangeSelectPageAnottation: (data) => {
       dispatch(selectPageAnottation(data));
+    },
+    getDataCorrespondence: (id) => {
+      dispatch(setDataCorrespondence(id));
     },
   };
 };

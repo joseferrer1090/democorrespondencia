@@ -1,3 +1,4 @@
+import { cosh } from "core-js/fn/number";
 import {
   AGREGAR_ANOTACION_CORRESPONDENCIA,
   LISTA_ANOTACIONES,
@@ -19,6 +20,7 @@ import {
   userListDependence,
   userListByGroup,
   searchUserbyName,
+  getInformationCorrespondence,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -272,4 +274,21 @@ export const setDataListUserName = (data) => ({
   type: "DATA_USER_LIST",
   payload: data,
 });
+// FIN
+
+// INFORMACION DE LA CORRESPONDENCIA PARA LA ANOTACION
+export const setDataCorrespondence = (id) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await getInformationCorrespondence(token, id);
+    console.log(aux);
+    dispatch(setDataCorrespondenceId(aux));
+  };
+};
+
+export const setDataCorrespondenceId = (data) => ({
+  type: "SET_DATA_CORRESPONDENCE_ID",
+  payload: data,
+});
+
 // FIN
