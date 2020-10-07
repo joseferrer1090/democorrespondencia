@@ -155,16 +155,18 @@ export const dataGroupUsers = async (token) => {
 
 // BUSCADOR POR NOMBRE DE USUARIO
 export const searchUserbyName = async (token, name) => {
-  const responses = await fetch(`${SEARCH_BY_USERNAME}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({
-      name: name,
-    }),
-  });
+  let aux = new FormData();
+  aux.append("name", name);
+  const responses = await fetch(
+    `http://localhost:8090/api/sgdea/service/configuration/users/search/name`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer" + token,
+      },
+      body: aux,
+    }
+  );
   return await responses.json();
 };
 // FIN
@@ -199,4 +201,7 @@ export const userListByGroup = async (token, idgroup) => {
   );
   return await responses.json();
 };
+// FIN
+
+// BUSCAR USUARIO POR NOMBRE
 // FIN

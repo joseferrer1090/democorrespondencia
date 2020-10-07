@@ -1,4 +1,3 @@
-import { identity } from "lodash";
 import {
   AGREGAR_ANOTACION_CORRESPONDENCIA,
   LISTA_ANOTACIONES,
@@ -19,6 +18,7 @@ import {
   dataGroupUsers,
   userListDependence,
   userListByGroup,
+  searchUserbyName,
 } from "./../utils/helpers/anottations";
 
 import { setActiveAnottations } from "./sidebarStatusAction";
@@ -249,6 +249,27 @@ export const selectTypeAnottation = (data) => ({
 // PAGE FOR ANOTTATION
 export const selectPageAnottation = (data) => ({
   type: "PAGE_ANOTTATION",
+  payload: data,
+});
+// FIN
+
+// ONCHANGE PARA BUSCAR POR NOMBRE
+export const search = (name) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await searchUserbyName(token, name);
+    console.log(aux);
+    dispatch(setDataListUserName(aux));
+  };
+};
+
+export const onChangeNameUser = (data) => ({
+  type: "SEARCH_USER_BY_NAME",
+  payload: data,
+});
+
+export const setDataListUserName = (data) => ({
+  type: "DATA_USER_LIST",
   payload: data,
 });
 // FIN
