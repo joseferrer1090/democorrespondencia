@@ -224,13 +224,14 @@ class ViewCorrespondence extends Component {
     };
 
     const showDisplayValue = (type, data) => {
+      let defaultValueSelect;
       if (type === "select") {
         data.metadata.elementConfig.options.map((aux, idx) => {
           if (aux.selected === "selected") {
-            data.defaultValue = aux.displayValue;
+            defaultValueSelect = aux.displayValue;
           }
         });
-        return data.defaultValue;
+        return defaultValueSelect;
       } else {
         return data.defaultValue;
       }

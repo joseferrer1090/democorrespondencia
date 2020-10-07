@@ -29,6 +29,7 @@ const Inputs = (props) => {
           <div className="form-group">
             <label htmlFor={""}>{props.label}</label>
             <select
+              defaultValue={props.defaultValue}
               className="form-control form-control-sm"
               onChange={props.onChange}
               onBlur={props.onBlur}
