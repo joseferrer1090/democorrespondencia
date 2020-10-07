@@ -9,12 +9,8 @@ class SidebarInboxComponent extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="col-md-2" style={{ height: "auto ", padding: "0px" }}>
-        {/* <div className="" style={{ width: "108%" }}>
-          <p>Probando apenas para el cambio</p>
-        </div> */}
         <nav id="sidebar">
           <div className="sidebar-header">
             <ListComponent />

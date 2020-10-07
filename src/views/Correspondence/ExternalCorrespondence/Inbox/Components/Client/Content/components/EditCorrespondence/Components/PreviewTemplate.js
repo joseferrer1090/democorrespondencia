@@ -8,7 +8,7 @@ const PreviewTemplate = ({ field, ...props }) => {
   const dataInputsRef = useRef();
 
   const template = useSelector(
-    (state) => state.editCorrespondeceExternalPreviewTemplate.template
+    (state) => state.editCorrespondenceExternalPreviewTemplate.template
   );
 
   useEffect(() => {}, [props.id, template]);
@@ -34,6 +34,11 @@ const PreviewTemplate = ({ field, ...props }) => {
                     formType={aux.metadata.elementConfig.type}
                     elementConfig={aux.metadata.elementConfig}
                     onChange={(e) => {
+                      props.infoMetadataPosition([id]);
+                      props.infoMetadataId(aux.idMetadata);
+                      props.infoMetadataValue(e.target.value);
+                    }}
+                    onBlur={(e) => {
                       props.infoMetadataPosition([id]);
                       props.infoMetadataId(aux.idMetadata);
                       props.infoMetadataValue(e.target.value);

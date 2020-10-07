@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import HeaderBox from "./../../../Header/HeaderInbox";
 import SideBar from "./../../../Sidebar/SidebarInboxComponent";
-import { Card, CardHeader, CardBody } from "reactstrap";
+import { Card, CardHeader, CardBody, Collapse } from "reactstrap";
 import PropTypes from "prop-types";
 import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
 import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
@@ -53,6 +53,9 @@ class ViewCorrespondence extends Component {
       dataAttachments: [],
       dataAnnotations: [],
       authToken: "",
+      isOpenCollapseFile: false,
+      viewPDFid: "",
+      viewPDFfileName: "",
     };
     this.myViewer = React.createRef();
   }
@@ -71,12 +74,9 @@ class ViewCorrespondence extends Component {
 
   componentDidMount() {
     this.getDataLocal();
-    this.setState(
-      {
-        id: this.props.match.params,
-      }
-      // () => this.getInfoCorrespondencia(this.state.id.id)
-    );
+    this.setState({
+      id: this.props.match.params,
+    });
   }
 
   getDataLocal = () => {
@@ -92,7 +92,7 @@ class ViewCorrespondence extends Component {
 
   getInfoCorrespondencia = (id) => {
     const { authToken } = this.state;
-    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}?username=ccuartas`, {
+    fetch(`${EXTERNAL_CORRESPONDENCE_RECEIVED}/${id}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + authToken,
@@ -184,15 +184,9 @@ class ViewCorrespondence extends Component {
       dataPlantilla,
       dataAttachments,
       dataAnnotations,
+      viewPDFid,
+      viewPDFfileName,
     } = this.state;
-
-    const urlViewFile = () => {
-      let url;
-      dataAttachments.map((aux, idx) => {
-        url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${aux.id}/${aux.fileName}`;
-      });
-      return url;
-    };
 
     const dataTableDestinatarios = () => {
       let tableDestinatarios;
@@ -201,24 +195,101 @@ class ViewCorrespondence extends Component {
           <tr>
             <td>{aux.name}</td>
             <td>{aux.dependence}</td>
+            <td>{destinatarioOriginal(aux.original)}</td>
           </tr>
         );
       });
       return tableDestinatarios;
     };
 
+    const destinatarioOriginal = (bool) => {
+      if (bool === true) {
+        return <b style={{ color: "green" }}>Si</b>;
+      } else if (bool === false) {
+        return <b>No</b>;
+      }
+    };
+
     const dataTableMetadatos = () => {
       let tableMetadatos;
       tableMetadatos = dataInfoMetadatos.map((aux, idx) => {
-        console.log(aux);
         return (
           <tr>
-            <td>{aux.name}</td>
-            <td>{aux.value}</td>
+            <td>{aux.metadata.elementConfig.labeltext}</td>
+            <td>{showDisplayValue(aux.metadata.type, aux)}</td>
           </tr>
         );
       });
       return tableMetadatos;
+    };
+
+    const showDisplayValue = (type, data) => {
+      let defaultValueSelect;
+      if (type === "select") {
+        data.metadata.elementConfig.options.map((aux, idx) => {
+          if (aux.selected === "selected") {
+            defaultValueSelect = aux.displayValue;
+          }
+        });
+        return defaultValueSelect;
+      } else {
+        return data.defaultValue;
+      }
+    };
+
+    const dataTableFiles = () => {
+      let tableFiles;
+      tableFiles = dataAttachments.map((aux, idx) => {
+        return (
+          <tr>
+            <td>{aux.filenameOriginal}</td>
+            <td>{aux.numImages}</td>
+            <td>{aux.size}</td>
+            <td>
+              {" "}
+              <button
+                title="Ver correspondencia"
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={() => {
+                  toggle();
+                  this.setState({
+                    viewPDFid: aux.id,
+                    viewPDFfileName: aux.fileName,
+                  });
+                }}
+              >
+                <i className="fa fa-eye" />
+              </button>
+            </td>
+          </tr>
+        );
+      });
+      return tableFiles;
+    };
+
+    const toggle = () => {
+      this.setState({
+        isOpenCollapseFile: !this.state.isOpenCollapseFile,
+      });
+    };
+
+    const collapseViewFile = () => {
+      let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${viewPDFid}/${viewPDFfileName}`;
+      return (
+        <div
+          className="card card-body"
+          style={{ height: "600px", padding: "0px" }}
+        >
+          {viewPDFid && viewPDFfileName !== "" ? (
+            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
+          ) : (
+            <div className="jumbotron">
+              <h6 className="text-center">No hay datos</h6>
+            </div>
+          )}
+        </div>
+      );
     };
 
     const dataTableAnnotations = () => {
@@ -316,17 +387,6 @@ class ViewCorrespondence extends Component {
                           <i className="fa fa-print" />
                         </button>
                         &nbsp;
-                        {/* <button
-                              title="Expandir"
-                              className="btn btn-secondary btn-sm"
-                              onClick={() => {
-                                window.open("", "", "width=1000,height=600");
-                              }}
-                            >
-                              {" "}
-                              <i className="fa fa-expand" />
-                            </button>
-                            &nbsp; */}
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"
@@ -512,15 +572,7 @@ class ViewCorrespondence extends Component {
                                     <label>
                                       <strong> Folios </strong>
                                     </label>
-                                    <dd> 3 </dd>
-                                  </div>
-                                </div>
-                                <div className="col-md-4">
-                                  <div className="form-group">
-                                    <label>
-                                      <strong> Imágenes </strong>
-                                    </label>
-                                    <dd> 0 </dd>
+                                    <dd> {dataCorrespondencia.numFolios} </dd>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
@@ -531,9 +583,6 @@ class ViewCorrespondence extends Component {
                                     <dd> {dataTipoLlegada.name} </dd>
                                   </div>
                                 </div>
-                              </div>
-                              <hr style={styleHR} />
-                              <div className="row">
                                 <div className="col-md-4">
                                   <div className="form-group">
                                     <label>
@@ -542,6 +591,9 @@ class ViewCorrespondence extends Component {
                                     <dd>{dataCorrespondencia.guide} </dd>
                                   </div>
                                 </div>
+                              </div>
+                              <hr style={styleHR} />
+                              <div className="row">
                                 <div className="col-md-4">
                                   <div className="form-group">
                                     <label>
@@ -554,18 +606,12 @@ class ViewCorrespondence extends Component {
                             </div>
                           </div>
                         </div>
-                        {/* <p>Informacion importante de la radicación</p>
-                         */}
-
-                        {/* Fin primera seccion */}
-
-                        {/* Segunda seccion */}
                         <div className="row">
                           <div className="col-md-12">
                             <div className="card">
                               <div className="p-2 mb-1 bg-secondary text-black">
                                 {" "}
-                                Remitente
+                                Tercero asignado
                               </div>
                               <div className="card-body">
                                 <div className="row">
@@ -597,7 +643,7 @@ class ViewCorrespondence extends Component {
                             <div className="card">
                               <div className="p-2 mb-1 bg-secondary text-black">
                                 {" "}
-                                Destinatario
+                                Destinatarios asignados
                               </div>
                               <div className="card-body">
                                 <div className="row">
@@ -607,12 +653,10 @@ class ViewCorrespondence extends Component {
                                         <tr>
                                           <th>Nombre </th>
                                           <th>Dependencia</th>
+                                          <th>Orignal</th>
                                         </tr>
                                       </thead>
-                                      <tbody>
-                                        {/* {dataTableDestinatarios()} */}
-                                        {dataTableDestinatarios()}
-                                      </tbody>
+                                      <tbody>{dataTableDestinatarios()}</tbody>
                                     </table>
                                   </div>
                                 </div>
@@ -620,53 +664,77 @@ class ViewCorrespondence extends Component {
                             </div>
                           </div>
                         </div>
-                        {/* Fin segunda seccion */}
-
-                        {/* Tercera seccion */}
                         <div className="card">
                           <div className="p-2 mb-1 bg-secondary text-black">
                             {" "}
                             Campos adiciones{" "}
                           </div>
+
                           <div className="card-body">
-                            <div>
-                              <span style={{ fontSize: "15px" }}>
+                            {dataPlantilla !== null ? (
+                              <Fragment>
                                 {" "}
-                                <i className="fa fa-info-circle" /> Metadatos
-                                asociados a la plantilla{" "}
-                                <b>{dataPlantilla.name}</b>
-                              </span>
-                            </div>
-                            <br />
-                            <table className="table table-sm">
-                              <thead className="thead-light">
-                                <tr>
-                                  <th scope="col">Campo</th>
-                                  <th scope="col">Valor</th>
-                                </tr>
-                              </thead>
-                              <tbody>{dataTableMetadatos()}</tbody>
-                            </table>
+                                <div>
+                                  <span style={{ fontSize: "15px" }}>
+                                    {" "}
+                                    <i className="fa fa-info-circle" />{" "}
+                                    Metadatos asociados a la plantilla{" "}
+                                    <b>{dataPlantilla.name}</b>
+                                  </span>
+                                </div>
+                                <br />
+                                <table className="table table-sm">
+                                  <thead className="thead-light">
+                                    <tr>
+                                      <th scope="col">Campo</th>
+                                      <th scope="col">Valor</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>{dataTableMetadatos()}</tbody>
+                                </table>
+                              </Fragment>
+                            ) : (
+                              <Fragment>
+                                <div className="jumbotron">
+                                  <h6 className="text-center">No hay datos</h6>
+                                </div>
+                              </Fragment>
+                            )}
                           </div>
                         </div>
-                        {/* Fin tercera seccion */}
+                        <div className="card">
+                          <div className="p-2 mb-1 bg-secondary text-black">
+                            {" "}
+                            Documentos adjuntos{" "}
+                          </div>
 
-                        {/* Cuarta seccion */}
-                        <div
-                          className="card card-body"
-                          style={{ height: "600px", padding: "0px" }}
-                        >
-                          {dataAttachments.length > 0 ? (
-                            <PDFViewer
-                              ref={this.myViewer}
-                              backend={PDFJSBackend}
-                              src={urlViewFile()}
-                            />
-                          ) : null}
+                          <div className="card-body">
+                            {dataAttachments.length > 0 ? (
+                              <Fragment>
+                                <table className="table table-sm">
+                                  <thead className="thead-light">
+                                    <tr>
+                                      <th scope="col">Nombre del archivo</th>
+                                      <th scope="col">Páginas</th>
+                                      <th scope="col">Tamaño</th>
+                                      <th scope="col">Visualizar</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>{dataTableFiles()}</tbody>
+                                </table>
+                              </Fragment>
+                            ) : (
+                              <Fragment>
+                                <div className="jumbotron">
+                                  <h6 className="text-center">No hay datos</h6>
+                                </div>
+                              </Fragment>
+                            )}
+                          </div>
                         </div>
-                        {/* Fin Cuarta seccion */}
-
-                        {/* Quinta seccion */}
+                        <Collapse isOpen={this.state.isOpenCollapseFile}>
+                          {collapseViewFile()}
+                        </Collapse>
                         <div className="card">
                           <div className="p-2 mb-1 bg-secondary text-black">
                             {" "}
@@ -694,7 +762,6 @@ class ViewCorrespondence extends Component {
                             </table>
                           </div>
                         </div>
-                        {/* Fin quinta seccion */}
                       </div>
                     </CardBody>
                   </Card>

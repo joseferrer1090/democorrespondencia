@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { COMPANY_BY_CONGLOMERATE } from "../../../../../../../../../../services/EndPoints";
 
-
 const FieldCompany = ({
   field,
   form: { errors, touched, setFieldTouched, setFieldValue, values },
@@ -33,6 +32,8 @@ const FieldCompany = ({
       setDataCompany([]);
       values.correspondence_company = "";
       fetchNewValues(props.newValueConglomerateId);
+    } else if (props.conglomerateId !== "") {
+      fetchNewValues(props.conglomerateId);
     } else if (props.conglomerateId === "") {
       setDataCompany([]);
       values.correspondence_company = "";
@@ -56,6 +57,7 @@ const FieldCompany = ({
           touched.correspondence_company &&
           "is-invalid"
         }`}
+        value={values.correspondence_company}
       >
         <option value={""}>-- Seleccione --</option>
         {dataCompany.map((aux, id) => {

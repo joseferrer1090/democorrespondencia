@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { HEADQUARTER_BY_COMPANY } from "../../../../../../../../../../services/EndPoints";
 
-
 const FieldHeadquarter = ({
   field,
   form: { errors, touched, setFieldTouched, setFieldValue, values },
@@ -20,6 +19,7 @@ const FieldHeadquarter = ({
     })
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data);
         setDataHeadquarter(data);
       })
       .catch((err) => {
@@ -34,7 +34,9 @@ const FieldHeadquarter = ({
     }
     if (PREValue !== props.companyId) {
       setDataHeadquarter([]);
-      values.correspondence_headquarter = "";
+      if (PREValue !== "") {
+        values.correspondence_headquarter = "";
+      }
       fetchNewValues(props.companyId);
     }
   };
@@ -63,6 +65,7 @@ const FieldHeadquarter = ({
     <div>
       {" "}
       <select
+        value={values.correspondence_headquarter}
         onChange={(e) =>
           setFieldValue("correspondence_headquarter", e.target.value)
         }
@@ -74,15 +77,15 @@ const FieldHeadquarter = ({
         }`}
       >
         <option value={""}>-- Seleccione --</option>
-        {dataHeadquarter === []
-          ? null
-          : dataHeadquarter.map((aux, id) => {
+        {dataHeadquarter.length !== 0
+          ? dataHeadquarter.map((aux, id) => {
               return (
                 <option key={id} value={aux.id}>
                   {aux.name}
                 </option>
               );
-            })}
+            })
+          : null}
       </select>{" "}
     </div>
   );

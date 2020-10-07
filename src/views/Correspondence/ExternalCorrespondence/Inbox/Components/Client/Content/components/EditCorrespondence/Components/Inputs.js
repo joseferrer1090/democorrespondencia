@@ -13,6 +13,7 @@ const Inputs = (props) => {
               type="text"
               className="form-control form-control-sm"
               onChange={props.onChange}
+              onBlur={props.onBlur}
               value={props.value}
               defaultValue={props.defaultValue}
               ref={props.ref}
@@ -28,11 +29,13 @@ const Inputs = (props) => {
           <div className="form-group">
             <label htmlFor={""}>{props.label}</label>
             <select
+              defaultValue={props.defaultValue}
               className="form-control form-control-sm"
               onChange={props.onChange}
+              onBlur={props.onBlur}
               {...props.elementConfig}
             >
-              <option> -- Seleccione -- </option>
+              <option value=""> -- Seleccione -- </option>
               {props.elementConfig.options.length ? (
                 props.elementConfig.options.map((aux, id) => (
                   <option key={id} value={aux.value}>

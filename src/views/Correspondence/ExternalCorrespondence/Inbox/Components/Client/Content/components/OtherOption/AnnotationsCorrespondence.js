@@ -69,7 +69,6 @@ class AnnotationsCorrespondence extends Component {
   };
 
   render() {
-    console.log(this.state.data);
     return (
       <Modal className="modal-xl" isOpen={this.state.modal} fade={false}>
         <ModalHeader>Anotaciones adicionales a la correspondencia</ModalHeader>
