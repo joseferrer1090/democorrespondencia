@@ -36,11 +36,13 @@ class ModalCreateAnottation extends Component {
       modal: props.modalnewanottation,
       activeTab: 1,
       typeanottation: "",
+      id: props.id,
     };
   }
-  toggle = () => {
+  toggle = (id) => {
     this.setState({
       modal: !this.props.modalnewanottation,
+      id: id,
     });
   };
 
@@ -70,7 +72,7 @@ class ModalCreateAnottation extends Component {
       e.preventDefault();
       console.log(
         JSON.stringify({
-          receivedId: "f80bdd3f-8d48-4536-b292-9025df48f53e",
+          receivedId: this.state.id,
           anottation: descriptionanottation,
           users: dataUserListSelect,
         })
