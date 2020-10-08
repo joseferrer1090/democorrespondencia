@@ -6,9 +6,7 @@ import {
   OBTENER_PLANTILLA_BY_TYPE_DOCUMENTARY,
   OBTENER_METADATOS_ERROR_BY_TYPE_DOCUMENTARY,
 } from "./../types";
-import {
-  TYPE_DOCUMENTARIES_BY_ID,
-} from "./../services/EndPoints";
+import { TYPE_DOCUMENTARIES_BY_ID } from "./../services/EndPoints";
 
 export function obtenerDataTipoDocumental(id) {
   const auth = localStorage.getItem("auth_token");
@@ -29,7 +27,7 @@ export function obtenerDataTipoDocumental(id) {
             data.metadata.map((aux, id) => {
               return {
                 id: aux.idMetadata,
-                defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+                value: aux.defaultValue !== null ? aux.defaultValue : "",
               };
             })
           )
@@ -37,7 +35,10 @@ export function obtenerDataTipoDocumental(id) {
         dispatch(obtenerInfoTemplateByTypeDocumentary(data.metadata));
       })
 
-      .catch((err) => {console.log(err);   dispatch(clearData()); });
+      .catch((err) => {
+        console.log(err);
+        dispatch(clearData());
+      });
   };
 }
 
@@ -58,7 +59,7 @@ export function obtenerMetadatosByTypeDocumentary(id) {
             data.metadata.map((aux, id) => {
               return {
                 id: aux.idMetadata,
-                defaultValue: aux.defaultValue !== null ? aux.defaultValue : "",
+                value: aux.defaultValue !== null ? aux.defaultValue : "",
               };
             })
           )
@@ -80,7 +81,6 @@ const infoAdicionalFormStep1Radication = (data) => ({
   type: INFO_ADICION_FORM_STEP1,
   payload: data,
 });
-
 
 export const resetFormStep1TypeDocumentary = () => ({
   type: RESET_FORM_STEP_1,

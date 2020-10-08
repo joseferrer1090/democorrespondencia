@@ -128,8 +128,55 @@ class ContentPending extends Component {
     return disabled;
   };
 
+  actionsContentPending = (state, id) => {
+    let actions;
+    if (state === "INICIADO") {
+      actions = (
+        <Fragment>
+          <button
+            title="Continuar radicación"
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => console.log(id)}
+          >
+            <i className="fa fa-play" />
+          </button>
+          &nbsp;
+          <button
+            title="Editar y/o completar radicación"
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => this.OpenOnClickEdit(id)}
+          >
+            <i className="fa fa-pencil" />
+          </button>
+        </Fragment>
+      );
+    } else if (state === "POR ADJUNTAR") {
+      actions = (
+        <Fragment>
+          <button
+            title="Continuar radicación"
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => console.log(id)}
+          >
+            <i className="fa fa-play" />
+          </button>
+        </Fragment>
+      );
+    } else {
+      return state;
+    }
+    return actions;
+  };
+
+  OpenOnClickEdit = (id) => {
+    let path = `/#/correspondence/external/edit/${id}`;
+    window.location.replace(path);
+  };
+
   render() {
-    console.log(this.props);
     const { allcontent, number, totalPages } = this.props;
     const currentPage = this.props.number;
     const pageNumCss = {
@@ -283,21 +330,10 @@ class ContentPending extends Component {
                           </td>
                           <td>
                             <div className="">
-                              <button
-                                title="Contuniar correspondencia"
-                                type="button"
-                                className="btn btn-secondary btn-sm"
-                              >
-                                <i className="fa fa-play" />
-                              </button>
-                              &nbsp;
-                              <button
-                                title="editar y/o completar correspondencia"
-                                type="button"
-                                className="btn btn-secondary btn-sm"
-                              >
-                                <i className="fa fa-pencil" />
-                              </button>
+                              {this.actionsContentPending(
+                                correspondence.statusName,
+                                correspondence.id
+                              )}
                             </div>
                           </td>
                         </tr>

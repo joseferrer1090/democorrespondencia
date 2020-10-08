@@ -1,3 +1,4 @@
+import { style } from "glamor";
 import React, { Component } from "react";
 
 class PDFViewer extends Component {
@@ -10,20 +11,10 @@ class PDFViewer extends Component {
   componentDidMount() {
     const { src, width, height } = this.props;
     const element = this.viewerRef.current;
-
     this.backend.init(src, element, width, height);
   }
   render() {
-    return (
-      <div
-        ref={this.viewerRef}
-        id="viewer"
-        // style={{
-        //   width: `${this.props.width}px !important`,
-        //   height: `${this.props.height}px !important`,
-        // }}
-      />
-    );
+    return <div ref={this.viewerRef} id="viewer" />;
   }
 }
 

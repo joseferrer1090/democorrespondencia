@@ -52,6 +52,16 @@ const EditCorrespondence = React.lazy(() =>
     "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/index"
   )
 );
+const EditRadicationSticker = React.lazy(() =>
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/StickerCorrespondence"
+  )
+);
+const EditRadicationFiles = React.lazy(() =>
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/UploadFilesCorrespondence"
+  )
+);
 
 const InboxInternal = React.lazy(() =>
   import(
@@ -166,7 +176,18 @@ const routes = [
   },
   {
     path: "/correspondence/external/edit/:id",
+    name: "Edición de la correspondencia externa recibida",
     component: EditCorrespondence,
+  },
+  {
+    path: "/correspondence/external/stickerprint",
+    name: "Impresión del sticker de la radicación externa recibida",
+    component: EditRadicationSticker,
+  },
+  {
+    path: "/correspondence/external/uploadfiles",
+    name: "Ajuntar documento a la radicación externa recibida",
+    component: EditRadicationFiles,
   },
   {
     path: "/correspondence/internal/entrantes",

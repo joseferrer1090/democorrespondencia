@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
+import { Card, CardHeader, CardBody, Collapse } from "reactstrap";
 import HeaderBox from "./../../../Header/HeaderInbox";
 import SideBar from "./../../../Sidebar/SidebarInboxComponent";
-import { Card, CardHeader, CardBody, Collapse } from "reactstrap";
-import PropTypes from "prop-types";
-import ModalAnotations from "./../OtherOption/AnnotationsCorrespondence";
-import ModalAddanotation from "./../OtherOption/AddanotationsCorrespondence";
-import ModalSticker from "./../ModalStciker/ModalSticker";
+import ModalCreateAnottation from "./../../../../../../Annotations/component/ModalCreateAnottation";
 import PDFViewer from "./../../../../../../../../../utils/pdfViewer/components/PDFViewer";
 import PDFJSBackend from "./../../../../../../../../../utils/pdfViewer/backend/pdfjs";
 import "./css/card-custom.css";
-import moment from "moment";
+
 import {
   EXTERNAL_CORRESPONDENCE_RECEIVED,
   USER,
@@ -56,6 +55,7 @@ class ViewCorrespondence extends Component {
       isOpenCollapseFile: false,
       viewPDFid: "",
       viewPDFfileName: "",
+      modalview: false,
     };
     this.myViewer = React.createRef();
   }
@@ -169,6 +169,11 @@ class ViewCorrespondence extends Component {
     return moment(documentDate).format("DD-MM-YYYY");
   };
 
+  openModalNew() {
+    let id = this.props.match.params.id;
+    this.ModalNewAnottation.toggle(id);
+  }
+
   render() {
     const {
       dataCorrespondencia,
@@ -277,18 +282,26 @@ class ViewCorrespondence extends Component {
     const collapseViewFile = () => {
       let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${viewPDFid}/${viewPDFfileName}`;
       return (
-        <div
-          className="card card-body"
-          style={{ height: "600px", padding: "0px" }}
-        >
+        // <div
+        //   className="card card-body"
+        //   // style={{ height: "600px", padding: "0px" }}
+        // >
+        <Fragment>
           {viewPDFid && viewPDFfileName !== "" ? (
-            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
+            <PDFViewer
+              ref={this.myViewer}
+              backend={PDFJSBackend}
+              src={url}
+              width={"100%"}
+              height={"600px"}
+            />
           ) : (
             <div className="jumbotron">
               <h6 className="text-center">No hay datos</h6>
             </div>
           )}
-        </div>
+        </Fragment>
+        // </div>
       );
     };
 
@@ -351,93 +364,14 @@ class ViewCorrespondence extends Component {
                         &nbsp; Asunto: {dataCorrespondencia.issue}{" "}
                       </h4>
                       <div className="float-right">
-                        <button
-                          title="Editar correspondencia"
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          onClick={() => {
-                            this.OpenOnClickEdit();
-                          }}
-                        >
-                          <i className="fa fa-edit" />
-                        </button>
-                        &nbsp;
+                        {/** botones de acciones de la vista "./actionsViewCorrespondence"  */}
                         <button
                           type="button"
-                          title="Marcar como no leida"
-                          className="btn btn-secondary btn-sm"
-                        >
-                          <i className="fa fa-envelope-o" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          title="Archivar"
-                        >
-                          <i className="fa fa-floppy-o" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          title="Imprimir"
-                          className="btn btn-secondary btn-sm"
-                        >
-                          {" "}
-                          <i className="fa fa-print" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
                           title="Agregar anotación"
-                          onClick={() => {
-                            this.OpenModalAddanotation();
-                          }}
-                        >
-                          <i className="fa fa-comment" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          title="Anotaciones"
                           className="btn btn-secondary btn-sm"
-                          onClick={() => this.OpenModalAnotation()}
+                          onClick={() => this.openModalNew()}
                         >
-                          {" "}
-                          <i className="fa fa-comments" aria-hidden="true" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          title="Usuarios relacionados"
-                          onClick={() => {
-                            this.OpenOnClickViewRelatedUsers();
-                          }}
-                        >
-                          {" "}
-                          <i className="fa fa-users" />{" "}
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          title="Historial"
-                          onClick={() => {
-                            this.OpenClickHistorialCorrespondence();
-                          }}
-                        >
-                          <i className="fa fa-history" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          title="Ver radicado"
-                          onClick={() => this.OpenModalSticker()}
-                        >
-                          <i className="fa fa-file-text-o" />
+                          <i className="fa fa-sticky-note" />
                         </button>
                       </div>
                     </CardHeader>
@@ -770,15 +704,11 @@ class ViewCorrespondence extends Component {
             </div>
           </div>
         </div>
-        <ModalAnotations
-          annotationmodal={this.state.modalanotation}
-          ref="child"
+        <ModalCreateAnottation
+          id={this.state.id.id}
+          modalnewanottation={this.state.modalview}
+          ref={(mo) => (this.ModalNewAnottation = mo)}
         />
-        <ModalAddanotation
-          modaladdanotation={this.state.modaladdanotation}
-          ref="child2"
-        />
-        <ModalSticker modalsticker={this.state.modalstikcer} ref="child3" />
       </div>
     );
   }
