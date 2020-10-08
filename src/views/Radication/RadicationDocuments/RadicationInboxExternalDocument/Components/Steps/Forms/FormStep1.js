@@ -56,6 +56,8 @@ const FormStep1 = (props) => {
   const idMetadata = useSelector(
     (state) => state.step1ReducerPreviewTemplate.idMetadata
   );
+  let radicationCorrespondenceExternalMetadata = idMetadata;
+
   const modalViewRef = useRef("mv");
   const ModalAddRef = useRef("ma");
   const [btnContinueStep2, setBtnContinueStep2] = useState(false);
@@ -138,25 +140,13 @@ const FormStep1 = (props) => {
     cObjectId,
     cObjectValue
   ) => {
-    let object;
-    let ids = idMetadata;
-
+    const logArrayElements = (element, index, array) => {
+      if (element.id === cObjectId) {
+        element.value = cObjectValue;
+      }
+    };
     if (cObjectPosition && cObjectId && cObjectValue !== undefined) {
-      object = {
-        id: cObjectId,
-        defaultValue: cObjectValue,
-      };
-
-      ids.map((aux, idx) => {
-        if (aux.id === object.id) {
-          aux.defaultValue = object.defaultValue;
-        }
-      });
-      console.log(ids);
-      return ids;
-    } else {
-      console.log(ids);
-      return ids;
+      radicationCorrespondenceExternalMetadata.forEach(logArrayElements);
     }
   };
 
@@ -164,7 +154,16 @@ const FormStep1 = (props) => {
     setNameUserFiling(props.nameUserFiling);
     setHeadquarterFiling(props.headquarterFiling);
     dispatch(obtenerDataTemplate());
-  }, [props.nameUserFiling, props.setHeadquarterFiling, idTemplate]);
+    contrusctorObjectMetadata(cObjectPosition, cObjectId, cObjectValue);
+    console.log(radicationCorrespondenceExternalMetadata);
+  }, [
+    props.nameUserFiling,
+    props.setHeadquarterFiling,
+    idTemplate,
+    cObjectPosition,
+    cObjectId,
+    cObjectValue,
+  ]);
 
   return (
     <Formik
@@ -277,11 +276,7 @@ const FormStep1 = (props) => {
               templateId: values.correspondence_template,
               original: userData.original,
               usersAddressees: userData.users,
-              metadata: contrusctorObjectMetadata(
-                cObjectPosition,
-                cObjectId,
-                cObjectValue
-              ),
+              metadata: radicationCorrespondenceExternalMetadata,
             }),
           })
             .then((response) =>
