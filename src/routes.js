@@ -176,15 +176,17 @@ const routes = [
   },
   {
     path: "/correspondence/external/edit/:id",
+    name: "Edición de la correspondencia externa recibida",
     component: EditCorrespondence,
   },
   {
     path: "/correspondence/external/stickerprint",
-    name: "Impresión del sticker",
+    name: "Impresión del sticker de la radicación externa recibida",
     component: EditRadicationSticker,
   },
   {
     path: "/correspondence/external/uploadfiles",
+    name: "Ajuntar documento a la radicación externa recibida",
     component: EditRadicationFiles,
   },
   {
