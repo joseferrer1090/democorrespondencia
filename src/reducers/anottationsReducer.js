@@ -241,7 +241,7 @@ export const dataAnottationsReducers = (state = initialState, action) => {
         page: action.payload,
       };
 
-    case "SET_DATA_CORRESPONDENCE":
+    case "SET_DATA_CORRESPONDENCE_ID":
       return {
         ...state,
         datacorrespondence: action.payload,

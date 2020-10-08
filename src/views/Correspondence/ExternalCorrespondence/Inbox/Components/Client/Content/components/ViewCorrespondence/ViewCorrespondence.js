@@ -282,18 +282,26 @@ class ViewCorrespondence extends Component {
     const collapseViewFile = () => {
       let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${viewPDFid}/${viewPDFfileName}`;
       return (
-        <div
-          className="card card-body"
-          style={{ height: "600px", padding: "0px" }}
-        >
+        // <div
+        //   className="card card-body"
+        //   // style={{ height: "600px", padding: "0px" }}
+        // >
+        <Fragment>
           {viewPDFid && viewPDFfileName !== "" ? (
-            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
+            <PDFViewer
+              ref={this.myViewer}
+              backend={PDFJSBackend}
+              src={url}
+              width={"100%"}
+              height={"600px"}
+            />
           ) : (
             <div className="jumbotron">
               <h6 className="text-center">No hay datos</h6>
             </div>
           )}
-        </div>
+        </Fragment>
+        // </div>
       );
     };
 

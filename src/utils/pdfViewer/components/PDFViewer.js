@@ -1,25 +1,20 @@
+import { style } from "glamor";
 import React, { Component } from "react";
 
 class PDFViewer extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.viewerRef = React.createRef();
     this.backend = new props.backend();
   }
 
   componentDidMount() {
-    const { src } = this.props;
+    const { src, width, height } = this.props;
     const element = this.viewerRef.current;
-    this.backend.init(src, element);
+    this.backend.init(src, element, width, height);
   }
   render() {
-    return (
-      <div
-        ref={this.viewerRef}
-        id="viewer"
-        style={{ width: "100%", height: "100%" }}
-      />
-    );
+    return <div ref={this.viewerRef} id="viewer" />;
   }
 }
 

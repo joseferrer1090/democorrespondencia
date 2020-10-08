@@ -1,11 +1,9 @@
 export default class PDFJs {
-  init = (source, element) => {
-    const iframe = document.createElement("iframe");
-    iframe.src = `/pdfjs-2.5.207-dist/web/viewer.html?file=${source}`;
-    iframe.width = "100%";
-    iframe.height = "600px";
-
-    element.appendChild(iframe);
-    // console.log(iframe.src);
+  init = (source, element, width, height) => {
+    const object = document.createElement("object");
+    object.data = `/pdfjs-2.5.207-dist/web/viewer.html?file=${source}`;
+    object.width = `${width}`;
+    object.height = `${height}`;
+    element.appendChild(object);
   };
 }
