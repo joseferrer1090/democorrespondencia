@@ -95,8 +95,6 @@ class ModalCreateAnottation extends Component {
       datacorrespondence,
       page,
     } = this.props;
-    //const apages = .push(page);
-    console.log("Array de paginas", page);
 
     const createAnottations = (
       e,
