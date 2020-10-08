@@ -1163,8 +1163,27 @@ const FormStep1 = (props) => {
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
                         onClick={(e) => {
-                          handleSubmit();
-                          setBtnContinueStep2(true);
+                          console.log({
+                            documentDate: values.correspondence_documentDate,
+                            documentNumber: values.correspondence_documentNum,
+                            issue: values.correspondence_issue,
+                            guide: values.correspondence_guide,
+                            numFolio: values.correspondence_folios,
+                            headquarterId: values.correspondence_headquarter,
+                            typeDocumentaryId:
+                              values.correspondence_typeDocumentary,
+                            cityId: values.correspondence_city,
+                            typeShipmentArrivalId:
+                              values.correspondence_typeArrival,
+                            messengerId: values.correspondence_messenger,
+                            thirdPartyId: idThirdParty,
+                            templateId: values.correspondence_template,
+                            original: userData.original,
+                            usersAddressees: userData.users,
+                            metadata: radicationCorrespondenceExternalMetadata,
+                          });
+                          // handleSubmit();
+                          // setBtnContinueStep2(true);
                           e.preventDefault();
                         }}
                       >

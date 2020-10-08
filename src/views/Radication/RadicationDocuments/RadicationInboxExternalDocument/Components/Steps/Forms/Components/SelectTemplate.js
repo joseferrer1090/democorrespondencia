@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { obtenerMetadatos } from "../../../../../../../../actions/step1ActionsPreviewTemplate";
@@ -10,7 +10,6 @@ const SelectTemplate = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  const [valueTemplate, setValueTemplate] = useState("");
 
   const dataTemplate = useSelector(
     (state) => state.step1ReducerDataTemplate.dataTemplate
@@ -29,21 +28,15 @@ const SelectTemplate = ({
   }, [idTemplateByTypeDocumentary, idTypeDocumentary]);
 
   const validateValues = () => {
-    if (idTemplateByTypeDocumentary !== undefined ) {
-      if(idTemplateByTypeDocumentary !== null){
-values.correspondence_template = idTemplateByTypeDocumentary.id;
+    if (idTemplateByTypeDocumentary !== undefined) {
+      if (idTemplateByTypeDocumentary !== null) {
+        values.correspondence_template = idTemplateByTypeDocumentary.id;
       }
-      // console.log(idTemplateByTypeDocumentary);
-      
       setTimeout(() => {
-        setValueTemplate(values.correspondence_template);
         dispatch(obtenerMetadatos(values.correspondence_template));
         dispatch(obtenerMetadatosByTypeDocumentary(idTypeDocumentary));
       }, 100);
-    } else {
-      setValueTemplate(values.correspondence_template);
     }
-    return valueTemplate;
   };
 
   return (
@@ -51,7 +44,6 @@ values.correspondence_template = idTemplateByTypeDocumentary.id;
       <select
         onChange={(e) => {
           setFieldValue("correspondence_template", e.target.value);
-          setValueTemplate(e.target.value);
           dispatch(obtenerMetadatos(e.target.value));
         }}
         onBlur={(e) => setFieldTouched("correspondence_template", true)}
@@ -60,7 +52,7 @@ values.correspondence_template = idTemplateByTypeDocumentary.id;
           touched.correspondence_template &&
           "is-invalid"
         }`}
-        value={valueTemplate}
+        value={values.correspondence_template}
       >
         <option value={""}>-- Seleccione --</option>
         {dataTemplate !== undefined
