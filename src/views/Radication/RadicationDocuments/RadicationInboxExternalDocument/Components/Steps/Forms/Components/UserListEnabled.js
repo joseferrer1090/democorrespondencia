@@ -7,28 +7,43 @@ import {
   borrarUsuarioDiponible,
 } from "../../../../../../../../actions/step1ActionsReceiver";
 const UserListEnabled = (props) => {
-  const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
   const dispatch = useDispatch();
+  const aux = useSelector((state) => state.step1ReducerReceiver.assigned);
+  const stateReceiver = useSelector((state) => state.step1ReducerReceiver);
+
   const users = props.data;
   const [state, setstate] = useState(aux);
+
+  const nameOriginal = () => {
+    let displayName;
+    if (aux === true) {
+      stateReceiver.users.map((aux, idx) => {
+        if (aux.id === stateReceiver.original) {
+          displayName = aux.name;
+        }
+      });
+    }
+    return displayName;
+  };
 
   useEffect(() => {
     if (users.users.length === 0) {
       setstate(null);
-    } else if (props.aux === null) {
-      setstate(null);
     }
+    setstate(aux);
   }, [state, users, props.aux]);
 
   return (
     <div className="col-md-12">
       {state === true ? (
         <Alert color="success" fade={true}>
-          Usuario asignado para recibir original.
+          <i className="fa fa-circle-check" /> Usuario <b>{nameOriginal()}</b>{" "}
+          asignado para recibir original.
         </Alert>
       ) : state === false ? (
         <Alert color="danger" fade={true}>
-          Se deshabilito el usuario para recibir original.
+          <i class="fa fa-exclamation-triangle" /> No se ha asignado un usuario
+          para recibir el original.
         </Alert>
       ) : null}
       <div className="card">
