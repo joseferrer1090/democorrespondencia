@@ -296,7 +296,7 @@ class ModalCreateAnottation extends Component {
                 <div className="col-md-6">
                   {typeanottation === "2" ? (
                     <div className="form-group">
-                      <label>pagina</label>
+                      <label>Paginas</label>
                       <select className="form-control form-control-sm">
                         {page ? (
                           page.map((aux) => {
@@ -307,7 +307,7 @@ class ModalCreateAnottation extends Component {
                             );
                           })
                         ) : (
-                          <option>No hay paginas</option>
+                          <option>No hay paginas disponibles</option>
                         )}
                       </select>
                     </div>
