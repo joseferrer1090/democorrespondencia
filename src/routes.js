@@ -52,6 +52,16 @@ const EditCorrespondence = React.lazy(() =>
     "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/index"
   )
 );
+const EditRadicationSticker = React.lazy(() =>
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/StickerCorrespondence"
+  )
+);
+const EditRadicationFiles = React.lazy(() =>
+  import(
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/UploadFilesCorrespondence"
+  )
+);
 
 const InboxInternal = React.lazy(() =>
   import(
@@ -167,6 +177,15 @@ const routes = [
   {
     path: "/correspondence/external/edit/:id",
     component: EditCorrespondence,
+  },
+  {
+    path: "/correspondence/external/stickerprint",
+    name: "Impresión del sticker",
+    component: EditRadicationSticker,
+  },
+  {
+    path: "/correspondence/external/uploadfiles",
+    component: EditRadicationFiles,
   },
   {
     path: "/correspondence/internal/entrantes",

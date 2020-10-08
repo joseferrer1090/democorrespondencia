@@ -47,8 +47,8 @@ class RadicationInboxExternalDocument extends Component {
 
   functionStep = () => {
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
-      // linear: false,
-      linear: true,
+      linear: false,
+      // linear: true,
       animation: true,
       displayNext: false,
       displayPrevious: false,

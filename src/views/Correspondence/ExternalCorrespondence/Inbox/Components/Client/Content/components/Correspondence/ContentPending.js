@@ -174,7 +174,6 @@ class ContentPending extends Component {
   OpenOnClickEdit = (id) => {
     let path = `/#/correspondence/external/edit/${id}`;
     window.location.replace(path);
-    // this.props.history.push(path);
   };
 
   render() {
