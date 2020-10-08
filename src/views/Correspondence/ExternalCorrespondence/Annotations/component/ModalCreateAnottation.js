@@ -83,7 +83,7 @@ class ModalCreateAnottation extends Component {
   };
 
   render() {
-    const { activeTab } = this.state;
+    const { activeTab, idFile, fileName } = this.state;
     const {
       alldatacorrespondence,
       namecorrespondence,
@@ -111,11 +111,17 @@ class ModalCreateAnottation extends Component {
     };
 
     const collapseViewFile = () => {
-      let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${this.state.idFile}/${this.state.fileName}`;
+      let url = `http://localhost:8090/api/sgdea/service/external/correspondence/received/filing/attached/view/file/${idFile}/${fileName}`;
       return (
-        <div className=" card card-body">
+        <div>
           {this.state.idFile && this.state.fileName !== "" ? (
-            <PDFViewer ref={this.myViewer} backend={PDFJSBackend} src={url} />
+            <PDFViewer
+              ref={this.myViewer}
+              backend={PDFJSBackend}
+              src={url}
+              width="1100"
+              height="300"
+            />
           ) : (
             <div className="jumbotron">
               <h6 className="text-center">No hay datos</h6>
@@ -279,7 +285,6 @@ class ModalCreateAnottation extends Component {
                         this.props.onChangeTypeAnottation(e.target.value)
                       }
                     >
-                      <option value="">Seleccione</option>
                       <option value="1">Documento</option>
                       <option value="2">Pagina</option>
                     </select>
@@ -289,11 +294,9 @@ class ModalCreateAnottation extends Component {
                   {typeanottation === "2" ? (
                     <div className="form-group">
                       <label>pagina</label>
-                      <input
-                        type="text"
-                        className="form-control form-control-sm"
-                        placeholder="Condicional en caso que se selecciones la opcion pagina"
-                      />
+                      <select className="form-control form-control-sm">
+                        <option>Seleccione la pagina</option>
+                      </select>
                     </div>
                   ) : null}
                 </div>
