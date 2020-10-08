@@ -7,13 +7,14 @@ import {
   agregarUsuarioOriginal,
 } from "../../../../../../../../../../actions/editCorrespondenceExternalReceiver";
 const UserListEnabled = (props) => {
+  const dispatch = useDispatch();
   const aux = useSelector(
     (state) => state.editCorrespondenceExternalReceiver.assigned
   );
   const stateReceiver = useSelector(
     (state) => state.editCorrespondenceExternalReceiver
   );
-  const dispatch = useDispatch();
+
   const users = props.data;
   const [state, setstate] = useState(aux);
 
@@ -44,7 +45,7 @@ const UserListEnabled = (props) => {
         </Alert>
       ) : state === false ? (
         <Alert color="danger" fade={true}>
-          Se deshabilito el usuario para recibir original.
+          No se ha asignado un usuario para recibir el original.
         </Alert>
       ) : null}
       <div className="card">

@@ -235,9 +235,11 @@ const FormStep1 = (props) => {
         correspondence_folios: Yup.string().required(
           " Por favor intruduzca los folios."
         ),
+
         correspondence_issue: Yup.string().required(
           " Por favor introduzca el asunto."
         ),
+        // .nullable(),
         correspondence_messenger: Yup.string()
           .required(" Por favor seleccione un mensajero.")
           .ensure(),
@@ -260,6 +262,7 @@ const FormStep1 = (props) => {
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + auth,
+              "Accept-Language": "es",
             },
             body: JSON.stringify({
               documentDate: values.correspondence_documentDate,
@@ -281,6 +284,7 @@ const FormStep1 = (props) => {
           })
             .then((response) =>
               response.json().then((data) => {
+                console.log(response);
                 if (response.status === 201) {
                   dispatch(obtenerIdRadicacion(data.id));
                   toast.success("Se registro la radicación con éxito.", {
@@ -1159,8 +1163,27 @@ const FormStep1 = (props) => {
                         className="btn btn-success btn-sm"
                         disabled={isSubmitting}
                         onClick={(e) => {
-                          handleSubmit();
-                          setBtnContinueStep2(true);
+                          console.log({
+                            documentDate: values.correspondence_documentDate,
+                            documentNumber: values.correspondence_documentNum,
+                            issue: values.correspondence_issue,
+                            guide: values.correspondence_guide,
+                            numFolio: values.correspondence_folios,
+                            headquarterId: values.correspondence_headquarter,
+                            typeDocumentaryId:
+                              values.correspondence_typeDocumentary,
+                            cityId: values.correspondence_city,
+                            typeShipmentArrivalId:
+                              values.correspondence_typeArrival,
+                            messengerId: values.correspondence_messenger,
+                            thirdPartyId: idThirdParty,
+                            templateId: values.correspondence_template,
+                            original: userData.original,
+                            usersAddressees: userData.users,
+                            metadata: radicationCorrespondenceExternalMetadata,
+                          });
+                          // handleSubmit();
+                          // setBtnContinueStep2(true);
                           e.preventDefault();
                         }}
                       >
