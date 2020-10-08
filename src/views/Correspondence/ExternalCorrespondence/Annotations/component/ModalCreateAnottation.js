@@ -93,7 +93,10 @@ class ModalCreateAnottation extends Component {
       typeanottation,
       dataUserListSelect,
       datacorrespondence,
+      page,
     } = this.props;
+    //const apages = .push(page);
+    console.log("Array de paginas", page);
 
     const createAnottations = (
       e,
@@ -295,7 +298,17 @@ class ModalCreateAnottation extends Component {
                     <div className="form-group">
                       <label>pagina</label>
                       <select className="form-control form-control-sm">
-                        <option>Seleccione la pagina</option>
+                        {page ? (
+                          page.map((aux) => {
+                            return (
+                              <option key="id" value={aux}>
+                                {aux}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option>No hay paginas</option>
+                        )}
                       </select>
                     </div>
                   ) : null}
@@ -338,7 +351,11 @@ const mapStateToProps = (state) => {
     datagroupuserselected: state.dataAnottationsReducers.datagroupuserselected,
     descriptionanottation: state.dataAnottationsReducers.descriptionanottation,
     typeanottation: state.dataAnottationsReducers.typeanottation,
-    page: state.dataAnottationsReducers.page,
+    page: state.dataAnottationsReducers.datacorrespondence.attachments
+      ? state.dataAnottationsReducers.datacorrespondence.attachments.map(
+          (aux) => aux.numImages
+        )
+      : {},
     dataUserListSelect: state.dataAnottationsReducers.dataUserListSelect,
     datacorrespondence:
       state.dataAnottationsReducers.datacorrespondence.attachments || [],
