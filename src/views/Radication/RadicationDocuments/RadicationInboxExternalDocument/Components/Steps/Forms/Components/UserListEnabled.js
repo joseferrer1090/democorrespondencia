@@ -42,10 +42,7 @@ const UserListEnabled = (props) => {
                 {Object.keys(users.users).length === 0 ? (
                   <span className="text-center">
                     <i className="fa fa-info-circle" />{" "}
-                    <b>
-                      No hay usuarios asignados a este tipo documental de
-                      radicación.
-                    </b>{" "}
+                    <b>No hay usuarios asignados a esta radicación.</b>{" "}
                   </span>
                 ) : (
                   <table className="table table-bordered table-sm">

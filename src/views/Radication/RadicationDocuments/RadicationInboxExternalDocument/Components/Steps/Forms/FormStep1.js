@@ -235,9 +235,11 @@ const FormStep1 = (props) => {
         correspondence_folios: Yup.string().required(
           " Por favor intruduzca los folios."
         ),
+
         correspondence_issue: Yup.string().required(
           " Por favor introduzca el asunto."
         ),
+        // .nullable(),
         correspondence_messenger: Yup.string()
           .required(" Por favor seleccione un mensajero.")
           .ensure(),
@@ -260,6 +262,7 @@ const FormStep1 = (props) => {
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + auth,
+              "Accept-Language": "es",
             },
             body: JSON.stringify({
               documentDate: values.correspondence_documentDate,
@@ -281,6 +284,7 @@ const FormStep1 = (props) => {
           })
             .then((response) =>
               response.json().then((data) => {
+                console.log(response);
                 if (response.status === 201) {
                   dispatch(obtenerIdRadicacion(data.id));
                   toast.success("Se registro la radicación con éxito.", {
