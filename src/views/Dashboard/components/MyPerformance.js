@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import { Card, Row, Col, CardBody } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import { Doughnut } from "react-chartjs-2";
-
-const doughnut = {
-  labels: ["Tramites", "Comunicados", "Despachados"],
-  datasets: [
-    {
-      data: [300, 50, 100],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-    }
-  ]
-};
+import { connect } from "react-redux";
+import {
+  getCountReceived,
+  getCountPending,
+  getCountNoveltiesAnnotations,
+} from "../../../actions/chartsDashboard";
 
 class MyPerformance extends Component {
   constructor(props) {
@@ -19,13 +14,34 @@ class MyPerformance extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.getNumberReceived();
+    this.props.getNumberPending();
+    this.props.getNumberNoveltiesAnnotations();
+  }
+
   render() {
+    const {
+      numberReceived,
+      numberPending,
+      numberNoveltiesAnnotations,
+    } = this.props;
+    const doughnut = {
+      labels: ["Bandeja de entrada", "Bandeja de pendientes", "Anotaciones"],
+      datasets: [
+        {
+          data: [numberReceived, numberPending, numberNoveltiesAnnotations],
+          backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56"],
+          hoverBackgroundColor: ["#36A2EB", "#FF6384", "#FFCE56"],
+        },
+      ],
+    };
     return (
       <div className="animated fadeIn">
         <Card>
           <CardBody>
             <div className="text-center">
-              <h5>Mi Rendimiento</h5>
+              <h5>Correspondencia externa recibida</h5>
             </div>
             <div className="chart-wrapper">
               <Doughnut data={doughnut} />
@@ -36,5 +52,27 @@ class MyPerformance extends Component {
     );
   }
 }
+const mapState = (state) => {
+  return {
+    numberReceived: state.chartsDashboard.numberReceived,
+    numberPending: state.chartsDashboard.numberPending,
+    numberNoveltiesAnnotations:
+      state.chartsDashboard.numberNoveltiesAnnotations,
+  };
+};
 
-export default MyPerformance;
+const mapDispatch = (dispatch) => {
+  return {
+    getNumberReceived: () => {
+      dispatch(getCountReceived());
+    },
+    getNumberPending: () => {
+      dispatch(getCountPending());
+    },
+    getNumberNoveltiesAnnotations: () => {
+      dispatch(getCountNoveltiesAnnotations());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(MyPerformance);

@@ -1,0 +1,193 @@
+import {
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE,
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING,
+  OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO,
+  DATA_ALL_CORRESPONDENCE,
+  DATA_ALL_CORRESPONDENCE_PENDING,
+  NUMERO_ELEMENTOS_RECIBIDOS,
+  NUMERO_ELEMENTOS_PENDIENTES,
+  BUSCAR_CORRESPONDENCIA_PENDIENTE,
+  PAGINACION_BANDEJA_RECIBIDA,
+  PAGINACION_BANDEJA_PENDIENTE,
+  DATA_ALL_PAGINACION_RECIBIDA,
+  DATA_ALL_PAGINACION_PENDIENTE,
+  COUNT_ANOTTATIONS,
+  COUNT_CORRESPONDENCE,
+  COUNT_PENDING,
+  ACTIVE_CORRESPONDENCE_RECEIVED,
+  ACTIVE_CORRESPONDENCE_PENDING,
+  ACTIVE_ANOTTATIONS,
+} from "./../types/index";
+import {
+  loadCorrespondenceData,
+  loadCorrespondenceExternalPendingData,
+  loadNumerElementsReceived,
+  loadNumberElementsPending,
+  PaginationReceived,
+  PaginationPending,
+} from "./../utils/helpers/loadCorrespondenceExternal";
+
+import {
+  countDataCorrespondenceReceived,
+  countDataCorrespondencePending,
+} from "./../utils/helpers/countcorrespondence";
+import { COUNT_RECEIVED } from "../services/EndPoints";
+
+import {
+  setActiveCorrespondenceReceived,
+  setActiveCorrespondencePending,
+} from "./sidebarStatusAction";
+
+// Funcion principal
+export const dataCorrespondence = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    await dispatch(startLoadDataCorrespondence());
+    const aux = await loadCorrespondenceData(token);
+    dispatch(loadDataCorrespondenceSuccess(aux));
+    dispatch(loadDataAll());
+    dispatch(setActiveCorrespondenceReceived());
+    dispatch(loadPaginationReceived(1));
+  };
+};
+
+export const startLoadDataCorrespondence = () => ({
+  type: OBTENER_DATA_EXTERNA_CORRESPONDENCE,
+});
+
+export const loadDataCorrespondenceSuccess = (data) => ({
+  type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_EXITO,
+  payload: data,
+});
+
+export const loadDataAll = () => ({
+  type: DATA_ALL_CORRESPONDENCE,
+});
+
+export const dataNumerReceived = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await loadNumerElementsReceived(token);
+    dispatch(numberElementReceived(aux));
+  };
+};
+
+export const numberElementReceived = (data) => ({
+  type: NUMERO_ELEMENTOS_RECIBIDOS,
+  payload: data,
+});
+
+// Funcion Principal para pending
+export const dataCorrespondencePending = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    await dispatch(startLoadDataCorrespondenceExternalPending());
+    const aux = await loadCorrespondenceExternalPendingData(token);
+    dispatch(loadDataCorrespondencePendingSuccess(aux));
+    dispatch(loadDataAllPendong());
+    dispatch(setActiveCorrespondencePending());
+    dispatch(loadPaginationPending(1));
+  };
+};
+
+export const startLoadDataCorrespondenceExternalPending = () => ({
+  type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING,
+});
+
+export const loadDataCorrespondencePendingSuccess = (data) => ({
+  type: OBTENER_DATA_EXTERNA_CORRESPONDENCE_PENDING_EXITO,
+  payload: data,
+});
+
+export const loadDataAllPendong = () => ({
+  type: DATA_ALL_CORRESPONDENCE_PENDING,
+});
+
+export const dataNumberPending = () => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await loadNumberElementsPending(token);
+    dispatch(numberElementPending(aux));
+  };
+};
+
+export const numberElementPending = (data) => ({
+  type: NUMERO_ELEMENTOS_PENDIENTES,
+  payload: data,
+});
+
+export const filterData = (data) => ({
+  type: BUSCAR_CORRESPONDENCIA_PENDIENTE,
+  payload: data,
+});
+
+// PAGINACIÓN EN LOS DISTINTOS TIPOS DE CORRESPONDENCIA
+
+export const loadPaginationReceived = (page) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await PaginationReceived(token, page);
+    dispatch(loadDataPaginationReceived(aux));
+    dispatch(loadDataAllPaginationReceived());
+  };
+};
+
+export const loadPaginationPending = (page) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await PaginationPending(token, page);
+    dispatch(loadDataPaginationPending(aux));
+    dispatch(loadDataAllPaginationPending());
+  };
+};
+
+export const loadDataPaginationReceived = (data) => ({
+  type: PAGINACION_BANDEJA_RECIBIDA,
+  payload: data,
+});
+
+export const loadDataPaginationPending = (data) => ({
+  type: PAGINACION_BANDEJA_PENDIENTE,
+  payload: data,
+});
+
+export const loadDataAllPaginationReceived = () => ({
+  type: DATA_ALL_PAGINACION_RECIBIDA,
+});
+
+export const loadDataAllPaginationPending = () => ({
+  type: DATA_ALL_PAGINACION_PENDIENTE,
+});
+
+//FIN
+
+// COUNT DE LOS NUEVO ENDPOINT
+
+export const loadcountcorrespondence = (token) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await countDataCorrespondenceReceived(token);
+    dispatch(loadcountC(aux));
+  };
+};
+
+export const loadcountC = (data) => ({
+  type: COUNT_CORRESPONDENCE,
+  payload: data,
+});
+
+export const loadcountpending = (token) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem("auth_token");
+    const aux = await countDataCorrespondencePending(token);
+    dispatch(loadcountP(aux));
+  };
+};
+
+export const loadcountP = (data) => ({
+  type: COUNT_PENDING,
+  payload: data,
+});
+
+// FIN

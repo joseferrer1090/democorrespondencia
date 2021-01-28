@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   TabContent,
@@ -6,39 +6,35 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 import classnames from "classnames";
-import FormUpdateData from "./FormUpdateData";
+import { FormUpdateData } from "./FormUpdateData";
 import ChangePassword from "./ChangePasswordUser";
 import ThemeSelector from "./ThemeSelector";
 import ChangeTheme from "./ChangeThemeUser";
-import FormAdvance from "./FormChangeAdvanceData";
+import FormChangeAdvanceData from "./FormChangeAdvanceData";
 
 class TabInformationUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: "1"
+      activeTab: "1",
     };
   }
 
-  toggle = tab => {
+  toggle = (tab) => {
     if (this.state.activeTab !== tab) {
       this.setState({
-        activeTab: tab
+        activeTab: tab,
       });
     }
   };
 
   render() {
     return (
-      <div className="animated fadeIn">
+      <Fragment>
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -71,7 +67,7 @@ class TabInformationUser extends Component {
               <i className="fa fa-lock" /> Cambiar contraseña
             </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === "2" })}
               onClick={() => {
@@ -80,8 +76,8 @@ class TabInformationUser extends Component {
             >
               <i className="fa fa-paint-brush" /> Tema
             </NavLink>
-          </NavItem>
-          <NavItem>
+          </NavItem> */}
+          {/* <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === "3" })}
               onClick={() => {
@@ -90,7 +86,7 @@ class TabInformationUser extends Component {
             >
               <i className="fa fa-wrench" /> Personalizar tema
             </NavLink>
-          </NavItem>
+          </NavItem> */}
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
@@ -101,21 +97,35 @@ class TabInformationUser extends Component {
             </Row>
           </TabPane>
           <TabPane tabId="2">
-            <ThemeSelector />
+            <Row>
+              <Col sm="12">
+                <ThemeSelector />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tabId="3">
-            <ChangeTheme />
+            <Row>
+              <Col sm="12">
+                <ChangeTheme />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tabId="4">
-            <div className="col-md-12">
-              <ChangePassword />
-            </div>
+            <Row>
+              <Col sm="12">
+                <ChangePassword />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tabId="5">
-            <FormAdvance />
+            <Row>
+              <Col sm="12">
+                <FormChangeAdvanceData />
+              </Col>
+            </Row>
           </TabPane>
         </TabContent>
-      </div>
+      </Fragment>
     );
   }
 }

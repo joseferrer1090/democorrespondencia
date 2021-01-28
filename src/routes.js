@@ -5,10 +5,18 @@ const Dashboard = React.lazy(() => import("./views/Dashboard"));
 // Views
 const GenerateEdok = React.lazy(() => import("./views/GenerateEdok/index"));
 const Remitente = React.lazy(() => import("./views/Sender"));
+
 const RadicationDocumentCorrespondenceExternalInbox = React.lazy(() =>
   import(
     "./views/Radication/RadicationDocuments/RadicationInboxExternalDocument/RadicationInboxExternalDocument"
   )
+);
+
+const RadicationDocumentCorrespondenceExternalInboxOneStopShop = React.lazy(
+  () =>
+    import(
+      "./views/Radication/RadicationDocuments/RadicationInboxExternalDocument/RadicationInboxExternalDocument"
+    )
 );
 
 const RadicationDocumentCorrespondenceExternalOutbox = React.lazy(() =>
@@ -41,7 +49,7 @@ const ViewCorrespondence = React.lazy(() =>
 
 const EditCorrespondence = React.lazy(() =>
   import(
-    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/EditCorrespondence"
+    "./views/Correspondence/ExternalCorrespondence/Inbox/Components/Client/Content/components/EditCorrespondence/index"
   )
 );
 
@@ -82,6 +90,22 @@ const FilterCorrespondence = React.lazy(() =>
 );
 
 const Perfil = React.lazy(() => import("./views/Pages/Profile/Profile"));
+const RadicationEmail = React.lazy(() =>
+  import("./views/Correspondence/one-stop shop/RadicationEmail/RadicationEmail")
+);
+const RadicationWeb = React.lazy(() =>
+  import("./views/Correspondence/one-stop shop/RadicationWeb/RadicationWeb")
+);
+const Sticker = React.lazy(() =>
+  import("./views/Configuration/Sticker/Sticker")
+);
+const EditSticker = React.lazy(() =>
+  import("./views/Configuration/Sticker/EditSticker")
+);
+
+const Anotattions = React.lazy(() =>
+  import("./views/Correspondence/ExternalCorrespondence/Annotations")
+);
 
 const routes = [
   { path: "/", exact: true, name: "Inicio", component: DefaultLayout },
@@ -92,74 +116,108 @@ const routes = [
   {
     path: "/radication/correspondenceinboxexternal/document",
     name: "Radicacion de correspondencia externa entrante",
-    component: RadicationDocumentCorrespondenceExternalInbox
+    component: RadicationDocumentCorrespondenceExternalInbox,
   },
+  {
+    path: "/correspondence/one-stop-shop/email",
+    name: "Radicacion de correspondencia externa entrante vía email",
+    component: RadicationEmail,
+  },
+  {
+    path: "/correspondence/one-stop-shop/web",
+    name: "Radicacion de correspondencia externa entrante vía web",
+    component: RadicationWeb,
+  },
+  {
+    path: "/correspondence/one-stop-shop/document",
+    name: "Radicacion de correspondencia externa entrante",
+    component: RadicationDocumentCorrespondenceExternalInboxOneStopShop,
+  },
+
   {
     path: "/radication/correspondenceoutboxexternal/document",
     name: "Radicacion de correspondencia external despachada",
-    component: RadicationDocumentCorrespondenceExternalOutbox
+    component: RadicationDocumentCorrespondenceExternalOutbox,
   },
   {
     path: "/radication/procedure",
     name: "Radicacion Tramite",
-    component: RadicacionTramite
+    component: RadicacionTramite,
   },
   {
     path: "/correspondence",
     exact: true,
     name: "Correspondencia",
-    component: Correspondence
+    component: Correspondence,
   },
   {
     path: "/correspondence/external/recibida",
     name: "Externa recibida",
-    component: InboxExternal
+    component: InboxExternal,
   },
   {
     path: "/correspondence/external/despachada",
     name: "Externa despachada",
-    component: OutboxExternal
+    component: OutboxExternal,
   },
   {
     path: "/correspondence/external/view/:id",
-    component: ViewCorrespondence
+    component: ViewCorrespondence,
   },
   {
     path: "/correspondence/external/edit/:id",
-    component: EditCorrespondence
+    component: EditCorrespondence,
   },
   {
     path: "/correspondence/internal/entrantes",
     name: "Interna entrantes",
-    component: InboxInternal
+    component: InboxInternal,
   },
   {
     path: "/correspondence/internal/salientes",
     name: "Interna salientes",
-    component: OutboxIntenal
+    component: OutboxIntenal,
   },
   {
     path: "/correspondence/internal/nueva",
     name: "Nueva correspondencia interna",
-    component: NewRadicationInternal
+    component: NewRadicationInternal,
   },
   {
     path: "/correspondence/external/relatedusers/:id",
-    component: RelatedUsersCorrespondence
+    component: RelatedUsersCorrespondence,
   },
   {
     path: "/correspondence/external/historial/:id",
-    component: HistorialCorrespondence
+    component: HistorialCorrespondence,
   },
   {
     path: "/correspondence/external/consult",
-    component: FilterCorrespondence
+    component: FilterCorrespondence,
   },
   {
     path: "/perfil",
     name: "Perfil",
-    component: Perfil
-  }
+    component: Perfil,
+  },
+  {
+    path: "/correspondence/configuration/sticker",
+    exact: true,
+    name: "Sticker",
+    component: Sticker,
+  },
+  {
+    path: "/correspondence/configuration/sticker/edit/:id",
+    exact: true,
+    name: "Edit sticker",
+    component: EditSticker,
+  },
+  {
+    path: "/correspondence/external/anottations/new/:id",
+    exact: true,
+    name: "Anottations",
+    component: Anotattions,
+  },
 ];
 
 export default routes;

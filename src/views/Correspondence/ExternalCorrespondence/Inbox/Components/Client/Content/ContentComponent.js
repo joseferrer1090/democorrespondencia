@@ -1,379 +1,221 @@
-import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import Data2 from "./../../../../../../../services/data_inbox_extern.json";
+import React, { Component } from "react";
 import "./components/css/table_inbox.css";
 import "./components/css/TableInboxFixed.css";
-
-const checkboxes = [
-  {
-    name: "check-box-1",
-    key: "checkBox1",
-    label: "Check Box 1"
-  },
-  {
-    name: "check-box-2",
-    key: "checkBox2",
-    label: "Check Box 2"
-  },
-  {
-    name: "check-box-3",
-    key: "checkBox3",
-    label: "Check Box 3"
-  },
-  {
-    name: "check-box-4",
-    key: "checkBox4",
-    label: "Check Box 4"
-  }
-];
+import "./../../../../../../../css/ContentComponentExternalCorrespondence.css";
+import { connect } from "react-redux";
+import {
+  dataCorrespondence,
+  filterData,
+  loadPaginationReceived,
+  loadPaginationPending,
+} from "./../../../../../../../actions/dataCorrespondenceExternalAction";
+import InputSearch from "./InputSearch";
+import moment from "moment";
+import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
+import ContentReceived from "./components/Correspondence/ContentReceived";
+import ContentPending from "./components/Correspondence/ContentPending";
+import ContentAnottations from "./components/Anottations/ContentAnottations";
 
 class ContentComponent extends Component {
   constructor(props) {
-    super(props);
+    super();
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.state = {
-      data: Data2,
+      data: props.datacorrespondence,
       dropdownOpen: false,
-      id:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXNjcmlwdGlvbiI6InByb2JhbmRvIHVybCIsImp0aSI6IjQ3ZmIzZmJkLWIzZjAtNDcyNi05OGZmLTVkYWIwM2VkMjZlYyIsImlhdCI6MTU1NDc2MTU1MSwiZXhwIjoxNTU0NzY1MTUxfQ.TVEKV6i4eYQvkNwwkczLAmR3AV-DHkKwnxK6bWNMDS0 ",
       term: "",
       tblData: "",
       chkrow: false,
-      idCorrespondenceSelected: null
+      checkall: false,
+      idCorrespondenceSelected: null,
+      auth: props.authorization,
+      pageCount: null,
+      itemsCountPerPage: 5,
+      currentPage: 1,
+      totalPages: null,
+      totalElements: null,
     };
   }
 
-  toggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  };
+  static getDerivedStateFromProps(state, props) {
+    if (props.datacorrespondence !== state.data) {
+      return {
+        data: props.datacorrespondence,
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.datacorrespondence !== prevState.data) {
+      this.setState({
+        data: this.props.datacorrespondence,
+      });
+    }
+    return null;
+  }
 
   componentDidMount() {
-    const data = document.querySelector("#tablefixed");
-    this.setState({
-      tblData: data,
-      idCorrespondenceSelected: []
-    });
+    this.props.getData();
   }
 
-  tipoDocumento = data => {
-    let tipo = null;
-    if (data === "documento") {
-      return (tipo = <i className="fa fa-file-text-o" title={`documento`} />);
-    } else if (data === "tramite") {
-      return (tipo = <i className="fa fa-folder-open-o" title={`tramite`} />);
+  toggleCheckboxes = (source, cbName) => {
+    for (var i = 0, n = document.getElementsByName(cbName).length; i < n; i++) {
+      document.getElementsByName(cbName)[i].checked = source;
     }
-    return null;
   };
 
-  stateDocumento = data => {
-    let estado = null;
+  /* PAGINACIÓN */
 
-    if (data === "new") {
-      return (estado = "table-success");
-    } else if (data === "out of time") {
-      return (estado = "table-danger");
-    } else if (data === "read") {
-      return (estado = "table-default");
+  validatePagination = (page) => {
+    let validationParameter;
+    let propsFunction;
+    if (this.props.allcontent.length !== 0) {
+      this.props.allcontent.map((status, id) => {
+        validationParameter = status.statusName;
+      });
     }
-    return null;
-  };
-
-  handleSearchInput = event => {
-    this.setState({ term: event.target.value });
-  };
-
-  searchingFor = term => {
-    return function(x) {
-      return x.asunto.includes(term);
-    };
-  };
-
-  getSelect = () => {
-    const message = "";
-    const gird = this.state.tblData;
-
-    const checkbox = gird.getElementsByTagName("INPUT");
-    console.log(checkbox);
-
-    for (let i = 0; i < checkbox.length; i++) {
-      if (checkbox[i].checked) {
-        // const row = checkbox[i].parentNode.parentNode.firstChild.innerHTML;
-        // console.log(row);
-        this.setState({
-          idCorrespondenceSelected: this.state.idCorrespondenceSelected.push(
-            checkbox[i].parentNode.parentNode.firstChild.innerHTML
-          )
-        });
-        console.log(this.state.idCorrespondenceSelected);
-      }
+    if (validationParameter !== "APROBADA") {
+      propsFunction = this.props.paginationPending(page);
+    } else {
+      propsFunction = this.props.paginationReceived(page);
     }
-    console.log("", message);
+    return propsFunction;
   };
+
+  handlePageChange = (event) => {
+    const currentPage = this.props.number;
+    let targetPage = event.target.value;
+    if (targetPage !== "") {
+      this.validatePagination(targetPage);
+    } else {
+      this.validatePagination(currentPage);
+    }
+  };
+
+  firstPage = () => {
+    const currentPage = this.props.number;
+    let firstPage = 1;
+    if (currentPage > firstPage) {
+      this.validatePagination(firstPage);
+      // this.props.pagination(firstPage);
+    }
+  };
+
+  prevPage = () => {
+    const currentPage = this.props.number;
+    let prevPage = 1;
+
+    if (currentPage > prevPage) {
+      this.validatePagination(currentPage - prevPage);
+      // this.props.pagination(currentPage - prevPage);
+    }
+  };
+
+  lastPage = () => {
+    const itemsCountPerPage = this.props.size;
+    const totalElements = this.props.totalElements;
+    const currentPage = this.props.number;
+    let condition = Math.ceil(totalElements / itemsCountPerPage);
+    if (currentPage < condition) {
+      this.validatePagination(condition);
+      // this.props.pagination(condition);
+    }
+  };
+
+  nextPage = () => {
+    const itemsCountPerPage = this.props.size;
+    const totalElements = this.props.totalElements;
+    const currentPage = this.props.number;
+    if (currentPage < Math.ceil(totalElements / itemsCountPerPage)) {
+      // this.props.pagination(currentPage + 1);
+      this.validatePagination(currentPage + 1);
+    }
+  };
+
+  /* FIN */
+  DateFiling = (date) => {
+    return moment(date).format("DD-MM-YYYY");
+  };
+
+  colorStatusFiling = (state) => {
+    let status;
+    if (state === "APROBADA") {
+      status = <b style={{ color: "#39a84e" }}>{state}</b>;
+    } else if (state === "INICIADO") {
+      status = <b style={{ color: "#d6d914" }}>{state}</b>;
+    } else if (state === "POR ADJUNTAR") {
+      status = <b style={{ color: "#d91427" }}>{state}</b>;
+    } else {
+      return state;
+    }
+    return status;
+  };
+
+  disabledInput = () => {
+    const { number, totalPages } = this.props;
+    let disabled = false;
+    if (number === totalPages) {
+      disabled = true;
+    }
+    return disabled;
+  };
+
+  forceUpdateHandler() {
+    this.forceUpdate();
+  }
+
+  renderSwitch(param) {
+    switch (param) {
+      case "RECEIVED":
+        return <ContentReceived status={param} />;
+      case "PENDING":
+        return <ContentPending status={param} />;
+      case "ANOTTATIONS":
+        return <ContentAnottations status={param} />;
+      default:
+        return <ContentReceived status={param} />;
+    }
+  }
 
   render() {
-    const id = this.state.id;
-    const term = this.state.term;
-    const datainbox = this.state.data
-      .filter(this.searchingFor(term))
-      .map((aux, i) => {
-        return (
-          <tr className={this.stateDocumento(aux.estado)}>
-            <td className="hidden" style={{ display: "none" }}>
-              {aux.id}
-            </td>
-            <td className="inbox-small-cells">
-              <input
-                type="checkbox"
-                className="mail-checkbox"
-                defaultChecked={this.state.chkrow}
-                onChange={e => {
-                  this.setState({ chkrow: e.target.value });
-                }}
-              />
-            </td>
-            <td className="inbox-small-cells">
-              {this.tipoDocumento(aux.tipo)}
-            </td>
-            <td className="view-message dont-show">{aux.sede} </td>
-            <td className="view-message">{aux.consecutivo}</td>
-            <td>
-              <Link to={`/correspondence/external/view/${aux.id}`}>
-                {aux.asunto}
-                <i className="fa fa-paperclip" />
-              </Link>
-            </td>
-            <td className="view-message inbox-small-cells">
-              {aux.fecha_documento}
-            </td>
-            <td className="view-message text-center">
-              {aux.destinatarios[0].name_destinatario}
-            </td>
-          </tr>
-        );
-      });
+    const example = 8;
+    const { data } = this.state;
+    const { allcontent, number, totalPages } = this.props;
+    const currentPage = this.props.number;
+
+    const aux = Object.keys(data).length ? "Datos" : "No datos";
+
+    const pageNumCss = {
+      width: "45px",
+      boder: "1px solid #17A2B8",
+      color: "#17A2B8",
+      textAling: "center",
+      fontWeight: "bold",
+    };
+
+    const switchCase = () => {
+      console.log(this.state.data);
+    };
+
     return (
-      <div className="animated fadeIn">
-        <div className="inbox-body">
-          <h5 className="text-center">
-            Bandeja de correspondencia recibida vigencia 2019{" "}
-          </h5>
-          <div className="mail-option">
-            <div className="chk-all" style={{ marginLeft: "-9px" }}>
-              <ButtonDropdown
-                isOpen={this.state.dropdownOpen}
-                toggle={this.toggle}
+      <div className="col-md-12 card">
+        <div className="card-body">
+          <React.Fragment>
+            <div className="row">
+              <div
+                className="col-md-7"
+                style={{ padding: 0, marginTop: "1px" }}
               >
-                <DropdownToggle caret size="sm">
-                  Acciones
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem onClick={() => this.getSelect()}>
-                    Seleccionar todo
-                  </DropdownItem>
-                </DropdownMenu>
-              </ButtonDropdown>
+                <div className="form-group"> </div>
+              </div>
+            </div>{" "}
+            <div className="row">
+              <div className="col-md-12" style={{ padding: 0 }}>
+                {this.renderSwitch(this.props.status)}
+              </div>
             </div>
-            {/* <div className="btn-group">
-              <button className="btn btn-secondary btn-sm">
-                <i className="fa fa-refresh" />
-              </button>
-            </div> */}
-
-            <div className="btn-group hidden-phone">
-              <input
-                type="text"
-                className="form-control"
-                style={{ width: "750px" }}
-                placeholder={`Bsucar correspondencia`}
-                onChange={e => this.handleSearchInput(e)}
-              />
-            </div>
-            <div className="float-right">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    <i className="fa fa-angle-double-left" />
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item ">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    <i className="fa fa-angle-double-right" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        {/* --------------------------------------------------------------------------------------------------- */}
-        <div className="table-responsive">
-          <table id="tablefixed" className="table table-sm table-hover">
-            <thead>
-              <tr className="text-center">
-                <th>
-                  <input type="checkbox" />
-                </th>
-                <th>Tipo</th>
-                <th>Sede</th>
-                <th>Consecutivo</th>
-                <th>Asunto</th>
-                <th>Fecha del documento</th>
-                <th>Destinatarios</th>
-              </tr>
-            </thead>
-            <tbody
-              className="text-center"
-              style={{ height: "200px", overflowY: "auto", width: "100%" }}
-            >
-              {datainbox}
-
-              {/* <tr className="table-danger">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-folder" title="tramite" />
-                </td>
-                <td className="view-message dont-show">SEDE I </td>
-                <td className="view-message">012345678910</td>
-                <td>
-                  <Link to={`/correspondence/external/view/${id}`}>
-                    Added a new class: Login Class Fast Site asdasda asdasd
-                    asdasd asasd <i className="fa fa-paperclip" />
-                  </Link>
-                </td>
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-                <td className="view-message text-center">Pedro</td>
-              </tr> */}
-
-              {/* <tr className="table-success">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-
-                <td className="inbox-small-cells">
-                  <i className="fa fa-file-o" title="documento" />
-                </td>
-
-                <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
-                <td>Improve the search presence of WebSite</td>
-
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-
-                <td className="view-message text-center">Pedro</td>
-              </tr>
-              <tr className="table-default">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-
-                <td className="inbox-small-cells">
-                  <i className="fa fa-folder" title="documento" />
-                </td>
-
-                <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
-                <td>Improve the search presence of WebSite</td>
-
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-
-                <td className="view-message text-center">Pedro</td>
-              </tr>
-              <tr className="table-primary">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-
-                <td className="inbox-small-cells">
-                  <i className="fa fa-file-o" title="documento" />
-                </td>
-
-                <td className="view-message dont-show">SEDE I </td>
-
-                <td className="view-message">1</td>
-
-                <td>Improve the search presence of WebSite</td>
-
-                <td className="view-message inbox-small-cells">04/10/2018</td>
-
-                <td className="view-message text-center">Pedro</td>
-              </tr> */}
-              {/* ---------------------------------------------------------------------------------------------- */}
-              {/*
-              <tr className="table-success">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-light">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i className="fa fa-star" />
-                </td>
-                <td className="view-message dont-show">Google Webmaster </td>
-                <td className="view-message">
-                  Improve the search presence of WebSite
-                </td>
-                <td className="view-message inbox-small-cells" />
-                <td className="view-message text-right">March 15</td>
-              </tr>
-              <tr className="table-default">
-                <td className="inbox-small-cells">
-                  <input type="checkbox" className="mail-checkbox" />
-                </td>
-                <td className="inbox-small-cells">
-                  <i class="fa fa-star" />
-                </td>
-                <td className="view-message  dont-show">PHPClass</td>
-                <td className="view-message ">
-                  Added a new class: Login Class Fast Site
-                </td>
-                <td className="view-message  inbox-small-cells">
-                  <i className="fa fa-paperclip" />
-                </td>
-                <td className="view-message  text-right">9:27 AM</td>
-              </tr> */}
-            </tbody>
-          </table>
+          </React.Fragment>
         </div>
       </div>
     );
@@ -382,4 +224,34 @@ class ContentComponent extends Component {
 
 ContentComponent.propTypes = {};
 
-export default ContentComponent;
+const mapState = (state) => {
+  return {
+    content: state.dataCorrespondenceExternal.received,
+    pending: state.dataCorrespondenceExternal.pending,
+    allcontent: state.dataCorrespondenceExternal.alldata,
+    size: state.dataCorrespondenceExternal.size,
+    totalElements: state.dataCorrespondenceExternal.totalElements,
+    number: state.dataCorrespondenceExternal.number,
+    valuesearch: state.dataCorrespondenceExternal.valuesearch,
+    totalPages: state.dataCorrespondenceExternal.totalPages,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getData: () => {
+      dispatch(dataCorrespondence());
+    },
+    filter: (data) => {
+      dispatch(filterData(data));
+    },
+    paginationReceived(page) {
+      dispatch(loadPaginationReceived(page));
+    },
+    paginationPending(page) {
+      dispatch(loadPaginationPending(page));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(ContentComponent);

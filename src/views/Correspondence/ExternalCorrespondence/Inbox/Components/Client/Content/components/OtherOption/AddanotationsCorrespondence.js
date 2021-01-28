@@ -6,7 +6,7 @@ import {
   ModalBody,
   ModalFooter,
   Card,
-  Collapse
+  Collapse,
 } from "reactstrap";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -15,13 +15,13 @@ class AddanotationsCorrespondence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: this.props.addanotation
+      modal: this.props.addanotation,
     };
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
     }));
   };
 
@@ -35,33 +35,37 @@ class AddanotationsCorrespondence extends Component {
               <div className="row">
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label>Conglomerado</label>
+                    <label>Conglomerado</label>{" "}
+                    <span className="text-danger">*</span>{" "}
                     <select className="form-control form-control-sm">
-                      <option>Seleccione</option>
+                      <option>-- Seleccione --</option>
                     </select>
                   </div>
                 </div>
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Empresa</label>
+                    <span className="text-danger">*</span>{" "}
                     <select className="form-control form-control-sm">
-                      <option>Seleccione</option>
+                      <option>-- Seleccione --</option>
                     </select>
                   </div>
                 </div>
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Sede</label>
+                    <span className="text-danger">*</span>{" "}
                     <select className="form-control form-control-sm">
-                      <option>Seleccione</option>
+                      <option>-- Seleccione -- </option>
                     </select>
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
                     <label> Dependencia </label>
+                    <span className="text-danger">*</span>{" "}
                     <select className="form-control form-control-sm">
-                      <option>Seleccione</option>
+                      <option>-- Seleccione --</option>
                     </select>
                   </div>
                 </div>
@@ -69,17 +73,30 @@ class AddanotationsCorrespondence extends Component {
                   <div className="form-group">
                     <label>Grupo</label>
                     <select className="form-control form-control-sm">
-                      <option>Seleccione</option>
+                      <option> -- Seleccione -- </option>
                     </select>
                   </div>
                 </div>
                 <div className="col-md-12">
                   <div className="form-group">
                     <label>Buscar destinatario</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                    />
+                    <div className="input-group input-group-sm mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                      />
+                      <div className="input-group-prepend">
+                        <button
+                          className="btn btn-secondary"
+                          type="button"
+                          id="button-addon2"
+                        >
+                          <i className="fa fa-search" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -131,7 +148,7 @@ class AddanotationsCorrespondence extends Component {
                     <CKEditor
                       editor={ClassicEditor}
                       data="<p>Hello from ckeditor</p>"
-                      onInit={editor => {
+                      onInit={(editor) => {
                         // You can store the "editor" and use when it is needed.
                         console.log("Editor is ready to use!", editor);
                       }}
@@ -139,10 +156,10 @@ class AddanotationsCorrespondence extends Component {
                         const data = editor.getData();
                         console.log({ event, editor, data });
                       }}
-                      onBlur={editor => {
+                      onBlur={(editor) => {
                         console.log("Blur.", editor);
                       }}
-                      onFocus={editor => {
+                      onFocus={(editor) => {
                         console.log("Focus.", editor);
                       }}
                     />
@@ -165,6 +182,11 @@ class AddanotationsCorrespondence extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
+            <button type="button" className="btn btn-success btn-sm">
+              {" "}
+              <i className="fa fa-pencil" /> Agregar anotación{" "}
+            </button>
+            &nbsp;
             <button
               type="button"
               className="btn btn-secondary btn-sm"
@@ -175,10 +197,6 @@ class AddanotationsCorrespondence extends Component {
               {" "}
               <i className="fa fa-times" /> Cerrar{" "}
             </button>
-            <button type="button" className="btn btn-secondary btn-sm">
-              {" "}
-              <i className="fa fa-pencil" /> Agregar anotación{" "}
-            </button>
           </ModalFooter>
         </Modal>
       </div>
@@ -187,7 +205,7 @@ class AddanotationsCorrespondence extends Component {
 }
 
 AddanotationsCorrespondence.propTypes = {
-  addanotation: PropTypes.bool.isRequired
+  addanotation: PropTypes.bool.isRequired,
 };
 
 export default AddanotationsCorrespondence;

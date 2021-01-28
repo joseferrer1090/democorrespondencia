@@ -4,11 +4,24 @@ import "./polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { Provider } from "react-redux";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import store from "./store/store";
+import Cookie from "js-cookie";
+import { asyncLocalStorage } from "./utils/asynclocalstorage";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const auth = Cookie.get("auth");
+asyncLocalStorage.setItem("auth_token", auth);
 
+ReactDOM.render(
+  <Provider store={store}>
+    <App authorization={auth} />
+  </Provider>,
+  document.getElementById("root")
+);
+
+// ReactDOM.render(<App />, document.getElementById("root"));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA

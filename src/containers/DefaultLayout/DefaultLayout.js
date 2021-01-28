@@ -13,7 +13,7 @@ import {
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer,
-  AppSidebarNav
+  AppSidebarNav,
 } from "@coreui/react";
 // sidebar nav config
 import navigation from "../../_nav";
@@ -32,7 +32,7 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault();
     // this.props.history.push(`${url.defaultLocal}3000/#/middleware`);
-    window.location = `${url.defaultServer}3000/#/middleware`;
+    window.location = `${url.defaultLocal}3000/#/middleware`;
   }
 
   render() {
@@ -40,7 +40,7 @@ class DefaultLayout extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
-            <DefaultHeader onLogout={e => this.signOut(e)} />
+            <DefaultHeader onLogout={(e) => this.signOut(e)} />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -55,7 +55,7 @@ class DefaultLayout extends Component {
           </AppSidebar>
           <main className="main">
             <AppBreadcrumb appRoutes={routes} />
-            <div>
+            <Container fluid style={{ marginTop: "30px" }}>
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {routes.map((route, idx) => {
@@ -65,14 +65,14 @@ class DefaultLayout extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => <route.component {...props} />}
+                        render={(props) => <route.component {...props} />}
                       />
                     ) : null;
                   })}
                   <Redirect from="/" to="/inicio" />
                 </Switch>
               </Suspense>
-            </div>
+            </Container>
           </main>
           <AppAside fixed>
             <Suspense fallback={this.loading()}>
